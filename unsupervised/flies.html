@@ -46,6 +46,8 @@
     <script src="../_static/copybutton.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
     <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe"
@@ -94,31 +96,22 @@
 <ul class="current nav sidenav_l1">
  <li class="toctree-l1">
   <a class="reference internal" href="../install.html">
-   Installation
+   Install
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../annotate.html">
-   Annotate song
+   Annotate song manually
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../make_dataset.html">
-   Making a data set for training DeepSS
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../make_dataset.html#using-the-dss-module">
-   Using the
-   <em>
-    dss
-   </em>
-   module
+   Making a data set for training
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../train.html">
-   Configure and train a DeepSS network
+   Configure and train a network
   </a>
  </li>
  <li class="toctree-l1">
@@ -333,8 +326,7 @@
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Pulses: (150, 356) sines: (150, 326) all: (150, 682)
 </pre></div>
 </div>
-<img alt="../_images/flies_5_1.png" src="../_images/flies_5_1.png" />
-</div>
+<img alt="../_images/flies_5_1.svg" src="../_images/flies_5_1.svg" /></div>
 </div>
 <p>Embed all pulse ans sine waveforms into a two-dimensional spaces using the umap method and cluster the resulting points clouds using density-based clustering (hdbscan).</p>
 <div class="cell docutils container">
@@ -375,11 +367,10 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.lines.Line2D at 0x7fb000911f70&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.lines.Line2D at 0x7fcecedb4670&gt;
 </pre></div>
 </div>
-<img alt="../_images/flies_9_3.png" src="../_images/flies_9_3.png" />
-</div>
+<img alt="../_images/flies_9_1.svg" src="../_images/flies_9_1.svg" /></div>
 </div>
 </div>
 

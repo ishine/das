@@ -46,6 +46,8 @@
     <script src="_static/copybutton.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
     <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe"
@@ -93,31 +95,22 @@
 <ul class="current nav sidenav_l1">
  <li class="toctree-l1">
   <a class="reference internal" href="install.html">
-   Installation
+   Install
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="annotate.html">
-   Annotate song
+   Annotate song manually
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="make_dataset.html">
-   Making a data set for training DeepSS
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="make_dataset.html#using-the-dss-module">
-   Using the
-   <em>
-    dss
-   </em>
-   module
+   Making a data set for training
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="train.html">
-   Configure and train a DeepSS network
+   Configure and train a network
   </a>
  </li>
  <li class="toctree-l1">
@@ -292,13 +285,10 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>No module named &#39;tensorflow.python.tools&#39;; &#39;tensorflow.python&#39; is not a package
-you may need to install DeepSS: link_to_pypi
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>usage: xb [-h] [-e EVENTS_STRING] [-t TARGET_SAMPLINGRATE]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>objc[43608]: Class RunLoopModeTracker is implemented in both /Users/clemens10/miniconda3/lib/libQt5Core.5.9.7.dylib (0x1274dca80) and /Users/clemens10/miniconda3/lib/python3.7/site-packages/cv2/.dylibs/QtCore (0x133bcc7f0). One of the two will be used. Which one is undefined.
+usage: xb [-h] [-e EVENTS_STRING] [-t TARGET_SAMPLINGRATE]
           [--spec-freq-min SPEC_FREQ_MIN] [--spec-freq-max SPEC_FREQ_MAX]
-          [-b BOX_SIZE] [--skip-dialog] [--no-skip-dialog]
+          [-b BOX_SIZE] [--skip-dialog] [--no-skip-dialog] [--version]
           [source]
 
 positional arguments:
@@ -307,6 +297,7 @@ positional arguments:
                         Source can be the path to a wav audio file,
                         to an xarray-behave dataset saved as a zarr file,
                         or to a data folder (e.g. &#39;dat/localhost-xxx&#39;).
+                        (default: )
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -335,6 +326,7 @@ optional arguments:
   --skip-dialog         If True, skips the opening dialog and goes straight to opening the data.
                         (default: False)
   --no-skip-dialog
+  --version             show program&#39;s version number and exit
 
 </pre></div>
 </div>
@@ -350,14 +342,6 @@ optional arguments:
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/janc/miniconda/lib/python3.7/site-packages/librosa/util/decorators.py:9: NumbaDeprecationWarning: <span class=" -Color -Color-Bold">An import was requested from a module that has moved location.</span>
-<span class=" -Color -Color-Bold">Import requested from: &#39;numba.decorators&#39;, please update to use &#39;numba.core.decorators&#39; or pin to Numba version 0.48.0. This alias will not be present in Numba version 0.50.0.</span>
-  from numba.decorators import jit as optional_jit
-/Users/janc/miniconda/lib/python3.7/site-packages/librosa/util/decorators.py:9: NumbaDeprecationWarning: <span class=" -Color -Color-Bold">An import was requested from a module that has moved location.</span>
-<span class=" -Color -Color-Bold">Import of &#39;jit&#39; requested from: &#39;numba.decorators&#39;, please update to use &#39;numba.core.decorators&#39; or pin to Numba version 0.48.0. This alias will not be present in Numba version 0.50.0.</span>
-  from numba.decorators import jit as optional_jit
-</pre></div>
-</div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>usage: dss-train [-h] -d DATA_DIR [-m MODEL_NAME] [--nb-filters NB_FILTERS]
                  [-k KERNEL_SIZE] [--nb-conv NB_CONV] [--nb-hist NB_HIST]
                  [--batch-norm] [--no-batch-norm] [--save-dir SAVE_DIR]
@@ -373,7 +357,7 @@ optional arguments:
                  [--pre-kernel-size PRE_KERNEL_SIZE]
                  [--pre-nb-filters PRE_NB_FILTERS] [--pre-nb-conv PRE_NB_CONV]
                  [--save-prefix SAVE_PREFIX] [--log-messages]
-                 [--no-log-messages]
+                 [--no-log-messages] [--version]
 
 [summary]
 
@@ -435,6 +419,7 @@ optional arguments:
                         (default: False)
   --no-reduce-lr
   --reduce-lr-patience REDUCE_LR_PATIENCE
+                        (default: 5)
   --batch-level-subsampling
                         if true fraction data will select random subset of shuffled batches, otherwise will select a continuous chunk of the recording
                         (default: False)
@@ -460,6 +445,7 @@ optional arguments:
   --log-messages        sets logging level to INFO. Defaults to False (will follow existing settings).
                         (default: False)
   --no-log-messages
+  --version             show program&#39;s version number and exit
 
 </pre></div>
 </div>
@@ -475,21 +461,13 @@ optional arguments:
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/janc/miniconda/lib/python3.7/site-packages/librosa/util/decorators.py:9: NumbaDeprecationWarning: <span class=" -Color -Color-Bold">An import was requested from a module that has moved location.</span>
-<span class=" -Color -Color-Bold">Import requested from: &#39;numba.decorators&#39;, please update to use &#39;numba.core.decorators&#39; or pin to Numba version 0.48.0. This alias will not be present in Numba version 0.50.0.</span>
-  from numba.decorators import jit as optional_jit
-/Users/janc/miniconda/lib/python3.7/site-packages/librosa/util/decorators.py:9: NumbaDeprecationWarning: <span class=" -Color -Color-Bold">An import was requested from a module that has moved location.</span>
-<span class=" -Color -Color-Bold">Import of &#39;jit&#39; requested from: &#39;numba.decorators&#39;, please update to use &#39;numba.core.decorators&#39; or pin to Numba version 0.48.0. This alias will not be present in Numba version 0.50.0.</span>
-  from numba.decorators import jit as optional_jit
-</pre></div>
-</div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>usage: dss-predict [-h] [--save-filename SAVE_FILENAME] [-v VERBOSE]
                    [-b BATCH_SIZE] [--event-thres EVENT_THRES]
                    [--event-dist EVENT_DIST] [--event-dist-min EVENT_DIST_MIN]
                    [--event-dist-max EVENT_DIST_MAX]
                    [--segment-thres SEGMENT_THRES]
                    [--segment-minlen SEGMENT_MINLEN]
-                   [--segment-fillgap SEGMENT_FILLGAP]
+                   [--segment-fillgap SEGMENT_FILLGAP] [--version]
                    recording_filename model_save_name
 
 [summary] 
@@ -537,6 +515,7 @@ optional arguments:
   --segment-fillgap SEGMENT_FILLGAP
                         Gap between adjacent segments to be filled. Useful for correcting brief lapses. Defaults to None.
                         (default: None)
+  --version             show program&#39;s version number and exit
 
 </pre></div>
 </div>

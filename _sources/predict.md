@@ -1,6 +1,5 @@
 # Predict
 
-
 ## GUI
 Load audio and DeepSS/Predict:
 - model
