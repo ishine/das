@@ -46,6 +46,8 @@
     <script src="../_static/copybutton.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
     <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe"
@@ -102,11 +104,6 @@
    Tutorials
   </a>
   <ul class="collapse-ul">
-   <li class="toctree-l2">
-    <a class="reference internal" href="../tutorials/gui.html">
-     GUI Tutorial
-    </a>
-   </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../tutorials/notebook.html">
      Notebook tutorial
@@ -306,13 +303,13 @@
 <p>To annotate the fly song, create two song types: ‘pulse’ of category ‘event’ and ‘sine’ of category ‘segment:</p>
 <div class="figure align-default" id="xb-make-fig">
 <a class="reference internal image-reference" href="../_images/xb_make.png"><img alt="edit annotation types" src="../_images/xb_make.png" style="height: 500px;" /></a>
-<p class="caption"><span class="caption-number">Fig. 8 </span><span class="caption-text">Create, rename or delete song types for annotation.</span><a class="headerlink" href="#xb-make-fig" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 3 </span><span class="caption-text">Create, rename or delete song types for annotation.</span><a class="headerlink" href="#xb-make-fig" title="Permalink to this image">¶</a></p>
 </div>
 <p>If annotation exist for the recording you load, the song types are populated from the existing annotations. Song types can be added, deleted, and renamed in the “Audio/Add or edit song types”.</p>
 <p>You can now activate “pulse” or “sine” for annotation using the dropdown menu on the top left of the main window. The active song type can also be changed with number keys according to the number indicated in the dropdown menu.</p>
 <div class="figure align-default" id="xb-types-fig">
 <a class="reference internal image-reference" href="../_images/xb_types.png"><img alt="select annotation types" src="../_images/xb_types.png" style="height: 150px;" /></a>
-<p class="caption"><span class="caption-number">Fig. 9 </span><span class="caption-text">Activate song types for annotation.</span><a class="headerlink" href="#xb-types-fig" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 4 </span><span class="caption-text">Activate song types for annotation.</span><a class="headerlink" href="#xb-types-fig" title="Permalink to this image">¶</a></p>
 </div>
 </div>
 <div class="section" id="create-annotations">
@@ -320,7 +317,7 @@
 <p>To annotate song in the recording, left-click on the waveform or spectrogram view. If an event-like song type is active, that’s it - you just placed the event time and a line should appear in the waveform and spectrogram view. If a segment-like song type is active, the first click should be placed at the start of the segment. The first click places one boundary of the segment and the cursor changes to a cross. A second click at the end of the segment will complete the annotation and a shaded area marking the segment should appear. Note segment annotation can also start with a click on the segment end.</p>
 <div class="figure align-default" id="xb-annotate-fig">
 <a class="reference internal image-reference" href="../_images/xb_annotate.png"><img alt="annotate song" src="../_images/xb_annotate.png" style="height: 500px;" /></a>
-<p class="caption"><span class="caption-number">Fig. 10 </span><span class="caption-text">Fully annotated fly song. Pulse (cyan) is an event-like song type and is annotated by clicking on the pulse center. Sine (red shaded area) is a segment- or syllable-like song type and is annotated by clicking on the beginning and the end of the sine syllable.</span><a class="headerlink" href="#xb-annotate-fig" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 5 </span><span class="caption-text">Fully annotated fly song. Pulse (cyan) is an event-like song type and is annotated by clicking on the pulse center. Sine (red shaded area) is a segment- or syllable-like song type and is annotated by clicking on the beginning and the end of the sine syllable.</span><a class="headerlink" href="#xb-annotate-fig" title="Permalink to this image">¶</a></p>
 </div>
 </div>
 <div class="section" id="edit-annotations">
@@ -333,7 +330,7 @@
 <p><em>DeepSS</em> achieves good performance even from small sets of manual annotations. Once you have completely annotated the first seconds of song - a couple of pulse trains and sine song segments - we can train a network to help with annotating the rest of the data. Export the data and the annotations for <em>DeepSS</em> - via the <code class="docutils literal notranslate"><span class="pre">File/Export</span> <span class="pre">for</span> <span class="pre">DeepSS</span></code> to a new folder - call it <code class="docutils literal notranslate"><span class="pre">fly_first</span></code>:</p>
 <div class="figure align-default" id="xb-assemble-fig">
 <a class="reference internal image-reference" href="../_images/xb_export.png"><img alt="export audio and annotations" src="../_images/xb_export.png" style="width: 500px;" /></a>
-<p class="caption"><span class="caption-number">Fig. 11 </span><span class="caption-text">Export audio data and annotations</span><a class="headerlink" href="#xb-assemble-fig" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 6 </span><span class="caption-text">Export audio data and annotations</span><a class="headerlink" href="#xb-assemble-fig" title="Permalink to this image">¶</a></p>
 </div>
 <ul class="simple">
 <li><p><em>Song types to export</em>: Select a specific song type to export annotations for. Keep this the default of exporting all annotations. Annotations will be saved as <code class="docutils literal notranslate"><span class="pre">csv</span></code> (see a <a class="reference internal" href="../technical/data_formats.html"><span class="doc std std-doc">description</span></a> of the format).</p></li>

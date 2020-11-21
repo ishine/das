@@ -46,6 +46,8 @@
     <script src="../_static/copybutton.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
     <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe"
@@ -102,11 +104,6 @@
    Tutorials
   </a>
   <ul class="collapse-ul">
-   <li class="toctree-l2">
-    <a class="reference internal" href="../tutorials/gui.html">
-     GUI Tutorial
-    </a>
-   </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../tutorials/notebook.html">
      Notebook tutorial
@@ -315,7 +312,7 @@
 <p>Select the folder with the exported audio and annotations via <code class="docutils literal notranslate"><span class="pre">DeepSS/Make</span> <span class="pre">dataset</span> <span class="pre">for</span> <span class="pre">training</span></code>. This will open a</p>
 <div class="figure align-default" id="xb-assemble-fig">
 <a class="reference internal image-reference" href="../_images/xb_assemble.png"><img alt="assemble dataset" src="../_images/xb_assemble.png" style="width: 650px;" /></a>
-<p class="caption"><span class="caption-number">Fig. 12 </span><span class="caption-text">Make dataset options</span><a class="headerlink" href="#xb-assemble-fig" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 7 </span><span class="caption-text">Make dataset options</span><a class="headerlink" href="#xb-assemble-fig" title="Permalink to this image">¶</a></p>
 </div>
 <ul class="simple">
 <li><p><em>Data folder</em> &amp; <em>Store folder</em>: The data folder contains your exported annotations. A dataset will be created from these annotations and save in the store folder. By default, the store folder is the data folder with an <code class="docutils literal notranslate"><span class="pre">.npy</span></code> appended. <em>Important: You can change the name of the store folder but the <code class="docutils literal notranslate"><span class="pre">.npy</span></code> should be kept for DeepSS to robustly recognize the dataset.</em></p></li>
@@ -345,7 +342,7 @@
 <p>edit script to fix paths, add cluster config commands or activate conda env.</p>
 <div class="figure align-default" id="xb-train-fig">
 <a class="reference internal image-reference" href="../_images/xb_train.png"><img alt="train" src="../_images/xb_train.png" style="width: 600px;" /></a>
-<p class="caption"><span class="caption-number">Fig. 13 </span><span class="caption-text">Train options</span><a class="headerlink" href="#xb-train-fig" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 8 </span><span class="caption-text">Train options</span><a class="headerlink" href="#xb-train-fig" title="Permalink to this image">¶</a></p>
 </div>
 <p>Options are grouped into three sections:</p>
 <div class="section" id="data-set">

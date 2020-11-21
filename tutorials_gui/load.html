@@ -46,6 +46,8 @@
     <script src="../_static/copybutton.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
     <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe"
@@ -103,11 +105,6 @@
   </a>
   <ul class="collapse-ul">
    <li class="toctree-l2">
-    <a class="reference internal" href="../tutorials/gui.html">
-     GUI Tutorial
-    </a>
-   </li>
-   <li class="toctree-l2">
     <a class="reference internal" href="../tutorials/notebook.html">
      Notebook tutorial
     </a>
@@ -137,13 +134,8 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="annotate.html#edit-annotation">
-     Edit annotation
-    </a>
-   </li>
-   <li class="toctree-l2">
     <a class="reference internal" href="train.html">
-     Configure and train a network
+     Train
     </a>
    </li>
    <li class="toctree-l2">
@@ -314,7 +306,7 @@
 <p>After selecting a file, a menu allows you to adjust things before loading:</p>
 <div class="figure align-default" id="xb-load-fig">
 <img alt="loading screen" src="../_images/xb_load.png" />
-<p class="caption"><span class="caption-number">Fig. 6 </span><span class="caption-text">Loading screen.</span><a class="headerlink" href="#xb-load-fig" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 1 </span><span class="caption-text">Loading screen.</span><a class="headerlink" href="#xb-load-fig" title="Permalink to this image">¶</a></p>
 </div>
 <ul class="simple">
 <li><p><em>Dataset with audio</em>: Select the variable in the <code class="docutils literal notranslate"><span class="pre">npz</span></code>, <code class="docutils literal notranslate"><span class="pre">mat</span></code> or <code class="docutils literal notranslate"><span class="pre">h5</span></code> file that contains the audio data. For audio (e.g. wav) and <code class="docutils literal notranslate"><span class="pre">npy</span></code> files, this field will be empty since they do not contain multiple datasets.</p></li>
@@ -340,7 +332,7 @@
 <p>Audio data from all channels (gray), with one channel being selected (white), and the spectogram of the currently selected channel below. Move forward/backward along the time axis via the <code class="docutils literal notranslate"><span class="pre">A</span></code>/<code class="docutils literal notranslate"><span class="pre">D</span></code> keys and zoom in/out the time axis with the <code class="docutils literal notranslate"><span class="pre">W</span></code>/<code class="docutils literal notranslate"><span class="pre">S</span></code> keys (See Playback/). The temporal resolution of the spectrogram can be increased at the expense of frequency resolution with the <code class="docutils literal notranslate"><span class="pre">R</span></code> and <code class="docutils literal notranslate"><span class="pre">T</span></code> keys.</p>
 <div class="figure align-default" id="xb-display-fig">
 <a class="reference internal image-reference" href="../_images/xb_display.png"><img alt="waveform and spectrogram display" src="../_images/xb_display.png" style="width: 100%;" /></a>
-<p class="caption"><span class="caption-number">Fig. 7 </span><span class="caption-text">Waveform (top) and spectrogram (bottom) display of a multi-channel recording.</span><a class="headerlink" href="#xb-display-fig" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 2 </span><span class="caption-text">Waveform (top) and spectrogram (bottom) display of a multi-channel recording.</span><a class="headerlink" href="#xb-display-fig" title="Permalink to this image">¶</a></p>
 </div>
 <p>Hide the non-selected channels in the waveform view by toggling <em>Audio/Show all channels</em>. To change the channel for which the spectrogram is displayed, use the dropdown list on the upper right or switch to next/previous channel with the up/down arrow keys. The <code class="docutils literal notranslate"><span class="pre">Q</span></code> key (or <em>Audio/Autoselect loudest channel</em>) will toggle automatically selecting the loudest channel in the current view.</p>
 <p>To listen to the waveform on display press <code class="docutils literal notranslate"><span class="pre">E</span></code>.</p>
