@@ -46,8 +46,6 @@
     <script src="_static/copybutton.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
     <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe"
@@ -98,25 +96,58 @@
    Install
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="annotate.html">
-   Annotate song manually
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="tutorials/tutorials.html">
+   Tutorials
   </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="tutorials/gui.html">
+     GUI Tutorial
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="tutorials/notebook.html">
+     Notebook tutorial
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="tutorials/cli.html">
+     CLI tutorial
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="make_dataset.html">
-   Making a data set for training
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="tutorials_gui/tutorials_gui.html">
+   GUI tutorial
   </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="train.html">
-   Configure and train a network
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="predict.html">
-   Predict
-  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="tutorials_gui/load.html">
+     Load audio data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="tutorials_gui/annotate.html">
+     Annotate song
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="tutorials_gui/train.html">
+     Train
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="tutorials_gui/predict.html">
+     Predict
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
  </li>
  <li class="toctree-l1 collapsible-parent">
   <a class="reference internal" href="unsupervised/unsupervised.html">
@@ -143,17 +174,17 @@
   </i>
  </li>
  <li class="toctree-l1 collapsible-parent">
-  <a class="reference internal" href="technical.html">
-   Technical specifications
+  <a class="reference internal" href="technical/technical.html">
+   Technical details
   </a>
   <ul class="collapse-ul">
    <li class="toctree-l2">
-    <a class="reference internal" href="data_formats.html">
+    <a class="reference internal" href="technical/data_formats.html">
      Data formats
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="cli.html">
+    <a class="reference internal" href="technical/cli.html">
      Command line interfaces
     </a>
    </li>
@@ -226,6 +257,25 @@
     <!-- Table of contents -->
     <div class="d-none d-md-block col-md-2 bd-toc show">
         
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tutorials">
+   Tutorials
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#documentation">
+   Documentation
+  </a>
+ </li>
+</ul>
+
+        </nav>
+        
     </div>
 </div>
     <div id="main-content" class="row">
@@ -235,7 +285,8 @@
                 
   <div class="section" id="welcome-to-deepss">
 <h1>Welcome to <em>DeepSS</em><a class="headerlink" href="#welcome-to-deepss" title="Permalink to this headline">¶</a></h1>
-<p>blah</p>
+<p><em>DeepSS</em> — short for <em>DeepSongSegmenter</em> — is a tool for annotating song in audio recordings. At the core of <em>DeepSS</em> is a deep neural network, implemented in Tensorflow. The network takes single- and multi-channel audio as an input and returns the probability of finding a particular song type for each audio sample. <em>DeepSS</em> can be used with a graphical user interface for loading audio data, annotating song manually, training a network, and generating annotations on new samples and recordings. <em>DeepSS</em> can also be used programmatically from the command line, in python notebooks, or in your own python code via the <em>dss</em> module.</p>
+<p>If you use <em>DeepSS</em>, please cite: REF_GOES_HERE</p>
 <div class="sphinx-bs container pb-4 docutils">
 <div class="row docutils">
 <div class="d-flex col-lg-6 col-md-6 col-sm-6 col-xs-12 p-2 docutils">
@@ -245,6 +296,51 @@
 </div>
 </div>
 </div>
+</div>
+</div>
+<div class="section" id="tutorials">
+<h2>Tutorials<a class="headerlink" href="#tutorials" title="Permalink to this headline">¶</a></h2>
+<div class="sphinx-bs container pb-4 docutils">
+<div class="row docutils">
+<div class="d-flex col-lg-6 col-md-6 col-sm-6 col-xs-12 p-2 docutils">
+<div class="card w-100 shadow docutils">
+<div class="card-body docutils">
+<p class="card-text"><a class="sphinx-bs btn text-wrap stretched-link reference internal" href="tutorials_gui/tutorials_gui.html"><span class="doc">Using the GUI</span></a></p>
+<p class="card-text">Annotate song, train a network, and predict on new samples</p>
+</div>
+</div>
+</div>
+<div class="d-flex col-lg-6 col-md-6 col-sm-6 col-xs-12 p-2 docutils">
+<div class="card w-100 shadow docutils">
+<div class="card-body docutils">
+<p class="card-text"><a class="sphinx-bs btn text-wrap stretched-link reference internal" href="tutorials/notebook.html"><span class="doc">Use in notebooks</span></a></p>
+<p class="card-text">Train a network using your own annotations, and predict on new samples</p>
+</div>
+</div>
+</div>
+<div class="d-flex col-lg-6 col-md-6 col-sm-6 col-xs-12 p-2 docutils">
+<div class="card w-100 shadow docutils">
+<div class="card-body docutils">
+<p class="card-text"><a class="sphinx-bs btn text-wrap stretched-link reference internal" href="tutorials/cli.html"><span class="doc">Use command line interface</span></a></p>
+<p class="card-text">Train and predict using the command line</p>
+</div>
+</div>
+</div>
+<div class="d-flex col-lg-6 col-md-6 col-sm-6 col-xs-12 p-2 docutils">
+<div class="card w-100 shadow docutils">
+<div class="card-body docutils">
+<p class="card-text"><a class="sphinx-bs btn text-wrap stretched-link reference internal" href="unsupervised/unsupervised.html"><span class="doc">Classify</span></a></p>
+<p class="card-text">Cluster existing annotations in song types.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="documentation">
+<h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h2>
+<div class="sphinx-bs container pb-4 docutils">
+<div class="row docutils">
 <div class="d-flex col-lg-6 col-md-6 col-sm-6 col-xs-12 p-2 docutils">
 <div class="card w-100 shadow docutils">
 <div class="card-body docutils">
@@ -255,27 +351,21 @@
 <div class="d-flex col-lg-6 col-md-6 col-sm-6 col-xs-12 p-2 docutils">
 <div class="card w-100 shadow docutils">
 <div class="card-body docutils">
-<p class="card-text"><a class="sphinx-bs btn text-wrap stretched-link reference internal" href="annotate.html"><span class="doc">Train</span></a></p>
+<p class="card-text"><a class="sphinx-bs btn text-wrap stretched-link reference internal" href="train.html"><span class="doc">Train</span></a></p>
 </div>
 </div>
 </div>
 <div class="d-flex col-lg-6 col-md-6 col-sm-6 col-xs-12 p-2 docutils">
 <div class="card w-100 shadow docutils">
 <div class="card-body docutils">
-<p class="card-text"><a class="sphinx-bs btn text-wrap stretched-link reference internal" href="predict.html"><span class="doc">Predict</span></a></p>
-</div>
-</div>
-</div>
-<div class="d-flex col-lg-6 col-md-6 col-sm-6 col-xs-12 p-2 docutils">
-<div class="card w-100 shadow docutils">
-<div class="card-body docutils">
-<p class="card-text"><a class="sphinx-bs btn text-wrap stretched-link reference internal" href="unsupervised/unsupervised.html"><span class="doc">Classify</span></a></p>
+<p class="card-text"><a class="sphinx-bs btn text-wrap stretched-link reference internal" href="predict.html"><span class="doc">Predict song labels</span></a></p>
 </div>
 </div>
 </div>
 </div>
 </div>
 <div class="toctree-wrapper compound">
+</div>
 </div>
 </div>
 

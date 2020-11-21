@@ -46,8 +46,6 @@
     <script src="_static/copybutton.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
     <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe"
@@ -97,25 +95,58 @@
    Install
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="annotate.html">
-   Annotate song manually
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="tutorials/tutorials.html">
+   Tutorials
   </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="tutorials/gui.html">
+     GUI Tutorial
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="tutorials/notebook.html">
+     Notebook tutorial
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="tutorials/cli.html">
+     CLI tutorial
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="make_dataset.html">
-   Making a data set for training
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="tutorials_gui/tutorials_gui.html">
+   GUI tutorial
   </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="train.html">
-   Configure and train a network
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="predict.html">
-   Predict
-  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="tutorials_gui/load.html">
+     Load audio data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="tutorials_gui/annotate.html">
+     Annotate song
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="tutorials_gui/train.html">
+     Train
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="tutorials_gui/predict.html">
+     Predict
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
  </li>
  <li class="toctree-l1 collapsible-parent">
   <a class="reference internal" href="unsupervised/unsupervised.html">
@@ -142,17 +173,17 @@
   </i>
  </li>
  <li class="toctree-l1 collapsible-parent">
-  <a class="reference internal" href="technical.html">
-   Technical specifications
+  <a class="reference internal" href="technical/technical.html">
+   Technical details
   </a>
   <ul class="collapse-ul">
    <li class="toctree-l2">
-    <a class="reference internal" href="data_formats.html">
+    <a class="reference internal" href="technical/data_formats.html">
      Data formats
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="cli.html">
+    <a class="reference internal" href="technical/cli.html">
      Command line interfaces
     </a>
    </li>

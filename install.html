@@ -57,7 +57,7 @@
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Annotate song manually" href="annotate.html" />
+    <link rel="next" title="Tutorials" href="tutorials/tutorials.html" />
     <link rel="prev" title="Welcome to DeepSS" href="intro.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -99,25 +99,58 @@
    Install
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="annotate.html">
-   Annotate song manually
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="tutorials/tutorials.html">
+   Tutorials
   </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="tutorials/gui.html">
+     GUI Tutorial
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="tutorials/notebook.html">
+     Notebook tutorial
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="tutorials/cli.html">
+     CLI tutorial
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="make_dataset.html">
-   Making a data set for training
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="tutorials_gui/tutorials_gui.html">
+   GUI tutorial
   </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="train.html">
-   Configure and train a network
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="predict.html">
-   Predict
-  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="tutorials_gui/load.html">
+     Load audio data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="tutorials_gui/annotate.html">
+     Annotate song
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="tutorials_gui/train.html">
+     Configure and train a network
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="tutorials_gui/predict.html">
+     Predict
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
  </li>
  <li class="toctree-l1 collapsible-parent">
   <a class="reference internal" href="unsupervised/unsupervised.html">
@@ -144,17 +177,17 @@
   </i>
  </li>
  <li class="toctree-l1 collapsible-parent">
-  <a class="reference internal" href="technical.html">
-   Technical specifications
+  <a class="reference internal" href="technical/technical.html">
+   Technical details
   </a>
   <ul class="collapse-ul">
    <li class="toctree-l2">
-    <a class="reference internal" href="data_formats.html">
+    <a class="reference internal" href="technical/data_formats.html">
      Data formats
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="cli.html">
+    <a class="reference internal" href="technical/cli.html">
      Command line interfaces
     </a>
    </li>
@@ -277,11 +310,11 @@
 </div>
 <div class="section" id="install-deepss-with-or-without-the-gui">
 <h2>Install <em>DeepSS</em> with or without the GUI<a class="headerlink" href="#install-deepss-with-or-without-the-gui" title="Permalink to this headline">¶</a></h2>
-<p>We then create an anaconda environment called <code class="docutils literal notranslate"><span class="pre">deepss</span></code> that contains all the required packages:</p>
+<p>Create an anaconda environment called <code class="docutils literal notranslate"><span class="pre">deepss</span></code> that contains all the required packages, including the GUI:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>conda env create -f https://raw.githubusercontent.com/janclemenslab/deepsongsegmenter/master/env/deepss_gui.yml -n dss
 </pre></div>
 </div>
-<p>This will also install the graphical user interface (GUI) <code class="docutils literal notranslate"><span class="pre">xb</span></code>. The information about the required packages is in <a class="reference external" href="https://raw.githubusercontent.com/janclemenslab/deepsongsegmenter/master/env/deepss_gui.yml">deepss_gui.yml</a>. If you do not need the <code class="docutils literal notranslate"><span class="pre">xb</span></code> GUI (for instance on a server), you can also install a plain version:</p>
+<p>If you do not need the <code class="docutils literal notranslate"><span class="pre">xb</span></code> GUI (for instance, for training <em>DeepSS</em> on a server), install the plain version:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>conda env create -f https://raw.githubusercontent.com/janclemenslab/deepsongsegmenter/master/env/deepss_plain.yml -n dss
 </pre></div>
 </div>
@@ -295,11 +328,11 @@ dss-predict --help
 xb
 </pre></div>
 </div>
-<p>The first two should display the command line arguments for <code class="docutils literal notranslate"><span class="pre">dss-train</span></code> and <code class="docutils literal notranslate"><span class="pre">dss-predict</span></code>. The last should start the graphical user interface.</p>
+<p>The first two should display the command line arguments for <code class="docutils literal notranslate"><span class="pre">dss-train</span></code> and <code class="docutils literal notranslate"><span class="pre">dss-predict</span></code>. The last command will start the graphical user interface - it will <em>not</em> work with the plain install.</p>
 </div>
 <div class="section" id="next-steps">
 <h2>Next steps<a class="headerlink" href="#next-steps" title="Permalink to this headline">¶</a></h2>
-<p>If all is working, you probably want to adapt <em>DeepSS</em> to annotate song in your own recordings. For that, you first need to manually <a class="reference internal" href="annotate.html"><span class="doc std std-doc">annotate song using the GUI</span></a>. If you already have annotations, you are already able to <a class="reference internal" href="make_dataset.html"><span class="doc std std-doc">make a dataset for training</span></a> <em>DeepSS</em>.</p>
+<p>If all is working, you need to adapt <em>DeepSS</em> to annotate song in your own recordings. For that, first to <a class="reference internal" href="annotate.html"><span class="doc std std-doc">annotate some song manually using the GUI</span></a>. If you already have annotations, use them to <a class="reference internal" href="make_dataset.html"><span class="doc std std-doc">make a dataset for training</span></a> <em>DeepSS</em>.</p>
 <!--
 # Manual
 ## Install python
@@ -395,7 +428,7 @@ xb
     <div class='prev-next-bottom'>
         
     <a class='left-prev' id="prev-link" href="intro.html" title="previous page">Welcome to <em>DeepSS</em></a>
-    <a class='right-next' id="next-link" href="annotate.html" title="next page">Annotate song manually</a>
+    <a class='right-next' id="next-link" href="tutorials/tutorials.html" title="next page">Tutorials</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">

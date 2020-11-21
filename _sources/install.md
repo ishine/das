@@ -10,17 +10,16 @@ __CUDA libraries for using the GPU__: While _DeepSS_ works well for annotating s
 __Libsoundfile on linux__: The graphical user interface (GUI) reads audio data using [soundfile](http://pysoundfile.readthedocs.io/), which relies on `libsndfile`. `libsndfile` will be automatically installed on Windows and macOS but needs to be installed separately with: `sudo apt-get install libsndfile1`. Alternatively, _DeepSS_ can be installed and used w/o the GUI (see below).
 
 ## Install _DeepSS_ with or without the GUI
-We then create an anaconda environment called `deepss` that contains all the required packages:
+Create an anaconda environment called `deepss` that contains all the required packages, including the GUI:
 ```shell
 conda env create -f https://raw.githubusercontent.com/janclemenslab/deepsongsegmenter/master/env/deepss_gui.yml -n dss
 ```
 
-This will also install the graphical user interface (GUI) `xb`. The information about the required packages is in [deepss_gui.yml](https://raw.githubusercontent.com/janclemenslab/deepsongsegmenter/master/env/deepss_gui.yml). If you do not need the `xb` GUI (for instance on a server), you can also install a plain version:
+If you do not need the `xb` GUI (for instance, for training _DeepSS_ on a server), install the plain version:
 
 ```shell
 conda env create -f https://raw.githubusercontent.com/janclemenslab/deepsongsegmenter/master/env/deepss_plain.yml -n dss
 ```
-
 
 ## Test the installation
 To test the installation, activate the conda environment and run these three commands in the terminal:
@@ -30,10 +29,10 @@ dss-train --help
 dss-predict --help
 xb
 ```
-The first two should display the command line arguments for `dss-train` and `dss-predict`. The last should start the graphical user interface.
+The first two should display the command line arguments for `dss-train` and `dss-predict`. The last command will start the graphical user interface - it will *not* work with the plain install.
 
 ## Next steps
-If all is working, you probably want to adapt _DeepSS_ to annotate song in your own recordings. For that, you first need to manually [annotate song using the GUI](annotate). If you already have annotations, you are already able to [make a dataset for training](make_dataset) _DeepSS_.
+If all is working, you need to adapt _DeepSS_ to annotate song in your own recordings. For that, first to [annotate some song manually using the GUI](annotate). If you already have annotations, use them to [make a dataset for training](make_dataset) _DeepSS_.
 
 <!--
 # Manual

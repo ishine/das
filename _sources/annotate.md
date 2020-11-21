@@ -12,7 +12,6 @@ This opens a window with options for loading data - `Load audio from file`:
 <img src="images/xb_start.png" alt="start screen" width=450>
 
 
-
 ## Loading audio data
 This will open a dialog for selecting a file. The GUI can load audio data in a wide range of data formats:
 

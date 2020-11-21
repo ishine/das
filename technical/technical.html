@@ -5,47 +5,47 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Configure and train a network &#8212; DeepSS docs</title>
+    <title>Technical details &#8212; DeepSS docs</title>
     
-  <link rel="stylesheet" href="_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+  <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
 
     
   <link rel="stylesheet"
-    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
   <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
   <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
     
       
   <link rel="stylesheet"
-    href="_static/vendor/open-sans_all/1.44.1/index.css">
+    href="../_static/vendor/open-sans_all/1.44.1/index.css">
   <link rel="stylesheet"
-    href="_static/vendor/lato_latin-ext/1.44.1/index.css">
+    href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
 
     
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="_static/sphinx-book-theme.40e2e510f6b7d1648584402491bb10fe.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
-    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.40e2e510f6b7d1648584402491bb10fe.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     
-  <link rel="preload" as="script" href="_static/js/index.3da636dd464baa7582d2.js">
+  <link rel="preload" as="script" href="../_static/js/index.3da636dd464baa7582d2.js">
 
-    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/language_data.js"></script>
-    <script src="_static/togglebutton.js"></script>
-    <script src="_static/clipboard.min.js"></script>
-    <script src="_static/copybutton.js"></script>
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
+    <script src="../_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
     <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
@@ -54,9 +54,11 @@
         const thebe_selector_input = "pre"
         const thebe_selector_output = ".output"
     </script>
-    <script async="async" src="_static/sphinx-thebe.js"></script>
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Data formats" href="data_formats.html" />
+    <link rel="prev" title="Song of Bengalese finches" href="../unsupervised/birds.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -73,47 +75,47 @@
 <div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
     
         <div class="navbar-brand-box">
-<a class="navbar-brand text-wrap" href="index.html">
+<a class="navbar-brand text-wrap" href="../index.html">
   
   
   <h1 class="site-logo" id="site-title">DeepSS docs</h1>
   
 </a>
-</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
   <i class="icon fas fa-search"></i>
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
 </form>
 <nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
     <ul class="nav sidenav_l1">
  <li class="toctree-l1">
-  <a class="reference internal" href="intro.html">
+  <a class="reference internal" href="../intro.html">
    Welcome to DeepSS
   </a>
  </li>
 </ul>
-<ul class="nav sidenav_l1">
+<ul class="current nav sidenav_l1">
  <li class="toctree-l1">
-  <a class="reference internal" href="install.html">
+  <a class="reference internal" href="../install.html">
    Install
   </a>
  </li>
  <li class="toctree-l1 collapsible-parent">
-  <a class="reference internal" href="tutorials/tutorials.html">
+  <a class="reference internal" href="../tutorials/tutorials.html">
    Tutorials
   </a>
   <ul class="collapse-ul">
    <li class="toctree-l2">
-    <a class="reference internal" href="tutorials/gui.html">
+    <a class="reference internal" href="../tutorials/gui.html">
      GUI Tutorial
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="tutorials/notebook.html">
+    <a class="reference internal" href="../tutorials/notebook.html">
      Notebook tutorial
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="tutorials/cli.html">
+    <a class="reference internal" href="../tutorials/cli.html">
      CLI tutorial
     </a>
    </li>
@@ -122,27 +124,27 @@
   </i>
  </li>
  <li class="toctree-l1 collapsible-parent">
-  <a class="reference internal" href="tutorials_gui/tutorials_gui.html">
+  <a class="reference internal" href="../tutorials_gui/tutorials_gui.html">
    GUI tutorial
   </a>
   <ul class="collapse-ul">
    <li class="toctree-l2">
-    <a class="reference internal" href="tutorials_gui/load.html">
+    <a class="reference internal" href="../tutorials_gui/load.html">
      Load audio data
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="tutorials_gui/annotate.html">
+    <a class="reference internal" href="../tutorials_gui/annotate.html">
      Annotate song
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="tutorials_gui/train.html">
+    <a class="reference internal" href="../tutorials_gui/train.html">
      Configure and train a network
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="tutorials_gui/predict.html">
+    <a class="reference internal" href="../tutorials_gui/predict.html">
      Predict
     </a>
    </li>
@@ -151,22 +153,22 @@
   </i>
  </li>
  <li class="toctree-l1 collapsible-parent">
-  <a class="reference internal" href="unsupervised/unsupervised.html">
+  <a class="reference internal" href="../unsupervised/unsupervised.html">
    Unsupervised classification
   </a>
   <ul class="collapse-ul">
    <li class="toctree-l2">
-    <a class="reference internal" href="unsupervised/flies.html">
+    <a class="reference internal" href="../unsupervised/flies.html">
      Fly song
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="unsupervised/mice.html">
+    <a class="reference internal" href="../unsupervised/mice.html">
      Ultrasonic vocalizations from mice
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="unsupervised/birds.html">
+    <a class="reference internal" href="../unsupervised/birds.html">
      Song of Bengalese finches
     </a>
    </li>
@@ -174,18 +176,18 @@
   <i class="fas fa-chevron-down">
   </i>
  </li>
- <li class="toctree-l1 collapsible-parent">
-  <a class="reference internal" href="technical/technical.html">
+ <li class="toctree-l1 current active collapsible-parent">
+  <a class="current reference internal" href="#">
    Technical details
   </a>
   <ul class="collapse-ul">
    <li class="toctree-l2">
-    <a class="reference internal" href="technical/data_formats.html">
+    <a class="reference internal" href="data_formats.html">
      Data formats
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="technical/cli.html">
+    <a class="reference internal" href="cli.html">
      Command line interfaces
     </a>
    </li>
@@ -233,7 +235,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="_sources/train.md"><button type="button"
+        <a class="dropdown-buttons" href="../_sources/technical/technical.md"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.md</button></a>
         <!-- Download PDF via print -->
@@ -258,40 +260,6 @@
     <!-- Table of contents -->
     <div class="d-none d-md-block col-md-2 bd-toc show">
         
-        <div class="tocsection onthispage pt-5 pb-3">
-            <i class="fas fa-list"></i> Contents
-        </div>
-        <nav id="bd-toc-nav">
-            <ul class="nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#train-deepss-using-the-gui">
-   Train DeepSS using the GUI
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#train-notebook">
-   Train notebook
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#train-cli">
-   Train cli
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#network-configuration">
-   Network configuration
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#test-the-network">
-   Test the network
-  </a>
- </li>
-</ul>
-
-        </nav>
-        
     </div>
 </div>
     <div id="main-content" class="row">
@@ -299,33 +267,10 @@
         
               <div>
                 
-  <div class="section" id="configure-and-train-a-network">
-<h1>Configure and train a network<a class="headerlink" href="#configure-and-train-a-network" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="train-deepss-using-the-gui">
-<h2>Train DeepSS using the GUI<a class="headerlink" href="#train-deepss-using-the-gui" title="Permalink to this headline">¶</a></h2>
-<p>Select the <code class="docutils literal notranslate"><span class="pre">*.npy</span></code> with the dataset, which song type to train the network for (will train network for all song types by default), and network and training parameters (see <span class="xref myst">DeepSS</span> for details). Training can be started locally in a separate process or a script can be generated that can be execute to train elsewhere, for instance on a cluster.</p>
-<p>edit script to fix paths, add cluster config commands or activate conda env.</p>
-<p>Will run and put results in the save dir - four files:</p>
-<ul class="simple">
-<li><p>model (arch + params in one file but sth fails to load across versions)</p></li>
-<li><p>params</p></li>
-<li><p>arch (weights only - for robustness - load by making arch from params and load weights into it</p></li>
-<li><p>results</p></li>
-</ul>
-</div>
-<div class="section" id="train-notebook">
-<h2>Train notebook<a class="headerlink" href="#train-notebook" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="train-cli">
-<h2>Train cli<a class="headerlink" href="#train-cli" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="network-configuration">
-<h2>Network configuration<a class="headerlink" href="#network-configuration" title="Permalink to this headline">¶</a></h2>
-<p>Explain important parameters here.</p>
-</div>
-<div class="section" id="test-the-network">
-<h2>Test the network<a class="headerlink" href="#test-the-network" title="Permalink to this headline">¶</a></h2>
-<p>Load <code class="docutils literal notranslate"><span class="pre">_results.h5</span></code> into <span class="xref myst">test_deepss.ipynb</span> notebook.</p>
+  <div class="section" id="technical-details">
+<h1>Technical details<a class="headerlink" href="#technical-details" title="Permalink to this headline">¶</a></h1>
+<p>Contains technical information about the <a class="reference internal" href="cli.html"><span class="doc std std-doc">command line interfaces</span></a> and <a class="reference internal" href="data_formats.html"><span class="doc std std-doc">data formats</span></a></p>
+<div class="toctree-wrapper compound">
 </div>
 </div>
 
@@ -342,7 +287,7 @@
         },
         kernelOptions: {
             kernelName: "python3",
-            path: "./."
+            path: "./technical"
         },
         predefinedOutput: true
     }
@@ -357,6 +302,8 @@
     
     <div class='prev-next-bottom'>
         
+    <a class='left-prev' id="prev-link" href="../unsupervised/birds.html" title="previous page">Song of Bengalese finches</a>
+    <a class='right-next' id="next-link" href="data_formats.html" title="next page">Data formats</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">
@@ -376,7 +323,7 @@
     </div>
 
     
-  <script src="_static/js/index.3da636dd464baa7582d2.js"></script>
+  <script src="../_static/js/index.3da636dd464baa7582d2.js"></script>
 
 
     
