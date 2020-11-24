@@ -15,27 +15,35 @@ There are two types of song elements:
 - `events` have not extent in time, `start_seconds=stop_seconds`, and are best used for brief, pulsatile signals like fly pulse song
 - `segments` extend in time, `start_seconds>stop_seconds`, and should be used for normal syllables or fly sine song
 
+The `csv` format is universal and can be created and edit using Excel or even a plain text editor. It is also very easy to programmatically created `csv` files from your own annotation format in python using a [pandas DataFrames](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.to_csv.html). Below, we show an example of creating a DataFrame in the correct format from annotation data and saving it as a `csv` file for use with _DeepSS_.
+
+
 ### Examples of transforming custom annotation formats
-Build DataFrame from segment on- and offsets and event times loaded from a custom format:
-
-Use `xb.annot` to generate a csv file from lists of event names and start and stop seconds:
-
+Say we have read annotation data into python as three lists containing the names, start and stop of a song type:
 ```python
-from xarray_behave.annot import Events  # require install with gui
-
-# define three annotations
 names = ['bip', 'bop', 'bip']
 start_seconds = [1.34, 5.67, 9.13]
 stop_seconds = [1.34, 5.85, 9.13]
+```
+This defines two song types, "bip" and "bop". "bip" an event-like song type (like a pulse in fly song), since start and stop are identical. "bop" is a segment-like song type (like a syllable in birdsong), because start and stop differ.
 
-# save to csv file
+This information needs to be arranged into a table, i.e., a pandas DataFrame, of this format:
+| names   | start_seconds    | stop_seconds  |
+| ------- |:-------------|:-----|
+| bip      | 1.34 | 1.34 |
+| bop      | 5.67   | 5.85 |
+| bip      | 9.13   |  9.13 |
+
+A pandas DataFrame with the format can be created by two means:
+Use `xb.annot`, which takes the three lists and produces a correctly  DataFrame
+```python
+from xarray_behave.annot import Events  # require install with gui
+
 evt = Events.from_lists(names, start_seconds, stop_seconds)
 df = evt.to_df()
-print(df)
-df.to_csv(filename)
 ```
 
-Do it yourself:
+Or you can assemble the DataFrame yourself:
 
 ```python
 import numpy as np
@@ -63,26 +71,24 @@ new_row = pd.DataFrame(np.array([event_name, event_time, event_time])[np.newaxis
 df = df.append(new_row, ignore_index=True)
 ```
 
-## Convert audio data
-Can read many formats, but for making a dataset, two formats are supported:
-
-Supported formats:
-
-Load your data and save as wav:
+Then save as a `csv` file:
 ```python
-scipy.io.wavfile.write(...)
+df.to_csv('filename.csv')
 ```
 
-```matlab
-wavwrite(...)
-```
+
+## Convert audio data
+The GUI can read many formats (see [list of supported audio formats](/tutorials_gui/load)) and data can always be exported in the correct format via the GUI.
+However, if you want to assemble many of your own recordings into dataset for training, a programmatic approach is more efficient.
+
+To assemble a dataset, audio data has to be provided in two formats:
+- wav - universal format for audio data. can be created from many software packages:
+    - From python `scipy.io.wavfile.write(...)`
+    - from matlab `wavwrite(...)`
+    - from the command line via ffmpeg: `ffmpeg ...`
+- npz - python specific but a bit more flexible/robust. Should contain two variables - `samplerate` and `data` - and can be created like so: `np.savez(filename, data=audio, samplerate=samplerate)`
+
 
 ```{warning}
-Caution when saving wav - clipping.
+Caution when saving wav - clipping. see docs of [scipy.io.wavfile.write](https://docs.scipy.org/doc/scipy/reference/generated/scipy.io.wavfile.write.html) for a list of the range of values available when saving audio of different types to wav.
 ```
-
-Or npz file. (NPZ format)
-```python
-np.savez(filename, data=audio, samplerate=samplerate)
-```
-

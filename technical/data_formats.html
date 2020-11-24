@@ -25,8 +25,8 @@
     href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
 
     
-    <link rel="stylesheet" href="../_static/sphinx-book-theme.40e2e510f6b7d1648584402491bb10fe.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.40e2e510f6b7d1648584402491bb10fe.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
@@ -46,6 +46,8 @@
     <script src="../_static/copybutton.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
     <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
@@ -156,6 +158,31 @@
    <li class="toctree-l2">
     <a class="reference internal" href="../tutorials/make_dataset.html">
      Make datasets with custom data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../tutorials/make_ds_notebook.html">
+     Preparing data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../tutorials/make_ds_notebook.html#loader-functions">
+     Loader functions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../tutorials/make_ds_notebook.html#create-lists-with-the-names-of-data-and-annotation-files">
+     Create lists with the names of data and annotation files
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../tutorials/make_ds_notebook.html#split-filenames-into-train-val-test-sets">
+     Split filenames into train/val/test sets
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../tutorials/make_ds_notebook.html#initialize-the-data-structure-store">
+     Initialize the data structure (store)
     </a>
    </li>
    <li class="toctree-l2">
@@ -281,23 +308,13 @@
         <nav id="bd-toc-nav">
             <ul class="nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#exported-annotations-and-audio">
-   Exported annotations and audio
+  <a class="reference internal nav-link" href="#format-of-exported-annotations-and-audio">
+   Format of exported annotations and audio
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#dataset-for-training">
-   Dataset for training
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#npy-dir-format">
-   <code class="docutils literal notranslate">
-    <span class="pre">
-     npy_dir
-    </span>
-   </code>
-   format
+  <a class="reference internal nav-link" href="#data-structure-used-for-training">
+   Data structure used for training
   </a>
  </li>
 </ul>
@@ -313,9 +330,9 @@
                 
   <div class="section" id="data-formats">
 <h1>Data formats<a class="headerlink" href="#data-formats" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="exported-annotations-and-audio">
-<h2>Exported annotations and audio<a class="headerlink" href="#exported-annotations-and-audio" title="Permalink to this headline">¶</a></h2>
-<p>Produced inn the GUI via <code class="docutils literal notranslate"><span class="pre">File/Save</span> <span class="pre">annotations</span></code> and <code class="docutils literal notranslate"><span class="pre">File/Export</span> <span class="pre">for</span> <span class="pre">DeepSS</span></code>.</p>
+<div class="section" id="format-of-exported-annotations-and-audio">
+<h2>Format of exported annotations and audio<a class="headerlink" href="#format-of-exported-annotations-and-audio" title="Permalink to this headline">¶</a></h2>
+<p>Produced by the GUI via <code class="docutils literal notranslate"><span class="pre">File/Save</span> <span class="pre">annotations</span></code> and <code class="docutils literal notranslate"><span class="pre">File/Export</span> <span class="pre">for</span> <span class="pre">DeepSS</span></code>.</p>
 <p>Audio and annotations are exported into <code class="docutils literal notranslate"><span class="pre">csv</span></code> (comma-separated values) and <code class="docutils literal notranslate"><span class="pre">npz</span></code> (zip compressed numpy files):</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">npz</span></code> consist of two variables:</p>
@@ -334,14 +351,32 @@
 </li>
 </ul>
 </div>
-<div class="section" id="dataset-for-training">
-<h2>Dataset for training<a class="headerlink" href="#dataset-for-training" title="Permalink to this headline">¶</a></h2>
-<p>For training, <em>DeepSS</em> expect data in a specific, dictionary-like format. This format can be implemented using multiple backends, such as python’s <code class="docutils literal notranslate"><span class="pre">dict</span></code>, <code class="docutils literal notranslate"><span class="pre">h5py</span></code>, <code class="docutils literal notranslate"><span class="pre">zarr</span></code>, or our own fast <code class="docutils literal notranslate"><span class="pre">dss.npy_dir</span></code>. In the following, we explain how to create the structure using the graphical user phase and the python module, and describe the expected data structure for users that want to implement it themselves.</p>
-<p>Data is organized in a dictionary-like (mappable) structure with the data splits for training, validation, and test stored in top-level keys <code class="docutils literal notranslate"><span class="pre">train</span></code>, <code class="docutils literal notranslate"><span class="pre">val</span></code>, and <code class="docutils literal notranslate"><span class="pre">test</span></code>. Training and validation data are required. Validation is used during training to monitor progress and adjust the learning rate or stop training early. Test data is optional - it is used after training to assess the performance of the model.</p>
-<p>At the top-level, metadata is stored in an <code class="docutils literal notranslate"><span class="pre">attrs</span></code> attribute with the following fields
-Each top-level key
-Such a structure can be implemented in many different ways - using python’s <code class="docutils literal notranslate"><span class="pre">dict</span></code>, <code class="docutils literal notranslate"><span class="pre">h5py</span></code>, <code class="docutils literal notranslate"><span class="pre">zarr</span></code>, or <code class="docutils literal notranslate"><span class="pre">dss.npy_dir</span></code>.</p>
-<p>Each a dict with the following keys:</p>
+<div class="section" id="data-structure-used-for-training">
+<h2>Data structure used for training<a class="headerlink" href="#data-structure-used-for-training" title="Permalink to this headline">¶</a></h2>
+<p>For training, <em>DeepSS</em> expects a simple dictionary-like data structure, sth like:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>data
+  ├── [&#39;train&#39;]
+  │      ├── [&#39;x&#39;]         (the audio data - samples x channels)
+  │      ├── [&#39;y&#39;]        (annotations - samples x song types, first one is noise, needs to add to )
+  │      ├── [&#39;y_suffix1&#39;] (optional, multiple allowed)
+  ├── [&#39;val&#39;]
+  │      ├── [&#39;x&#39;]
+  │      ├── [&#39;y&#39;]
+  │      ├── [&#39;y_suffix1&#39;]
+  ├── [&#39;test&#39;]
+  │      ├── [&#39;x&#39;]
+  │      ├── [&#39;y&#39;]
+  │      ├── [&#39;y_suffix1&#39;]
+  └── attrs
+         └── [&#39;samplerate&#39;] (of x and y in Hz)
+             [&#39;class_names&#39;]
+             [&#39;class_types&#39;] (event or segment)
+             [&#39;class_names_suffix1&#39;]
+             [&#39;class_types_suffix1&#39;] (event or segment)
+</pre></div>
+</div>
+<p>Top-level keys <code class="docutils literal notranslate"><span class="pre">train</span></code>, <code class="docutils literal notranslate"><span class="pre">val</span></code>, and <code class="docutils literal notranslate"><span class="pre">test</span></code> correspond to the data splits for training, validation, and test. Training and validation data are required. Validation is used during training to monitor progress and adjust the learning rate or stop training early. Test data is optional - it is used after training to assess the performance of the model.</p>
+<p>Each a top-level key contains a <code class="docutils literal notranslate"><span class="pre">dict</span></code> with the following keys:</p>
 <ul class="simple">
 <li><p>Inputs <code class="docutils literal notranslate"><span class="pre">x</span></code>: <code class="docutils literal notranslate"><span class="pre">[samples,</span> <span class="pre">channels]</span></code></p>
 <ul>
@@ -370,18 +405,15 @@ Such a structure can be implemented in many different ways - using python’s <c
 </li>
 </ul>
 <p>Data is accessed via <code class="docutils literal notranslate"><span class="pre">data['train']['x']</span></code> and the metadata via <code class="docutils literal notranslate"><span class="pre">data.attrs</span></code>. <code class="docutils literal notranslate"><span class="pre">attrs</span></code> is a standard attribute for storing metadata in <code class="docutils literal notranslate"><span class="pre">hdf5</span></code> and <code class="docutils literal notranslate"><span class="pre">zarr</span></code> files and can be easily attached to a standard dictionary: <code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">=</span> <span class="pre">dict();</span> <span class="pre">a.attrs</span> <span class="pre">=</span> <span class="pre">{'samplerate_x_Hz':</span> <span class="pre">10_000}</span></code>.</p>
-<p>During training, data is loaded  (see <code class="docutils literal notranslate"><span class="pre">dss.io</span></code>) with the correct backend given by the extension of the file or directory. Currently supported files types are:</p>
+<p>This structure can be implemented via python’s builtin <a class="reference external" href="https://docs.python.org/3/tutorial/datastructures.html#dictionaries">dictionary</a>, <a class="reference external" href="https://www.h5py.org">hdf5</a>, <a class="reference external" href="http://xarray.pydata.org%27">xarray</a>, <a class="reference external" href="https://zarr.readthedocs.io">zarr</a>, or anything else that implements a key-value interface (called a Mapping in python).</p>
+<p>We provide a alternative storage backend - <code class="docutils literal notranslate"><span class="pre">npy_dir</span></code> (<span class="xref myst">source</span>) - that mirrors the data structure in directory hierarchy with <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.load.html">numpy’s npy</a> files (inspired by Cyrille Rossant’s series of blog posts (<a class="reference external" href="https://cyrille.rossant.net/moving-away-hdf5/">1</a>, <a class="reference external" href="https://cyrille.rossant.net/should-you-use-hdf5/">2</a>), <a class="reference external" href="https://github.com/bastibe/jbof">jbof</a> and <a class="reference external" href="https://exdir.readthedocs.io/">exdir</a>). Keys map to directories; values and <code class="docutils literal notranslate"><span class="pre">attrs</span></code> map to <code class="docutils literal notranslate"><span class="pre">npy</span></code> files (see <code class="docutils literal notranslate"><span class="pre">dss.npy_dir</span></code>). For instance, <code class="docutils literal notranslate"><span class="pre">data['train']['x']</span></code> is stored in <code class="docutils literal notranslate"><span class="pre">dirname.npy/train/x.npy</span></code>. <code class="docutils literal notranslate"><span class="pre">attrs</span></code> is stored in the top-level directory. Storing data as <code class="docutils literal notranslate"><span class="pre">npy</span></code> files provides a fast memory-mapping mechanism for out-of-memory access if your data set does not fit in memory. While zarr, h5py, and xarray provide mechanisms for out-of-memory access, they tend to be slower in our experience or require fine tuning to reach the performance reached with memmapped npy files.</p>
+<p>During training, data is loaded (see <code class="docutils literal notranslate"><span class="pre">dss.io</span></code>) with the correct backend given by the extension of the file or directory. Currently supported files types are:</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://zarr.readthedocs.io/">zarr</a> storages (files or directories ending in <code class="docutils literal notranslate"><span class="pre">.zarr</span></code>),</p></li>
 <li><p><a class="reference external" href="http://docs.h5py.org/">hdf5</a> files (files ending in <code class="docutils literal notranslate"><span class="pre">.h5</span></code>),</p></li>
 <li><p>directories ending in <code class="docutils literal notranslate"><span class="pre">.npy</span></code> with <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.save.html">numpy</a> files (see <a class="reference external" href="#npy-dir-format">below</a>).</p></li>
 </ul>
 <p><code class="docutils literal notranslate"><span class="pre">zarr</span></code> is great for assembling and storing datasets, in particular for datasets with unknown final size since it allows appending to arrays, and is used as an intermediate storage during dataset assembly. For training, <code class="docutils literal notranslate"><span class="pre">npy</span></code> is the fastest, in particular for random access of datasets that are too large to fit in memory, thanks to highly efficient memory mapping.</p>
-</div>
-<div class="section" id="npy-dir-format">
-<h2><code class="docutils literal notranslate"><span class="pre">npy_dir</span></code> format<a class="headerlink" href="#npy-dir-format" title="Permalink to this headline">¶</a></h2>
-<p>We provide a alternative storage backend - <code class="docutils literal notranslate"><span class="pre">npy_dir</span></code> (<span class="xref myst">source</span>) - that mirrors the data structure in directory hierarchy with <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.load.html">numpy’s npy</a> files (inspired by Cyrille Rossant’s series of blog posts (<a class="reference external" href="https://cyrille.rossant.net/moving-away-hdf5/">1</a>, <a class="reference external" href="https://cyrille.rossant.net/should-you-use-hdf5/">2</a>), <a class="reference external" href="https://github.com/bastibe/jbof">jbof</a> and <a class="reference external" href="https://exdir.readthedocs.io/">exdir</a>). Keys map to directories; values and <code class="docutils literal notranslate"><span class="pre">attrs</span></code> map to <code class="docutils literal notranslate"><span class="pre">npy</span></code> files (see <code class="docutils literal notranslate"><span class="pre">dss.npy_dir</span></code>). For instance, <code class="docutils literal notranslate"><span class="pre">data['train']['x']</span></code> is stored in <code class="docutils literal notranslate"><span class="pre">dirname.npy/train/x.npy</span></code>. <code class="docutils literal notranslate"><span class="pre">attrs</span></code> is stored in the top-level directory.</p>
-<p>This provides structured access to data via npy files. npy files have the advantage of providing a fast memory-mapping mechanism for out-of-memory access if your data set does not fit in memory. While zarr, h5py, and xarray provide mechanisms for out-of-memory access, they tend to be generally slower or require fine tuning to reach the performance reached with memmapped npy files.</p>
 </div>
 </div>
 

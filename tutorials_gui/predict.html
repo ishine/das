@@ -25,8 +25,8 @@
     href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
 
     
-    <link rel="stylesheet" href="../_static/sphinx-book-theme.40e2e510f6b7d1648584402491bb10fe.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.40e2e510f6b7d1648584402491bb10fe.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
@@ -46,6 +46,10 @@
     <script src="../_static/copybutton.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
     <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe"
@@ -154,6 +158,31 @@
    <li class="toctree-l2">
     <a class="reference internal" href="../tutorials/make_dataset.html">
      Make datasets with custom data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../tutorials/make_ds_notebook.html">
+     Preparing data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../tutorials/make_ds_notebook.html#loader-functions">
+     Loader functions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../tutorials/make_ds_notebook.html#create-lists-with-the-names-of-data-and-annotation-files">
+     Create lists with the names of data and annotation files
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../tutorials/make_ds_notebook.html#split-filenames-into-train-val-test-sets">
+     Split filenames into train/val/test sets
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../tutorials/make_ds_notebook.html#initialize-the-data-structure-store">
+     Initialize the data structure (store)
     </a>
    </li>
    <li class="toctree-l2">
@@ -279,8 +308,8 @@
         <nav id="bd-toc-nav">
             <ul class="nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#proofread">
-   Proofread
+  <a class="reference internal nav-link" href="#proof-reading">
+   Proof reading
   </a>
  </li>
 </ul>
@@ -320,8 +349,8 @@
 </ul>
 </li>
 </ul>
-<div class="section" id="proofread">
-<h2>Proofread<a class="headerlink" href="#proofread" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="proof-reading">
+<h2>Proof reading<a class="headerlink" href="#proof-reading" title="Permalink to this headline">¶</a></h2>
 <p>Since you created predictions in proof reading mode, the predictions will be assigned to two new song types, starting with the original name of the song type and ending in <code class="docutils literal notranslate"><span class="pre">_proposals</span></code>. Correct any prediction errors—add missing annotations, remove false positive annotations, adjust the timing of annotations. Once you have corrected all errors, approve annotations with <code class="docutils literal notranslate"><span class="pre">G</span></code> or <code class="docutils literal notranslate"><span class="pre">H</span></code> for approving only the active or all song types, respectively. This will rename the proposals in the view to the original names (for instance, <code class="docutils literal notranslate"><span class="pre">sine_proposals</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">sine</span></code>).</p>
 <p>Repeat the prediction-&gt;correction-&gt;training cycle for ever larger parts of the recording, to easily build a large dataset of annotations for training ever better networks.</p>
 </div>

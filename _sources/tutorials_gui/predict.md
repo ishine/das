@@ -20,7 +20,7 @@ predict options
     - _Delete segments shorter than (seconds)_: . Enable this!
 
 
-## Proofread
+## Proof reading
 Since you created predictions in proof reading mode, the predictions will be assigned to two new song types, starting with the original name of the song type and ending in `_proposals`. Correct any prediction errors---add missing annotations, remove false positive annotations, adjust the timing of annotations. Once you have corrected all errors, approve annotations with `G` or `H` for approving only the active or all song types, respectively. This will rename the proposals in the view to the original names (for instance, `sine_proposals` -> `sine`).
 
 Repeat the prediction->correction->training cycle for ever larger parts of the recording, to easily build a large dataset of annotations for training ever better networks.

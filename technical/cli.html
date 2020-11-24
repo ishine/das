@@ -25,8 +25,8 @@
     href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
 
     
-    <link rel="stylesheet" href="../_static/sphinx-book-theme.40e2e510f6b7d1648584402491bb10fe.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.40e2e510f6b7d1648584402491bb10fe.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
@@ -46,6 +46,8 @@
     <script src="../_static/copybutton.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
     <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
@@ -155,6 +157,31 @@
    <li class="toctree-l2">
     <a class="reference internal" href="../tutorials/make_dataset.html">
      Make datasets with custom data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../tutorials/make_ds_notebook.html">
+     Preparing data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../tutorials/make_ds_notebook.html#loader-functions">
+     Loader functions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../tutorials/make_ds_notebook.html#create-lists-with-the-names-of-data-and-annotation-files">
+     Create lists with the names of data and annotation files
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../tutorials/make_ds_notebook.html#split-filenames-into-train-val-test-sets">
+     Split filenames into train/val/test sets
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../tutorials/make_ds_notebook.html#initialize-the-data-structure-store">
+     Initialize the data structure (store)
     </a>
    </li>
    <li class="toctree-l2">
@@ -333,10 +360,10 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>usage: xb [-h] [-e EVENTS_STRING] [-t TARGET_SAMPLINGRATE]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>objc[43608]: Class RunLoopModeTracker is implemented in both /Users/clemens10/miniconda3/lib/libQt5Core.5.9.7.dylib (0x1274dca80) and /Users/clemens10/miniconda3/lib/python3.7/site-packages/cv2/.dylibs/QtCore (0x133bcc7f0). One of the two will be used. Which one is undefined.
+usage: xb [-h] [-e EVENTS_STRING] [-t TARGET_SAMPLINGRATE]
           [--spec-freq-min SPEC_FREQ_MIN] [--spec-freq-max SPEC_FREQ_MAX]
-          [-b BOX_SIZE] [--skip-dialog] [--no-skip-dialog] [-i] [--no-is-dss]
-          [--version]
+          [-b BOX_SIZE] [--skip-dialog] [--no-skip-dialog] [--version]
           [source]
 
 positional arguments:
@@ -374,9 +401,6 @@ optional arguments:
   --skip-dialog         If True, skips the opening dialog and goes straight to opening the data.
                         (default: False)
   --no-skip-dialog
-  -i, --is-dss          reduced GUI for audio only data
-                        (default: False)
-  --no-is-dss
   --version             show program&#39;s version number and exit
 
 </pre></div>
