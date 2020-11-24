@@ -25,8 +25,8 @@
     href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
 
     
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/sphinx-book-theme.40e2e510f6b7d1648584402491bb10fe.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
@@ -106,7 +106,22 @@
   <ul class="current collapse-ul">
    <li class="toctree-l2">
     <a class="reference internal" href="load.html">
+     Download example data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="load.html#start-the-gui">
+     Start the GUI
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="load.html#load-audio-data">
      Load audio data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="load.html#overview-over-the-display-and-menus">
+     Overview over the display and menus
     </a>
    </li>
    <li class="toctree-l2">
@@ -130,17 +145,22 @@
  </li>
  <li class="toctree-l1 collapsible-parent">
   <a class="reference internal" href="../tutorials/tutorials.html">
-   Notebook tutorials
+   Notebook and CLI tutorial
   </a>
   <ul class="collapse-ul">
    <li class="toctree-l2">
-    <a class="reference internal" href="../tutorials/notebook.html">
-     Notebook tutorial
+    <a class="reference internal" href="../tutorials/convert.html">
+     Convert your own annotations and audio data
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../tutorials/cli.html">
-     CLI tutorial
+    <a class="reference internal" href="../tutorials/make_dataset.html">
+     Make datasets with custom data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../tutorials/train.html">
+     Configure and train a network
     </a>
    </li>
   </ul>
@@ -288,8 +308,13 @@
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#network-configuration">
-   Network configuration
+  <a class="reference internal nav-link" href="#id1">
+   Train
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#files-generated-during-training">
+   Files generated during training
   </a>
  </li>
 </ul>
@@ -330,7 +355,7 @@
 <li><p><em>Split by samples</em>: Select a fraction of data from each file in the data folder.</p></li>
 </ul>
 </li>
-<li><p><em>Recommendation</em>: If you have enough files, split train and validation by samples and split test by files that come from different individuals. That way your test set assesses how well the network generalizes to new individuals.If you have too few files or the specific song types do not appear in all files, split by samples.</p></li>
+<li><p><em>Recommendation</em>: If you have enough files, split train and validation by samples and split test by files that come from different individuals. That way your test set assesses how well the network generalizes to new individuals.If you have too few files or the specific song types do not appear in all files, split by samples. For the sake of this tutorial, we will not test the model - so set the test split to 0.0.</p></li>
 </ul>
 </li>
 </ul>
@@ -338,7 +363,7 @@
 </div>
 <div class="section" id="train-deepss-using-the-gui">
 <h2>Train DeepSS using the GUI<a class="headerlink" href="#train-deepss-using-the-gui" title="Permalink to this headline">¶</a></h2>
-<p>Select the folder ending in <code class="docutils literal notranslate"><span class="pre">.npy</span></code> that you just created. with the dataset, which song type to train the network for (will train network for all song types by default), and network and training parameters (see <span class="xref myst">DeepSS</span> for details). Training can be started locally in a separate process or a script can be generated that can be execute to train elsewhere, for instance on a cluster.</p>
+<p>Configure a network and start training via <em>DeepSS/Train</em>. This will ask you select the dataset folder ending in <code class="docutils literal notranslate"><span class="pre">.npy</span></code> that you just created. with the dataset, which song type to train the network for (will train network for all song types by default), and network and training parameters (see <span class="xref myst">DeepSS</span> for details). Training can be started locally in a separate process or a script can be generated that can be execute to train elsewhere, for instance on a cluster.</p>
 <p>edit script to fix paths, add cluster config commands or activate conda env.</p>
 <div class="figure align-default" id="xb-train-fig">
 <a class="reference internal image-reference" href="../_images/xb_train.png"><img alt="train" src="../_images/xb_train.png" style="width: 600px;" /></a>
@@ -378,21 +403,26 @@
 <ul class="simple">
 <li><p><em>Learning rate</em>: Determines how by how much training parameters are updated in every step. Too small, and performance will take very long to improve, too large and performance will decrease. Depends on the network and data size. Values between 0.1 and 0.0001 typically work.</p></li>
 <li><p><em>Reduce learning rate patience</em>: The learning rate can be reduced if the performance does not decrease for the specified number of epochs. We did not find this to improve or speed up training much.</p></li>
-<li><p><em>Number of epochs</em>: Maximum number of training epochs. For training on small data sets, 40 epochs are sufficient. For training on larger datasets leave as is. For Training will stop early if the validation loss did not decrease in the last 20 epochs.</p></li>
-<li><p><em>Create tensorboard logs</em>:</p></li>
+<li><p><em>Number of epochs</em>: Maximum number of training epochs. For training with the small data set used on this tutorial, 10 epochs are sufficient. For training on larger datasets leave as is. Training will stop early if the validation loss did not decrease in the last 20 epochs.</p></li>
+<li><p><em>Create tensorboard logs</em>: Ignore.</p></li>
 </ul>
-<p>Will run and put results in the save dir - four files:</p>
+</div>
+</div>
+<div class="section" id="id1">
+<h2>Train<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>For this tutorial, leave all parameters as they are - these parameters are a good starting point for your creating a good network. Training can be performed directly in the GUI in a background process. Monitor the terminal for information on training progress. We highly recommend training on a machine with a discrete Nvidia GPU.</p>
+<p>Note that the data set is portable - you can copy the folder with the data to another computer with a GPU and run training from the GUI there. If that machine cannot be used with a GUI - for instance if its a linux server, the network configuration can be exported as a command line script (with <code class="docutils literal notranslate"><span class="pre">dss-train</span></code>, see <a class="reference internal" href="../technical/cli.html"><span class="doc std std-doc">cli</span></a>). The script will likely require some edits to adjusts the path to the dataset (the folder ending in <code class="docutils literal notranslate"><span class="pre">.npy</span></code>), to activate a specific conda environment, or to configure your cluster.</p>
+</div>
+<div class="section" id="files-generated-during-training">
+<h2>Files generated during training<a class="headerlink" href="#files-generated-during-training" title="Permalink to this headline">¶</a></h2>
+<p>The following files will be created in the <em>save folder</em>:</p>
 <ul class="simple">
-<li><p>model (arch + params in one file but sth fails to load across versions)</p></li>
-<li><p>params</p></li>
-<li><p>arch (weights only - for robustness - load by making arch from params and load weights into it</p></li>
-<li><p>results</p></li>
+<li><p>model (arch + weights in one file but sth fails to load across versions)</p></li>
+<li><p>params (info on data formats etc.)</p></li>
+<li><p>arch (weights only - for robustness - load by making arch from params and load weights into it, helps with rare issues when loading a model using a different tensorflow versions from that used for training.</p></li>
+<li><p>results - test results (not required for inference)</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="network-configuration">
-<h2>Network configuration<a class="headerlink" href="#network-configuration" title="Permalink to this headline">¶</a></h2>
-<p>Explain important parameters here.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">_model.h5</span></code> and <code class="docutils literal notranslate"><span class="pre">_params.yaml</span></code> are required for using the network for predictions and need to be copied to you local machine if you train remotely.</p>
 </div>
 </div>
 

@@ -1,0 +1,478 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Train &#8212; DeepSS docs</title>
+    
+  <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.40e2e510f6b7d1648584402491bb10fe.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.3da636dd464baa7582d2.js">
+
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  
+  <h1 class="site-logo" id="site-title">DeepSS docs</h1>
+  
+</a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   Welcome to DeepSS
+  </a>
+ </li>
+</ul>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../install.html">
+   Install
+  </a>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../tutorials_gui/tutorials_gui.html">
+   GUI tutorial
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../tutorials_gui/load.html">
+     Download example data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../tutorials_gui/load.html#start-the-gui">
+     Start the GUI
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../tutorials_gui/load.html#load-audio-data">
+     Load audio data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../tutorials_gui/load.html#overview-over-the-display-and-menus">
+     Overview over the display and menus
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../tutorials_gui/annotate.html">
+     Annotate song
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../tutorials_gui/train.html">
+     Train
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../tutorials_gui/predict.html">
+     Predict
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../tutorials/tutorials.html">
+   Notebook and CLI tutorial
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../tutorials/convert.html">
+     Convert your own annotations and audio data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../tutorials/make_dataset.html">
+     Make datasets with custom data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../tutorials/train.html">
+     Configure and train a network
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../unsupervised/unsupervised.html">
+   Unsupervised classification
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../unsupervised/flies.html">
+     Fly song
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../unsupervised/mice.html">
+     Ultrasonic vocalizations from mice
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../unsupervised/birds.html">
+     Song of Bengalese finches
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../technical/technical.html">
+   Technical details
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../technical/data_formats.html">
+     Data formats
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../technical/cli.html">
+     Command line interfaces
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+</ul>
+
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/docs_gui/train.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#assemble-exported-annotations">
+   Assemble exported annotations
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#train-deepss-using-the-gui">
+   Train DeepSS using the GUI
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#data-set">
+     Data set
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#network-parameters">
+     Network parameters
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#training-parameters">
+     Training parameters
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id1">
+   Train
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#files-generated-during-training">
+   Files generated during training
+  </a>
+ </li>
+</ul>
+
+        </nav>
+        
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="train">
+<h1>Train<a class="headerlink" href="#train" title="Permalink to this headline">¶</a></h1>
+<p>To train a network, you need to make a dataset from exported annotations and configure and train a network.</p>
+<div class="section" id="assemble-exported-annotations">
+<h2>Assemble exported annotations<a class="headerlink" href="#assemble-exported-annotations" title="Permalink to this headline">¶</a></h2>
+<p>Training expects data in a specific format with splits and metadata (see <a class="reference external" href="data_formats.html#dataset-for-training">specification</a>). The GUI automates the generation of these datasets from audio annotated using the GUI. You can also do it yourself (see notebook tutorial) but also present sample code for using your own data formats.</p>
+<p>Select the folder with the exported audio and annotations via <code class="docutils literal notranslate"><span class="pre">DeepSS/Make</span> <span class="pre">dataset</span> <span class="pre">for</span> <span class="pre">training</span></code>. This will open a</p>
+<div class="figure align-default" id="xb-assemble-fig">
+<a class="reference internal image-reference" href="../_images/xb_assemble.png"><img alt="assemble dataset" src="../_images/xb_assemble.png" style="width: 650px;" /></a>
+<p class="caption"><span class="caption-text">Make dataset options</span><a class="headerlink" href="#xb-assemble-fig" title="Permalink to this image">¶</a></p>
+</div>
+<ul class="simple">
+<li><p><em>Data folder</em> &amp; <em>Store folder</em>: The data folder contains your exported annotations. A dataset will be created from these annotations and save in the store folder. By default, the store folder is the data folder with an <code class="docutils literal notranslate"><span class="pre">.npy</span></code> appended. <em>Important: You can change the name of the store folder but the <code class="docutils literal notranslate"><span class="pre">.npy</span></code> should be kept for DeepSS to robustly recognize the dataset.</em></p></li>
+<li><p><em>Make individual training targets</em>: By default, the dataset will contain targets for a single network that recognizes all annotated song types — in our case sine and pulse. To train a network for specific song types, enable this option. In our example, this will create additional separate targets for training a network to connect pulse song or sine song only. We found that training individual networks improves performance for multi-channel audio, but not for single audio.</p></li>
+<li><p><em>Width of events (seconds)</em>: Events are defined by a single time point — to make training more robust, events should be represented by gaussian with specified width (standard deviation).</p></li>
+<li><p><em>Gap between segments (seconds)</em>: To simplify post processing of segments, in particular for birdsong with its many syllable types, we found that introducing brief gaps helps with post-processing the inferred annotations.</p></li>
+<li><p><em>Train/validation/test splits</em>: The data is split into three parts, which are used during different phases of training:</p>
+<ul>
+<li><p><em>train</em>: optimize the network parameters</p></li>
+<li><p><em>validation</em>: monitor network performance during training and steer training (stop early or adjust learning rate)</p></li>
+<li><p><em>test</em>: independent data to assess network performance after training. This can be omitted when training on very little data.</p></li>
+<li><p>Splits can be generated using a mixture of two strategies:</p>
+<ul>
+<li><p><em>Split by files</em>: Use a fraction of files in the data folder for the specific split. The full files will be used for the split. Only works if you have multiple annotated files</p></li>
+<li><p><em>Split by samples</em>: Select a fraction of data from each file in the data folder.</p></li>
+</ul>
+</li>
+<li><p><em>Recommendation</em>: If you have enough files, split train and validation by samples and split test by files that come from different individuals. That way your test set assesses how well the network generalizes to new individuals.If you have too few files or the specific song types do not appear in all files, split by samples.</p></li>
+</ul>
+</li>
+</ul>
+<p>Once the dataset is assembled, you can inspect the dataset with the <span class="xref myst">1_inspect_data.ipynb</span> notebook if you are curious or if training fails.</p>
+</div>
+<div class="section" id="train-deepss-using-the-gui">
+<h2>Train DeepSS using the GUI<a class="headerlink" href="#train-deepss-using-the-gui" title="Permalink to this headline">¶</a></h2>
+<p>Start training via <em>DeepSS/Train</em>. This will ask you select the dataset folder ending in <code class="docutils literal notranslate"><span class="pre">.npy</span></code> that you just created. with the dataset, which song type to train the network for (will train network for all song types by default), and network and training parameters (see <span class="xref myst">DeepSS</span> for details). Training can be started locally in a separate process or a script can be generated that can be execute to train elsewhere, for instance on a cluster.</p>
+<p>edit script to fix paths, add cluster config commands or activate conda env.</p>
+<div class="figure align-default" id="xb-train-fig">
+<a class="reference internal image-reference" href="../_images/xb_train.png"><img alt="train" src="../_images/xb_train.png" style="width: 600px;" /></a>
+<p class="caption"><span class="caption-text">Train options</span><a class="headerlink" href="#xb-train-fig" title="Permalink to this image">¶</a></p>
+</div>
+<p>Options are grouped into three sections:</p>
+<div class="section" id="data-set">
+<h3>Data set<a class="headerlink" href="#data-set" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p><em>Data folder</em>: Folder with the assembled annotations. Name must end in <code class="docutils literal notranslate"><span class="pre">.npy</span></code></p></li>
+<li><p><em>Save folder</em>: Folder for saving the files generated during training (network model and parameters, test results). Defaults to data folder with <code class="docutils literal notranslate"><span class="pre">.npy</span></code> replaced by <code class="docutils literal notranslate"><span class="pre">.res</span></code>.</p></li>
+<li><p><em>Prefix for save files</em>: Files generated during training are named based on the time the training started (<code class="docutils literal notranslate"><span class="pre">YYYYMMDD_hhmmss</span></code>). You can add an informative prefix, for instance <code class="docutils literal notranslate"><span class="pre">pulsesine</span></code>. An underscore will be interleaved between the prefix and the timestamp. The resulting files will then start with something like <code class="docutils literal notranslate"><span class="pre">pulsesine_20201012_125534</span></code>.</p></li>
+<li><p><em>Song type</em>: Select song type you want the network to recognize. Defaults to blank (all annotated song types). Will be populated with training targets if you select <em>Make individual training targets</em> during dataset assembly.</p></li>
+<li><p><em>Data fraction</em> &amp; <em>Seed</em>: Use a random subset of the data from the training and validation splits. The gives you reproducibility. This does not affect the test set. That way you can train a network on different subsets of your data and test on the same dataset.</p></li>
+</ul>
+</div>
+<div class="section" id="network-parameters">
+<h3>Network parameters<a class="headerlink" href="#network-parameters" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p><em>Downsampling frontend</em>: Does not work with multi-channel audio.</p>
+<ul>
+<li><p><em>Frontend type</em>: stft (short term Fourier transform) or TCN (REMOVE OPTION AND FIX TO STFT)</p></li>
+<li><p><em>Number of filters</em>: per layer</p></li>
+<li><p><em>Filter duration (samples)</em>:</p></li>
+<li><p><em>Downsample factor</em>:</p></li>
+</ul>
+</li>
+<li><p><em>Chunk duration (samples)</em>:</p></li>
+<li><p><em>Number of filters</em>: Number of filters in each layer of the network. Vary between 16 and 32. Fewer typically decrease performance, more rarely help.</p></li>
+<li><p><em>Filter duration (samples)</em>: Duration of each filter in samples. Should correspond to the duration of the lowest level song feature (e.g. the carrier if training on raw audio without a downsampling frontend).</p></li>
+<li><p><em>Number of TCN blocks</em>: Number of TCN blocks in the network. Deeper networks (more TCNs) allow extracting more derived sound features. We found values between 2 and 6 blocks to work well.</p></li>
+<li><p><em>Separable TCN blocks</em>: Useful only for multi-channel audio. Whether the convolutions in individual TCN blocks should be time-channel separable: Each audio channel is first filtered with a common set of filters and then the filtered channels are combined with a second set of filters. Allows sharing filters across channels - the idea is that some filtering operations should be applied to each channel equally. The first one or two TCN blocks can be set to use separable convolutions for multi-channel audio. Should be a space-separate sequence, the same length as the number of TCN blocks, with either <code class="docutils literal notranslate"><span class="pre">True</span></code> or <code class="docutils literal notranslate"><span class="pre">False</span></code>. For instance, a 5-block network with the first two blocks set to separable would be: <code class="docutils literal notranslate"><span class="pre">True</span> <span class="pre">True</span> <span class="pre">False</span> <span class="pre">False</span> <span class="pre">False</span></code>.</p></li>
+</ul>
+</div>
+<div class="section" id="training-parameters">
+<h3>Training parameters<a class="headerlink" href="#training-parameters" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p><em>Learning rate</em>: Determines how by how much training parameters are updated in every step. Too small, and performance will take very long to improve, too large and performance will decrease. Depends on the network and data size. Values between 0.1 and 0.0001 typically work.</p></li>
+<li><p><em>Reduce learning rate patience</em>: The learning rate can be reduced if the performance does not decrease for the specified number of epochs. We did not find this to improve or speed up training much.</p></li>
+<li><p><em>Number of epochs</em>: Maximum number of training epochs. For training on small data sets, 40 epochs are sufficient. For training on larger datasets leave as is. For Training will stop early if the validation loss did not decrease in the last 20 epochs.</p></li>
+<li><p><em>Create tensorboard logs</em>:</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="id1">
+<h2>Train<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>You can load and save the training parameters. Training can be performed directly in the GUI in a background process. Monitor the terminal output for information on training progress - training will be fairly very fast for the small dataset generated in this tutorial if you have a GPU.</p>
+<p>Alternatively, the configuration can be exported as a command line script (with <code class="docutils literal notranslate"><span class="pre">dss-train</span></code>, see <a class="reference internal" href="../technical/cli.html"><span class="doc std std-doc">cli</span></a>) for training on a cluster or another computer with a GPU. You probably need to edit the script to adjusts the path to the dataset (the folder ending in <code class="docutils literal notranslate"><span class="pre">.npy</span></code>), to activate a specific conda environment, or configure your cluster.</p>
+</div>
+<div class="section" id="files-generated-during-training">
+<h2>Files generated during training<a class="headerlink" href="#files-generated-during-training" title="Permalink to this headline">¶</a></h2>
+<p>The following files will be created in the <em>save folder</em>:</p>
+<ul class="simple">
+<li><p>model (arch + weights in one file but sth fails to load across versions)</p></li>
+<li><p>params (info on data formats etc.)</p></li>
+<li><p>arch (weights only - for robustness - load by making arch from params and load weights into it, helps with rare issues when loading a model using a different tensorflow versions from that used for training.</p></li>
+<li><p>results - test results (not required for inference)</p></li>
+</ul>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./docs_gui"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Jan Clemens<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="../_static/js/index.3da636dd464baa7582d2.js"></script>
+
+
+    
+  </body>
+</html>

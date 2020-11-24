@@ -1,15 +1,35 @@
+## Download example data
+
+Download and open this [file](link) - it's a recording of fly song from a male _Drosophila melanogaster_ courthing a females, recorded by D. Stern (link) saved as a wav file. We will use the file as an example to walk through loading, annotating, training and predicting.
+
+
+## Start the GUI
+
+Install _DeepSS_ following these [instructions](/install). Then start the GUI by opening a terminal, activating the conda environment created during install and typing `dss-gui`:
+```shell
+conda activate dss
+dss-gui
+```
+
+<img src="/images/xb_start.png" alt="start screen" width=450>
+
 # Load audio data
+
+
+In the window that opens, choose _Load audio from file_ and select the downloaded recording of fly song. Alternatively, use the menu  _File/New from file_.
 
 ## Supported formats
 
-This will open a dialog for selecting a file. Currently, the GUI can load audio data from a wide range of file types:
+Currently, the GUI can load audio data from a wide range of file types:
 
-- audio files (readable by [soundfile](http://pysoundfile.readthedocs.io/), [list of supported formats](http://www.mega-nerd.com/libsndfile/#Features))
-- hdfs files ([h5py](http://docs.h5py.org/)). Matlab's `.mat` [files](https://www.mathworks.com/help/matlab/ref/save.html#btox10b-1-version) also use this format.
+- audio files like `wav` etc. (read with [soundfile](http://pysoundfile.readthedocs.io/), [list of supported formats](http://www.mega-nerd.com/libsndfile/#Features))
+- hdfs files typically ending in`h5` (read with [h5py](http://docs.h5py.org/)). `mat` files save with recent versions of Matlab also use this format (see [matlab docs](https://www.mathworks.com/help/matlab/ref/save.html#btox10b-1-version)).
 - numpy's `npy` or `npz` files ([numpy](https://numpy.org/doc/stable/reference/routines.io.html))
 
+The example recording is an audio file in `wav` format.
+
 ```{note}
-If your favorite format is not included in this list, try to convert it to a `wav` file.
+If your favorite format is not included in this list, convert it to a supported format, for instance a `h5` or a `wav` file.
 ```
 
 ## Options
@@ -37,10 +57,15 @@ Loading screen.
 Most of these parameters are also exposed via the command-line when starting the GUI. See [xb_cli] for details.
 ```
 
-For the purpose of this tutorial, open `fly_song.wav` and keep the defaults.
+For the purpose of this tutorial, keep the defaults and hit the `Load data` button.
 
-## Overview over the display and menus
-Audio data from all channels (gray), with one channel being selected (white), and the spectogram of the currently selected channel below. Move forward/backward along the time axis via the `A`/`D` keys and zoom in/out the time axis with the `W`/`S` keys (See Playback/). The temporal resolution of the spectrogram can be increased at the expense of frequency resolution with the `R` and `T` keys.
+# Overview over the display and menus
+Audio data from all channels (gray), with one channel being selected (white), and the spectogram of the currently selected channel below. The example recording is single channel so only one white audio trace will be displayed.
+
+To navigate the view: Move forward/backward along the time axis via the `A`/`D` keys and zoom in/out the time axis with the `W`/`S` keys (See Playback/). The temporal resolution of the spectrogram can be increased at the expense of frequency resolution with the `R` and `T` keys.
+
+You can play back the waveform on display through your computer speakers by pressing `E`.
+
 
 
 :::{figure} xb_display-fig
@@ -49,6 +74,4 @@ Audio data from all channels (gray), with one channel being selected (white), an
 Waveform (top) and spectrogram (bottom) display of a multi-channel recording.
 :::
 
-Hide the non-selected channels in the waveform view by toggling _Audio/Show all channels_. To change the channel for which the spectrogram is displayed, use the dropdown list on the upper right or switch to next/previous channel with the up/down arrow keys. The `Q` key (or _Audio/Autoselect loudest channel_) will toggle automatically selecting the loudest channel in the current view.
-
-To listen to the waveform on display press `E`.
+The waveform view can be adjusted further for multi-channel recordings: Hide the non-selected channels in the waveform view by toggling _Audio/Show all channels_. To change the channel for which the spectrogram is displayed, use the dropdown list on the upper right or switch to next/previous channel with the up/down arrow keys. The `Q` key (or _Audio/Autoselect loudest channel_) will toggle automatically selecting the loudest channel in the current view.

@@ -25,8 +25,8 @@
     href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
 
     
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/sphinx-book-theme.40e2e510f6b7d1648584402491bb10fe.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
@@ -46,8 +46,6 @@
     <script src="../_static/copybutton.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
     <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe"
@@ -58,7 +56,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Train" href="train.html" />
-    <link rel="prev" title="Load audio data" href="load.html" />
+    <link rel="prev" title="Download example data" href="load.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -106,7 +104,22 @@
   <ul class="current collapse-ul">
    <li class="toctree-l2">
     <a class="reference internal" href="load.html">
+     Download example data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="load.html#start-the-gui">
+     Start the GUI
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="load.html#load-audio-data">
      Load audio data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="load.html#overview-over-the-display-and-menus">
+     Overview over the display and menus
     </a>
    </li>
    <li class="toctree-l2 current active">
@@ -130,17 +143,22 @@
  </li>
  <li class="toctree-l1 collapsible-parent">
   <a class="reference internal" href="../tutorials/tutorials.html">
-   Notebook tutorials
+   Notebook and CLI tutorial
   </a>
   <ul class="collapse-ul">
    <li class="toctree-l2">
-    <a class="reference internal" href="../tutorials/notebook.html">
-     Notebook tutorial
+    <a class="reference internal" href="../tutorials/convert.html">
+     Convert your own annotations and audio data
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../tutorials/cli.html">
-     CLI tutorial
+    <a class="reference internal" href="../tutorials/make_dataset.html">
+     Make datasets with custom data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../tutorials/train.html">
+     Configure and train a network
     </a>
    </li>
   </ul>
@@ -295,39 +313,38 @@
 <h1>Annotate song<a class="headerlink" href="#annotate-song" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="initialize-or-edit-song-types">
 <h2>Initialize or edit song types<a class="headerlink" href="#initialize-or-edit-song-types" title="Permalink to this headline">¶</a></h2>
-<p>Since this is a recording without pre-existing annotations, register new song types via “Audio/Add or edit song types”. Fly song of most species contains two types of song: Pulse song, which contains trains of brief pulses and sine song, containing sustained oscillations. In <em>DeepSS</em>, two categories of song types are discriminated:</p>
+<p>To annotate song, we first need to register the different song types we want to annotate. The example audio is a recording from a male <em>Drosophila melanogaster</em> fly, which produces two major types of courtship song: Pulse song, which contains trains of brief pulses and sine song, containing sustained oscillations. We will register pulse and sine as song types for annotation via the <em>Audio/Add or edit song types</em>. <em>DeepSS</em> discriminates two categories of song types:</p>
 <ul class="simple">
 <li><p><em>Events</em> are defined by a single time of occurrence. The aforementioned pulse song is a song type of the event category.</p></li>
 <li><p><em>Segments</em> are song types that extend over time and are defined by a start and a stop time. The aforementioned sine song and the syllables of mouse and bird vocalizations fall into the segment category.</p></li>
 </ul>
-<p>To annotate the fly song, create two song types: ‘pulse’ of category ‘event’ and ‘sine’ of category ‘segment:</p>
+<p>Add two new song types: ‘pulse’ of category ‘event’ and ‘sine’ of category ‘segment:</p>
 <div class="figure align-default" id="xb-make-fig">
 <a class="reference internal image-reference" href="../_images/xb_make.png"><img alt="edit annotation types" src="../_images/xb_make.png" style="height: 500px;" /></a>
 <p class="caption"><span class="caption-number">Fig. 3 </span><span class="caption-text">Create, rename or delete song types for annotation.</span><a class="headerlink" href="#xb-make-fig" title="Permalink to this image">¶</a></p>
 </div>
-<p>If annotation exist for the recording you load, the song types are populated from the existing annotations. Song types can be added, deleted, and renamed in the “Audio/Add or edit song types”.</p>
-<p>You can now activate “pulse” or “sine” for annotation using the dropdown menu on the top left of the main window. The active song type can also be changed with number keys according to the number indicated in the dropdown menu.</p>
-<div class="figure align-default" id="xb-types-fig">
-<a class="reference internal image-reference" href="../_images/xb_types.png"><img alt="select annotation types" src="../_images/xb_types.png" style="height: 150px;" /></a>
-<p class="caption"><span class="caption-number">Fig. 4 </span><span class="caption-text">Activate song types for annotation.</span><a class="headerlink" href="#xb-types-fig" title="Permalink to this image">¶</a></p>
-</div>
+<p>If annotations exist for the recording you loaded, the song types are populated from the existing annotations and can be added, deleted, and renamed via “Audio/Add or edit song types_.</p>
 </div>
 <div class="section" id="create-annotations">
 <h2>Create annotations<a class="headerlink" href="#create-annotations" title="Permalink to this headline">¶</a></h2>
-<p>To annotate song in the recording, left-click on the waveform or spectrogram view. If an event-like song type is active, that’s it - you just placed the event time and a line should appear in the waveform and spectrogram view. If a segment-like song type is active, the first click should be placed at the start of the segment. The first click places one boundary of the segment and the cursor changes to a cross. A second click at the end of the segment will complete the annotation and a shaded area marking the segment should appear. Note segment annotation can also start with a click on the segment end.</p>
-<div class="figure align-default" id="xb-annotate-fig">
-<a class="reference internal image-reference" href="../_images/xb_annotate.png"><img alt="annotate song" src="../_images/xb_annotate.png" style="height: 500px;" /></a>
-<p class="caption"><span class="caption-number">Fig. 5 </span><span class="caption-text">Fully annotated fly song. Pulse (cyan) is an event-like song type and is annotated by clicking on the pulse center. Sine (red shaded area) is a segment- or syllable-like song type and is annotated by clicking on the beginning and the end of the sine syllable.</span><a class="headerlink" href="#xb-annotate-fig" title="Permalink to this image">¶</a></p>
+<p>The two new song types “pulse” or “sine” can now be activated for annotation using the dropdown menu on the top left of the main window. The active song type can also be changed with number keys according to the number indicated in the dropdown menu.</p>
+<div class="figure align-default" id="xb-create-fig">
+<a class="reference internal image-reference" href="../_images/xb_create_opt.gif"><img alt="annotate song" src="../_images/xb_create_opt.gif" style="width: 700px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 4 </span><span class="caption-text">Left clicks in waveform or spectrogram few create annotations.</span><a class="headerlink" href="#xb-create-fig" title="Permalink to this image">¶</a></p>
 </div>
+<p>To annotate song in the recording, left-click on the waveform or spectrogram view. If an event-like song type is active, that’s it - you just placed the event time and a line should appear in the waveform and spectrogram view. If a segment-like song type is active, the first click should be placed at the start of the segment. The first click places one boundary of the segment and the cursor changes to a cross. A second click at the end of the segment will complete the annotation and a shaded area marking the segment should appear. Note segment annotation can also start with a click on the segment end.</p>
 </div>
 <div class="section" id="edit-annotations">
 <h2>Edit annotations<a class="headerlink" href="#edit-annotations" title="Permalink to this headline">¶</a></h2>
 <p>Delete annotations by right-clicking on the annotation. Annotations of all song types or only the active one in the view can be deleted with <code class="docutils literal notranslate"><span class="pre">U</span></code> and <code class="docutils literal notranslate"><span class="pre">Y</span></code>, respectively, or via the <em>Audio</em> menu. Move annotations by dragging the lines or the boundaries of the shaded area - this will change event times and segment bounds. Drag the shaded area itself to move a segment. Movement can be disabled completely or restricted to the currently selected annotation type via the <em>Audio</em> menu.</p>
-<!--  -->
+<div class="figure align-default" id="xb-edit-fig">
+<a class="reference internal image-reference" href="../_images/xb_edit_opt.gif"><img alt="annotate song" src="../_images/xb_edit_opt.gif" style="width: 700px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 5 </span><span class="caption-text">Dragging moves, right click deletes annotations.</span><a class="headerlink" href="#xb-edit-fig" title="Permalink to this image">¶</a></p>
+</div>
 </div>
 <div class="section" id="export-and-save-annotations">
 <h2>Export and save annotations<a class="headerlink" href="#export-and-save-annotations" title="Permalink to this headline">¶</a></h2>
-<p><em>DeepSS</em> achieves good performance even from small sets of manual annotations. Once you have completely annotated the first seconds of song - a couple of pulse trains and sine song segments - we can train a network to help with annotating the rest of the data. Export the data and the annotations for <em>DeepSS</em> - via the <code class="docutils literal notranslate"><span class="pre">File/Export</span> <span class="pre">for</span> <span class="pre">DeepSS</span></code> to a new folder - call it <code class="docutils literal notranslate"><span class="pre">fly_first</span></code>:</p>
+<p><em>DeepSS</em> achieves good performance with little manual annotation. Once you have completely annotated the song between 52 and 70 seconds—a couple of pulse trains and sine song segments—you can train a network to help with annotating the rest of the data. Export the data and the annotations for <em>DeepSS</em> - via the <code class="docutils literal notranslate"><span class="pre">File/Export</span> <span class="pre">for</span> <span class="pre">DeepSS</span></code> to a new folder - call it <code class="docutils literal notranslate"><span class="pre">fly_first</span></code>:</p>
 <div class="figure align-default" id="xb-assemble-fig">
 <a class="reference internal image-reference" href="../_images/xb_export.png"><img alt="export audio and annotations" src="../_images/xb_export.png" style="width: 500px;" /></a>
 <p class="caption"><span class="caption-number">Fig. 6 </span><span class="caption-text">Export audio data and annotations</span><a class="headerlink" href="#xb-assemble-fig" title="Permalink to this image">¶</a></p>
@@ -342,10 +359,16 @@
 </ul>
 </li>
 <li><p><em>Scale factor</em>: Scale the audio before export. Should be left as is. Only important when exporting to WAV, since the WAV format has range restrictions.</p></li>
-<li><p><em>Start seconds</em> &amp; <em>end seconds</em>: Export audio and annotations only between start and end seconds. In particular relevant when exporting partially annotated data. For fast training, do not include too much silence at the before the first and after the last annotation to ensure that all parts of the exported audio contain annotated song.</p></li>
+<li><p><em>Start seconds</em> &amp; <em>end seconds</em>: Export audio and annotations only between start and end seconds. In particular relevant when exporting partially annotated data. For fast training, do not include too much silence at the before the first and after the last annotation to ensure that all parts of the exported audio contain annotated song. We have annotated song between x and y seconds, so set start and end seconds accordingly.</p></li>
 </ul>
-<p>To generate a larger dataset, annotate and export multiple recordings into the same folder then assemble a dataset via DeepSS/Make dataset.</p>
-<p>We also recommend you save the full annotations next to the audio data via the file menu as a <code class="docutils literal notranslate"><span class="pre">csv</span></code> file. That way, the annotations will be loaded with the audio data for picking up annotations or for comparison with song labels inferred by a trained network.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For this tutorial, we start with a single recording. To generate a larger and more diverse dataset, annotate and export <em>multiple recordings into the same folder</em>. They can then be assembled in a single via DeepSS/Make dataset (see next page).</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>We also recommend you save the full annotations next to the audio data via the <em>File/Save annotations</em> as a <code class="docutils literal notranslate"><span class="pre">csv</span></code> file. That way, the annotations will be loaded the next time you load the recording.</p>
+</div>
 <p>Once data is exported, train the network.</p>
 </div>
 </div>
@@ -378,7 +401,7 @@
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="load.html" title="previous page">Load audio data</a>
+    <a class='left-prev' id="prev-link" href="load.html" title="previous page">Download example data</a>
     <a class='right-next' id="next-link" href="train.html" title="next page">Train</a>
 
     </div>

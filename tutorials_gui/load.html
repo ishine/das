@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Load audio data &#8212; DeepSS docs</title>
+    <title>Download example data &#8212; DeepSS docs</title>
     
   <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
 
@@ -25,8 +25,8 @@
     href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
 
     
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/sphinx-book-theme.40e2e510f6b7d1648584402491bb10fe.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
@@ -106,7 +106,22 @@
   <ul class="current collapse-ul">
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
+     Download example data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="#start-the-gui">
+     Start the GUI
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="#load-audio-data">
      Load audio data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="#overview-over-the-display-and-menus">
+     Overview over the display and menus
     </a>
    </li>
    <li class="toctree-l2">
@@ -130,17 +145,22 @@
  </li>
  <li class="toctree-l1 collapsible-parent">
   <a class="reference internal" href="../tutorials/tutorials.html">
-   Notebook tutorials
+   Notebook and CLI tutorial
   </a>
   <ul class="collapse-ul">
    <li class="toctree-l2">
-    <a class="reference internal" href="../tutorials/notebook.html">
-     Notebook tutorial
+    <a class="reference internal" href="../tutorials/convert.html">
+     Convert your own annotations and audio data
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../tutorials/cli.html">
-     CLI tutorial
+    <a class="reference internal" href="../tutorials/make_dataset.html">
+     Make datasets with custom data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../tutorials/train.html">
+     Configure and train a network
     </a>
    </li>
   </ul>
@@ -260,17 +280,34 @@
         </div>
         <nav id="bd-toc-nav">
             <ul class="nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#supported-formats">
-   Supported formats
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   Download example data
   </a>
  </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#options">
-   Options
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#start-the-gui">
+   Start the GUI
   </a>
  </li>
- <li class="toc-h2 nav-item toc-entry">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#load-audio-data">
+   Load audio data
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#supported-formats">
+     Supported formats
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#options">
+     Options
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
   <a class="reference internal nav-link" href="#overview-over-the-display-and-menus">
    Overview over the display and menus
   </a>
@@ -286,19 +323,34 @@
         
               <div>
                 
-  <div class="section" id="load-audio-data">
+  <div class="section" id="download-example-data">
+<h1>Download example data<a class="headerlink" href="#download-example-data" title="Permalink to this headline">¶</a></h1>
+<p>Download and open this <span class="xref myst">file</span> - it’s a recording of fly song from a male <em>Drosophila melanogaster</em> courthing a females, recorded by D. Stern (link) saved as a wav file. We will use the file as an example to walk through loading, annotating, training and predicting.</p>
+</div>
+<div class="section" id="start-the-gui">
+<h1>Start the GUI<a class="headerlink" href="#start-the-gui" title="Permalink to this headline">¶</a></h1>
+<p>Install <em>DeepSS</em> following these <a class="reference internal" href="../install.html"><span class="doc std std-doc">instructions</span></a>. Then start the GUI by opening a terminal, activating the conda environment created during install and typing <code class="docutils literal notranslate"><span class="pre">dss-gui</span></code>:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>conda activate dss
+dss-gui
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="../_images/xb_start.png"><img alt="start screen" src="../_images/xb_start.png" style="width: 450px;" /></a>
+</div>
+<div class="section" id="load-audio-data">
 <h1>Load audio data<a class="headerlink" href="#load-audio-data" title="Permalink to this headline">¶</a></h1>
+<p>In the window that opens, choose <em>Load audio from file</em> and select the downloaded recording of fly song. Alternatively, use the menu  <em>File/New from file</em>.</p>
 <div class="section" id="supported-formats">
 <h2>Supported formats<a class="headerlink" href="#supported-formats" title="Permalink to this headline">¶</a></h2>
-<p>This will open a dialog for selecting a file. Currently, the GUI can load audio data from a wide range of file types:</p>
+<p>Currently, the GUI can load audio data from a wide range of file types:</p>
 <ul class="simple">
-<li><p>audio files (readable by <a class="reference external" href="http://pysoundfile.readthedocs.io/">soundfile</a>, <a class="reference external" href="http://www.mega-nerd.com/libsndfile/#Features">list of supported formats</a>)</p></li>
-<li><p>hdfs files (<a class="reference external" href="http://docs.h5py.org/">h5py</a>). Matlab’s <code class="docutils literal notranslate"><span class="pre">.mat</span></code> <a class="reference external" href="https://www.mathworks.com/help/matlab/ref/save.html#btox10b-1-version">files</a> also use this format.</p></li>
+<li><p>audio files like <code class="docutils literal notranslate"><span class="pre">wav</span></code> etc. (read with <a class="reference external" href="http://pysoundfile.readthedocs.io/">soundfile</a>, <a class="reference external" href="http://www.mega-nerd.com/libsndfile/#Features">list of supported formats</a>)</p></li>
+<li><p>hdfs files typically ending in<code class="docutils literal notranslate"><span class="pre">h5</span></code> (read with <a class="reference external" href="http://docs.h5py.org/">h5py</a>). <code class="docutils literal notranslate"><span class="pre">mat</span></code> files save with recent versions of Matlab also use this format (see <a class="reference external" href="https://www.mathworks.com/help/matlab/ref/save.html#btox10b-1-version">matlab docs</a>).</p></li>
 <li><p>numpy’s <code class="docutils literal notranslate"><span class="pre">npy</span></code> or <code class="docutils literal notranslate"><span class="pre">npz</span></code> files (<a class="reference external" href="https://numpy.org/doc/stable/reference/routines.io.html">numpy</a>)</p></li>
 </ul>
+<p>The example recording is an audio file in <code class="docutils literal notranslate"><span class="pre">wav</span></code> format.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>If your favorite format is not included in this list, try to convert it to a <code class="docutils literal notranslate"><span class="pre">wav</span></code> file.</p>
+<p>If your favorite format is not included in this list, convert it to a supported format, for instance a <code class="docutils literal notranslate"><span class="pre">h5</span></code> or a <code class="docutils literal notranslate"><span class="pre">wav</span></code> file.</p>
 </div>
 </div>
 <div class="section" id="options">
@@ -325,18 +377,19 @@
 <p class="admonition-title">Note</p>
 <p>Most of these parameters are also exposed via the command-line when starting the GUI. See [xb_cli] for details.</p>
 </div>
-<p>For the purpose of this tutorial, open <code class="docutils literal notranslate"><span class="pre">fly_song.wav</span></code> and keep the defaults.</p>
+<p>For the purpose of this tutorial, keep the defaults and hit the <code class="docutils literal notranslate"><span class="pre">Load</span> <span class="pre">data</span></code> button.</p>
+</div>
 </div>
 <div class="section" id="overview-over-the-display-and-menus">
-<h2>Overview over the display and menus<a class="headerlink" href="#overview-over-the-display-and-menus" title="Permalink to this headline">¶</a></h2>
-<p>Audio data from all channels (gray), with one channel being selected (white), and the spectogram of the currently selected channel below. Move forward/backward along the time axis via the <code class="docutils literal notranslate"><span class="pre">A</span></code>/<code class="docutils literal notranslate"><span class="pre">D</span></code> keys and zoom in/out the time axis with the <code class="docutils literal notranslate"><span class="pre">W</span></code>/<code class="docutils literal notranslate"><span class="pre">S</span></code> keys (See Playback/). The temporal resolution of the spectrogram can be increased at the expense of frequency resolution with the <code class="docutils literal notranslate"><span class="pre">R</span></code> and <code class="docutils literal notranslate"><span class="pre">T</span></code> keys.</p>
+<h1>Overview over the display and menus<a class="headerlink" href="#overview-over-the-display-and-menus" title="Permalink to this headline">¶</a></h1>
+<p>Audio data from all channels (gray), with one channel being selected (white), and the spectogram of the currently selected channel below. The example recording is single channel so only one white audio trace will be displayed.</p>
+<p>To navigate the view: Move forward/backward along the time axis via the <code class="docutils literal notranslate"><span class="pre">A</span></code>/<code class="docutils literal notranslate"><span class="pre">D</span></code> keys and zoom in/out the time axis with the <code class="docutils literal notranslate"><span class="pre">W</span></code>/<code class="docutils literal notranslate"><span class="pre">S</span></code> keys (See Playback/). The temporal resolution of the spectrogram can be increased at the expense of frequency resolution with the <code class="docutils literal notranslate"><span class="pre">R</span></code> and <code class="docutils literal notranslate"><span class="pre">T</span></code> keys.</p>
+<p>You can play back the waveform on display through your computer speakers by pressing <code class="docutils literal notranslate"><span class="pre">E</span></code>.</p>
 <div class="figure align-default" id="xb-display-fig">
 <a class="reference internal image-reference" href="../_images/xb_display.png"><img alt="waveform and spectrogram display" src="../_images/xb_display.png" style="width: 100%;" /></a>
 <p class="caption"><span class="caption-number">Fig. 2 </span><span class="caption-text">Waveform (top) and spectrogram (bottom) display of a multi-channel recording.</span><a class="headerlink" href="#xb-display-fig" title="Permalink to this image">¶</a></p>
 </div>
-<p>Hide the non-selected channels in the waveform view by toggling <em>Audio/Show all channels</em>. To change the channel for which the spectrogram is displayed, use the dropdown list on the upper right or switch to next/previous channel with the up/down arrow keys. The <code class="docutils literal notranslate"><span class="pre">Q</span></code> key (or <em>Audio/Autoselect loudest channel</em>) will toggle automatically selecting the loudest channel in the current view.</p>
-<p>To listen to the waveform on display press <code class="docutils literal notranslate"><span class="pre">E</span></code>.</p>
-</div>
+<p>The waveform view can be adjusted further for multi-channel recordings: Hide the non-selected channels in the waveform view by toggling <em>Audio/Show all channels</em>. To change the channel for which the spectrogram is displayed, use the dropdown list on the upper right or switch to next/previous channel with the up/down arrow keys. The <code class="docutils literal notranslate"><span class="pre">Q</span></code> key (or <em>Audio/Autoselect loudest channel</em>) will toggle automatically selecting the loudest channel in the current view.</p>
 </div>
 
     <script type="text/x-thebe-config">

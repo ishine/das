@@ -25,8 +25,8 @@
     href="_static/vendor/lato_latin-ext/1.44.1/index.css">
 
     
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="_static/sphinx-book-theme.40e2e510f6b7d1648584402491bb10fe.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
@@ -46,8 +46,6 @@
     <script src="_static/copybutton.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
     <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe"
@@ -104,7 +102,22 @@
   <ul class="collapse-ul">
    <li class="toctree-l2">
     <a class="reference internal" href="tutorials_gui/load.html">
+     Download example data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="tutorials_gui/load.html#start-the-gui">
+     Start the GUI
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="tutorials_gui/load.html#load-audio-data">
      Load audio data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="tutorials_gui/load.html#overview-over-the-display-and-menus">
+     Overview over the display and menus
     </a>
    </li>
    <li class="toctree-l2">
@@ -128,17 +141,22 @@
  </li>
  <li class="toctree-l1 collapsible-parent">
   <a class="reference internal" href="tutorials/tutorials.html">
-   Notebook tutorials
+   Notebook and CLI tutorial
   </a>
   <ul class="collapse-ul">
    <li class="toctree-l2">
-    <a class="reference internal" href="tutorials/notebook.html">
-     Notebook tutorial
+    <a class="reference internal" href="tutorials/convert.html">
+     Convert your own annotations and audio data
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="tutorials/cli.html">
-     CLI tutorial
+    <a class="reference internal" href="tutorials/make_dataset.html">
+     Make datasets with custom data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="tutorials/train.html">
+     Configure and train a network
     </a>
    </li>
   </ul>
@@ -360,7 +378,7 @@ Channel selection
 </div>
 <p>To annotate a new song, left-click on the waveform or spectrogram view. If you have selected an event-like type, that’s it - you just placed the event time and a line should appear in the waveform and spectrogram view. If you have selected a segment type, the cursor changes to a cross. You have only placed one boundary of the segment, a second click somewhere else will complete the annotation and a shaded area should appear between the time points of the first and second click.</p>
 <div class="figure align-default" id="xb-annotate-fig">
-<a class="reference internal image-reference" href="_images/xb_annotate.png"><img alt="annotate song" src="_images/xb_annotate.png" style="height: 500px;" /></a>
+<a class="reference internal image-reference" href="images/xb_annotate.png"><img alt="annotate song" src="images/xb_annotate.png" style="height: 500px;" /></a>
 <p class="caption"><span class="caption-text">Fully annotated fly song. Pulse (cyan) is an event-like song type and is annotated by clicking on the pulse center. Sine (red shaded area) is a segment- or syllable-like song type and is annotated by clicking on the beginning and the end of the sine syllable.</span><a class="headerlink" href="#xb-annotate-fig" title="Permalink to this image">¶</a></p>
 </div>
 <p>Delete annotations by right-clicking on the annotation. You can delete all annotations or only the selected annotation with the U and Y, respectively or via the Audio menu. Move annotations by dragging the lines or the boundaries of the shaded area - this will change event times and segment bounds. Or drag the shaded area itself to move the whole segment. Movement can be disabled completely or restricted to the currently selected annotation type.</p>

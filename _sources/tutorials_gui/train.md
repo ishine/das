@@ -24,12 +24,12 @@ Make dataset options
     - Splits can be generated using a mixture of two strategies:
         - _Split by files_: Use a fraction of files in the data folder for the specific split. The full files will be used for the split. Only works if you have multiple annotated files
         - _Split by samples_: Select a fraction of data from each file in the data folder.
-    - _Recommendation_: If you have enough files, split train and validation by samples and split test by files that come from different individuals. That way your test set assesses how well the network generalizes to new individuals.If you have too few files or the specific song types do not appear in all files, split by samples.
+    - _Recommendation_: If you have enough files, split train and validation by samples and split test by files that come from different individuals. That way your test set assesses how well the network generalizes to new individuals.If you have too few files or the specific song types do not appear in all files, split by samples. For the sake of this tutorial, we will not test the model - so set the test split to 0.0.
 
 Once the dataset is assembled, you can inspect the dataset with the [1_inspect_data.ipynb]() notebook if you are curious or if training fails.
 
 ## Train DeepSS using the GUI
-Select the folder ending in `.npy` that you just created. with the dataset, which song type to train the network for (will train network for all song types by default), and network and training parameters (see [DeepSS]() for details). Training can be started locally in a separate process or a script can be generated that can be execute to train elsewhere, for instance on a cluster.
+Configure a network and start training via _DeepSS/Train_. This will ask you select the dataset folder ending in `.npy` that you just created. with the dataset, which song type to train the network for (will train network for all song types by default), and network and training parameters (see [DeepSS]() for details). Training can be started locally in a separate process or a script can be generated that can be execute to train elsewhere, for instance on a cluster.
 
 edit script to fix paths, add cluster config commands or activate conda env.
 
@@ -64,15 +64,19 @@ Options are grouped into three sections:
 ### Training parameters
 - _Learning rate_: Determines how by how much training parameters are updated in every step. Too small, and performance will take very long to improve, too large and performance will decrease. Depends on the network and data size. Values between 0.1 and 0.0001 typically work.
 - _Reduce learning rate patience_: The learning rate can be reduced if the performance does not decrease for the specified number of epochs. We did not find this to improve or speed up training much.
-- _Number of epochs_: Maximum number of training epochs. For training on small data sets, 40 epochs are sufficient. For training on larger datasets leave as is. For Training will stop early if the validation loss did not decrease in the last 20 epochs.
-- _Create tensorboard logs_:
+- _Number of epochs_: Maximum number of training epochs. For training with the small data set used on this tutorial, 10 epochs are sufficient. For training on larger datasets leave as is. Training will stop early if the validation loss did not decrease in the last 20 epochs.
+- _Create tensorboard logs_: Ignore.
 
+## Train
+For this tutorial, leave all parameters as they are - these parameters are a good starting point for your creating a good network. Training can be performed directly in the GUI in a background process. Monitor the terminal for information on training progress. We highly recommend training on a machine with a discrete Nvidia GPU.
 
-Will run and put results in the save dir - four files:
-- model (arch + params in one file but sth fails to load across versions)
-- params
-- arch (weights only - for robustness - load by making arch from params and load weights into it
-- results
+Note that the data set is portable - you can copy the folder with the data to another computer with a GPU and run training from the GUI there. If that machine cannot be used with a GUI - for instance if its a linux server, the network configuration can be exported as a command line script (with `dss-train`, see [cli](/technical/cli)). The script will likely require some edits to adjusts the path to the dataset (the folder ending in `.npy`), to activate a specific conda environment, or to configure your cluster.
 
-## Network configuration
-Explain important parameters here.
+## Files generated during training
+The following files will be created in the _save folder_:
+- model (arch + weights in one file but sth fails to load across versions)
+- params (info on data formats etc.)
+- arch (weights only - for robustness - load by making arch from params and load weights into it, helps with rare issues when loading a model using a different tensorflow versions from that used for training.
+- results - test results (not required for inference)
+
+The `_model.h5` and `_params.yaml` are required for using the network for predictions and need to be copied to you local machine if you train remotely.

@@ -25,8 +25,8 @@
     href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
 
     
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/sphinx-book-theme.40e2e510f6b7d1648584402491bb10fe.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
@@ -106,7 +106,22 @@
   <ul class="collapse-ul">
    <li class="toctree-l2">
     <a class="reference internal" href="../tutorials_gui/load.html">
+     Download example data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../tutorials_gui/load.html#start-the-gui">
+     Start the GUI
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../tutorials_gui/load.html#load-audio-data">
      Load audio data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../tutorials_gui/load.html#overview-over-the-display-and-menus">
+     Overview over the display and menus
     </a>
    </li>
    <li class="toctree-l2">
@@ -130,17 +145,22 @@
  </li>
  <li class="toctree-l1 collapsible-parent">
   <a class="reference internal" href="../tutorials/tutorials.html">
-   Notebook tutorials
+   Notebook and CLI tutorial
   </a>
   <ul class="collapse-ul">
    <li class="toctree-l2">
-    <a class="reference internal" href="../tutorials/notebook.html">
-     Notebook tutorial
+    <a class="reference internal" href="../tutorials/convert.html">
+     Convert your own annotations and audio data
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../tutorials/cli.html">
-     CLI tutorial
+    <a class="reference internal" href="../tutorials/make_dataset.html">
+     Make datasets with custom data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../tutorials/train.html">
+     Configure and train a network
     </a>
    </li>
   </ul>
@@ -295,6 +315,20 @@
 <span class="kn">import</span> <span class="nn">urllib.request</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;ncb.mplstyle&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">1</span><span class="o">-</span><span class="n">b4d946f8f59e</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="kn">import</span> <span class="nn">umap</span>
+<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="kn">from</span> <span class="nn">scipy.cluster.vq</span> <span class="kn">import</span> <span class="n">kmeans2</span>
+<span class="ne">----&gt; </span><span class="mi">8</span> <span class="kn">import</span> <span class="nn">deepss_unsupervised.spec_utils</span>
+<span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="kn">from</span> <span class="nn">io</span> <span class="kn">import</span> <span class="n">BytesIO</span>
+<span class="g g-Whitespace">     </span><span class="mi">10</span> <span class="kn">import</span> <span class="nn">urllib.request</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;deepss_unsupervised&#39;
 </pre></div>
 </div>
 </div>
@@ -478,13 +512,13 @@
             mode: "python"
         },
         kernelOptions: {
-            kernelName: "python37664bitminicondavirtualenv7fae029fd0bd4545b5a81627b1a0f8fe",
+            kernelName: "python37664bitminiconda3conda149384b6256948af8fe3f9a9004bc318",
             path: "./unsupervised"
         },
         predefinedOutput: true
     }
     </script>
-    <script>kernelName = 'python37664bitminicondavirtualenv7fae029fd0bd4545b5a81627b1a0f8fe'</script>
+    <script>kernelName = 'python37664bitminiconda3conda149384b6256948af8fe3f9a9004bc318'</script>
 
               </div>
               

@@ -25,8 +25,8 @@
     href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
 
     
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/sphinx-book-theme.40e2e510f6b7d1648584402491bb10fe.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
@@ -46,8 +46,6 @@
     <script src="../_static/copybutton.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
     <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe"
@@ -57,7 +55,7 @@
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Notebook tutorials" href="../tutorials/tutorials.html" />
+    <link rel="next" title="Notebook and CLI tutorial" href="../tutorials/tutorials.html" />
     <link rel="prev" title="Train" href="train.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -106,7 +104,22 @@
   <ul class="current collapse-ul">
    <li class="toctree-l2">
     <a class="reference internal" href="load.html">
+     Download example data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="load.html#start-the-gui">
+     Start the GUI
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="load.html#load-audio-data">
      Load audio data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="load.html#overview-over-the-display-and-menus">
+     Overview over the display and menus
     </a>
    </li>
    <li class="toctree-l2">
@@ -130,17 +143,22 @@
  </li>
  <li class="toctree-l1 collapsible-parent">
   <a class="reference internal" href="../tutorials/tutorials.html">
-   Notebook tutorials
+   Notebook and CLI tutorial
   </a>
   <ul class="collapse-ul">
    <li class="toctree-l2">
-    <a class="reference internal" href="../tutorials/notebook.html">
-     Notebook tutorial
+    <a class="reference internal" href="../tutorials/convert.html">
+     Convert your own annotations and audio data
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../tutorials/cli.html">
-     CLI tutorial
+    <a class="reference internal" href="../tutorials/make_dataset.html">
+     Make datasets with custom data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../tutorials/train.html">
+     Configure and train a network
     </a>
    </li>
   </ul>
@@ -255,6 +273,20 @@
     <!-- Table of contents -->
     <div class="d-none d-md-block col-md-2 bd-toc show">
         
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#proofread">
+   Proofread
+  </a>
+ </li>
+</ul>
+
+        </nav>
+        
     </div>
 </div>
     <div id="main-content" class="row">
@@ -264,9 +296,34 @@
                 
   <div class="section" id="predict">
 <h1>Predict<a class="headerlink" href="#predict" title="Permalink to this headline">¶</a></h1>
+<p>Once training finished, generate annotations using the trained network via <em>DeepSS/Predict</em>. In contrast to training, prediction is very fast and does not require a GPU - if you trained the network remotely on a machine with a GPU, copy the generated files ending in <code class="docutils literal notranslate"><span class="pre">_model.h5</span></code> and <code class="docutils literal notranslate"><span class="pre">_params.yaml</span></code> to your local machine.</p>
 <div class="figure align-default" id="xb-predict-fig">
-<a class="reference internal image-reference" href="../_images/xb_predict.png"><img alt="predict" src="../_images/xb_predict.png" style="width: 700px;" /></a>
+<a class="reference internal image-reference" href="../_images/xb_predict.png"><img alt="predict" src="../_images/xb_predict.png" style="width: 750px;" /></a>
 <p class="caption"><span class="caption-number">Fig. 9 </span><span class="caption-text">predict options</span><a class="headerlink" href="#xb-predict-fig" title="Permalink to this image">¶</a></p>
+</div>
+<ul class="simple">
+<li><p><em>Model</em>: Go to the save folder specific during training and select the file ending in <code class="docutils literal notranslate"><span class="pre">_model.h5</span></code> with the chosen prefix and timestamp.</p></li>
+<li><p><em>Start/End seconds</em>: Specify the part of the recording to predict labels for. Defaults to the whole recording. For this tutorial, predict song for the 30 seconds after you manual annotations (seconds 70-100).</p></li>
+<li><p><em>Proof reading mode</em>: If True, the predictions will not yet be fully integrated but special song types ending in <code class="docutils literal notranslate"><span class="pre">_proposals</span></code> will be created. You can the fix the predictions in the view and then approve them, which will strip off the <code class="docutils literal notranslate"><span class="pre">_proposals</span></code> from them. If False, will be automatically approved and the predicted song types will be given their original names. For this tutorial, enable the proof reading mode.</p></li>
+<li><p><strong>Event detection</strong>:</p>
+<ul>
+<li><p><em>Threshold</em>: The network produces a confidence value between 0 and 1 for each sample. Events are detected based on peaks in these confidence values. The threshold sets the minimal height of these confidence peaks.</p></li>
+<li><p><em>Minimal event interval for detection (seconds)</em>: Will skip events that come to close to each other, for instance if the peaks in the confidence are jagged. Leave as is.</p></li>
+<li><p><em>Delete events closer/farther than (seconds)</em>: Additional post-detection interval filters for removing events that come to close or too far after another event. The too-far filter allows you to only keep pulses that come in train and remove isolated pulses that are likely spurious detections.</p></li>
+</ul>
+</li>
+<li><p><strong>Segment detection</strong>:</p>
+<ul>
+<li><p><em>Threshold</em>: The network produces a confidence value between 0 and 1 for each sample. Events are detected based on peaks in these confidence values. The threshold sets the minimal height of these confidence peaks.</p></li>
+<li><p><em>Fill gaps shorter than (seconds)</em>: … . Enable this!</p></li>
+<li><p><em>Delete segments shorter than (seconds)</em>: . Enable this!</p></li>
+</ul>
+</li>
+</ul>
+<div class="section" id="proofread">
+<h2>Proofread<a class="headerlink" href="#proofread" title="Permalink to this headline">¶</a></h2>
+<p>Since you created predictions in proof reading mode, the predictions will be assigned to two new song types, starting with the original name of the song type and ending in <code class="docutils literal notranslate"><span class="pre">_proposals</span></code>. Correct any prediction errors—add missing annotations, remove false positive annotations, adjust the timing of annotations. Once you have corrected all errors, approve annotations with <code class="docutils literal notranslate"><span class="pre">G</span></code> or <code class="docutils literal notranslate"><span class="pre">H</span></code> for approving only the active or all song types, respectively. This will rename the proposals in the view to the original names (for instance, <code class="docutils literal notranslate"><span class="pre">sine_proposals</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">sine</span></code>).</p>
+<p>Repeat the prediction-&gt;correction-&gt;training cycle for ever larger parts of the recording, to easily build a large dataset of annotations for training ever better networks.</p>
 </div>
 </div>
 
@@ -299,7 +356,7 @@
     <div class='prev-next-bottom'>
         
     <a class='left-prev' id="prev-link" href="train.html" title="previous page">Train</a>
-    <a class='right-next' id="next-link" href="../tutorials/tutorials.html" title="next page">Notebook tutorials</a>
+    <a class='right-next' id="next-link" href="../tutorials/tutorials.html" title="next page">Notebook and CLI tutorial</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">
