@@ -29,7 +29,7 @@ Currently, the GUI can load audio data from a wide range of file types:
 The example recording is an audio file in `wav` format.
 
 ```{note}
-If your favorite format is not included in this list, convert it to a supported format, for instance a `h5` or a `wav` file.
+If your favorite format is not included in this list, [convert it to a supported format](/tutorials/convert).
 ```
 
 ## Options
