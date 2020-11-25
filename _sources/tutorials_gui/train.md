@@ -70,7 +70,15 @@ Options are grouped into three sections:
 ## Train
 For this tutorial, leave all parameters as they are - these parameters are a good starting point for your creating a good network. Training can be performed directly in the GUI in a background process. Monitor the terminal for information on training progress. We highly recommend training on a machine with a discrete Nvidia GPU.
 
-Note that the data set is portable - you can copy the folder with the data to another computer with a GPU and run training from the GUI there. If that machine cannot be used with a GUI - for instance if its a linux server, the network configuration can be exported as a command line script (with `dss-train`, see [cli](/technical/cli)). The script will likely require some edits to adjusts the path to the dataset (the folder ending in `.npy`), to activate a specific conda environment, or to configure your cluster.
+Note that the data set is portable---you can copy the folder with the data to another computer with a GPU and run training from the GUI there. If that machine cannot be used with a GUI---for instance if it's a linux server, the network configuration can be exported as a command line script and executed via a terminal. For instance:
+```shell
+python3 -m dss.train --data-dir /Users/deepss/tutorial/gui_demo.npy --save-dir /Users/deepss/tutorial/gui_demo.res --nb-hist 256 --ignore-boundaries True --nb-filters 32 --kernel-size 32 --nb-conv 3 --use-separable False False False --learning-rate 0.0001 --nb-epoch 400 --model-name tcn --no-reduce-lr  --no-tensorboard
+```
+The script uses the command-line interface `dss-train` for training _DeepSS_---see [cli](/technical/cli)) for details. The script will likely require some edits:
+- `--data-dir` needs to point to the dataset folder ending in `.npy` on the remote machine
+- `--save-dir` needs to point to a valid, writable paths
+- add a line to activate a specific conda environment before running `dss-train`. For instance, `conda activate dss-server`
+- activate linux modules, for instance to enable CUDA; or specify parameters for you job scheduler.
 
 ## Files generated during training
 The following files will be created in the _save folder_:

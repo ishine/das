@@ -25,8 +25,8 @@
     href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
 
     
-    <link rel="stylesheet" href="../_static/sphinx-book-theme.40e2e510f6b7d1648584402491bb10fe.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.40e2e510f6b7d1648584402491bb10fe.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
@@ -165,6 +165,11 @@
      Configure and train a network
     </a>
    </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../tutorials/realtime.html">
+     Realtime annotations
+    </a>
+   </li>
   </ul>
   <i class="fas fa-chevron-down">
   </i>
@@ -294,6 +299,20 @@
     <!-- Table of contents -->
     <div class="d-none d-md-block col-md-2 bd-toc show">
         
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#download-audio-data">
+   Download audio data
+  </a>
+ </li>
+</ul>
+
+        </nav>
+        
     </div>
 </div>
     <div id="main-content" class="row">
@@ -321,10 +340,12 @@
 </div>
 </div>
 </div>
+<div class="section" id="download-audio-data">
+<h2>Download audio data<a class="headerlink" href="#download-audio-data" title="Permalink to this headline">¶</a></h2>
+<p>Data kindly provided by Kurt Hammerschmidt and published in A Ivanenko, P Watkins, MAJ van Gerven, K Hammerschmidt, B Englitz (2020) Classifying sex and strain from mouse ultrasonic vocalizations using deep learning. PLoS Comput Biol 16(6): e1007918.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># data provided by Kurt Hammerschmidt and published in A Ivanenko, P Watkins, MAJ van Gerven, K Hammerschmidt, B Englitz (2020) Classifying sex and strain from mouse ultrasonic vocalizations using deep learning. PLoS Comput Biol 16(6): e1007918.</span>
-<span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/janclemenslab/deepss_unsupervised/releases/download/v0.4/mice.npz&#39;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/janclemenslab/deepss_unsupervised/releases/download/v0.4/mice.npz&#39;</span>
 <span class="k">with</span> <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">url</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
     <span class="n">ff</span> <span class="o">=</span> <span class="n">BytesIO</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
 
@@ -366,7 +387,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/mice_4_0.svg" src="../_images/mice_4_0.svg" /></div>
+<img alt="../_images/mice_5_0.svg" src="../_images/mice_5_0.svg" /></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -389,7 +410,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/mice_5_0.svg" src="../_images/mice_5_0.svg" /></div>
+<img alt="../_images/mice_6_0.svg" src="../_images/mice_6_0.svg" /></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -410,7 +431,7 @@
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46
 </pre></div>
 </div>
-<img alt="../_images/mice_6_1.svg" src="../_images/mice_6_1.svg" /></div>
+<img alt="../_images/mice_7_1.svg" src="../_images/mice_7_1.svg" /></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -448,7 +469,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/mice_10_0.svg" src="../_images/mice_10_0.svg" /></div>
+<img alt="../_images/mice_11_0.svg" src="../_images/mice_11_0.svg" /></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -470,7 +491,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/mice_12_0.svg" src="../_images/mice_12_0.svg" /></div>
+<img alt="../_images/mice_13_0.svg" src="../_images/mice_13_0.svg" /></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -484,7 +505,8 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/mice_13_0.svg" src="../_images/mice_13_0.svg" /></div>
+<img alt="../_images/mice_14_0.svg" src="../_images/mice_14_0.svg" /></div>
+</div>
 </div>
 </div>
 

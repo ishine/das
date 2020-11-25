@@ -25,8 +25,8 @@
     href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
 
     
-    <link rel="stylesheet" href="../_static/sphinx-book-theme.40e2e510f6b7d1648584402491bb10fe.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.40e2e510f6b7d1648584402491bb10fe.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
@@ -48,8 +48,6 @@
     <script src="../_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
     <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
     <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe"
@@ -163,6 +161,11 @@
    <li class="toctree-l2">
     <a class="reference internal" href="../tutorials/train.html">
      Configure and train a network
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../tutorials/realtime.html">
+     Realtime annotations
     </a>
    </li>
   </ul>
@@ -413,7 +416,17 @@
 <div class="section" id="id1">
 <h2>Train<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <p>For this tutorial, leave all parameters as they are - these parameters are a good starting point for your creating a good network. Training can be performed directly in the GUI in a background process. Monitor the terminal for information on training progress. We highly recommend training on a machine with a discrete Nvidia GPU.</p>
-<p>Note that the data set is portable - you can copy the folder with the data to another computer with a GPU and run training from the GUI there. If that machine cannot be used with a GUI - for instance if its a linux server, the network configuration can be exported as a command line script (with <code class="docutils literal notranslate"><span class="pre">dss-train</span></code>, see <a class="reference internal" href="../technical/cli.html"><span class="doc std std-doc">cli</span></a>). The script will likely require some edits to adjusts the path to the dataset (the folder ending in <code class="docutils literal notranslate"><span class="pre">.npy</span></code>), to activate a specific conda environment, or to configure your cluster.</p>
+<p>Note that the data set is portable—you can copy the folder with the data to another computer with a GPU and run training from the GUI there. If that machine cannot be used with a GUI—for instance if it’s a linux server, the network configuration can be exported as a command line script and executed via a terminal. For instance:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python3 -m dss.train --data-dir /Users/deepss/tutorial/gui_demo.npy --save-dir /Users/deepss/tutorial/gui_demo.res --nb-hist <span class="m">256</span> --ignore-boundaries True --nb-filters <span class="m">32</span> --kernel-size <span class="m">32</span> --nb-conv <span class="m">3</span> --use-separable False False False --learning-rate <span class="m">0</span>.0001 --nb-epoch <span class="m">400</span> --model-name tcn --no-reduce-lr  --no-tensorboard
+</pre></div>
+</div>
+<p>The script uses the command-line interface <code class="docutils literal notranslate"><span class="pre">dss-train</span></code> for training <em>DeepSS</em>—see <a class="reference internal" href="../technical/cli.html"><span class="doc std std-doc">cli</span></a>) for details. The script will likely require some edits:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--data-dir</span></code> needs to point to the dataset folder ending in <code class="docutils literal notranslate"><span class="pre">.npy</span></code> on the remote machine</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--save-dir</span></code> needs to point to a valid, writable paths</p></li>
+<li><p>add a line to activate a specific conda environment before running <code class="docutils literal notranslate"><span class="pre">dss-train</span></code>. For instance, <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">activate</span> <span class="pre">dss-server</span></code></p></li>
+<li><p>activate linux modules, for instance to enable CUDA; or specify parameters for you job scheduler.</p></li>
+</ul>
 </div>
 <div class="section" id="files-generated-during-training">
 <h2>Files generated during training<a class="headerlink" href="#files-generated-during-training" title="Permalink to this headline">¶</a></h2>

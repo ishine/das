@@ -25,8 +25,8 @@
     href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
 
     
-    <link rel="stylesheet" href="../_static/sphinx-book-theme.40e2e510f6b7d1648584402491bb10fe.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.40e2e510f6b7d1648584402491bb10fe.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
@@ -48,8 +48,6 @@
     <script src="../_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
     <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
     <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe"
@@ -162,6 +160,11 @@
    <li class="toctree-l2">
     <a class="reference internal" href="../tutorials/train.html">
      Configure and train a network
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../tutorials/realtime.html">
+     Realtime annotations
     </a>
    </li>
   </ul>
@@ -330,51 +333,32 @@
 <h2>xb<a class="headerlink" href="#xb" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>xb --help
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>!dss-gui --help
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>objc[43608]: Class RunLoopModeTracker is implemented in both /Users/clemens10/miniconda3/lib/libQt5Core.5.9.7.dylib (0x1274dca80) and /Users/clemens10/miniconda3/lib/python3.7/site-packages/cv2/.dylibs/QtCore (0x133bcc7f0). One of the two will be used. Which one is undefined.
-usage: xb [-h] [-e EVENTS_STRING] [-t TARGET_SAMPLINGRATE]
-          [--spec-freq-min SPEC_FREQ_MIN] [--spec-freq-max SPEC_FREQ_MAX]
-          [-b BOX_SIZE] [--skip-dialog] [--no-skip-dialog] [--version]
-          [source]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>usage: dss-gui [-h] [-e EVENTS_STRING] [-t TARGET_SAMPLINGRATE]
+               [--spec-freq-min SPEC_FREQ_MIN] [--spec-freq-max SPEC_FREQ_MAX]
+               [-b BOX_SIZE] [--skip-dialog] [--no-skip-dialog] [--version]
+               [source]
 
 positional arguments:
-  source                Data source to load.
-                        Optional - will open an empty file if omitted.
-                        Source can be the path to a wav audio file,
-                        to an xarray-behave dataset saved as a zarr file,
-                        or to a data folder (e.g. &#39;dat/localhost-xxx&#39;).
-                        (default: )
+  source                (default: )
 
 optional arguments:
   -h, --help            show this help message and exit
   -e EVENTS_STRING, --events-string EVENTS_STRING
-                        &quot;event_name,event_category;event_name,event_category&quot;.
-                        Avoid spaces or trailing &#39;;&#39;.
-                        Need to wrap the string in &quot;...&quot; in the terminal
-                        &quot;event_name&quot; can be any string w/o space, &quot;,&quot;, or &quot;;&quot;
-                        &quot;event_category&quot; can by event (pulse) or segment (sine, syllable)
-                        Only used if source is a data folder or a wav audio file.
                         (default: )
   -t TARGET_SAMPLINGRATE, --target-samplingrate TARGET_SAMPLINGRATE
-                        [description]. If 0, will use frame times. Defaults to None.
-                        Only used if source is a data folder or a wav audio file.
                         (default: None)
   --spec-freq-min SPEC_FREQ_MIN
-                        [description].
                         (default: None)
   --spec-freq-max SPEC_FREQ_MAX
-                        [description].
                         (default: None)
   -b BOX_SIZE, --box-size BOX_SIZE
-                        desc.
-                        Not used for wav audio files (no videos).
                         (default: 200)
-  --skip-dialog         If True, skips the opening dialog and goes straight to opening the data.
-                        (default: False)
+  --skip-dialog         (default: False)
   --no-skip-dialog
   --version             show program&#39;s version number and exit
 
@@ -387,7 +371,7 @@ optional arguments:
 <h2>dss-train<a class="headerlink" href="#dss-train" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>dss-train --help
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>!dss-train --help
 </pre></div>
 </div>
 </div>
@@ -506,7 +490,7 @@ optional arguments:
 <h2>dss-predict<a class="headerlink" href="#dss-predict" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>dss-predict --help
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>!dss-predict --help
 </pre></div>
 </div>
 </div>
@@ -586,13 +570,13 @@ optional arguments:
             mode: "python"
         },
         kernelOptions: {
-            kernelName: "python37664bitminiconda3conda149384b6256948af8fe3f9a9004bc318",
+            kernelName: "python3",
             path: "./technical"
         },
         predefinedOutput: true
     }
     </script>
-    <script>kernelName = 'python37664bitminiconda3conda149384b6256948af8fe3f9a9004bc318'</script>
+    <script>kernelName = 'python3'</script>
 
               </div>
               

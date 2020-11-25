@@ -7,3 +7,4 @@
     - notebook as page
     - link to notebook for download
 - training useing dss module
+- realtime!

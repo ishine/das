@@ -25,8 +25,8 @@
     href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
 
     
-    <link rel="stylesheet" href="../_static/sphinx-book-theme.40e2e510f6b7d1648584402491bb10fe.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.40e2e510f6b7d1648584402491bb10fe.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
@@ -163,6 +163,11 @@
    <li class="toctree-l2">
     <a class="reference internal" href="../tutorials/train.html">
      Configure and train a network
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../tutorials/realtime.html">
+     Realtime annotations
     </a>
    </li>
   </ul>
@@ -305,10 +310,11 @@
 <h1>Fly song<a class="headerlink" href="#fly-song" title="Permalink to this headline">¶</a></h1>
 <p>Clustering annotations of sine and pulse song should yield three clear clusters:</p>
 <ol class="simple">
-<li><p><strong>Sine</strong>: relatively slow (150Hz), sustained oscillations</p></li>
-<li><p><strong>Pslow</strong>: relatively broad and symmetrical pulses with a central positive lobe flanked by two negative lobes</p></li>
-<li><p><strong>Pfast</strong>: shorter, asymmetrical (biphasic) pulses</p></li>
+<li><p><em>Sine</em>: relatively slow (150Hz), sustained oscillations</p></li>
+<li><p><em>Pslow</em>: relatively broad and symmetrical pulses with a central positive lobe flanked by two negative lobes</p></li>
+<li><p><em>Pfast</em>: shorter, asymmetrical (biphasic) pulses</p></li>
 </ol>
+<p>We closely follow the approach in Clemens et al. (2018): Discovery of a new song mode in Drosophila reveals hidden structure in the sensory and neural drivers of behavior.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
