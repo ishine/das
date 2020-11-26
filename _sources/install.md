@@ -27,74 +27,9 @@ To test the installation, activate the conda environment and run these three com
 conda activate dss
 dss-train --help
 dss-predict --help
-xb
+dss-gui
 ```
-The first two should display the command line arguments for `dss-train` and `dss-predict`. The last command will start the graphical user interface - it will *not* work with the plain install.
+The first two should display the command line arguments for `dss-train` and `dss-predict`. The last command, `dss-gui` will start the graphical user interface - this will *not* work with the plain install.
 
 ## Next steps
-If all is working, you need to adapt _DeepSS_ to annotate song in your own recordings. For that, first to [annotate some song manually using the GUI](annotate). If you already have annotations, use them to [make a dataset for training](make_dataset) _DeepSS_.
-
-<!--
-# Manual
-## Install python
-Install conda (see [here](https://docs.conda.io/en/latest/miniconda.html)). DeepSS has been tested with python 3.7 and 3.8. Then create a fresh python environment and activate it:
-```shell
-conda create -n dss python=3.7 -y
-conda activate dss
-```
-All of the following steps should be performed with this environment active.
-```shell
-conda env create -f deepss_gui_osx.yml -n dss
-```
-
-
-
-## Install _DeepSS_
-This is sufficient if you want to use the _dss_ module via the command line or python:
-```shell
-conda install zarr tensorflow # or `tensorflow-gpu`
-pip install git+https://github.com/janclemenslab/deepsongsegmenter
-```
-Tensorflow is the deep learning framework used to implement the DeepSS network. Tensorflow is not installed automatically to avoid interference with existing installations and to provide more control over versions. We recommend installation via conda install, but pip install should also work and typically installs a newer version. The manual install of zarr is required in some windows systems since the install via pip can be wonky. DeepSS has been tested with tensorflow versions 2.1, 2.2, and 2.3.
-
-## Install the GUI
-If you want to use the GUI to annotate song manually and with DeepSS and to train DeepSS networks:
-```shell
-conda install pyside2
-conda install pyqtgraph=0.11.0rc0 python-sounddevice hdbscan umap-learn -c conda-forge -y
-pip install xarray-behave[gui]
-```
-
-
-## Optional
-Install tools for unsupervised analyses of song:
-```shell
-conda install hdbscan umap-learn -c conda-forge -y
-pip install deepss-unsupervised
-```
-
-
-## Test the installation
-To test the installation, run these three commands in the terminal:
-```shell
-dss-train --help
-dss-predict --help
-xb
-```
-The first two should display the command line arguments for `dss-train` and `dss-predict`. The last should start the graphical user interface.
-
-
-```
-conda create -n dss python=3.7 -y
-conda activate dss
-conda install zarr tensorflow -y # or `tensorflow-gpu`
-conda install python-sounddevice hdbscan umap-learn -c conda-forge -y
-conda install hdbscan umap-learn -c conda-forge -y
-pip install git+https://github.com/janclemenslab/deepsongsegmenter
-pip install xarray-behave[gui]
-pip install deepss-unsupervised
-dss-train --help
-dss-predict --help
-xb
-``` -->
-
+If all is working, train _DeepSS_ to annotate song in your own recordings. Either [annotate some song manually using the GUI](annotate) or, if you already have annotations, use them to [make a dataset for training](make_dataset) _DeepSS_.

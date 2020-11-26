@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Configure and train a network &#8212; DeepSS docs</title>
+    <title>Training &#8212; DeepSS docs</title>
     
   <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
 
@@ -48,8 +48,6 @@
     <script src="../_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
     <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
     <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe"
@@ -162,7 +160,7 @@
    </li>
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
-     Configure and train a network
+     Training
     </a>
    </li>
    <li class="toctree-l2">
@@ -187,11 +185,6 @@
    <li class="toctree-l2">
     <a class="reference internal" href="../unsupervised/mice.html">
      Ultrasonic vocalizations from mice
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../unsupervised/mice.html#pre-processing">
-     Pre-processing
     </a>
    </li>
    <li class="toctree-l2">
@@ -262,9 +255,9 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/tutorials/train.md"><button type="button"
+        <a class="dropdown-buttons" href="../_sources/tutorials/train.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.md</button></a>
+                data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
         <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
             onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
@@ -282,44 +275,27 @@
 
         <!-- Launch buttons -->
 
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/tutorials/train.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
     </div>
 
     <!-- Table of contents -->
     <div class="d-none d-md-block col-md-2 bd-toc show">
-        
-        <div class="tocsection onthispage pt-5 pb-3">
-            <i class="fas fa-list"></i> Contents
-        </div>
-        <nav id="bd-toc-nav">
-            <ul class="nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#train-notebook">
-   Train notebook
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#train-cli">
-   Train cli
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#network-configuration">
-   Network configuration
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#artefacts">
-   Artefacts
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#test-the-network">
-   Test the network
-  </a>
- </li>
-</ul>
-
-        </nav>
         
     </div>
 </div>
@@ -328,38 +304,317 @@
         
               <div>
                 
-  <div class="section" id="configure-and-train-a-network">
-<h1>Configure and train a network<a class="headerlink" href="#configure-and-train-a-network" title="Permalink to this headline">¶</a></h1>
-<p>Will run and put results in the save dir - four files:</p>
+  <div class="section" id="training">
+<h1>Training<a class="headerlink" href="#training" title="Permalink to this headline">¶</a></h1>
+<p>Train the network using <code class="docutils literal notranslate"><span class="pre">dss.train</span></code>. The function will:</p>
 <ul class="simple">
-<li><p>model (arch + params in one file but sth fails to load across versions)</p></li>
-<li><p>params</p></li>
-<li><p>arch (weights only - for robustness - load by making arch from params and load weights into it</p></li>
-<li><p>results</p></li>
+<li><p>load train/val/test data</p></li>
+<li><p>initialize the network</p></li>
+<li><p>save all parameters for reproducibility</p></li>
+<li><p>train the network and save the best network to disk</p></li>
+<li><p>run inference and evaluate the network using the test data.</p></li>
 </ul>
-<div class="section" id="train-notebook">
-<h2>Train notebook<a class="headerlink" href="#train-notebook" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="train-cli">
-<h2>Train cli<a class="headerlink" href="#train-cli" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="network-configuration">
-<h2>Network configuration<a class="headerlink" href="#network-configuration" title="Permalink to this headline">¶</a></h2>
-<p>Explain important parameters here.</p>
-</div>
-<div class="section" id="artefacts">
-<h2>Artefacts<a class="headerlink" href="#artefacts" title="Permalink to this headline">¶</a></h2>
-<p>Will run and put results in the save dir - four files:</p>
+<p>In the process, four files will be created, all starting with the date_time the process was started (<code class="docutils literal notranslate"><span class="pre">YYYYMMDD_HHMMSS</span></code> as in <code class="docutils literal notranslate"><span class="pre">20192310_091032</span></code>):</p>
 <ul class="simple">
-<li><p>model (arch + params in one file but sth fails to load across versions)</p></li>
-<li><p>params</p></li>
-<li><p>arch (weights only - for robustness - load by making arch from params and load weights into it</p></li>
-<li><p>results</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">*_params.yaml</span></code> - training parameters etc</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">*_arch.yaml</span></code> - network architecture</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">*_model.h5</span></code> -  model architecture and weights</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">*_results.h5</span></code> - evaluation results</p></li>
 </ul>
+<p>Training can be invoked from within a script/notebook (see below) or from the command line (command line interface created by <a class="reference external" href="https://defopt.readthedocs.io/en/stable/index.html">defopt</a>):</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python -m dss.train --data-dir dat/dmel_single_raw.npy --save-dir res --model-name tcn --kernel-size <span class="m">16</span> --nb-filters <span class="m">16</span> --nb-hist <span class="m">512</span> --nb-epoch <span class="m">20</span> -i
+</pre></div>
 </div>
-<div class="section" id="test-the-network">
-<h2>Test the network<a class="headerlink" href="#test-the-network" title="Permalink to this headline">¶</a></h2>
-<p>Load <code class="docutils literal notranslate"><span class="pre">_results.h5</span></code> into <span class="xref myst">test_deepss.ipynb</span> notebook.</p>
+<p>The above example uses the dataset created by <span class="xref myst">1_prepare_data.ipynb</span>. Note that the training data set and the model parameters are chosen for demonstration purposes and do not yield state-of-the-art performance.
+However, training for 10 epochs should yield a reasonably good model and takes around 15 minutes on a GPU. Training will typically converge after ~80 epochs.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">dss.train</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">help</span><span class="p">(</span><span class="n">dss</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">train</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Help on function train in module dss.train:
+
+train(*, data_dir: str, model_name: str = &#39;tcn&#39;, nb_filters: int = 16, kernel_size: int = 16, nb_conv: int = 3, nb_hist: int = 1024, batch_norm: bool = True, save_dir: str = &#39;./&#39;, verbose: int = 2, nb_stacks: int = 2, with_y_hist: bool = True, nb_epoch: int = 400, fraction_data: float = None, seed: int = None, ignore_boundaries: bool = True, x_suffix: str = &#39;&#39;, y_suffix: str = &#39;&#39;, nb_pre_conv: int = 0, learning_rate: float = None, reduce_lr: bool = False, reduce_lr_patience: int = 5, batch_level_subsampling: bool = False, tensorboard: bool = False, use_separable: List[bool] = False, pre_kernel_size: int = 3, pre_nb_filters: int = 16, pre_nb_conv: int = 2, save_prefix: str = None, log_messages: bool = False)
+    Train a DeepSS network.
+    
+    Args:
+        data_dir (str): Path to the directory or file with the dataset for training.
+                        Accepts npy-dirs (recommended), h5 files or zarr files.
+                        See documentation for how the dataset should be organized.
+        x_suffix (str): ... Defaults to &#39;&#39; (will use &#39;x&#39;)
+        y_suffix (str): ... Defaults to &#39;&#39; (will use &#39;y&#39;)
+        save_dir (str): Directory to save training outputs.
+                        The path of output files will constructed from the SAVE_DIR, an optional prefix, and the time stamp of the start of training.
+                        Defaults to current directory (&#39;./&#39;).
+        save_prefix (str): Prepend to timestamp.
+                           Name of files created will be SAVE_DIR/SAVE_PREFIX + &quot;_&quot; + TIMESTAMP
+                           or SAVE_DIR/ TIMESTAMP if SAVE_PREFIX is empty.
+                           Defaults to &#39;&#39; (empty).
+        model_name (str): Network architecture to use.
+                          Use &quot;tcn&quot; (TCN) or &quot;tcn_stft&quot; (TCN with STFT frontend).
+                          See dss.models for a description of all models.
+                          Defaults to &#39;tcn&#39;.
+        nb_filters (int): Number of filters per layer.
+                          Defaults to 16.
+        kernel_size (int): Duration of the filters (=kernels) in samples.
+                           Defaults to 16.
+        nb_conv (int): Number of TCN blocks in the network.
+                       Defaults to 3.
+        use_separable (List[bool]): Specify which TCN blocks should use separable convolutions.
+                                    Provide as a space-separated sequence of &quot;False&quot; or &quot;True.
+                                    For instance: &quot;True False False&quot; will set the first block in a
+                                    three-block (as given by nb_conv) network to use separable convolutions.
+                                    Defaults to False (no block uses separable convolution).
+        nb_hist (int): Number of samples processed at once by the network (a.k.a chunk size).
+                       Defaults to 1024.
+        ignore_boundaries (bool): Minimize edge effects by discarding predictions at the edges of chunks.
+                                  Defaults to True.
+        nb_pre_conv (int): Adds downsampling frontend.
+                           TCN: adds a frontend of N conv blocks (conv-relu-batchnorm-maxpool2) to the TCN - useful for reducing the sampling rate for USV.
+                           TCN_STFT: stft
+                           Defaults to 0 (no frontend).
+        pre_nb_filters (int): [description]. Defaults to 16.
+        pre_kernel_size (int): [description]. Defaults to 3.
+        pre_nb_conv (int): [description]. Defaults to 3.
+        batch_norm (bool): Batch normalize.
+                           Defaults to True.
+        verbose (int): Verbosity of training output (0 - no output(?), 1 - progress bar, 2 - one line per epoch).
+                       Defaults to 2.
+        nb_epoch (int): Maximal number of training epochs.
+                        Training will stop early if validation loss did not decrease in the last 20 epochs.
+                        Defaults to 400.
+        learning_rate (float): Learning rate of the model. Defaults should work in most cases.
+                               Values typically range between 0.1 and 0.00001.
+                               If None, uses per model defaults: &quot;tcn&quot; 0.0001, &quot;tcn_stft&quot; 0.0005).
+                               Defaults to None.
+        reduce_lr (bool): Reduce learning rate on plateau.
+                          Defaults to False.
+        reduce_lr_patience (int): Number of epochs w/o a reduction in validation loss after which to trigger a reduction in learning rate.
+                                  Defaults to 5.
+        fraction_data (float): Fraction of training and validation to use for training.
+                               Defaults to 1.0.
+        seed (int): Random seed to reproducible select fractions of the data.
+                    Defaults to None (no seed).
+        batch_level_subsampling (bool): Select fraction of data for training from random subset of shuffled batches.
+                                        If False, select a continuous chunk of the recording.
+                                        Defaults to False.
+        tensorboard (bool): Write tensorboard logs to save_dir.
+                            Defaults to False.
+        log_messages (bool): Sets logging level to INFO.
+                             Defaults to False (will follow existing settings).
+        nb_stacks (int): Unused if model name is &quot;tcn&quot; or &quot;tcn_stft&quot;. Defaults to 2.
+        with_y_hist (bool): Unused if model name is &quot;tcn&quot; or &quot;tcn_stft&quot;. Defaults to True.
+</pre></div>
+</div>
+</div>
+</div>
+<p>Training can be invoked from within a script/notebook (see below) or from the command line (command line interface created by <a class="reference external" href="https://defopt.readthedocs.io/en/stable/index.html">defopt</a>). For instance:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python -m dss.train --data-dir dat/dmel_single_raw.npy --save-dir res --model-name tcn --kernel-size <span class="m">16</span> --nb-filters <span class="m">16</span> --nb-hist <span class="m">512</span> --nb-epoch <span class="m">20</span> -i
+</pre></div>
+</div>
+<div class="cell tag_outputPrepend docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dss</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">model_name</span><span class="o">=</span><span class="s1">&#39;tcn&#39;</span><span class="p">,</span>  <span class="c1"># see `dss.models` for valid model_names</span>
+                <span class="n">data_dir</span><span class="o">=</span><span class="s1">&#39;dat/dmel_single_raw.npy&#39;</span><span class="p">,</span> 
+                <span class="n">save_dir</span><span class="o">=</span><span class="s1">&#39;res&#39;</span><span class="p">,</span>
+                <span class="n">nb_hist</span><span class="o">=</span><span class="mi">512</span><span class="p">,</span>
+                <span class="n">kernel_size</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
+                <span class="n">nb_filters</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
+                <span class="n">ignore_boundaries</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                <span class="n">nb_epoch</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
+    <span class="p">[</span><span class="o">...</span> <span class="n">skipping</span> <span class="n">hidden</span> <span class="mi">1</span> <span class="n">frame</span><span class="p">]</span>
+
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">3</span><span class="o">-</span><span class="n">bd6a4204a5b7</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">8</span>                 <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+<span class="ne">----&gt; </span><span class="mi">9</span>                 <span class="n">nb_epoch</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="nn">/Volumes/shinkansen/Dropbox/code.py/deepss/src/dss/train.py</span> in <span class="ni">train</span><span class="nt">(data_dir, model_name, nb_filters, kernel_size, nb_conv, nb_hist, batch_norm, save_dir, verbose, nb_stacks, with_y_hist, nb_epoch, fraction_data, seed, ignore_boundaries, x_suffix, y_suffix, nb_pre_conv, learning_rate, reduce_lr, reduce_lr_patience, batch_level_subsampling, tensorboard, use_separable, pre_kernel_size, pre_nb_filters, pre_nb_conv, save_prefix, log_messages)</span>
+<span class="g g-Whitespace">    </span><span class="mi">221</span>         <span class="n">validation_data</span><span class="o">=</span><span class="n">val_gen</span><span class="p">,</span>
+<span class="ne">--&gt; </span><span class="mi">222</span>         <span class="n">callbacks</span><span class="o">=</span><span class="n">callbacks</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">223</span>     <span class="p">)</span>
+
+<span class="nn">~/miniconda3/lib/python3.7/site-packages/tensorflow_core/python/keras/engine/training.py</span> in <span class="ni">fit</span><span class="nt">(self, x, y, batch_size, epochs, verbose, callbacks, validation_split, validation_data, shuffle, class_weight, sample_weight, initial_epoch, steps_per_epoch, validation_steps, validation_freq, max_queue_size, workers, use_multiprocessing, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">727</span>         <span class="n">workers</span><span class="o">=</span><span class="n">workers</span><span class="p">,</span>
+<span class="ne">--&gt; </span><span class="mi">728</span>         <span class="n">use_multiprocessing</span><span class="o">=</span><span class="n">use_multiprocessing</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">729</span> 
+
+<span class="nn">~/miniconda3/lib/python3.7/site-packages/tensorflow_core/python/keras/engine/training_generator.py</span> in <span class="ni">fit</span><span class="nt">(self, model, x, y, batch_size, epochs, verbose, callbacks, validation_split, validation_data, shuffle, class_weight, sample_weight, initial_epoch, steps_per_epoch, validation_steps, validation_freq, max_queue_size, workers, use_multiprocessing)</span>
+<span class="g g-Whitespace">    </span><span class="mi">602</span>         <span class="n">initial_epoch</span><span class="o">=</span><span class="n">initial_epoch</span><span class="p">,</span>
+<span class="ne">--&gt; </span><span class="mi">603</span>         <span class="n">steps_name</span><span class="o">=</span><span class="s1">&#39;steps_per_epoch&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">604</span> 
+
+<span class="nn">~/miniconda3/lib/python3.7/site-packages/tensorflow_core/python/keras/engine/training_generator.py</span> in <span class="ni">model_iteration</span><span class="nt">(model, data, steps_per_epoch, epochs, verbose, callbacks, validation_data, validation_steps, validation_freq, class_weight, max_queue_size, workers, use_multiprocessing, shuffle, initial_epoch, mode, batch_size, steps_name, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">264</span>       <span class="n">is_deferred</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">model</span><span class="o">.</span><span class="n">_is_compiled</span>
+<span class="ne">--&gt; </span><span class="mi">265</span>       <span class="n">batch_outs</span> <span class="o">=</span> <span class="n">batch_function</span><span class="p">(</span><span class="o">*</span><span class="n">batch_data</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">266</span>       <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">batch_outs</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+
+<span class="nn">~/miniconda3/lib/python3.7/site-packages/tensorflow_core/python/keras/engine/training.py</span> in <span class="ni">train_on_batch</span><span class="nt">(self, x, y, sample_weight, class_weight, reset_metrics)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1017</span>       <span class="bp">self</span><span class="o">.</span><span class="n">_make_train_function</span><span class="p">()</span>
+<span class="ne">-&gt; </span><span class="mi">1018</span>       <span class="n">outputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">train_function</span><span class="p">(</span><span class="n">ins</span><span class="p">)</span>  <span class="c1"># pylint: disable=not-callable</span>
+<span class="g g-Whitespace">   </span><span class="mi">1019</span> 
+
+<span class="nn">~/miniconda3/lib/python3.7/site-packages/tensorflow_core/python/keras/backend.py</span> in <span class="ni">__call__</span><span class="nt">(self, inputs)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3579</span>     <span class="n">fetched</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_callable_fn</span><span class="p">(</span><span class="o">*</span><span class="n">array_vals</span><span class="p">,</span>
+<span class="ne">-&gt; </span><span class="mi">3580</span>                                 <span class="n">run_metadata</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">run_metadata</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3581</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_call_fetch_callbacks</span><span class="p">(</span><span class="n">fetched</span><span class="p">[</span><span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_fetches</span><span class="p">):])</span>
+
+<span class="nn">~/miniconda3/lib/python3.7/site-packages/tensorflow_core/python/client/session.py</span> in <span class="ni">__call__</span><span class="nt">(self, *args, **kwargs)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1471</span>                                                <span class="bp">self</span><span class="o">.</span><span class="n">_handle</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span>
+<span class="ne">-&gt; </span><span class="mi">1472</span>                                                <span class="n">run_metadata_ptr</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1473</span>         <span class="k">if</span> <span class="n">run_metadata</span><span class="p">:</span>
+
+<span class="ne">KeyboardInterrupt</span>: 
+
+<span class="n">During</span> <span class="n">handling</span> <span class="n">of</span> <span class="n">the</span> <span class="n">above</span> <span class="n">exception</span><span class="p">,</span> <span class="n">another</span> <span class="n">exception</span> <span class="n">occurred</span><span class="p">:</span>
+
+<span class="ne">AttributeError</span><span class="g g-Whitespace">                            </span>Traceback (most recent call last)
+<span class="nn">~/miniconda3/lib/python3.7/site-packages/IPython/core/interactiveshell.py</span> in <span class="ni">showtraceback</span><span class="nt">(self, exc_tuple, filename, tb_offset, exception_only, running_compiled_code)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2043</span>                         <span class="c1"># in the engines. This should return a list of strings.</span>
+<span class="ne">-&gt; </span><span class="mi">2044</span>                         <span class="n">stb</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">_render_traceback_</span><span class="p">()</span>
+<span class="g g-Whitespace">   </span><span class="mi">2045</span>                     <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+
+<span class="ne">AttributeError</span>: &#39;KeyboardInterrupt&#39; object has no attribute &#39;_render_traceback_&#39;
+
+<span class="n">During</span> <span class="n">handling</span> <span class="n">of</span> <span class="n">the</span> <span class="n">above</span> <span class="n">exception</span><span class="p">,</span> <span class="n">another</span> <span class="n">exception</span> <span class="n">occurred</span><span class="p">:</span>
+
+<span class="ne">TypeError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="nn">~/miniconda3/lib/python3.7/site-packages/IPython/core/interactiveshell.py</span> in <span class="ni">run_ast_nodes</span><span class="nt">(self, nodelist, cell_name, interactivity, compiler, result)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3336</span>                         <span class="n">asy</span> <span class="o">=</span> <span class="n">compare</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">3337</span>                     <span class="k">if</span> <span class="p">(</span><span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">run_code</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="n">result</span><span class="p">,</span>  <span class="n">async_</span><span class="o">=</span><span class="n">asy</span><span class="p">)):</span>
+<span class="g g-Whitespace">   </span><span class="mi">3338</span>                         <span class="k">return</span> <span class="kc">True</span>
+
+    <span class="p">[</span><span class="o">...</span> <span class="n">skipping</span> <span class="n">hidden</span> <span class="mi">1</span> <span class="n">frame</span><span class="p">]</span>
+
+<span class="nn">~/miniconda3/lib/python3.7/site-packages/IPython/core/interactiveshell.py</span> in <span class="ni">showtraceback</span><span class="nt">(self, exc_tuple, filename, tb_offset, exception_only, running_compiled_code)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2046</span>                         <span class="n">stb</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">InteractiveTB</span><span class="o">.</span><span class="n">structured_traceback</span><span class="p">(</span><span class="n">etype</span><span class="p">,</span>
+<span class="ne">-&gt; </span><span class="mi">2047</span>                                             <span class="n">value</span><span class="p">,</span> <span class="n">tb</span><span class="p">,</span> <span class="n">tb_offset</span><span class="o">=</span><span class="n">tb_offset</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2048</span> 
+
+<span class="nn">~/miniconda3/lib/python3.7/site-packages/IPython/core/ultratb.py</span> in <span class="ni">structured_traceback</span><span class="nt">(self, etype, value, tb, tb_offset, number_of_lines_of_context)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1435</span>         <span class="k">return</span> <span class="n">FormattedTB</span><span class="o">.</span><span class="n">structured_traceback</span><span class="p">(</span>
+<span class="ne">-&gt; </span><span class="mi">1436</span>             <span class="bp">self</span><span class="p">,</span> <span class="n">etype</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">tb</span><span class="p">,</span> <span class="n">tb_offset</span><span class="p">,</span> <span class="n">number_of_lines_of_context</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1437</span> 
+
+<span class="nn">~/miniconda3/lib/python3.7/site-packages/IPython/core/ultratb.py</span> in <span class="ni">structured_traceback</span><span class="nt">(self, etype, value, tb, tb_offset, number_of_lines_of_context)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1335</span>             <span class="k">return</span> <span class="n">VerboseTB</span><span class="o">.</span><span class="n">structured_traceback</span><span class="p">(</span>
+<span class="ne">-&gt; </span><span class="mi">1336</span>                 <span class="bp">self</span><span class="p">,</span> <span class="n">etype</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">tb</span><span class="p">,</span> <span class="n">tb_offset</span><span class="p">,</span> <span class="n">number_of_lines_of_context</span>
+<span class="g g-Whitespace">   </span><span class="mi">1337</span>             <span class="p">)</span>
+
+<span class="nn">~/miniconda3/lib/python3.7/site-packages/IPython/core/ultratb.py</span> in <span class="ni">structured_traceback</span><span class="nt">(self, etype, evalue, etb, tb_offset, number_of_lines_of_context)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1192</span>         <span class="n">formatted_exception</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">format_exception_as_a_whole</span><span class="p">(</span><span class="n">etype</span><span class="p">,</span> <span class="n">evalue</span><span class="p">,</span> <span class="n">etb</span><span class="p">,</span> <span class="n">number_of_lines_of_context</span><span class="p">,</span>
+<span class="ne">-&gt; </span><span class="mi">1193</span>                                                                <span class="n">tb_offset</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1194</span> 
+
+<span class="nn">~/miniconda3/lib/python3.7/site-packages/IPython/core/ultratb.py</span> in <span class="ni">format_exception_as_a_whole</span><span class="nt">(self, etype, evalue, etb, number_of_lines_of_context, tb_offset)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1149</span> 
+<span class="ne">-&gt; </span><span class="mi">1150</span>         <span class="n">last_unique</span><span class="p">,</span> <span class="n">recursion_repeat</span> <span class="o">=</span> <span class="n">find_recursion</span><span class="p">(</span><span class="n">orig_etype</span><span class="p">,</span> <span class="n">evalue</span><span class="p">,</span> <span class="n">records</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1151</span> 
+
+<span class="nn">~/miniconda3/lib/python3.7/site-packages/IPython/core/ultratb.py</span> in <span class="ni">find_recursion</span><span class="nt">(etype, value, records)</span>
+<span class="g g-Whitespace">    </span><span class="mi">450</span>     <span class="k">if</span> <span class="ow">not</span> <span class="n">is_recursion_error</span><span class="p">(</span><span class="n">etype</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">records</span><span class="p">):</span>
+<span class="ne">--&gt; </span><span class="mi">451</span>         <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">records</span><span class="p">),</span> <span class="mi">0</span>
+<span class="g g-Whitespace">    </span><span class="mi">452</span> 
+
+<span class="ne">TypeError</span>: object of type &#39;NoneType&#39; has no len()
+
+<span class="n">During</span> <span class="n">handling</span> <span class="n">of</span> <span class="n">the</span> <span class="n">above</span> <span class="n">exception</span><span class="p">,</span> <span class="n">another</span> <span class="n">exception</span> <span class="n">occurred</span><span class="p">:</span>
+
+<span class="ne">AttributeError</span><span class="g g-Whitespace">                            </span>Traceback (most recent call last)
+<span class="nn">~/miniconda3/lib/python3.7/site-packages/IPython/core/interactiveshell.py</span> in <span class="ni">showtraceback</span><span class="nt">(self, exc_tuple, filename, tb_offset, exception_only, running_compiled_code)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2043</span>                         <span class="c1"># in the engines. This should return a list of strings.</span>
+<span class="ne">-&gt; </span><span class="mi">2044</span>                         <span class="n">stb</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">_render_traceback_</span><span class="p">()</span>
+<span class="g g-Whitespace">   </span><span class="mi">2045</span>                     <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+
+<span class="ne">AttributeError</span>: &#39;TypeError&#39; object has no attribute &#39;_render_traceback_&#39;
+
+<span class="n">During</span> <span class="n">handling</span> <span class="n">of</span> <span class="n">the</span> <span class="n">above</span> <span class="n">exception</span><span class="p">,</span> <span class="n">another</span> <span class="n">exception</span> <span class="n">occurred</span><span class="p">:</span>
+
+<span class="ne">TypeError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="nn">~/miniconda3/lib/python3.7/site-packages/IPython/core/async_helpers.py</span> in <span class="ni">_pseudo_sync_runner</span><span class="nt">(coro)</span>
+<span class="g g-Whitespace">     </span><span class="mi">66</span>     <span class="s2">&quot;&quot;&quot;</span>
+<span class="g g-Whitespace">     </span><span class="mi">67</span><span class="s2">     try:</span>
+<span class="ne">---&gt; </span><span class="mi">68</span><span class="s2">         coro.send(None)</span>
+<span class="g g-Whitespace">     </span><span class="mi">69</span><span class="s2">     except StopIteration as exc:</span>
+<span class="g g-Whitespace">     </span><span class="mi">70</span><span class="s2">         return exc.value</span>
+
+<span class="nn">~/miniconda3/lib/python3.7/site-packages/IPython/core/interactiveshell.py</span> in <span class="ni">run_cell_async</span><span class="nt">(self, raw_cell, store_history, silent, shell_futures, transformed_cell, preprocessing_exc_tuple)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3144</span><span class="s2"> </span>
+<span class="g g-Whitespace">   </span><span class="mi">3145</span><span class="s2">                 has_raised = await self.run_ast_nodes(code_ast.body, cell_name,</span>
+<span class="ne">-&gt; </span><span class="mi">3146</span><span class="s2">                        interactivity=interactivity, compiler=compiler, result=result)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3147</span><span class="s2"> </span>
+<span class="g g-Whitespace">   </span><span class="mi">3148</span><span class="s2">                 self.last_execution_succeeded = not has_raised</span>
+
+<span class="nn">~/miniconda3/lib/python3.7/site-packages/IPython/core/interactiveshell.py</span> in <span class="ni">run_ast_nodes</span><span class="nt">(self, nodelist, cell_name, interactivity, compiler, result)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3354</span><span class="s2">             if result:</span>
+<span class="g g-Whitespace">   </span><span class="mi">3355</span><span class="s2">                 result.error_before_exec = sys.exc_info()[1]</span>
+<span class="ne">-&gt; </span><span class="mi">3356</span><span class="s2">             self.showtraceback()</span>
+<span class="g g-Whitespace">   </span><span class="mi">3357</span><span class="s2">             return True</span>
+<span class="g g-Whitespace">   </span><span class="mi">3358</span><span class="s2"> </span>
+
+<span class="nn">~/miniconda3/lib/python3.7/site-packages/IPython/core/interactiveshell.py</span> in <span class="ni">showtraceback</span><span class="nt">(self, exc_tuple, filename, tb_offset, exception_only, running_compiled_code)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2045</span><span class="s2">                     except Exception:</span>
+<span class="g g-Whitespace">   </span><span class="mi">2046</span><span class="s2">                         stb = self.InteractiveTB.structured_traceback(etype,</span>
+<span class="ne">-&gt; </span><span class="mi">2047</span><span class="s2">                                             value, tb, tb_offset=tb_offset)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2048</span><span class="s2"> </span>
+<span class="g g-Whitespace">   </span><span class="mi">2049</span><span class="s2">                     self._showtraceback(etype, value, stb)</span>
+
+<span class="nn">~/miniconda3/lib/python3.7/site-packages/IPython/core/ultratb.py</span> in <span class="ni">structured_traceback</span><span class="nt">(self, etype, value, tb, tb_offset, number_of_lines_of_context)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1434</span><span class="s2">             self.tb = tb</span>
+<span class="g g-Whitespace">   </span><span class="mi">1435</span><span class="s2">         return FormattedTB.structured_traceback(</span>
+<span class="ne">-&gt; </span><span class="mi">1436</span><span class="s2">             self, etype, value, tb, tb_offset, number_of_lines_of_context)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1437</span><span class="s2"> </span>
+<span class="g g-Whitespace">   </span><span class="mi">1438</span><span class="s2"> </span>
+
+<span class="nn">~/miniconda3/lib/python3.7/site-packages/IPython/core/ultratb.py</span> in <span class="ni">structured_traceback</span><span class="nt">(self, etype, value, tb, tb_offset, number_of_lines_of_context)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1334</span><span class="s2">             # Verbose modes need a full traceback</span>
+<span class="g g-Whitespace">   </span><span class="mi">1335</span><span class="s2">             return VerboseTB.structured_traceback(</span>
+<span class="ne">-&gt; </span><span class="mi">1336</span><span class="s2">                 self, etype, value, tb, tb_offset, number_of_lines_of_context</span>
+<span class="g g-Whitespace">   </span><span class="mi">1337</span><span class="s2">             )</span>
+<span class="g g-Whitespace">   </span><span class="mi">1338</span><span class="s2">         elif mode == &#39;Minimal&#39;:</span>
+
+<span class="nn">~/miniconda3/lib/python3.7/site-packages/IPython/core/ultratb.py</span> in <span class="ni">structured_traceback</span><span class="nt">(self, etype, evalue, etb, tb_offset, number_of_lines_of_context)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1209</span><span class="s2">         while evalue:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1210</span><span class="s2">             formatted_exceptions += self.format_exception_as_a_whole(etype, evalue, etb, lines_of_context,</span>
+<span class="ne">-&gt; </span><span class="mi">1211</span><span class="s2">                                                                      chained_exceptions_tb_offset)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1212</span><span class="s2">             exception = self.get_parts_of_chained_exception(evalue)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1213</span><span class="s2"> </span>
+
+<span class="nn">~/miniconda3/lib/python3.7/site-packages/IPython/core/ultratb.py</span> in <span class="ni">format_exception_as_a_whole</span><span class="nt">(self, etype, evalue, etb, number_of_lines_of_context, tb_offset)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1148</span><span class="s2"> </span>
+<span class="g g-Whitespace">   </span><span class="mi">1149</span><span class="s2"> </span>
+<span class="ne">-&gt; </span><span class="mi">1150</span><span class="s2">         last_unique, recursion_repeat = find_recursion(orig_etype, evalue, records)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1151</span><span class="s2"> </span>
+<span class="g g-Whitespace">   </span><span class="mi">1152</span><span class="s2">         frames = self.format_records(records, last_unique, recursion_repeat)</span>
+
+<span class="nn">~/miniconda3/lib/python3.7/site-packages/IPython/core/ultratb.py</span> in <span class="ni">find_recursion</span><span class="nt">(etype, value, records)</span>
+<span class="g g-Whitespace">    </span><span class="mi">449</span><span class="s2">     # first frame (from in to out) that looks different.</span>
+<span class="g g-Whitespace">    </span><span class="mi">450</span><span class="s2">     if not is_recursion_error(etype, value, records):</span>
+<span class="ne">--&gt; </span><span class="mi">451</span><span class="s2">         return len(records), 0</span>
+<span class="g g-Whitespace">    </span><span class="mi">452</span><span class="s2"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">453</span><span class="s2">     # Select filename, lineno, func_name to track frames with</span>
+
+<span class="ne">TypeError</span>: object of type &#39;NoneType&#39; has no len()
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 
