@@ -25,8 +25,8 @@
     href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
 
     
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/sphinx-book-theme.40e2e510f6b7d1648584402491bb10fe.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
@@ -187,6 +187,11 @@
    <li class="toctree-l2">
     <a class="reference internal" href="mice.html">
      Ultrasonic vocalizations from mice
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="mice.html#pre-processing">
+     Pre-processing
     </a>
    </li>
    <li class="toctree-l2 current active">
@@ -391,13 +396,7 @@
 </div>
 </div>
 </div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Compute</span> <span class="n">the</span> <span class="n">spectrogram</span>
-</pre></div>
-</div>
-</div>
-</div>
+<p>Compute the spectrogram</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hop_length</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">samplerate</span> <span class="o">/</span> <span class="mi">1000</span><span class="p">)</span>
@@ -418,7 +417,7 @@
 </div>
 <img alt="../_images/birds_7_1.svg" src="../_images/birds_7_1.svg" /></div>
 </div>
-<p>Cutout and threshold syllables from spectrogram</p>
+<p>Extract and threshold syllables from spectrogram</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">specs</span> <span class="o">=</span> <span class="p">[]</span> 
@@ -482,8 +481,8 @@
 </div>
 <div class="section" id="plot-results">
 <h2>Plot results<a class="headerlink" href="#plot-results" title="Permalink to this headline">¶</a></h2>
-<p>Syllable spectrograms embedded into a 2D space, colored by manual syllable labels (left) annd by the unsupervised cluster labels (right).
-Syllables fall into clealy separated groups, which are consistent with the grouping imposed by manual labelling (left, syllables of the same label are grouped together). The clustering (right) recovers the manual separation by tends to find  more subdivisions.</p>
+<p>Syllable spectrograms embedded into a 2D space, colored by manual syllable labels (left) and by the unsupervised cluster labels (right).
+Syllables fall into separate groups, which are consistent with the grouping imposed by manual labelling (left, syllables of the same label are grouped together). The clustering (right) recovers the manual separation by tends to find  more subdivisions.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>

@@ -25,8 +25,8 @@
     href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
 
     
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/sphinx-book-theme.40e2e510f6b7d1648584402491bb10fe.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
@@ -48,6 +48,8 @@
     <script src="../_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
     <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
     <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe"
@@ -185,6 +187,11 @@
    <li class="toctree-l2">
     <a class="reference internal" href="../unsupervised/mice.html">
      Ultrasonic vocalizations from mice
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../unsupervised/mice.html#pre-processing">
+     Pre-processing
     </a>
    </li>
    <li class="toctree-l2">
@@ -429,6 +436,7 @@
 <p>The dataset is created in two steps.</p>
 <p>First, the data and annotations for different recordings are combined in a large matrix. This works even with large datasets that don’t fit in memory thanks to <a class="reference external" href="https://zarr.readthedocs.io/en/stable/tutorial.html#storage-alternatives">zarr</a>, which provides an interface for on-disk arrays. The annotations are converted from lists of event times to one-hot-encoded probability vectors, (0 for no event, 1 for a specified short duration (default is <span class="math notranslate nohighlight">\(\pm\)</span>30 samples) surrounding the event).</p>
 <p>Second, the zarr dataset is converted to a directory hierarchy of numpy files (npy) using <code class="docutils literal notranslate"><span class="pre">dss.npy_dir_save</span></code>. Numpy files allow extremely fast memory mapping, providing faster out-of-memory access than zarr during training.</p>
+<p>Code below closely follows the code used in the GUI - see the <a class="reference external" href="https://github.com/janclemenslab/xarray-behave/blob/master/src/xarray_behave/gui/deepss.py">source</a> code.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -504,7 +512,8 @@
 <p>Lists of <code class="docutils literal notranslate"><span class="pre">data_files</span></code> and associated <code class="docutils literal notranslate"><span class="pre">annotation_files</span></code> are consumed by <code class="docutils literal notranslate"><span class="pre">load_data</span></code> and <code class="docutils literal notranslate"><span class="pre">load_annotation</span></code>, respectively.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data_dir</span> <span class="o">=</span> <span class="s1">&#39;/Users/clemens10/Dropbox/code.py/deepss/tutorials/dat.mat/&#39;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># data_dir = &#39;/Users/clemens10/Dropbox/code.py/deepss/tutorials/dat.mat/&#39;</span>
+<span class="n">data_dir</span> <span class="o">=</span> <span class="s1">&#39;../../../deepss/tutorials/dat.mat/&#39;</span>
 <span class="n">files_data</span> <span class="o">=</span> <span class="n">glob</span><span class="p">(</span><span class="n">data_dir</span> <span class="o">+</span> <span class="s1">&#39;*_recording.mat&#39;</span><span class="p">)</span>  <span class="c1"># list all data files</span>
 <span class="n">files_annotation</span> <span class="o">=</span> <span class="p">[</span><span class="n">file</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;_recording.mat&#39;</span><span class="p">,</span> <span class="s1">&#39;_song.mat&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">files_data</span><span class="p">]</span>  <span class="c1"># generate the names of associated annotation files</span>
 <span class="p">[</span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;data &quot;</span><span class="si">{</span><span class="n">d</span><span class="si">}</span><span class="s1">&quot; with annotations in &quot;</span><span class="si">{</span><span class="n">a</span><span class="si">}</span><span class="s1">&quot;.&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">d</span><span class="p">,</span> <span class="n">a</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">files_data</span><span class="p">,</span> <span class="n">files_annotation</span><span class="p">)];</span>
@@ -512,13 +521,13 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>data &quot;/Users/clemens10/Dropbox/code.py/deepss/tutorials/dat.mat/PS_20130625155828_ch7_recording.mat&quot; with annotations in &quot;/Users/clemens10/Dropbox/code.py/deepss/tutorials/dat.mat/PS_20130625155828_ch7_song.mat&quot;.
-data &quot;/Users/clemens10/Dropbox/code.py/deepss/tutorials/dat.mat/PS_20130625111709_ch10_recording.mat&quot; with annotations in &quot;/Users/clemens10/Dropbox/code.py/deepss/tutorials/dat.mat/PS_20130625111709_ch10_song.mat&quot;.
-data &quot;/Users/clemens10/Dropbox/code.py/deepss/tutorials/dat.mat/PS_20130628165930_ch11_recording.mat&quot; with annotations in &quot;/Users/clemens10/Dropbox/code.py/deepss/tutorials/dat.mat/PS_20130628165930_ch11_song.mat&quot;.
-data &quot;/Users/clemens10/Dropbox/code.py/deepss/tutorials/dat.mat/PS_20130702144748_ch15_recording.mat&quot; with annotations in &quot;/Users/clemens10/Dropbox/code.py/deepss/tutorials/dat.mat/PS_20130702144748_ch15_song.mat&quot;.
-data &quot;/Users/clemens10/Dropbox/code.py/deepss/tutorials/dat.mat/PS_20130628144304_ch15_recording.mat&quot; with annotations in &quot;/Users/clemens10/Dropbox/code.py/deepss/tutorials/dat.mat/PS_20130628144304_ch15_song.mat&quot;.
-data &quot;/Users/clemens10/Dropbox/code.py/deepss/tutorials/dat.mat/PS_20130625155828_ch11_recording.mat&quot; with annotations in &quot;/Users/clemens10/Dropbox/code.py/deepss/tutorials/dat.mat/PS_20130625155828_ch11_song.mat&quot;.
-data &quot;/Users/clemens10/Dropbox/code.py/deepss/tutorials/dat.mat/PS_20130702114557_ch13_recording.mat&quot; with annotations in &quot;/Users/clemens10/Dropbox/code.py/deepss/tutorials/dat.mat/PS_20130702114557_ch13_song.mat&quot;.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>data &quot;../../../deepss/tutorials/dat.mat/PS_20130625155828_ch7_recording.mat&quot; with annotations in &quot;../../../deepss/tutorials/dat.mat/PS_20130625155828_ch7_song.mat&quot;.
+data &quot;../../../deepss/tutorials/dat.mat/PS_20130625111709_ch10_recording.mat&quot; with annotations in &quot;../../../deepss/tutorials/dat.mat/PS_20130625111709_ch10_song.mat&quot;.
+data &quot;../../../deepss/tutorials/dat.mat/PS_20130628165930_ch11_recording.mat&quot; with annotations in &quot;../../../deepss/tutorials/dat.mat/PS_20130628165930_ch11_song.mat&quot;.
+data &quot;../../../deepss/tutorials/dat.mat/PS_20130702144748_ch15_recording.mat&quot; with annotations in &quot;../../../deepss/tutorials/dat.mat/PS_20130702144748_ch15_song.mat&quot;.
+data &quot;../../../deepss/tutorials/dat.mat/PS_20130628144304_ch15_recording.mat&quot; with annotations in &quot;../../../deepss/tutorials/dat.mat/PS_20130628144304_ch15_song.mat&quot;.
+data &quot;../../../deepss/tutorials/dat.mat/PS_20130625155828_ch11_recording.mat&quot; with annotations in &quot;../../../deepss/tutorials/dat.mat/PS_20130625155828_ch11_song.mat&quot;.
+data &quot;../../../deepss/tutorials/dat.mat/PS_20130702114557_ch13_recording.mat&quot; with annotations in &quot;../../../deepss/tutorials/dat.mat/PS_20130702114557_ch13_song.mat&quot;.
 </pre></div>
 </div>
 </div>
@@ -530,7 +539,7 @@ data &quot;/Users/clemens10/Dropbox/code.py/deepss/tutorials/dat.mat/PS_20130702
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">samplerate</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">data_loader</span><span class="p">(</span><span class="n">files_data</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Audio data with samplerate </span><span class="si">{</span><span class="n">samplerate</span><span class="si">}</span><span class="s2">, shape </span><span class="si">{</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">, and data type </span><span class="si">{</span><span class="n">data</span><span class="o">.</span><span class="n">dtype</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Annotations&#39;</span><span class="p">)</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">annotation_loader</span><span class="p">(</span><span class="n">files_annotation</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">annotation_loader</span><span class="p">(</span><span class="n">files_annotation</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 <span class="n">df</span>
 </pre></div>
 </div>
@@ -567,32 +576,32 @@ Annotations
     <tr>
       <th>0</th>
       <td>sine</td>
-      <td>0.4698</td>
-      <td>0.5731</td>
+      <td>5.1539</td>
+      <td>5.3898</td>
     </tr>
     <tr>
       <th>1</th>
       <td>sine</td>
-      <td>1.6261</td>
-      <td>1.7753</td>
+      <td>127.9297</td>
+      <td>128.8389</td>
     </tr>
     <tr>
       <th>2</th>
       <td>sine</td>
-      <td>1.8305</td>
-      <td>2.1383</td>
+      <td>171.8631</td>
+      <td>172.0899</td>
     </tr>
     <tr>
       <th>3</th>
       <td>sine</td>
-      <td>7.3328</td>
-      <td>7.8118</td>
+      <td>178.0876</td>
+      <td>178.2290</td>
     </tr>
     <tr>
       <th>4</th>
       <td>sine</td>
-      <td>10.5365</td>
-      <td>11.0099</td>
+      <td>181.9101</td>
+      <td>182.4161</td>
     </tr>
     <tr>
       <th>...</th>
@@ -601,84 +610,39 @@ Annotations
       <td>...</td>
     </tr>
     <tr>
-      <th>1648</th>
+      <th>1956</th>
       <td>pulse</td>
-      <td>398.2950</td>
-      <td>398.2950</td>
+      <td>404.4817</td>
+      <td>404.4817</td>
     </tr>
     <tr>
-      <th>1649</th>
+      <th>1957</th>
       <td>pulse</td>
-      <td>398.8722</td>
-      <td>398.8722</td>
+      <td>404.5128</td>
+      <td>404.5128</td>
     </tr>
     <tr>
-      <th>1650</th>
+      <th>1958</th>
       <td>pulse</td>
-      <td>398.9022</td>
-      <td>398.9022</td>
+      <td>404.5440</td>
+      <td>404.5440</td>
     </tr>
     <tr>
-      <th>1651</th>
+      <th>1959</th>
       <td>pulse</td>
-      <td>398.9320</td>
-      <td>398.9320</td>
+      <td>404.5751</td>
+      <td>404.5751</td>
     </tr>
     <tr>
-      <th>1652</th>
+      <th>1960</th>
       <td>pulse</td>
-      <td>398.9874</td>
-      <td>398.9874</td>
+      <td>404.6469</td>
+      <td>404.6469</td>
     </tr>
   </tbody>
 </table>
-<p>1653 rows × 3 columns</p>
+<p>1961 rows × 3 columns</p>
 </div></div></div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">files_annotation</span><span class="p">:</span>
-    <span class="k">with</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-        <span class="c1"># fss saves mask with sine=1, pulsetrains=2</span>
-        <span class="n">mask</span> <span class="o">=</span> <span class="n">f</span><span class="p">[</span><span class="s1">&#39;mask&#39;</span><span class="p">][:]</span>
-        <span class="n">pulse_times</span> <span class="o">=</span> <span class="n">f</span><span class="p">[</span><span class="s1">&#39;pulse_times&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
-    <span class="k">with</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">filename</span> <span class="o">+</span> <span class="s1">&#39;song.h5&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-        <span class="n">f</span><span class="p">[</span><span class="s1">&#39;mask&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">mask</span>
-        <span class="n">f</span><span class="p">[</span><span class="s1">&#39;pulse_times&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pulse_times</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">KeyError</span><span class="g g-Whitespace">                                  </span>Traceback (most recent call last)
-<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">61</span><span class="o">-</span><span class="mi">049</span><span class="n">b65f83da9</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span>     <span class="k">with</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span>         <span class="c1"># fss saves mask with sine=1, pulsetrains=2</span>
-<span class="ne">----&gt; </span><span class="mi">4</span>         <span class="n">mask</span> <span class="o">=</span> <span class="n">f</span><span class="p">[</span><span class="s1">&#39;mask&#39;</span><span class="p">][:]</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span>         <span class="n">pulse_times</span> <span class="o">=</span> <span class="n">f</span><span class="p">[</span><span class="s1">&#39;pulse_times&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
-<span class="g g-Whitespace">      </span><span class="mi">6</span>     <span class="k">with</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">filename</span> <span class="o">+</span> <span class="s1">&#39;song.h5&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-
-<span class="nn">h5py/_objects.pyx</span> in <span class="ni">h5py._objects.with_phil.wrapper</span><span class="nt">()</span>
-
-<span class="nn">h5py/_objects.pyx</span> in <span class="ni">h5py._objects.with_phil.wrapper</span><span class="nt">()</span>
-
-<span class="nn">~/miniconda3/lib/python3.7/site-packages/h5py/_hl/group.py</span> in <span class="ni">__getitem__</span><span class="nt">(self, name)</span>
-<span class="g g-Whitespace">    </span><span class="mi">175</span>                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid HDF5 object reference&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">176</span>         <span class="k">else</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">177</span>             <span class="n">oid</span> <span class="o">=</span> <span class="n">h5o</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_e</span><span class="p">(</span><span class="n">name</span><span class="p">),</span> <span class="n">lapl</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_lapl</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">178</span> 
-<span class="g g-Whitespace">    </span><span class="mi">179</span>         <span class="n">otype</span> <span class="o">=</span> <span class="n">h5i</span><span class="o">.</span><span class="n">get_type</span><span class="p">(</span><span class="n">oid</span><span class="p">)</span>
-
-<span class="nn">h5py/_objects.pyx</span> in <span class="ni">h5py._objects.with_phil.wrapper</span><span class="nt">()</span>
-
-<span class="nn">h5py/_objects.pyx</span> in <span class="ni">h5py._objects.with_phil.wrapper</span><span class="nt">()</span>
-
-<span class="nn">h5py/h5o.pyx</span> in <span class="ni">h5py.h5o.open</span><span class="nt">()</span>
-
-<span class="ne">KeyError</span>: &quot;Unable to open object (object &#39;mask&#39; doesn&#39;t exist)&quot;
-</pre></div>
-</div>
-</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -720,13 +684,13 @@ Annotations
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/clemens10/Dropbox/code.py/deepss/tutorials/dat.mat/PS_20130625155828_ch7_song.mat
-/Users/clemens10/Dropbox/code.py/deepss/tutorials/dat.mat/PS_20130625111709_ch10_song.mat
-/Users/clemens10/Dropbox/code.py/deepss/tutorials/dat.mat/PS_20130628165930_ch11_song.mat
-/Users/clemens10/Dropbox/code.py/deepss/tutorials/dat.mat/PS_20130702144748_ch15_song.mat
-/Users/clemens10/Dropbox/code.py/deepss/tutorials/dat.mat/PS_20130628144304_ch15_song.mat
-/Users/clemens10/Dropbox/code.py/deepss/tutorials/dat.mat/PS_20130625155828_ch11_song.mat
-/Users/clemens10/Dropbox/code.py/deepss/tutorials/dat.mat/PS_20130702114557_ch13_song.mat
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>../../../deepss/tutorials/dat.mat/PS_20130625155828_ch7_song.mat
+../../../deepss/tutorials/dat.mat/PS_20130625111709_ch10_song.mat
+../../../deepss/tutorials/dat.mat/PS_20130628165930_ch11_song.mat
+../../../deepss/tutorials/dat.mat/PS_20130702144748_ch15_song.mat
+../../../deepss/tutorials/dat.mat/PS_20130628144304_ch15_song.mat
+../../../deepss/tutorials/dat.mat/PS_20130625155828_ch11_song.mat
+../../../deepss/tutorials/dat.mat/PS_20130702114557_ch13_song.mat
 found pulse of type event
 found sine of type segment
 </pre></div>
@@ -794,7 +758,8 @@ indices of train files: [1 0 4 3 5]
 <h3>Load the individual data files<a class="headerlink" href="#load-the-individual-data-files" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="p">(</span><span class="n">data_file</span><span class="p">,</span> <span class="n">annotation_file</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">files_data</span><span class="p">,</span> <span class="n">files_annotation</span><span class="p">)):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Assembling data set:&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="p">(</span><span class="n">data_file</span><span class="p">,</span> <span class="n">annotation_file</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">files_data</span><span class="p">,</span> <span class="n">files_annotation</span><span class="p">)):</span>
     <span class="c1"># Determine whether file is test/val/train</span>
     <span class="k">if</span> <span class="n">idx</span> <span class="ow">in</span> <span class="n">test_idx</span><span class="p">:</span>
         <span class="n">target</span> <span class="o">=</span> <span class="s1">&#39;test&#39;</span>
@@ -805,6 +770,7 @@ indices of train files: [1 0 4 3 5]
     <span class="k">else</span><span class="p">:</span>
         <span class="k">continue</span>
 
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   </span><span class="si">{</span><span class="n">data_file</span><span class="si">}</span><span class="s2"> -&gt; </span><span class="si">{</span><span class="n">target</span><span class="si">}</span><span class="s2"> set&quot;</span><span class="p">)</span>
     <span class="n">fs</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="n">data_loader</span><span class="p">(</span><span class="n">data_file</span><span class="p">)</span>
     <span class="n">nb_samples</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
@@ -830,12 +796,20 @@ indices of train files: [1 0 4 3 5]
     <span class="k">for</span> <span class="n">cnt</span><span class="p">,</span> <span class="n">class_name</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">class_names</span><span class="p">[</span><span class="mi">1</span><span class="p">:]):</span>
         <span class="n">store</span><span class="p">[</span><span class="n">target</span><span class="p">][</span><span class="sa">f</span><span class="s1">&#39;y_</span><span class="si">{</span><span class="n">class_name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dss</span><span class="o">.</span><span class="n">make_dataset</span><span class="o">.</span><span class="n">normalize_probabilities</span><span class="p">(</span><span class="n">y</span><span class="p">[:,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">cnt</span><span class="o">+</span><span class="mi">1</span><span class="p">]]))</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Got </span><span class="si">{</span><span class="n">store</span><span class="p">[</span><span class="s1">&#39;train&#39;</span><span class="p">][</span><span class="s1">&#39;x&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">store</span><span class="p">[</span><span class="s1">&#39;val&#39;</span><span class="p">][</span><span class="s1">&#39;x&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">store</span><span class="p">[</span><span class="s1">&#39;test&#39;</span><span class="p">][</span><span class="s1">&#39;x&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2"> train/test/val samples.&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Got </span><span class="si">{</span><span class="n">store</span><span class="p">[</span><span class="s1">&#39;train&#39;</span><span class="p">][</span><span class="s1">&#39;x&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">store</span><span class="p">[</span><span class="s1">&#39;val&#39;</span><span class="p">][</span><span class="s1">&#39;x&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">store</span><span class="p">[</span><span class="s1">&#39;test&#39;</span><span class="p">][</span><span class="s1">&#39;x&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2"> train/test/val samples.&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Got (20440005, 1), (4160001, 1), (3980001, 1) train/test/val samples.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Assembling data set:
+   ../../../deepss/tutorials/dat.mat/PS_20130625155828_ch7_recording.mat -&gt; train set
+   ../../../deepss/tutorials/dat.mat/PS_20130625111709_ch10_recording.mat -&gt; train set
+   ../../../deepss/tutorials/dat.mat/PS_20130628165930_ch11_recording.mat -&gt; val set
+   ../../../deepss/tutorials/dat.mat/PS_20130702144748_ch15_recording.mat -&gt; train set
+   ../../../deepss/tutorials/dat.mat/PS_20130628144304_ch15_recording.mat -&gt; train set
+   ../../../deepss/tutorials/dat.mat/PS_20130625155828_ch11_recording.mat -&gt; train set
+   ../../../deepss/tutorials/dat.mat/PS_20130702114557_ch13_recording.mat -&gt; test set
+Got (20440005, 1), (4160001, 1), (3980001, 1) train/test/val samples.
 </pre></div>
 </div>
 </div>
@@ -872,7 +846,7 @@ indices of train files: [1 0 4 3 5]
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/make_ds_notebook_20_0.svg" src="../_images/make_ds_notebook_20_0.svg" /></div>
+<img alt="../_images/make_ds_notebook_19_0.svg" src="../_images/make_ds_notebook_19_0.svg" /></div>
 </div>
 </div>
 <div class="section" id="save-as-npy-dir">
@@ -888,6 +862,7 @@ indices of train files: [1 0 4 3 5]
 </div>
 </div>
 </div>
+<p>You can now train using the <a class="reference internal" href="../tutorials_gui/train.html"><span class="doc std std-doc">GUI</span></a>, or a <a class="reference internal" href="train.html"><span class="doc std std-doc">script</span></a>, or the <a class="reference internal" href="train.html"><span class="doc std std-doc">command line</span></a>.</p>
 </div>
 </div>
 </div>
