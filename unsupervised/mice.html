@@ -188,11 +188,6 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="#pre-processing">
-     Pre-processing
-    </a>
-   </li>
-   <li class="toctree-l2">
     <a class="reference internal" href="birds.html">
      Song of Bengalese finches
     </a>
@@ -307,34 +302,25 @@
         </div>
         <nav id="bd-toc-nav">
             <ul class="nav section-nav flex-column">
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#">
-   Ultrasonic vocalizations from mice
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#download-audio-data">
+   Download audio data
   </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#download-audio-data">
-     Download audio data
-    </a>
-   </li>
-  </ul>
  </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#pre-processing">
    Pre-processing
   </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#dimensionality-reduction-and-clustering">
-     Dimensionality reduction and clustering
-    </a>
-   </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#plot-results">
-     Plot results
-    </a>
-   </li>
-  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#dimensionality-reduction-and-clustering">
+   Dimensionality reduction and clustering
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#plot-results">
+   Plot results
+  </a>
  </li>
 </ul>
 
@@ -388,9 +374,8 @@
 </div>
 </div>
 </div>
-</div>
 <div class="section" id="pre-processing">
-<h1>Pre-processing<a class="headerlink" href="#pre-processing" title="Permalink to this headline">¶</a></h1>
+<h2>Pre-processing<a class="headerlink" href="#pre-processing" title="Permalink to this headline">¶</a></h2>
 <p>Compute the spectrogram</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -481,6 +466,7 @@
 </div>
 </div>
 </div>
+</div>
 <div class="section" id="dimensionality-reduction-and-clustering">
 <h2>Dimensionality reduction and clustering<a class="headerlink" href="#dimensionality-reduction-and-clustering" title="Permalink to this headline">¶</a></h2>
 <p>Embed the feature vectors into a 2D space using <a class="reference external" href="https://umap-learn.readthedocs.io/">UMAP</a> and group similar syllables usign <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.cluster.vq.kmeans2.html">kmeans</a>.</p>
@@ -535,7 +521,10 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/mice_19_0.svg" src="../_images/mice_19_0.svg" /></div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;UMAP 2&#39;)
+</pre></div>
+</div>
+<img alt="../_images/mice_19_1.svg" src="../_images/mice_19_1.svg" /></div>
 </div>
 </div>
 </div>
