@@ -1,0 +1,772 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Evaluate trained model and fine-tune inference &#8212; DeepSS docs</title>
+    
+  <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.40e2e510f6b7d1648584402491bb10fe.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.3da636dd464baa7582d2.js">
+
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  
+  <h1 class="site-logo" id="site-title">DeepSS docs</h1>
+  
+</a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   Welcome to DeepSS
+  </a>
+ </li>
+</ul>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../install.html">
+   Install
+  </a>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../tutorials_gui/tutorials_gui.html">
+   GUI tutorial
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../tutorials_gui/load.html">
+     Download example data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../tutorials_gui/load.html#start-the-gui">
+     Start the GUI
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../tutorials_gui/load.html#load-audio-data">
+     Load audio data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../tutorials_gui/load.html#overview-over-the-display-and-menus">
+     Overview over the display and menus
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../tutorials_gui/annotate.html">
+     Annotate song
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../tutorials_gui/train.html">
+     Train
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../tutorials_gui/predict.html">
+     Predict
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="tutorials.html">
+   Notebook and CLI tutorial
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="convert.html">
+     Convert your own annotations and audio data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="make_ds_notebook.html">
+     Make datasets with custom data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="train.html">
+     Training
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="evaluate.html">
+     Evaluate model performance
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="evaluate.html#inspect-the-raw-confidence-scores">
+     Inspect the raw confidence scores
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="realtime.html">
+     Realtime annotations
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../unsupervised/unsupervised.html">
+   Unsupervised classification
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../unsupervised/flies.html">
+     Fly song
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../unsupervised/mice.html">
+     Ultrasonic vocalizations from mice
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../unsupervised/birds.html">
+     Song of Bengalese finches
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../technical/technical.html">
+   Technical details
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../technical/data_formats.html">
+     Data formats
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../technical/cli.html">
+     Command line interfaces
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+</ul>
+
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/tutorials/evaluate_segments.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/tutorials/evaluate_segments.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   Evaluate trained model and fine-tune inference
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#evaluate-segment-onset-and-offset-timing">
+     Evaluate segment onset and offset timing
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#troubleshooting">
+   Troubleshooting
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id1">
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+        </nav>
+        
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="evaluate-trained-model-and-fine-tune-inference">
+<h1>Evaluate trained model and fine-tune inference<a class="headerlink" href="#evaluate-trained-model-and-fine-tune-inference" title="Permalink to this headline">¶</a></h1>
+<p><strong>Note:</strong> For this tutorial to work, you first need to download some data and example models (266MB) from <a class="reference external" href="https://www.dropbox.com/sh/wnj3389k8ei8i1c/AACy7apWxW87IS_fBjI8-7WDa?dl=0">here</a> and put the four folders in the <code class="docutils literal notranslate"><span class="pre">tutorials</span></code> folder.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">sklearn</span>
+<span class="kn">import</span> <span class="nn">dss.utils</span><span class="o">,</span> <span class="nn">dss.utils_plot</span><span class="o">,</span> <span class="nn">dss.predict</span><span class="o">,</span> <span class="nn">dss.event_utils</span><span class="o">,</span> <span class="nn">dss.evaluate</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">save_name</span></code> should be the stem common to all files produced during training.
+For instance, if the parameter file for the model is <code class="docutils literal notranslate"><span class="pre">res/20191121_094529_params.yaml</span></code>, then <code class="docutils literal notranslate"><span class="pre">save_name</span></code> should be <code class="docutils literal notranslate"><span class="pre">res/20191121_094529</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">save_name</span> <span class="o">=</span> <span class="s1">&#39;models/dmel_sine_tcn_single_channel/&#39;</span>  <span class="c1"># best TCN model for single-channel dmel sine song</span>
+<span class="n">params</span> <span class="o">=</span> <span class="n">dss</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">load_params</span><span class="p">(</span><span class="n">save_name</span><span class="p">)</span>
+
+<span class="c1"># TODO: is this real</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+<span class="n">dwn_smp</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="k">if</span> <span class="s1">&#39;cnn&#39;</span> <span class="ow">in</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;model_name&#39;</span><span class="p">]:</span>
+<span class="c1">#     params[&#39;y_offset&#39;] = int(round(params[&#39;nb_hist&#39;]/2))</span>
+    <span class="n">y_offset</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;y_offset&#39;</span><span class="p">]</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">y_offset</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;data_padding&#39;</span><span class="p">]</span>
+
+<span class="n">fs</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;samplerate_y_Hz&#39;</span><span class="p">]</span>
+
+
+<span class="k">try</span><span class="p">:</span> 
+    <span class="n">segment_pred_index</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;class_types&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">:]</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s1">&#39;segment&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;model predicts segments at index </span><span class="si">{</span><span class="n">segment_pred_index</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;model does not predict segments.&#39;</span><span class="p">)</span>
+    <span class="n">segment_pred_index</span> <span class="o">=</span> <span class="kc">None</span>
+
+   
+<span class="k">try</span><span class="p">:</span> 
+    <span class="n">pulse_pred_index</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;class_types&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s1">&#39;event&#39;</span><span class="p">)</span>    
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;model predicts pulses at index </span><span class="si">{</span><span class="n">pulse_pred_index</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;model does not predict pulse.&#39;</span><span class="p">)</span>
+    <span class="n">pulse_pred_index</span> <span class="o">=</span> <span class="kc">None</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">fs</span><span class="p">,</span> <span class="n">y_offset</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;batch_norm&#39;: True, &#39;batch_size&#39;: 32, &#39;class_names&#39;: [&#39;noise&#39;, &#39;sine&#39;], &#39;class_names_pulse&#39;: [&#39;noise&#39;, &#39;pulse&#39;], &#39;class_names_sine&#39;: [&#39;noise&#39;, &#39;sine&#39;], &#39;class_types&#39;: [&#39;segment&#39;, &#39;segment&#39;], &#39;class_types_pulse&#39;: [&#39;segment&#39;, &#39;event&#39;], &#39;class_types_sine&#39;: [&#39;segment&#39;, &#39;segment&#39;], &#39;cut_trailing_dim&#39;: True, &#39;data_dir&#39;: &#39;../dat/dmel_single_stern_raw.npy&#39;, &#39;data_padding&#39;: 24, &#39;dwnsmp&#39;: 1, &#39;eventtimes_units_Hz&#39;: &#39;seconds&#39;, &#39;fraction_data&#39;: 1.0, &#39;ignore_boundaries&#39;: True, &#39;keep_intermediates&#39;: False, &#39;kernel_size&#39;: 48, &#39;loss&#39;: &#39;categorical_crossentropy&#39;, &#39;model_name&#39;: &#39;tcn&#39;, &#39;nb_channels&#39;: 1, &#39;nb_classes&#39;: 2, &#39;nb_conv&#39;: 4, &#39;nb_filters&#39;: 32, &#39;nb_freq&#39;: 1, &#39;nb_hist&#39;: 4096, &#39;nb_stacks&#39;: 2, &#39;return_sequences&#39;: True, &#39;sample_weight_mode&#39;: &#39;temporal&#39;, &#39;samplerate_x_Hz&#39;: 10000, &#39;samplerate_y_Hz&#39;: 10000, &#39;save_dir&#39;: &#39;res.stern_raw/res.sine&#39;, &#39;stride&#39;: 4048, &#39;with_y_hist&#39;: True, &#39;y_offset&#39;: 0, &#39;y_suffix&#39;: &#39;sine&#39;}
+model predicts segments at index 1
+model does not predict pulse.
+10000 24
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">datasets</span> <span class="o">=</span> <span class="n">dss</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">load_from</span><span class="p">(</span><span class="n">save_name</span> <span class="o">+</span> <span class="s1">&#39;_results.h5&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;x_test&#39;</span><span class="p">,</span> <span class="s1">&#39;y_test&#39;</span><span class="p">,</span> <span class="s1">&#39;y_pred&#39;</span><span class="p">])</span>
+<span class="n">x_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span> <span class="o">=</span> <span class="p">[</span><span class="n">datasets</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;x_test&#39;</span><span class="p">,</span> <span class="s1">&#39;y_test&#39;</span><span class="p">,</span> <span class="s1">&#39;y_pred&#39;</span><span class="p">]]</span>  <span class="c1"># unpack dict items to vars</span>
+
+<span class="n">labels_test</span> <span class="o">=</span> <span class="n">dss</span><span class="o">.</span><span class="n">predict</span><span class="o">.</span><span class="n">labels_from_probabilities</span><span class="p">(</span><span class="n">y_test</span><span class="p">)</span>
+<span class="n">labels_pred</span> <span class="o">=</span> <span class="n">dss</span><span class="o">.</span><span class="n">predict</span><span class="o">.</span><span class="n">labels_from_probabilities</span><span class="p">(</span><span class="n">y_pred</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The threshold that maximizes the F1 score is chosen as a default (and is typically 0.5). But this part introduces some flexibility, allowing you to fine tune inference between precision (reduce false positives) and recall (maximize event detection)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># class-wise precision-recall curves</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">15</span><span class="p">)</span>
+<span class="n">cls_label</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;class_names&#39;</span><span class="p">]</span>
+<span class="k">for</span> <span class="bp">cls</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">cls_label</span><span class="p">)):</span>
+    <span class="n">precision</span><span class="p">,</span> <span class="n">recall</span><span class="p">,</span> <span class="n">threshold</span> <span class="o">=</span> <span class="n">sklearn</span><span class="o">.</span><span class="n">metrics</span><span class="o">.</span><span class="n">precision_recall_curve</span><span class="p">(</span><span class="n">y_test</span><span class="p">[::</span><span class="mi">10</span><span class="p">,</span><span class="bp">cls</span><span class="p">]</span><span class="o">&gt;</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">[::</span><span class="mi">10</span><span class="p">,</span> <span class="bp">cls</span><span class="p">])</span>    
+    <span class="n">f1score</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">precision</span> <span class="o">*</span> <span class="n">recall</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">precision</span> <span class="o">+</span> <span class="n">recall</span><span class="p">)</span>
+    
+    <span class="n">threshold_opt</span> <span class="o">=</span> <span class="n">threshold</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">f1score</span><span class="p">)]</span>
+    
+    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="bp">cls</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">precision</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span><span class="mi">10</span><span class="p">],</span> <span class="n">recall</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span><span class="mi">10</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">threshold</span><span class="p">[::</span><span class="mi">10</span><span class="p">])</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Precision&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Recall&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">cls_label</span><span class="p">[</span><span class="bp">cls</span><span class="p">]</span><span class="o">.</span><span class="n">capitalize</span><span class="p">())</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;square&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    
+    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="o">+</span><span class="bp">cls</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">threshold</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">f1score</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">threshold</span><span class="p">[:],</span> <span class="n">f1score</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">threshold</span><span class="p">[:])</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">threshold_opt</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Threshold&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;F1 score&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;square&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Best f1 score of </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">f1score</span><span class="p">)</span><span class="si">:</span><span class="s1">1.2f</span><span class="si">}</span><span class="s1">) at a threshold at</span><span class="si">{</span><span class="n">threshold_opt</span><span class="si">:</span><span class="s1">1.2f</span><span class="si">}</span><span class="s1">.&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(193568,) (193569,)
+Best f1 score of 0.91) at a threshold at0.38.
+</pre></div>
+</div>
+<img alt="../_images/evaluate_segments_6_1.png" src="../_images/evaluate_segments_6_1.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">labels_pred</span> <span class="o">=</span> <span class="n">dss</span><span class="o">.</span><span class="n">predict</span><span class="o">.</span><span class="n">labels_from_probabilities</span><span class="p">(</span><span class="n">y_pred</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">threshold</span><span class="o">=</span><span class="n">threshold_opt</span><span class="p">)</span>
+<span class="n">conf_mat</span><span class="p">,</span> <span class="n">report</span> <span class="o">=</span> <span class="n">dss</span><span class="o">.</span><span class="n">evaluate</span><span class="o">.</span><span class="n">evaluate_segments</span><span class="p">(</span><span class="n">labels_test</span><span class="p">,</span> <span class="n">labels_pred</span><span class="p">,</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;class_names&#39;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Performance with treshold that maximizes the f1 score (geometric mean of precision and recall):&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">report</span><span class="p">)</span>
+
+<span class="c1"># to bias towards precision (reduce false positives), you can chose a slightly higher threshold</span>
+<span class="n">labels_pred</span> <span class="o">=</span> <span class="n">dss</span><span class="o">.</span><span class="n">predict</span><span class="o">.</span><span class="n">labels_from_probabilities</span><span class="p">(</span><span class="n">y_pred</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>  
+<span class="n">conf_mat</span><span class="p">,</span> <span class="n">report</span> <span class="o">=</span> <span class="n">dss</span><span class="o">.</span><span class="n">evaluate</span><span class="o">.</span><span class="n">evaluate_segments</span><span class="p">(</span><span class="n">labels_test</span><span class="p">,</span> <span class="n">labels_pred</span><span class="p">,</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;class_names&#39;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Performance with slightly higher treshold:&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">report</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Performance with treshold that maximizes the f1 score (geometric mean of precision and recall):
+              precision    recall  f1-score   support
+
+       noise       0.99      0.99      0.99   3522990
+        sine       0.91      0.90      0.91    363090
+
+    accuracy                           0.98   3886080
+   macro avg       0.95      0.95      0.95   3886080
+weighted avg       0.98      0.98      0.98   3886080
+
+Performance with slightly higher treshold:
+              precision    recall  f1-score   support
+
+       noise       0.99      0.99      0.99   3522990
+        sine       0.93      0.88      0.90    363090
+
+    accuracy                           0.98   3886080
+   macro avg       0.96      0.93      0.95   3886080
+weighted avg       0.98      0.98      0.98   3886080
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># fine tune segment prediction - min_len and gap_fill</span>
+<span class="c1"># maybe alternatively eval timing of onsets and offsets?</span>
+<span class="k">def</span> <span class="nf">fill_gaps</span><span class="p">(</span><span class="n">sine_pred</span><span class="p">,</span> <span class="n">gap_dur</span><span class="o">=</span><span class="mi">100</span><span class="p">):</span>
+    <span class="n">onsets</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">sine_pred</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int</span><span class="p">))</span><span class="o">==</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">offsets</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">sine_pred</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int</span><span class="p">))</span><span class="o">==-</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">onsets</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">offsets</span><span class="p">):</span>
+        <span class="n">onsets</span> <span class="o">=</span> <span class="n">onsets</span><span class="p">[</span><span class="n">onsets</span><span class="o">&lt;</span><span class="n">offsets</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span>
+        <span class="n">offsets</span> <span class="o">=</span> <span class="n">offsets</span><span class="p">[</span><span class="n">offsets</span><span class="o">&gt;</span><span class="n">onsets</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+        <span class="n">durations</span> <span class="o">=</span> <span class="n">offsets</span> <span class="o">-</span> <span class="n">onsets</span>
+        <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="p">(</span><span class="n">onset</span><span class="p">,</span> <span class="n">offset</span><span class="p">,</span> <span class="n">duration</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">onsets</span><span class="p">,</span> <span class="n">offsets</span><span class="p">,</span> <span class="n">durations</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">idx</span><span class="o">&gt;</span><span class="mi">0</span> <span class="ow">and</span> <span class="n">offsets</span><span class="p">[</span><span class="n">idx</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">&gt;</span><span class="n">onsets</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">-</span><span class="n">gap_dur</span><span class="p">:</span>
+                <span class="n">sine_pred</span><span class="p">[</span><span class="n">offsets</span><span class="p">[</span><span class="n">idx</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span><span class="n">onsets</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">sine_pred</span>
+
+<span class="k">def</span> <span class="nf">remove_short</span><span class="p">(</span><span class="n">sine_pred</span><span class="p">,</span> <span class="n">min_len</span><span class="o">=</span><span class="mi">100</span><span class="p">):</span>
+    <span class="c1"># remove too short sine songs</span>
+    <span class="n">onsets</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">sine_pred</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int</span><span class="p">))</span><span class="o">==</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">offsets</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">sine_pred</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int</span><span class="p">))</span><span class="o">==-</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">onsets</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">offsets</span><span class="p">):</span>
+        <span class="n">onsets</span> <span class="o">=</span> <span class="n">onsets</span><span class="p">[</span><span class="n">onsets</span><span class="o">&lt;</span><span class="n">offsets</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span>
+        <span class="n">offsets</span> <span class="o">=</span> <span class="n">offsets</span><span class="p">[</span><span class="n">offsets</span><span class="o">&gt;</span><span class="n">onsets</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+        <span class="n">durations</span> <span class="o">=</span> <span class="n">offsets</span> <span class="o">-</span> <span class="n">onsets</span>
+        <span class="k">for</span> <span class="n">cnt</span><span class="p">,</span> <span class="p">(</span><span class="n">onset</span><span class="p">,</span> <span class="n">offset</span><span class="p">,</span> <span class="n">duration</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">onsets</span><span class="p">,</span> <span class="n">offsets</span><span class="p">,</span> <span class="n">durations</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">duration</span><span class="o">&lt;</span><span class="n">min_len</span><span class="p">:</span>
+                <span class="n">sine_pred</span><span class="p">[</span><span class="n">onset</span><span class="p">:</span><span class="n">offset</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">return</span> <span class="n">sine_pred</span>
+
+
+<span class="n">labels_pred1</span> <span class="o">=</span> <span class="n">labels_pred</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+<span class="n">gap_dur</span> <span class="o">=</span> <span class="mi">40</span> <span class="o">/</span> <span class="mi">1000</span> <span class="o">*</span> <span class="n">fs</span>  <span class="c1"># fill all gaps between segments smaller than 40ms</span>
+<span class="n">labels_pred2</span> <span class="o">=</span> <span class="n">fill_gaps</span><span class="p">(</span><span class="n">labels_pred1</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span> <span class="n">gap_dur</span><span class="p">)</span>
+
+<span class="n">min_len</span> <span class="o">=</span> <span class="mi">25</span> <span class="o">/</span> <span class="mi">1000</span> <span class="o">*</span> <span class="n">fs</span>  <span class="c1"># delete all remaining segments shorter than 25ms</span>
+<span class="n">labels_pred3</span> <span class="o">=</span> <span class="n">remove_short</span><span class="p">(</span><span class="n">labels_pred2</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span> <span class="n">min_len</span><span class="p">)</span>
+
+<span class="n">conf_mat</span><span class="p">,</span> <span class="n">report</span> <span class="o">=</span> <span class="n">dss</span><span class="o">.</span><span class="n">evaluate</span><span class="o">.</span><span class="n">evaluate_segments</span><span class="p">(</span><span class="n">labels_test</span><span class="p">,</span> <span class="n">labels_pred2</span><span class="p">,</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;class_names&#39;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Performance after filling gaps:&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">report</span><span class="p">)</span>
+
+<span class="n">conf_mat</span><span class="p">,</span> <span class="n">report</span> <span class="o">=</span> <span class="n">dss</span><span class="o">.</span><span class="n">evaluate</span><span class="o">.</span><span class="n">evaluate_segments</span><span class="p">(</span><span class="n">labels_test</span><span class="p">,</span> <span class="n">labels_pred3</span><span class="p">,</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;class_names&#39;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Performance after filling gaps and deleting short segments:&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">report</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Performance after filling gaps:
+              precision    recall  f1-score   support
+
+       noise       0.99      0.99      0.99   3522990
+        sine       0.91      0.90      0.90    363090
+
+    accuracy                           0.98   3886080
+   macro avg       0.95      0.94      0.95   3886080
+weighted avg       0.98      0.98      0.98   3886080
+
+Performance after filling gaps and deleting short segments:
+              precision    recall  f1-score   support
+
+       noise       0.99      0.99      0.99   3522990
+        sine       0.91      0.90      0.90    363090
+
+    accuracy                           0.98   3886080
+   macro avg       0.95      0.94      0.95   3886080
+weighted avg       0.98      0.98      0.98   3886080
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="evaluate-segment-onset-and-offset-timing">
+<h2>Evaluate segment onset and offset timing<a class="headerlink" href="#evaluate-segment-onset-and-offset-timing" title="Permalink to this headline">¶</a></h2>
+<p>This is not so relevant for Drosophila sine song, for which on and offset are often hard to define precisely due to low SNR, but crucial for delineating syllabled for bird song or rodent USVs.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">fixlen</span><span class="p">(</span><span class="n">onsets</span><span class="p">,</span> <span class="n">offsets</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">onsets</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">offsets</span><span class="p">):</span>
+        <span class="n">onsets</span> <span class="o">=</span> <span class="n">onsets</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">offsets</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">onsets</span><span class="p">):</span>
+        <span class="n">offsets</span> <span class="o">=</span> <span class="n">offsets</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+    <span class="k">return</span> <span class="n">onsets</span><span class="p">,</span> <span class="n">offsets</span>
+
+        
+    
+<span class="n">tol</span> <span class="o">=</span> <span class="o">.</span><span class="mi">05</span>  <span class="c1"># seconds = 50ms</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">fs</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">segment_pred_index</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">segment_onset_times_true</span><span class="p">,</span> <span class="n">segment_offset_times_true</span> <span class="o">=</span> <span class="n">fixlen</span><span class="p">(</span><span class="o">*</span><span class="n">dss</span><span class="o">.</span><span class="n">evaluate</span><span class="o">.</span><span class="n">segment_timing</span><span class="p">(</span><span class="n">labels_test</span><span class="p">,</span> <span class="n">fs</span><span class="p">))</span>
+    <span class="n">segment_onset_times_pred</span><span class="p">,</span> <span class="n">segment_offset_times_pred</span> <span class="o">=</span> <span class="n">fixlen</span><span class="p">(</span><span class="o">*</span><span class="n">dss</span><span class="o">.</span><span class="n">evaluate</span><span class="o">.</span><span class="n">segment_timing</span><span class="p">(</span><span class="n">labels_pred3</span><span class="p">,</span> <span class="n">fs</span><span class="p">))</span>
+    
+    <span class="n">durations_true</span> <span class="o">=</span> <span class="n">segment_offset_times_true</span> <span class="o">-</span> <span class="n">segment_onset_times_true</span>
+    <span class="n">durations_pred</span> <span class="o">=</span> <span class="n">segment_offset_times_pred</span> <span class="o">-</span> <span class="n">segment_onset_times_pred</span>
+
+    <span class="n">segment_onsets_report</span><span class="p">,</span> <span class="n">segment_offsets_report</span><span class="p">,</span> <span class="n">nearest_predicted_onsets</span><span class="p">,</span> <span class="n">nearest_predicted_offsets</span> <span class="o">=</span> <span class="n">dss</span><span class="o">.</span><span class="n">evaluate</span><span class="o">.</span><span class="n">evaluate_segment_timing</span><span class="p">(</span><span class="n">labels_test</span><span class="p">,</span> <span class="n">labels_pred3</span><span class="p">,</span> <span class="n">fs</span><span class="p">,</span> <span class="n">tol</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="n">segment_onsets_report</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">segment_offsets_report</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Temporal errors of all predicted sine onsets: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">nearest_predicted_onsets</span><span class="p">)</span><span class="o">*</span><span class="mi">1000</span><span class="si">:</span><span class="s1">1.2f</span><span class="si">}</span><span class="s1"> ms&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Temporal errors of all predicted sine offsets: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">nearest_predicted_offsets</span><span class="p">)</span><span class="o">*</span><span class="mi">1000</span><span class="si">:</span><span class="s1">1.2f</span><span class="si">}</span><span class="s1"> ms&#39;</span><span class="p">)</span>
+    
+    <span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">131</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">nearest_predicted_onsets</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">tol</span><span class="p">,</span> <span class="o">.</span><span class="mi">01</span><span class="p">),</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">tol</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Distance to segment onset [s]&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Probability&#39;</span><span class="p">);</span>
+    <span class="n">dss</span><span class="o">.</span><span class="n">utils_plot</span><span class="o">.</span><span class="n">remove_axes</span><span class="p">()</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">132</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">nearest_predicted_offsets</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">tol</span><span class="p">,</span> <span class="o">.</span><span class="mi">01</span><span class="p">),</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">tol</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Distance to segment offset [s]&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Probability&#39;</span><span class="p">);</span>
+    <span class="n">dss</span><span class="o">.</span><span class="n">utils_plot</span><span class="o">.</span><span class="n">remove_axes</span><span class="p">()</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">133</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">durations_true</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">),</span> <span class="n">histtype</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;true&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.33</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">durations_pred</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">),</span> <span class="n">histtype</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;pred&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.33</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Segment duration [seconds]&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Count&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+    <span class="n">dss</span><span class="o">.</span><span class="n">utils_plot</span><span class="o">.</span><span class="n">remove_axes</span><span class="p">()</span>
+    
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10000
+{&#39;FP&#39;: 27, &#39;TP&#39;: 66, &#39;FN&#39;: 33, &#39;precision&#39;: 0.7096774193548387, &#39;recall&#39;: 0.6666666666666666, &#39;f1_score&#39;: 0.6875}
+{&#39;FP&#39;: 20, &#39;TP&#39;: 73, &#39;FN&#39;: 26, &#39;precision&#39;: 0.7849462365591398, &#39;recall&#39;: 0.7373737373737373, &#39;f1_score&#39;: 0.7604166666666667}
+Temporal errors of all predicted sine onsets: 18.40 ms
+Temporal errors of all predicted sine offsets: 14.60 ms
+</pre></div>
+</div>
+<img alt="../_images/evaluate_segments_10_1.png" src="../_images/evaluate_segments_10_1.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Temporal errors of matched onsets: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">nearest_predicted_onsets</span><span class="p">[</span><span class="n">nearest_predicted_onsets</span><span class="o">&lt;</span><span class="n">tol</span><span class="p">])</span> <span class="o">*</span> <span class="mi">1000</span><span class="si">:</span><span class="s1">1.2f</span><span class="si">}</span><span class="s1"> ms&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Temporal errors of matched offsets: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">nearest_predicted_offsets</span><span class="p">[</span><span class="n">nearest_predicted_offsets</span><span class="o">&lt;</span><span class="n">tol</span><span class="p">])</span> <span class="o">*</span> <span class="mi">1000</span><span class="si">:</span><span class="s1">1.2f</span><span class="si">}</span><span class="s1"> ms&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Temporal errors of matched onsets: 12.01 ms
+Temporal errors of matched offsets: 15.35 ms
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="troubleshooting">
+<h1>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permalink to this headline">¶</a></h1>
+<p>Things to do when the predictions look weird:</p>
+<ul class="simple">
+<li><p>Plot the raw predictions alongside the input song recording, the labels used for training, and the raw event times. The spectrogram may also help. This will reveal whether there is an offset or even a mismatch in sampling frequencies.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">librosa.feature</span>
+<span class="kn">import</span> <span class="nn">librosa.display</span>
+
+<span class="n">t0</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">t1</span> <span class="o">=</span> <span class="n">t0</span> <span class="o">+</span> <span class="mi">100_000</span>
+
+<span class="n">nb_channels</span> <span class="o">=</span> <span class="n">x_test</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">x_snippet</span> <span class="o">=</span> <span class="n">x_test</span><span class="p">[</span><span class="n">y_offset</span> <span class="o">+</span> <span class="n">t0</span><span class="o">*</span><span class="n">dwn_smp</span><span class="p">:</span><span class="n">y_offset</span><span class="o">+</span><span class="n">t1</span><span class="o">*</span><span class="n">dwn_smp</span><span class="p">,:]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">((</span><span class="n">nb_channels</span><span class="o">+</span><span class="mi">5</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_snippet</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">nb_channels</span><span class="p">)</span><span class="o">/</span><span class="mi">10</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">([])</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="n">nb_channels</span><span class="o">+</span><span class="mi">5</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">y_test</span><span class="p">[</span><span class="n">t0</span><span class="p">:</span><span class="n">t1</span><span class="p">]</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Blues&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">labels</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;class_names&#39;</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;FSS&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">([])</span>
+<span class="n">dss</span><span class="o">.</span><span class="n">utils_plot</span><span class="o">.</span><span class="n">remove_axes</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="n">nb_channels</span><span class="o">+</span><span class="mi">5</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">y_pred</span><span class="p">[</span><span class="n">t0</span><span class="p">:</span><span class="n">t1</span><span class="p">]</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Oranges&#39;</span><span class="p">)</span>
+<span class="c1"># plt.plot(labels_pred[t0:t1], &#39;k&#39;, linewidth=2)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">labels_pred3</span><span class="p">[</span><span class="n">t0</span><span class="p">:</span><span class="n">t1</span><span class="p">],</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">labels</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;class_names&#39;</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;TCN&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">t1</span> <span class="o">-</span> <span class="n">t0</span><span class="p">)</span>
+<span class="n">dss</span><span class="o">.</span><span class="n">utils_plot</span><span class="o">.</span><span class="n">remove_axes</span><span class="p">()</span>
+
+<span class="k">for</span> <span class="n">cnt</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">x_snippet</span><span class="o">.</span><span class="n">T</span><span class="p">):</span>
+    <span class="n">specgram</span> <span class="o">=</span> <span class="n">librosa</span><span class="o">.</span><span class="n">feature</span><span class="o">.</span><span class="n">melspectrogram</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">sr</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span> <span class="n">n_fft</span><span class="o">=</span><span class="mi">512</span><span class="p">,</span> <span class="n">hop_length</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">power</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="n">nb_channels</span><span class="o">+</span><span class="mi">5</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="o">+</span><span class="n">cnt</span><span class="p">)</span>
+    <span class="n">librosa</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">specshow</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">specgram</span><span class="p">),</span> <span class="n">sr</span><span class="o">=</span><span class="mi">10_000</span><span class="p">,</span> <span class="n">hop_length</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">y_axis</span><span class="o">=</span><span class="s1">&#39;mel&#39;</span><span class="p">,</span> <span class="n">x_axis</span><span class="o">=</span><span class="s1">&#39;ms&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">clim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">500</span><span class="p">)</span>
+    <span class="n">dss</span><span class="o">.</span><span class="n">utils_plot</span><span class="o">.</span><span class="n">remove_axes</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">cnt</span><span class="o">&lt;</span><span class="mi">8</span><span class="p">:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">([])</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">([])</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="mi">100</span><span class="p">))</span>    
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Freq for chan</span><span class="si">{</span><span class="n">cnt</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/evaluate_segments_13_0.png" src="../_images/evaluate_segments_13_0.png" />
+</div>
+</div>
+<div class="section" id="id1">
+<h2><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./tutorials"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Jan Clemens<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="../_static/js/index.3da636dd464baa7582d2.js"></script>
+
+
+    
+  </body>
+</html>
