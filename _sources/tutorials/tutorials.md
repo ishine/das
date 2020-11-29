@@ -6,5 +6,5 @@
 - make dataset using GUI but clicking for many files tedious - use notebook for automation
     - notebook as page
     - link to notebook for download
-- training useing dss module
+- train dss module
 - realtime!

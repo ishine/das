@@ -330,6 +330,29 @@
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python -m dss.train --data-dir dat/dmel_single_raw.npy --save-dir res --model-name tcn --kernel-size <span class="m">16</span> --nb-filters <span class="m">16</span> --nb-hist <span class="m">512</span> --nb-epoch <span class="m">20</span> -i
 </pre></div>
 </div>
+<p>Shell scripts are particularly useful if you want to fit a set of networks with with different configurations to optimize architecture. For instance, this scripts will fit networsk with different numbers of TCN blocks (<code class="docutils literal notranslate"><span class="pre">nb_conv</span></code>) and filters (<code class="docutils literal notranslate"><span class="pre">nb_filters</span></code>):</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+conda activate dss
+
+<span class="nv">YSUFFIX</span><span class="o">=</span><span class="s2">&quot;pulse&quot;</span>
+<span class="nv">MODELNAME</span><span class="o">=</span><span class="s1">&#39;tcn&#39;</span>
+<span class="nv">DATADIR</span><span class="o">=</span><span class="s1">&#39;../dat/dmel_single.npy&#39;</span>
+<span class="nv">SAVEDIR</span><span class="o">=</span><span class="s2">&quot;res&quot;</span>
+
+<span class="nv">NB_HIST</span><span class="o">=</span><span class="m">2048</span>
+<span class="nv">KERNEL_SIZE</span><span class="o">=</span><span class="m">32</span>
+<span class="nv">NB_FILTERS</span><span class="o">=</span><span class="m">32</span>
+<span class="nv">NB_CONV</span><span class="o">=</span><span class="m">3</span>
+
+<span class="k">for</span> NB_CONV in <span class="m">2</span> <span class="m">3</span> <span class="m">4</span>
+<span class="k">do</span>
+    <span class="k">for</span> NB_FILTERS in <span class="m">16</span> <span class="m">32</span> <span class="m">48</span> <span class="m">64</span>
+    <span class="k">do</span>
+        python3 -m dss.train -i --nb-filters <span class="nv">$NB_FILTERS</span> --kernel-size <span class="nv">$KERNEL_SIZE</span> --nb-conv <span class="nv">$NB_CONV</span> --nb-hist <span class="nv">$NB_HIST</span> --save-dir <span class="nv">$SAVEDIR</span> --y-suffix <span class="nv">$YSUFFIX</span> --data-dir <span class="nv">$DATADIR</span> --model-name <span class="nv">$MODELNAME</span>
+    <span class="k">done</span>
+<span class="k">done</span>
+</pre></div>
+</div>
 <p>The above example uses the dataset created by <span class="xref myst">1_prepare_data.ipynb</span>. Note that the training data set and the model parameters are chosen for demonstration purposes and do not yield state-of-the-art performance.
 However, training for 10 epochs should yield a reasonably good model and takes around 15 minutes on a GPU. Training will typically converge after ~80 epochs.</p>
 <div class="cell docutils container">
