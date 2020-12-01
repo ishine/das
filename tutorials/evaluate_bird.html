@@ -379,7 +379,6 @@
 
 <span class="n">fs</span> <span class="o">=</span> <span class="mi">32_000</span>  <span class="c1"># Hz</span>
 <span class="c1"># sequence of ints - &quot;0&quot; if no song, &gt;0 if syllable </span>
-<span class="n">labels_test</span> <span class="o">=</span> <span class="n">store</span><span class="p">[</span><span class="s1">&#39;labels_test&#39;</span><span class="p">][:</span><span class="n">fs</span> <span class="o">*</span> <span class="mi">500</span><span class="p">]</span>
 <span class="c1"># labels_pred = store[&#39;labels_pred&#39;][:fs * 500]</span>
 </pre></div>
 </div>
@@ -397,7 +396,8 @@
 <span class="c1"># np.save(&#39;confidence_scores.npy&#39;, y_pred)</span>
 
 <span class="n">y_pred</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;confidence_scores.npy&#39;</span><span class="p">)</span><span class="c1">#[:1_000_000]</span>
-<span class="c1"># labels_test = labels_test[:1_000_000]</span>
+
+<span class="n">labels_test</span> <span class="o">=</span> <span class="n">store</span><span class="p">[</span><span class="s1">&#39;labels_test&#39;</span><span class="p">][:</span><span class="n">y_pred</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
 </pre></div>
 </div>
 </div>
@@ -620,8 +620,8 @@ weighted avg       0.98      0.97      0.98    586665
 </div>
 <div class="cell_output docutils container">
 <img alt="../_images/evaluate_bird_13_0.jpg" src="../_images/evaluate_bird_13_0.jpg" />
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Micro avg 0.9629283371819333
-Global avg 0.9911196911196911
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Micro avg 0.9632938342579566
+Global avg 0.9915025106218617
 (38, 38)
               precision    recall  f1-score   support
 
