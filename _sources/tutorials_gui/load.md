@@ -13,12 +13,12 @@ dss-gui
 
 <img src="/images/xb_start.png" alt="start screen" width=450>
 
-# Load audio data
+## Load audio data
 
 
 In the window that opens, choose _Load audio from file_ and select the downloaded recording of fly song. Alternatively, use the menu  _File/New from file_.
 
-## Supported formats
+### Supported formats
 
 Currently, the GUI can load audio data from a wide range of file types:
 
@@ -32,7 +32,7 @@ The example recording is an audio file in `wav` format.
 If your favorite format is not included in this list, [convert it to a supported format](/tutorials/convert).
 ```
 
-## Options
+### Customizing data loading
 After selecting a file, a menu allows you to adjust things before loading:
 
 :::{figure} xb_load-fig
@@ -59,7 +59,7 @@ Most of these parameters are also exposed via the command-line when starting the
 
 For the purpose of this tutorial, keep the defaults and hit the `Load data` button.
 
-# Overview over the display and menus
+## Overview over the display and menus
 Audio data from all channels (gray), with one channel being selected (white), and the spectogram of the currently selected channel below. The example recording is single channel so only one white audio trace will be displayed.
 
 To navigate the view: Move forward/backward along the time axis via the `A`/`D` keys and zoom in/out the time axis with the `W`/`S` keys (See Playback/). The temporal resolution of the spectrogram can be increased at the expense of frequency resolution with the `R` and `T` keys.

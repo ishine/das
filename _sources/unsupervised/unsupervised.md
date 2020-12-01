@@ -1,5 +1,7 @@
 # Unsupervised classification
-_DeepSS-unsupervised_ provides tools for pre-processing acoustic signals for unsupervised classification:
+Unsupervised classifications is an alternative to tedious manual classification of song types: Use _DeepSS_ via the GUI or the command line to detect anything that you think is song and then classify song into different types afterwards. The song types discovered with unsupervised methods can then be used to create a training dataset for training _DeepSS_ to directly label the different song types.
+
+_DeepSS-unsupervised_ provides tools for applying this approach with a focus on pre-processing acoustic signals for unsupervised classification:
 
 - extract waveforms or spectrograms of acoustic events from a recording
 - normalize the duration, center frequency, amplitude, or sign of waveform/spectrograms
@@ -9,21 +11,12 @@ Unsupervised classification itself is performed using existing libraries:
 - dimensionality reduction: [umap](https://umap-learn.readthedocs.io/)
 - clustering: [hdbscan](https://hdbscan.readthedocs.io/) or [scikit-learn](https://scikit-learn.org/stable/modules/clustering.html)
 
-Can be Used in combination with [DeepSS](https://github.com/janclemenslab/deepsongsegmenter), a deep learning based method for the supervised annotation of acoustic signals.
+## Examples
+We illustrate different pre-processing and classification strategies using three different examples
 
-
-## Installation
-
-```shell
-pip install deepss-unsupervised
-```
-
-## Demos
- Illustration of the workflow and the method using vocalizations from:
-
-- [flies](flies.ipynb)
-- [mice](mice.ipynb)
-- [birds](birds.ipynb)
+- [Courtship song of flies](flies.ipynb) - normalize waveforms to automatically detect sine song and different pulse types.
+- [Song of Bengalese finches](birds.ipynb) - process syllable spectrograms to classify >40 syllable types.
+- [Ultrasonic vocalizations from mice](mice.ipynb) - process syllable spectrograms to group syllables by the shape of their spectral contours.
 
 ![](banner.png)
 

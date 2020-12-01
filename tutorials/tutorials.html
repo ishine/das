@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Notebook and CLI tutorial</title>
+    <title>Programming tutorial</title>
     
   <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
 
@@ -107,26 +107,6 @@
   </a>
   <ul class="collapse-ul">
    <li class="toctree-l2">
-    <a class="reference internal" href="../tutorials_gui/load.html">
-     Download example data
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../tutorials_gui/load.html#start-the-gui">
-     Start the GUI
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../tutorials_gui/load.html#load-audio-data">
-     Load audio data
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../tutorials_gui/load.html#overview-over-the-display-and-menus">
-     Overview over the display and menus
-    </a>
-   </li>
-   <li class="toctree-l2">
     <a class="reference internal" href="../tutorials_gui/annotate.html">
      Annotate song
     </a>
@@ -147,7 +127,7 @@
  </li>
  <li class="toctree-l1 current active collapsible-parent">
   <a class="current reference internal" href="#">
-   Notebook and CLI tutorial
+   Programming tutorial
   </a>
   <ul class="collapse-ul">
    <li class="toctree-l2">
@@ -166,13 +146,18 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="evaluate.html">
-     Evaluate model performance
+    <a class="reference internal" href="predict.html">
+     Predict
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="evaluate.html#get-predictions">
-     Get predictions
+    <a class="reference internal" href="evaluate_fly.html">
+     Evaluate for fly sine and pulse song
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="evaluate_bird.html">
+     Evaluate for bird song
     </a>
    </li>
    <li class="toctree-l2">
@@ -191,7 +176,7 @@
   <ul class="collapse-ul">
    <li class="toctree-l2">
     <a class="reference internal" href="../unsupervised/flies.html">
-     Fly song
+     Courtship song of flies
     </a>
    </li>
    <li class="toctree-l2">
@@ -299,23 +284,16 @@
         
               <div>
                 
-  <div class="section" id="notebook-and-cli-tutorial">
-<h1>Notebook and CLI tutorial<a class="headerlink" href="#notebook-and-cli-tutorial" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="programming-tutorial">
+<h1>Programming tutorial<a class="headerlink" href="#programming-tutorial" title="Permalink to this headline">¶</a></h1>
+<p>While <em>DeepSS</em> can be used via the GUI, the <em>dss</em> programming module and command-line interface provide more control, flexibility and automation:</p>
 <ul class="simple">
-<li><p>convert data</p>
-<ul>
-<li><p>annotations</p></li>
-<li><p>data</p></li>
-</ul>
-</li>
-<li><p>make dataset using GUI but clicking for many files tedious - use notebook for automation</p>
-<ul>
-<li><p>notebook as page</p></li>
-<li><p>link to notebook for download</p></li>
-</ul>
-</li>
-<li><p>train dss module</p></li>
-<li><p>realtime!</p></li>
+<li><p><a class="reference internal" href="convert.html"><span class="doc std std-doc">Convert your own annotation or audio data format for use with the GUI or training</span></a></p></li>
+<li><p><a class="reference internal" href="make_ds_notebook.html"><span class="doc std std-doc">Make dataset from your own data</span></a></p></li>
+<li><p><a class="reference internal" href="train.html"><span class="doc std std-doc">Train a network and optimize network parameters</span></a></p></li>
+<li><p><a class="reference internal" href="predict.html"><span class="doc std std-doc">Infer annotations using a trained network</span></a></p></li>
+<li><p>Evaluate networks with examples for <a class="reference internal" href="evaluate_fly.html"><span class="doc std std-doc">fly song</span></a> and <a class="reference internal" href="evaluate_bird.html"><span class="doc std std-doc">bird song</span></a></p></li>
+<li><p><a class="reference internal" href="realtime.html"><span class="doc std std-doc">Annotate song in realtime for closed loop experiments</span></a></p></li>
 </ul>
 <div class="toctree-wrapper compound">
 </div>
@@ -357,7 +335,7 @@
     <div class="container">
       <p>
         
-          By Jan Clemens<br/>
+          By ncb lab<br/>
         
             &copy; Copyright 2020.<br/>
       </p>

@@ -59,7 +59,7 @@
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Evaluate model performance" href="evaluate.html" />
+    <link rel="next" title="Predict" href="predict.html" />
     <link rel="prev" title="Make datasets with custom data" href="make_ds_notebook.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -107,26 +107,6 @@
   </a>
   <ul class="collapse-ul">
    <li class="toctree-l2">
-    <a class="reference internal" href="../tutorials_gui/load.html">
-     Download example data
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../tutorials_gui/load.html#start-the-gui">
-     Start the GUI
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../tutorials_gui/load.html#load-audio-data">
-     Load audio data
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../tutorials_gui/load.html#overview-over-the-display-and-menus">
-     Overview over the display and menus
-    </a>
-   </li>
-   <li class="toctree-l2">
     <a class="reference internal" href="../tutorials_gui/annotate.html">
      Annotate song
     </a>
@@ -147,7 +127,7 @@
  </li>
  <li class="toctree-l1 current active collapsible-parent">
   <a class="reference internal" href="tutorials.html">
-   Notebook and CLI tutorial
+   Programming tutorial
   </a>
   <ul class="current collapse-ul">
    <li class="toctree-l2">
@@ -166,13 +146,18 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="evaluate.html">
-     Evaluate model performance
+    <a class="reference internal" href="predict.html">
+     Predict
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="evaluate.html#get-predictions">
-     Get predictions
+    <a class="reference internal" href="evaluate_fly.html">
+     Evaluate for fly sine and pulse song
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="evaluate_bird.html">
+     Evaluate for bird song
     </a>
    </li>
    <li class="toctree-l2">
@@ -191,7 +176,7 @@
   <ul class="collapse-ul">
    <li class="toctree-l2">
     <a class="reference internal" href="../unsupervised/flies.html">
-     Fly song
+     Courtship song of flies
     </a>
    </li>
    <li class="toctree-l2">
@@ -309,6 +294,25 @@
     <!-- Table of contents -->
     <div class="d-none d-md-block col-md-2 bd-toc show">
         
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#training-using-python">
+   Training using python
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#training-using-command-line-scripts">
+   Training using command-line scripts
+  </a>
+ </li>
+</ul>
+
+        </nav>
+        
     </div>
 </div>
     <div id="main-content" class="row">
@@ -318,60 +322,32 @@
                 
   <div class="section" id="training">
 <h1>Training<a class="headerlink" href="#training" title="Permalink to this headline">¶</a></h1>
-<p>Train the network using <code class="docutils literal notranslate"><span class="pre">dss.train</span></code>. The function will:</p>
+<p>The network can be trained using three interfaces:</p>
 <ul class="simple">
-<li><p>load train/val/test data</p></li>
+<li><p>python, via <code class="docutils literal notranslate"><span class="pre">dss.train.train</span></code></p></li>
+<li><p>the command-line interface <code class="docutils literal notranslate"><span class="pre">dss-train</span></code>.</p></li>
+<li><p>the GUI - see the <a class="reference internal" href="../tutorials_gui/train.html"><span class="doc std std-doc">GUI tutorial</span></a></p></li>
+</ul>
+<p>Training will:</p>
+<ul class="simple">
+<li><p>load train/val/test data form a dataset</p></li>
 <li><p>initialize the network</p></li>
 <li><p>save all parameters for reproducibility</p></li>
 <li><p>train the network and save the best network to disk</p></li>
 <li><p>run inference and evaluate the network using the test data.</p></li>
 </ul>
-<p>In the process, four files will be created, all starting with the date_time the process was started (<code class="docutils literal notranslate"><span class="pre">YYYYMMDD_HHMMSS</span></code> as in <code class="docutils literal notranslate"><span class="pre">20192310_091032</span></code>):</p>
+<p>The names of files created during training start with an optional prefix and the time stamp of the start time of training, as in <code class="docutils literal notranslate"><span class="pre">my-awesome-prefix_20192310_091032</span></code>. Typically, three files are created:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">*_params.yaml</span></code> - training parameters etc</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">*_arch.yaml</span></code> - network architecture</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">*_params.yaml</span></code> - training parameters etc.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">*_model.h5</span></code> -  model architecture and weights</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">*_results.h5</span></code> - evaluation results</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">*_results.h5</span></code> - predictions and evaluation results for the test set (only created if the training dataset contains a test set)</p></li>
 </ul>
-<p>Training can be invoked from within a script/notebook (see below) or from the command line (command line interface created by <a class="reference external" href="https://defopt.readthedocs.io/en/stable/index.html">defopt</a>):</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python -m dss.train --data-dir dat/dmel_single_raw.npy --save-dir res --model-name tcn --kernel-size <span class="m">16</span> --nb-filters <span class="m">16</span> --nb-hist <span class="m">512</span> --nb-epoch <span class="m">20</span> -i
-</pre></div>
-</div>
-<p>Shell scripts are particularly useful if you want to fit a set of networks with with different configurations to optimize architecture. For instance, this scripts will fit networsk with different numbers of TCN blocks (<code class="docutils literal notranslate"><span class="pre">nb_conv</span></code>) and filters (<code class="docutils literal notranslate"><span class="pre">nb_filters</span></code>):</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
-conda activate dss
-
-<span class="nv">YSUFFIX</span><span class="o">=</span><span class="s2">&quot;pulse&quot;</span>
-<span class="nv">MODELNAME</span><span class="o">=</span><span class="s1">&#39;tcn&#39;</span>
-<span class="nv">DATADIR</span><span class="o">=</span><span class="s1">&#39;../dat/dmel_single.npy&#39;</span>
-<span class="nv">SAVEDIR</span><span class="o">=</span><span class="s2">&quot;res&quot;</span>
-
-<span class="nv">NB_HIST</span><span class="o">=</span><span class="m">2048</span>
-<span class="nv">KERNEL_SIZE</span><span class="o">=</span><span class="m">32</span>
-<span class="nv">NB_FILTERS</span><span class="o">=</span><span class="m">32</span>
-<span class="nv">NB_CONV</span><span class="o">=</span><span class="m">3</span>
-
-<span class="k">for</span> NB_CONV in <span class="m">2</span> <span class="m">3</span> <span class="m">4</span>
-<span class="k">do</span>
-    <span class="k">for</span> NB_FILTERS in <span class="m">16</span> <span class="m">32</span> <span class="m">48</span> <span class="m">64</span>
-    <span class="k">do</span>
-        python3 -m dss.train -i --nb-filters <span class="nv">$NB_FILTERS</span> --kernel-size <span class="nv">$KERNEL_SIZE</span> --nb-conv <span class="nv">$NB_CONV</span> --nb-hist <span class="nv">$NB_HIST</span> --save-dir <span class="nv">$SAVEDIR</span> --y-suffix <span class="nv">$YSUFFIX</span> --data-dir <span class="nv">$DATADIR</span> --model-name <span class="nv">$MODELNAME</span>
-    <span class="k">done</span>
-<span class="k">done</span>
-</pre></div>
-</div>
-<p>The above example uses the dataset created by <span class="xref myst">1_prepare_data.ipynb</span>. Note that the training data set and the model parameters are chosen for demonstration purposes and do not yield state-of-the-art performance.
-However, training for 10 epochs should yield a reasonably good model and takes around 15 minutes on a GPU. Training will typically converge after ~80 epochs.</p>
+<div class="section" id="training-using-python">
+<h2>Training using python<a class="headerlink" href="#training-using-python" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">dss.train</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">help</span><span class="p">(</span><span class="n">dss</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">train</span><span class="p">)</span>
+<span class="n">help</span><span class="p">(</span><span class="n">dss</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">train</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -457,10 +433,6 @@ train(*, data_dir: str, y_suffix: str = &#39;&#39;, save_dir: str = &#39;./&#39;
 </div>
 </div>
 </div>
-<p>Training can be invoked from within a script/notebook (see below) or from the command line (command line interface created by <a class="reference external" href="https://defopt.readthedocs.io/en/stable/index.html">defopt</a>). For instance:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python -m dss.train --data-dir dat/dmel_single_raw.npy --save-dir res --model-name tcn --kernel-size <span class="m">16</span> --nb-filters <span class="m">16</span> --nb-hist <span class="m">512</span> --nb-epoch <span class="m">20</span> -i
-</pre></div>
-</div>
 <div class="cell tag_outputPrepend docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dss</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">model_name</span><span class="o">=</span><span class="s1">&#39;tcn&#39;</span><span class="p">,</span>  <span class="c1"># see `dss.models` for valid model_names</span>
@@ -539,6 +511,199 @@ train(*, data_dir: str, y_suffix: str = &#39;&#39;, save_dir: str = &#39;./&#39;
 </div>
 </div>
 </div>
+<div class="section" id="training-using-command-line-scripts">
+<h2>Training using command-line scripts<a class="headerlink" href="#training-using-command-line-scripts" title="Permalink to this headline">¶</a></h2>
+<p>The training function <code class="docutils literal notranslate"><span class="pre">dss.train.train</span></code> and all its arguments are also accessible from the command line via <code class="docutils literal notranslate"><span class="pre">dss-train</span></code> for use on the terminal. See <span class="xref myst">here</span> for a description of all command-line arguments. The command-line interface is generated with <a class="reference external" href="https://defopt.readthedocs.io/en/stable/index.html">defopt</a>.</p>
+<p>For instance, training commaned above can be invoked from the command line:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python -m dss.train --data-dir dat/dmel_single_raw.npy --save-dir res --model-name tcn --kernel-size <span class="m">16</span> --nb-filters <span class="m">16</span> --nb-hist <span class="m">512</span> --nb-epoch <span class="m">20</span> -i
+</pre></div>
+</div>
+<p>Shell scripts are particularly useful if you want to fit a set of networks with with different configurations to optimize architecture. For instance, this scripts will fit networsk with different numbers of TCN blocks (<code class="docutils literal notranslate"><span class="pre">nb_conv</span></code>) and filters (<code class="docutils literal notranslate"><span class="pre">nb_filters</span></code>):</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+conda activate dss
+
+<span class="nv">YSUFFIX</span><span class="o">=</span><span class="s2">&quot;pulse&quot;</span>
+<span class="nv">MODELNAME</span><span class="o">=</span><span class="s1">&#39;tcn&#39;</span>
+<span class="nv">DATADIR</span><span class="o">=</span><span class="s1">&#39;../dat/dmel_single.npy&#39;</span>
+<span class="nv">SAVEDIR</span><span class="o">=</span><span class="s2">&quot;res&quot;</span>
+
+<span class="nv">NB_HIST</span><span class="o">=</span><span class="m">2048</span>
+<span class="nv">KERNEL_SIZE</span><span class="o">=</span><span class="m">32</span>
+<span class="nv">NB_FILTERS</span><span class="o">=</span><span class="m">32</span>
+<span class="nv">NB_CONV</span><span class="o">=</span><span class="m">3</span>
+
+<span class="k">for</span> NB_CONV in <span class="m">2</span> <span class="m">3</span> <span class="m">4</span>
+<span class="k">do</span>
+    <span class="k">for</span> NB_FILTERS in <span class="m">16</span> <span class="m">32</span> <span class="m">48</span> <span class="m">64</span>
+    <span class="k">do</span>
+        python3 -m dss.train -i --nb-filters <span class="nv">$NB_FILTERS</span> --kernel-size <span class="nv">$KERNEL_SIZE</span> --nb-conv <span class="nv">$NB_CONV</span> --nb-hist <span class="nv">$NB_HIST</span> --save-dir <span class="nv">$SAVEDIR</span> --y-suffix <span class="nv">$YSUFFIX</span> --data-dir <span class="nv">$DATADIR</span> --model-name <span class="nv">$MODELNAME</span>
+    <span class="k">done</span>
+<span class="k">done</span>
+</pre></div>
+</div>
+<p>A description of all command line arguments can be obtained by typing <code class="docutils literal notranslate"><span class="pre">dss-gui</span> <span class="pre">--help</span></code> in a terminal:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>dss-train --help
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>usage: dss-train [-h] -d DATA_DIR [-y Y_SUFFIX] [--save-dir SAVE_DIR]
+                 [--save-prefix SAVE_PREFIX] [-m MODEL_NAME]
+                 [--nb-filters NB_FILTERS] [-k KERNEL_SIZE]
+                 [--nb-conv NB_CONV] [-u [USE_SEPARABLE [USE_SEPARABLE ...]]]
+                 [--nb-hist NB_HIST] [-i] [--no-ignore-boundaries]
+                 [--batch-norm] [--no-batch-norm] [--nb-pre-conv NB_PRE_CONV]
+                 [--pre-kernel-size PRE_KERNEL_SIZE]
+                 [--pre-nb-filters PRE_NB_FILTERS] [--pre-nb-conv PRE_NB_CONV]
+                 [-v VERBOSE] [--batch-size BATCH_SIZE] [--nb-epoch NB_EPOCH]
+                 [--learning-rate LEARNING_RATE] [--reduce-lr]
+                 [--no-reduce-lr] [--reduce-lr-patience REDUCE_LR_PATIENCE]
+                 [-f FRACTION_DATA] [--seed SEED] [--batch-level-subsampling]
+                 [--no-batch-level-subsampling] [-t] [--no-tensorboard]
+                 [--log-messages] [--no-log-messages] [--nb-stacks NB_STACKS]
+                 [-w] [--no-with-y-hist] [-x X_SUFFIX] [--version]
+
+Train a DeepSS network.
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -d DATA_DIR, --data-dir DATA_DIR
+                        Path to the directory or file with the dataset for training.
+                        Accepts npy-dirs (recommended), h5 files or zarr files.
+                        See documentation for how the dataset should be organized.
+  -y Y_SUFFIX, --y-suffix Y_SUFFIX
+                        Select training target by suffix.
+                        Song-type specific targets can be created with a training dataset,
+                        Defaults to &#39;&#39; (will use the standard target &#39;y&#39;)
+                        (default: )
+  --save-dir SAVE_DIR   Directory to save training outputs.
+                        The path of output files will constructed from the SAVE_DIR, an optional prefix, and the time stamp of the start of training.
+                        Defaults to current directory (&#39;./&#39;).
+                        (default: ./)
+  --save-prefix SAVE_PREFIX
+                        Prepend to timestamp.
+                        Name of files created will be SAVE_DIR/SAVE_PREFIX + &quot;_&quot; + TIMESTAMP
+                        or SAVE_DIR/ TIMESTAMP if SAVE_PREFIX is empty.
+                        Defaults to &#39;&#39; (empty).
+                        (default: None)
+  -m MODEL_NAME, --model-name MODEL_NAME
+                        Network architecture to use.
+                        Use &quot;tcn&quot; (TCN) or &quot;tcn_stft&quot; (TCN with STFT frontend).
+                        See dss.models for a description of all models.
+                        Defaults to &#39;tcn&#39;.
+                        (default: tcn)
+  --nb-filters NB_FILTERS
+                        Number of filters per layer.
+                        Defaults to 16.
+                        (default: 16)
+  -k KERNEL_SIZE, --kernel-size KERNEL_SIZE
+                        Duration of the filters (=kernels) in samples.
+                        Defaults to 16.
+                        (default: 16)
+  --nb-conv NB_CONV     Number of TCN blocks in the network.
+                        Defaults to 3.
+                        (default: 3)
+  -u [USE_SEPARABLE [USE_SEPARABLE ...]], --use-separable [USE_SEPARABLE [USE_SEPARABLE ...]]
+                        Specify which TCN blocks should use separable convolutions.
+                        Provide as a space-separated sequence of &quot;False&quot; or &quot;True.
+                        For instance: &quot;True False False&quot; will set the first block in a
+                        three-block (as given by nb_conv) network to use separable convolutions.
+                        Defaults to False (no block uses separable convolution).
+                        (default: False)
+  --nb-hist NB_HIST     Number of samples processed at once by the network (a.k.a chunk size).
+                        Defaults to 1024.
+                        (default: 1024)
+  -i, --ignore-boundaries
+                        Minimize edge effects by discarding predictions at the edges of chunks.
+                        Defaults to True.
+                        (default: True)
+  --no-ignore-boundaries
+  --batch-norm          Batch normalize.
+                        Defaults to True.
+                        (default: True)
+  --no-batch-norm
+  --nb-pre-conv NB_PRE_CONV
+                        Adds downsampling frontend.
+                        TCN: adds a frontend of N conv blocks (conv-relu-batchnorm-maxpool2) to the TCN - useful for reducing the sampling rate for USV.
+                        TCN_STFT: stft
+                        Defaults to 0 (no frontend).
+                        (default: 0)
+  --pre-kernel-size PRE_KERNEL_SIZE
+                        [description]. Defaults to 3.
+                        (default: 3)
+  --pre-nb-filters PRE_NB_FILTERS
+                        [description]. Defaults to 16.
+                        (default: 16)
+  --pre-nb-conv PRE_NB_CONV
+                        [description]. Defaults to 3.
+                        (default: 2)
+  -v VERBOSE, --verbose VERBOSE
+                        Verbosity of training output (0 - no output(?), 1 - progress bar, 2 - one line per epoch).
+                        Defaults to 2.
+                        (default: 2)
+  --batch-size BATCH_SIZE
+                        Batch size
+                        Defaults to 32.
+                        (default: 32)
+  --nb-epoch NB_EPOCH   Maximal number of training epochs.
+                        Training will stop early if validation loss did not decrease in the last 20 epochs.
+                        Defaults to 400.
+                        (default: 400)
+  --learning-rate LEARNING_RATE
+                        Learning rate of the model. Defaults should work in most cases.
+                        Values typically range between 0.1 and 0.00001.
+                        If None, uses per model defaults: &quot;tcn&quot; 0.0001, &quot;tcn_stft&quot; 0.0005).
+                        Defaults to None.
+                        (default: None)
+  --reduce-lr           Reduce learning rate on plateau.
+                        Defaults to False.
+                        (default: False)
+  --no-reduce-lr
+  --reduce-lr-patience REDUCE_LR_PATIENCE
+                        Number of epochs w/o a reduction in validation loss after which to trigger a reduction in learning rate.
+                        Defaults to 5.
+                        (default: 5)
+  -f FRACTION_DATA, --fraction-data FRACTION_DATA
+                        Fraction of training and validation to use for training.
+                        Defaults to 1.0.
+                        (default: None)
+  --seed SEED           Random seed to reproducible select fractions of the data.
+                        Defaults to None (no seed).
+                        (default: None)
+  --batch-level-subsampling
+                        Select fraction of data for training from random subset of shuffled batches.
+                        If False, select a continuous chunk of the recording.
+                        Defaults to False.
+                        (default: False)
+  --no-batch-level-subsampling
+  -t, --tensorboard     Write tensorboard logs to save_dir.
+                        Defaults to False.
+                        (default: False)
+  --no-tensorboard
+  --log-messages        Sets logging level to INFO.
+                        Defaults to False (will follow existing settings).
+                        (default: False)
+  --no-log-messages
+  --nb-stacks NB_STACKS
+                        Unused if model name is &quot;tcn&quot; or &quot;tcn_stft&quot;. Defaults to 2.
+                        (default: 2)
+  -w, --with-y-hist     Unused if model name is &quot;tcn&quot; or &quot;tcn_stft&quot;. Defaults to True.
+                        (default: True)
+  --no-with-y-hist
+  -x X_SUFFIX, --x-suffix X_SUFFIX
+                        Select specific training data based on suffix (e.g. x_suffix).
+                        Defaults to &#39;&#39; (will use the standard data &#39;x&#39;)
+                        (default: )
+  --version             show program&#39;s version number and exit
+
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
 
     <script type="text/x-thebe-config">
     {
@@ -569,14 +734,14 @@ train(*, data_dir: str, y_suffix: str = &#39;&#39;, save_dir: str = &#39;./&#39;
     <div class='prev-next-bottom'>
         
     <a class='left-prev' id="prev-link" href="make_ds_notebook.html" title="previous page">Make datasets with custom data</a>
-    <a class='right-next' id="next-link" href="evaluate.html" title="next page">Evaluate model performance</a>
+    <a class='right-next' id="next-link" href="predict.html" title="next page">Predict</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">
     <div class="container">
       <p>
         
-          By Jan Clemens<br/>
+          By ncb lab<br/>
         
             &copy; Copyright 2020.<br/>
       </p>

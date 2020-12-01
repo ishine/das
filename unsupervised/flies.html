@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Fly song</title>
+    <title>Courtship song of flies</title>
     
   <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
 
@@ -107,26 +107,6 @@
   </a>
   <ul class="collapse-ul">
    <li class="toctree-l2">
-    <a class="reference internal" href="../tutorials_gui/load.html">
-     Download example data
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../tutorials_gui/load.html#start-the-gui">
-     Start the GUI
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../tutorials_gui/load.html#load-audio-data">
-     Load audio data
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../tutorials_gui/load.html#overview-over-the-display-and-menus">
-     Overview over the display and menus
-    </a>
-   </li>
-   <li class="toctree-l2">
     <a class="reference internal" href="../tutorials_gui/annotate.html">
      Annotate song
     </a>
@@ -147,7 +127,7 @@
  </li>
  <li class="toctree-l1 collapsible-parent">
   <a class="reference internal" href="../tutorials/tutorials.html">
-   Notebook and CLI tutorial
+   Programming tutorial
   </a>
   <ul class="collapse-ul">
    <li class="toctree-l2">
@@ -166,13 +146,18 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../tutorials/evaluate.html">
-     Evaluate model performance
+    <a class="reference internal" href="../tutorials/predict.html">
+     Predict
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../tutorials/evaluate.html#get-predictions">
-     Get predictions
+    <a class="reference internal" href="../tutorials/evaluate_fly.html">
+     Evaluate for fly sine and pulse song
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../tutorials/evaluate_bird.html">
+     Evaluate for bird song
     </a>
    </li>
    <li class="toctree-l2">
@@ -191,7 +176,7 @@
   <ul class="current collapse-ul">
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
-     Fly song
+     Courtship song of flies
     </a>
    </li>
    <li class="toctree-l2">
@@ -316,8 +301,8 @@
         
               <div>
                 
-  <div class="section" id="fly-song">
-<h1>Fly song<a class="headerlink" href="#fly-song" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="courtship-song-of-flies">
+<h1>Courtship song of flies<a class="headerlink" href="#courtship-song-of-flies" title="Permalink to this headline">¶</a></h1>
 <p>Clustering annotations of sine and pulse song should yield three clear clusters:</p>
 <ol class="simple">
 <li><p><em>Sine</em>: relatively slow (150Hz), sustained oscillations</p></li>
@@ -335,6 +320,7 @@
 <span class="kn">from</span> <span class="nn">io</span> <span class="kn">import</span> <span class="n">BytesIO</span>
 <span class="kn">import</span> <span class="nn">urllib.request</span>
 
+<span class="o">%</span><span class="k">config</span> InlineBackend.figure_format = &#39;jpg&#39;  # smaller mem footprint for page
 <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;ncb.mplstyle&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -476,7 +462,7 @@
     <div class="container">
       <p>
         
-          By Jan Clemens<br/>
+          By ncb lab<br/>
         
             &copy; Copyright 2020.<br/>
       </p>

@@ -26,21 +26,12 @@ Annotate song, train a network, and predict on new samples
 
 ---
 
-```{link-button} tutorials/notebook
-:text: Use in notebooks
+```{link-button} tutorials/tutorials
+:text: Use in python and from the terminal
 :type: ref
 :classes: stretched-link
 ```
-Train a network using your own annotations, and predict on new samples
-
----
-
-```{link-button} tutorials/cli
-:text: Use command line interface
-:type: ref
-:classes: stretched-link
-```
-Train and predict using the command line
+Convert your own data, train and evaluate a network, predict on new samples in realtime.
 
 ---
 
@@ -49,35 +40,6 @@ Train and predict using the command line
 :type: ref
 :classes: stretched-link
 ```
-Cluster existing annotations in song types.
-
-````
-
-
-## Documentation
-
-````{panels}
-
-```{link-button} annotate
-:text: Annotate song manually
-:type: ref
-:classes: stretched-link
-```
-
----
-
-```{link-button} train
-:text: Train
-:type: ref
-:classes: stretched-link
-```
-
----
-
-```{link-button} predict
-:text: Predict song labels
-:type: ref
-:classes: stretched-link
-```
+Discover song types in annotated syllables.
 
 ````

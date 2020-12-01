@@ -84,7 +84,6 @@ The script uses the command-line interface `dss-train` for training _DeepSS_---s
 The following files will be created in the _save folder_:
 - model (arch + weights in one file but sth fails to load across versions)
 - params (info on data formats etc.)
-- arch (weights only - for robustness - load by making arch from params and load weights into it, helps with rare issues when loading a model using a different tensorflow versions from that used for training.
 - results - test results (not required for inference)
 
 The `_model.h5` and `_params.yaml` are required for using the network for predictions and need to be copied to you local machine if you train remotely.
