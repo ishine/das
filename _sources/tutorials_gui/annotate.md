@@ -16,7 +16,7 @@ Create, rename or delete song types for annotation.
 If you load audio that has been annotated before, the annotations will be loaded with the audio and can be added, deleted, and renamed via the same _Annotations/Add or edit song types_ menu.
 
 
-## Create annotations
+## Create annotations manually
 
 The two new song types "pulse" or "sine" can now be activated for annotation using the dropdown menu on the top left of the main window. The active song type can also be changed with number keys indicated in the dropdown menu.
 
@@ -27,6 +27,11 @@ Left clicks in waveform or spectrogram few create annotations.
 :::
 
 To annotate song in the recording, left-click on the waveform or spectrogram view. If an event-like song type is active, that’s it - you just placed the event time and a line should appear in the waveform and spectrogram view. If a segment-like song type is active, the first click should be placed at one boundary - the start or the end - of the segment. The first click places one boundary of the segment and the cursor changes to a cross. A second click at the other boundary will complete the annotation and a shaded area marking the segment should appear.
+
+## Annotated by thresholding the waveform
+Compute envelope detects peak surpassing a threshold - only works for song types that are events atm. Set threshold by dragging the horizontal line, press `I` to detect all events in the current view and assign them to the currently active event type.
+
+Optimize via two settings: Std of env smoothing and min dist between events.
 
 ## Edit annotations
 Adjust event times and segment bounds by dragging the lines or the boundaries of segments. Drag the shaded area itself to move a segment without changing its duration. Movement can be disabled completely or restricted to the currently selected annotation type via the _Audio_ menu.

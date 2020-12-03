@@ -303,8 +303,13 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#create-annotations">
-   Create annotations
+  <a class="reference internal nav-link" href="#create-annotations-manually">
+   Create annotations manually
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#annotated-by-thresholding-the-waveform">
+   Annotated by thresholding the waveform
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -344,14 +349,19 @@
 </div>
 <p>If you load audio that has been annotated before, the annotations will be loaded with the audio and can be added, deleted, and renamed via the same <em>Annotations/Add or edit song types</em> menu.</p>
 </div>
-<div class="section" id="create-annotations">
-<h2>Create annotations<a class="headerlink" href="#create-annotations" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="create-annotations-manually">
+<h2>Create annotations manually<a class="headerlink" href="#create-annotations-manually" title="Permalink to this headline">¶</a></h2>
 <p>The two new song types “pulse” or “sine” can now be activated for annotation using the dropdown menu on the top left of the main window. The active song type can also be changed with number keys indicated in the dropdown menu.</p>
 <div class="figure align-default" id="xb-create-fig">
 <a class="reference internal image-reference" href="../_images/xb_create_opt.gif"><img alt="annotate song" src="../_images/xb_create_opt.gif" style="width: 700px;" /></a>
 <p class="caption"><span class="caption-number">Fig. 7 </span><span class="caption-text">Left clicks in waveform or spectrogram few create annotations.</span><a class="headerlink" href="#xb-create-fig" title="Permalink to this image">¶</a></p>
 </div>
 <p>To annotate song in the recording, left-click on the waveform or spectrogram view. If an event-like song type is active, that’s it - you just placed the event time and a line should appear in the waveform and spectrogram view. If a segment-like song type is active, the first click should be placed at one boundary - the start or the end - of the segment. The first click places one boundary of the segment and the cursor changes to a cross. A second click at the other boundary will complete the annotation and a shaded area marking the segment should appear.</p>
+</div>
+<div class="section" id="annotated-by-thresholding-the-waveform">
+<h2>Annotated by thresholding the waveform<a class="headerlink" href="#annotated-by-thresholding-the-waveform" title="Permalink to this headline">¶</a></h2>
+<p>Compute envelope detects peak surpassing a threshold - only works for song types that are events atm. Set threshold by dragging the horizontal line, press <code class="docutils literal notranslate"><span class="pre">I</span></code> to detect all events in the current view and assign them to the currently active event type.</p>
+<p>Optimize via two settings: Std of env smoothing and min dist between events.</p>
 </div>
 <div class="section" id="edit-annotations">
 <h2>Edit annotations<a class="headerlink" href="#edit-annotations" title="Permalink to this headline">¶</a></h2>
