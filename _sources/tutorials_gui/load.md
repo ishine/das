@@ -1,24 +1,8 @@
-## Download example data
-
-Download and open this [file](link) - it's a recording of fly song from a male _Drosophila melanogaster_ courthing a females, recorded by D. Stern (link) saved as a wav file. We will use the file as an example to walk through loading, annotating, training and predicting.
-
-
-## Start the GUI
-
-Install _DeepSS_ following these [instructions](/install). Then start the GUI by opening a terminal, activating the conda environment created during install and typing `dss-gui`:
-```shell
-conda activate dss
-dss-gui
-```
-
-<img src="/images/xb_start.png" alt="start screen" width=450>
-
-## Load audio data
-
+# Load and view data
 
 In the window that opens, choose _Load audio from file_ and select the downloaded recording of fly song. Alternatively, use the menu  _File/New from file_.
 
-### Supported formats
+## Supported formats
 
 Currently, the GUI can load audio data from a wide range of file types:
 
@@ -32,7 +16,7 @@ The example recording is an audio file in `wav` format.
 If your favorite format is not included in this list, [convert it to a supported format](/tutorials/convert).
 ```
 
-### Customizing data loading
+## Customizing loading
 After selecting a file, a menu allows you to adjust things before loading:
 
 :::{figure} xb_load-fig
@@ -44,14 +28,14 @@ Loading screen.
 - _Dataset with audio_: Select the variable in the `npz`, `mat` or `h5` file that contains the audio data. For audio (e.g. wav) and `npy` files, this field will be empty since they do not contain multiple datasets.
 - _Data format_: The format for loading the file is inferred automatically but can be overridden here.
 - _Audio sample rate_: The audio sample rate is obtained from the file for audio files, and from the `samplerate` variable of `npz` files (see [data formats](/technical/data_formats)). Enter the correct sample rate for formats lack that information.
-- ignore_tracks (REMOVE)
-- crop width and height (REMOVE)
-- _File with annotations_: Load existing annotations from a `csv` file. See [here](/technical/data_formats) for a description of the expected content of that file. Will default to the name of the audio data file with the extension replaced by `csv`. You can select an alternative via the _Select file ..._ button. Will ignore the file if it does not exist or is malformed.
+- ignore_tracks (IGNORE)
+- crop width and height (IGNORE)
+- _File with annotations_: Load existing annotations from a `csv` file, will default to the name of the audio file, ending in `_annotations.csv`.  See [here](/technical/data_formats) for a description of the expected content of that file. Will default to the name of the audio data file with the extension replaced by `csv`. You can select an alternative via the _Select file ..._ button. Will ignore the file if it does not exist or is malformed.
 - _Initialize annotations_: Initialize the song types you want to annotate. “name,category;name2,category2” (category is either event or segment). After loading, you can add, delete, and rename song types via the _Audio/Add or edit annotation types_ menu.
-- Sample rate events (REMOVE)
+- Sample rate events (IGNORE)
 - _Minimal/Maximal spectrogram frequency_: Focus the range of frequencies in the spectrogram display on the frequencies that occur in the song you want to annotate. For instance, for fly song, we typically choose 50-1000Hz. If checking `None`, will default to the between 0 and half the audio sample rate.
 - _Band-pass filter audio_: To remove noise at high or low frequencies, specify the lower and upper frequency of the pass-band. Filtering will take a while for long, multi-channel audio. Caution: If you train a network using filtered data, you need to apply the same filter to all recordings you want to apply the network to.
-- Load cue points (REMOVE)
+- Load cue points (IGNORE)
 
 ```{note}
 Most of these parameters are also exposed via the command-line when starting the GUI. See [xb_cli] for details.
@@ -60,13 +44,11 @@ Most of these parameters are also exposed via the command-line when starting the
 For the purpose of this tutorial, keep the defaults and hit the `Load data` button.
 
 ## Overview over the display and menus
-Audio data from all channels (gray), with one channel being selected (white), and the spectogram of the currently selected channel below. The example recording is single channel so only one white audio trace will be displayed.
+Audio data from all channels (gray), with one channel being selected (white), and the spectrogram of the currently selected channel below. The example recording is single channel so only one white audio trace will be displayed.
 
 To navigate the view: Move forward/backward along the time axis via the `A`/`D` keys and zoom in/out the time axis with the `W`/`S` keys (See Playback/). The temporal resolution of the spectrogram can be increased at the expense of frequency resolution with the `R` and `T` keys.
 
 You can play back the waveform on display through your computer speakers by pressing `E`.
-
-
 
 :::{figure} xb_display-fig
 <img src="/images/xb_display.png" alt="waveform and spectrogram display" width="100%">

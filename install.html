@@ -59,7 +59,7 @@
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="GUI tutorial" href="tutorials_gui/tutorials_gui.html" />
+    <link rel="next" title="GUI documentation" href="tutorials_gui/tutorials_gui.html" />
     <link rel="prev" title="Welcome to DeepSS" href="intro.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -103,9 +103,19 @@
  </li>
  <li class="toctree-l1 collapsible-parent">
   <a class="reference internal" href="tutorials_gui/tutorials_gui.html">
-   GUI tutorial
+   GUI documentation
   </a>
   <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="tutorials_gui/quick_start.html">
+     Quick start tutorial
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="tutorials_gui/load.html">
+     Load and view data
+    </a>
+   </li>
    <li class="toctree-l2">
     <a class="reference internal" href="tutorials_gui/annotate.html">
      Annotate song
@@ -127,7 +137,7 @@
  </li>
  <li class="toctree-l1 collapsible-parent">
   <a class="reference internal" href="tutorials/tutorials.html">
-   Programming tutorial
+   Programming documentation
   </a>
   <ul class="collapse-ul">
    <li class="toctree-l2">
@@ -137,12 +147,17 @@
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="tutorials/make_ds_notebook.html">
-     Make datasets with custom data
+     Make a dataset from custom data formats
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="tutorials/inspect_dataset.html">
+     Inspect dataset
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="tutorials/train.html">
-     Training
+     Train
     </a>
    </li>
    <li class="toctree-l2">
@@ -162,7 +177,7 @@
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="tutorials/realtime.html">
-     Realtime annotations
+     Annotate audio in realtime
     </a>
    </li>
   </ul>
@@ -321,9 +336,14 @@
 <h1>Install<a class="headerlink" href="#install" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="pre-requisites">
 <h2>Pre-requisites<a class="headerlink" href="#pre-requisites" title="Permalink to this headline">¶</a></h2>
-<p><strong>Anaconda</strong>: <em>DeepSS</em> is installed using an anaconda environment. For that, you first have to <a class="reference external" href="https://docs.anaconda.com/anaconda/install/">install anaconda</a> (or use <a class="reference external" href="https://docs.conda.io/en/latest/miniconda.html">miniconda</a>).</p>
-<p><strong>CUDA libraries for using the GPU</strong>: While <em>DeepSS</em> works well for annotating song using CPUs, GPUs will greatly improve annotation speed and are in particular recommended for training a <em>DeepSS</em> network. The network is implement in the deep-learning framework Tensorflow. To make sure that Tensorflow can utilize the GPU, make sure you have the required CUDA libraries installed: <span class="xref myst">https://www.tensorflow.org/install/gpu</span>.</p>
-<p><strong>Libsoundfile on linux</strong>: The graphical user interface (GUI) reads audio data using <a class="reference external" href="http://pysoundfile.readthedocs.io/">soundfile</a>, which relies on <code class="docutils literal notranslate"><span class="pre">libsndfile</span></code>. <code class="docutils literal notranslate"><span class="pre">libsndfile</span></code> will be automatically installed on Windows and macOS but needs to be installed separately with: <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">apt-get</span> <span class="pre">install</span> <span class="pre">libsndfile1</span></code>. Alternatively, <em>DeepSS</em> can be installed and used w/o the GUI (see below).</p>
+<p><strong>Anaconda</strong>: <em>DeepSS</em> is installed using an anaconda environment. For that, first install the <a class="reference external" href="https://docs.anaconda.com/anaconda/install/">anaconda python distribution</a> (or <a class="reference external" href="https://docs.conda.io/en/latest/miniconda.html">miniconda</a>).</p>
+<!-- ```shell
+curl https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -o miniconda.sh
+sh miniconda.sh -b -p $HOME/miniconda
+export PATH="$HOME/miniconda/bin:$PATH"
+``` -->
+<p><strong>CUDA libraries for using the GPU</strong>: While <em>DeepSS</em> works well for annotating song using CPUs, GPUs will greatly improve annotation speed and are in particular recommended for training a <em>DeepSS</em> network. The network is implement in the deep-learning framework Tensorflow. To make sure that Tensorflow can utilize the GPU, the required CUDA libraries need to be installed. See the <a class="reference external" href="https://www.tensorflow.org/install/gpu">tensorflow docs</a> for details.</p>
+<p><strong>Libsoundfile on linux</strong>: The graphical user interface (GUI) reads audio data using <a class="reference external" href="http://pysoundfile.readthedocs.io/">soundfile</a>, which relies on <code class="docutils literal notranslate"><span class="pre">libsndfile</span></code>. <code class="docutils literal notranslate"><span class="pre">libsndfile</span></code> will be automatically installed on Windows and macOS. On Linux, the library needs to be installed manually with: <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">apt-get</span> <span class="pre">install</span> <span class="pre">libsndfile1</span></code>. Note that <em>DeepSS</em> will work w/o <code class="docutils literal notranslate"><span class="pre">libsndfile</span></code> but will only be able to load more unusual audio file formats.</p>
 </div>
 <div class="section" id="install-deepss-with-or-without-the-gui">
 <h2>Install <em>DeepSS</em> with or without the GUI<a class="headerlink" href="#install-deepss-with-or-without-the-gui" title="Permalink to this headline">¶</a></h2>
@@ -331,25 +351,24 @@
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>conda env create -f https://raw.githubusercontent.com/janclemenslab/deepsongsegmenter/master/env/deepss_gui.yml -n dss
 </pre></div>
 </div>
-<p>If you do not need the <code class="docutils literal notranslate"><span class="pre">xb</span></code> GUI (for instance, for training <em>DeepSS</em> on a server), install the plain version:</p>
+<p>If you do not need require the graphical user interface <code class="docutils literal notranslate"><span class="pre">dss-gui</span></code> (for instance, for training <em>DeepSS</em> on a server), install the plain version:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>conda env create -f https://raw.githubusercontent.com/janclemenslab/deepsongsegmenter/master/env/deepss_plain.yml -n dss
 </pre></div>
 </div>
 </div>
 <div class="section" id="test-the-installation">
 <h2>Test the installation<a class="headerlink" href="#test-the-installation" title="Permalink to this headline">¶</a></h2>
-<p>To test the installation, activate the conda environment and run these three commands in the terminal:</p>
+<p>To quickly test the installation, activate the conda environment and run these two commands in the terminal:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>conda activate dss
 dss-train --help
-dss-predict --help
 dss-gui
 </pre></div>
 </div>
-<p>The first two should display the command line arguments for <code class="docutils literal notranslate"><span class="pre">dss-train</span></code> and <code class="docutils literal notranslate"><span class="pre">dss-predict</span></code>. The last command, <code class="docutils literal notranslate"><span class="pre">dss-gui</span></code> will start the graphical user interface - this will <em>not</em> work with the plain install.</p>
+<p>The first one should display the command line arguments for <code class="docutils literal notranslate"><span class="pre">dss-train</span></code>. The second command, <code class="docutils literal notranslate"><span class="pre">dss-gui</span></code> will start the graphical user interface - this will <em>not</em> work with the plain install.</p>
 </div>
 <div class="section" id="next-steps">
 <h2>Next steps<a class="headerlink" href="#next-steps" title="Permalink to this headline">¶</a></h2>
-<p>If all is working, train <em>DeepSS</em> to annotate song in your own recordings. Either <span class="xref myst">annotate some song manually using the GUI</span> or, if you already have annotations, use them to <a class="reference internal" href="make_dataset.html"><span class="doc std std-doc">make a dataset for training</span></a> <em>DeepSS</em>.</p>
+<p>If all is working, you can now use <em>DeepSS</em> to annotate song. To get started, you will first need to train a network on your own data. For that you need manual annotations - either create new annotations <span class="xref myst">using the GUI</span> or convert existing annotations <span class="xref myst">using python scripts</span>.</p>
 </div>
 </div>
 
@@ -382,7 +401,7 @@ dss-gui
     <div class='prev-next-bottom'>
         
     <a class='left-prev' id="prev-link" href="intro.html" title="previous page">Welcome to <em>DeepSS</em></a>
-    <a class='right-next' id="next-link" href="tutorials_gui/tutorials_gui.html" title="next page">GUI tutorial</a>
+    <a class='right-next' id="next-link" href="tutorials_gui/tutorials_gui.html" title="next page">GUI documentation</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">

@@ -103,9 +103,19 @@
  </li>
  <li class="toctree-l1 current active collapsible-parent">
   <a class="reference internal" href="tutorials_gui.html">
-   GUI tutorial
+   GUI documentation
   </a>
   <ul class="current collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="quick_start.html">
+     Quick start tutorial
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="load.html">
+     Load and view data
+    </a>
+   </li>
    <li class="toctree-l2">
     <a class="reference internal" href="annotate.html">
      Annotate song
@@ -127,7 +137,7 @@
  </li>
  <li class="toctree-l1 collapsible-parent">
   <a class="reference internal" href="../tutorials/tutorials.html">
-   Programming tutorial
+   Programming documentation
   </a>
   <ul class="collapse-ul">
    <li class="toctree-l2">
@@ -137,12 +147,17 @@
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../tutorials/make_ds_notebook.html">
-     Make datasets with custom data
+     Make a dataset from custom data formats
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../tutorials/inspect_dataset.html">
+     Inspect dataset
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../tutorials/train.html">
-     Training
+     Train
     </a>
    </li>
    <li class="toctree-l2">
@@ -162,7 +177,7 @@
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../tutorials/realtime.html">
-     Realtime annotations
+     Annotate audio in realtime
     </a>
    </li>
   </ul>
@@ -283,31 +298,19 @@
         <nav id="bd-toc-nav">
             <ul class="nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#assemble-exported-annotations">
-   Assemble exported annotations
+  <a class="reference internal nav-link" href="#make-a-dataset-from-exported-annotations">
+   Make a dataset from exported annotations
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#train-deepss-using-the-gui">
    Train DeepSS using the GUI
   </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#data-set">
-     Data set
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#network-parameters">
-     Network parameters
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#training-parameters">
-     Training parameters
-    </a>
-   </li>
-  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#recommended-configurations">
+   Recommended configurations
+  </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id1">
@@ -332,17 +335,21 @@
                 
   <div class="section" id="train">
 <h1>Train<a class="headerlink" href="#train" title="Permalink to this headline">¶</a></h1>
-<p>To train a network, you need to make a dataset from exported annotations and configure and train a network.</p>
-<div class="section" id="assemble-exported-annotations">
-<h2>Assemble exported annotations<a class="headerlink" href="#assemble-exported-annotations" title="Permalink to this headline">¶</a></h2>
-<p>Training expects data in a specific format with splits and metadata (see <a class="reference external" href="data_formats.html#dataset-for-training">specification</a>). The GUI automates the generation of these datasets from audio annotated using the GUI. You can also do it yourself (see notebook tutorial) but also present sample code for using your own data formats.</p>
-<p>Select the folder with the exported audio and annotations via <code class="docutils literal notranslate"><span class="pre">DeepSS/Make</span> <span class="pre">dataset</span> <span class="pre">for</span> <span class="pre">training</span></code>. This will open a</p>
+<p>To train a network involves two steps:</p>
+<ul class="simple">
+<li><p>First, make a dataset from exported annotations.</p></li>
+<li><p>Then, configure and train a network.</p></li>
+</ul>
+<div class="section" id="make-a-dataset-from-exported-annotations">
+<h2>Make a dataset from exported annotations<a class="headerlink" href="#make-a-dataset-from-exported-annotations" title="Permalink to this headline">¶</a></h2>
+<p>Training expects data in a specific format in which the data is split into different parts for use during training ( and validation) and after training for evaluating network performance. For details, see <a class="reference external" href="data_formats.html#dataset-for-training">here</a>. The GUI automates the generation of these datasets from audio annotated using the GUI. Alternatively, you can also <a class="reference internal" href="../tutorials/convert.html"><span class="doc std std-doc">use your existing annotations</span></a> or <a class="reference internal" href="../tutorials/make_ds_notebook.html"><span class="doc std std-doc">make a dataset yourself</span></a>.</p>
+<p>If using the GUI, start the process of making a dataset via <em>DeepSS/Make dataset for training</em>. This will first ask you to select a data folder that contains the exported audio and annotations, and then present a dialog with options for customizing the dataset:</p>
 <div class="figure align-default" id="xb-assemble-fig">
 <a class="reference internal image-reference" href="../_images/xb_assemble.png"><img alt="assemble dataset" src="../_images/xb_assemble.png" style="width: 650px;" /></a>
-<p class="caption"><span class="caption-number">Fig. 7 </span><span class="caption-text">Make dataset options</span><a class="headerlink" href="#xb-assemble-fig" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 10 </span><span class="caption-text">Dialog for customizing a dataset for training.</span><a class="headerlink" href="#xb-assemble-fig" title="Permalink to this image">¶</a></p>
 </div>
 <ul class="simple">
-<li><p><em>Data folder</em> &amp; <em>Store folder</em>: The data folder contains your exported annotations. A dataset will be created from these annotations and save in the store folder. By default, the store folder is the data folder with an <code class="docutils literal notranslate"><span class="pre">.npy</span></code> appended. <em>Important: You can change the name of the store folder but the <code class="docutils literal notranslate"><span class="pre">.npy</span></code> should be kept for DeepSS to robustly recognize the dataset.</em></p></li>
+<li><p><em>Data folder</em> &amp; <em>Store folder</em>: The data folder contains your exported annotations (annotations as <code class="docutils literal notranslate"><span class="pre">_annotations.csv</span></code>, audio as <code class="docutils literal notranslate"><span class="pre">npz</span></code> or <code class="docutils literal notranslate"><span class="pre">wav</span></code>). A dataset will be created from these annotations and save in the store folder. By default, the store folder is the data folder with an <code class="docutils literal notranslate"><span class="pre">.npy</span></code> appended. <em>Important: You can change the name of the store folder but the data folder should end in <code class="docutils literal notranslate"><span class="pre">.npy</span></code> for DeepSS to robustly recognize the dataset.</em></p></li>
 <li><p><em>Make individual training targets</em>: By default, the dataset will contain targets for a single network that recognizes all annotated song types — in our case sine and pulse. To train a network for specific song types, enable this option. In our example, this will create additional separate targets for training a network to connect pulse song or sine song only. We found that training individual networks improves performance for multi-channel audio, but not for single audio.</p></li>
 <li><p><em>Width of events (seconds)</em>: Events are defined by a single time point — to make training more robust, events should be represented by gaussian with specified width (standard deviation).</p></li>
 <li><p><em>Gap between segments (seconds)</em>: To simplify post processing of segments, in particular for birdsong with its many syllable types, we found that introducing brief gaps helps with post-processing the inferred annotations.</p></li>
@@ -357,11 +364,14 @@
 <li><p><em>Split by samples</em>: Select a fraction of data from each file in the data folder.</p></li>
 </ul>
 </li>
-<li><p><em>Recommendation</em>: If you have enough files, split train and validation by samples and split test by files that come from different individuals. That way your test set assesses how well the network generalizes to new individuals.If you have too few files or the specific song types do not appear in all files, split by samples. For the sake of this tutorial, we will not test the model - so set the test split to 0.0.</p></li>
+<li><p><em>Recommendation</em>: If you have enough files, split train and validation by samples and split test by files that come from different individuals. That way your test set assesses how well the network generalizes to new individuals.If you have too few files or the specific song types do not appear in all files, split by samples.</p></li>
 </ul>
 </li>
 </ul>
-<p>Once the dataset is assembled, you can inspect the dataset with the <span class="xref myst">1_inspect_data.ipynb</span> notebook if you are curious or if training fails.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The dataset can be inspected using the <a class="reference internal" href="../tutorials/inspect_dataset.html"><span class="doc std std-doc">inspect_dataset notebook</span></a> if you are curious or if training fails.</p>
+</div>
 </div>
 <div class="section" id="train-deepss-using-the-gui">
 <h2>Train DeepSS using the GUI<a class="headerlink" href="#train-deepss-using-the-gui" title="Permalink to this headline">¶</a></h2>
@@ -369,11 +379,10 @@
 <p>edit script to fix paths, add cluster config commands or activate conda env.</p>
 <div class="figure align-default" id="xb-train-fig">
 <a class="reference internal image-reference" href="../_images/xb_train.png"><img alt="train" src="../_images/xb_train.png" style="width: 600px;" /></a>
-<p class="caption"><span class="caption-number">Fig. 8 </span><span class="caption-text">Train options</span><a class="headerlink" href="#xb-train-fig" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 11 </span><span class="caption-text">Train options</span><a class="headerlink" href="#xb-train-fig" title="Permalink to this image">¶</a></p>
 </div>
 <p>Options are grouped into three sections:</p>
-<div class="section" id="data-set">
-<h3>Data set<a class="headerlink" href="#data-set" title="Permalink to this headline">¶</a></h3>
+<p><strong>Data set</strong>:</p>
 <ul class="simple">
 <li><p><em>Data folder</em>: Folder with the assembled annotations. Name must end in <code class="docutils literal notranslate"><span class="pre">.npy</span></code></p></li>
 <li><p><em>Save folder</em>: Folder for saving the files generated during training (network model and parameters, test results). Defaults to data folder with <code class="docutils literal notranslate"><span class="pre">.npy</span></code> replaced by <code class="docutils literal notranslate"><span class="pre">.res</span></code>.</p></li>
@@ -381,38 +390,45 @@
 <li><p><em>Song type</em>: Select song type you want the network to recognize. Defaults to blank (all annotated song types). Will be populated with training targets if you select <em>Make individual training targets</em> during dataset assembly.</p></li>
 <li><p><em>Data fraction</em> &amp; <em>Seed</em>: Use a random subset of the data from the training and validation splits. The gives you reproducibility. This does not affect the test set. That way you can train a network on different subsets of your data and test on the same dataset.</p></li>
 </ul>
-</div>
-<div class="section" id="network-parameters">
-<h3>Network parameters<a class="headerlink" href="#network-parameters" title="Permalink to this headline">¶</a></h3>
+<p><strong>Network parameters</strong>:</p>
 <ul class="simple">
-<li><p><em>Downsampling frontend</em>: Does not work with multi-channel audio.</p>
+<li><p><em>Downsampling frontend</em>: Trainable frontend initialized with STFT filters. Improves performance and speeds up training and inference for signals with high carrier frequencies relative to the amplitude or frequency modulation spectra - for instance ultrasonic vocalizations or bird song. Only works with single-channel, not with multi-channel audio.</p>
 <ul>
-<li><p><em>Frontend type</em>: stft (short term Fourier transform) or TCN (REMOVE OPTION AND FIX TO STFT)</p></li>
-<li><p><em>Number of filters</em>: per layer</p></li>
-<li><p><em>Filter duration (samples)</em>:</p></li>
-<li><p><em>Downsample factor</em>:</p></li>
+<li><p><em>Number of filters</em>: Number of filters per layer in the frontend.</p></li>
+<li><p><em>Filter duration (samples)</em>: Duration of the filters in the frontend.</p></li>
+<li><p><em>Downsample factor</em>: The output of the STFT will be downsampled by that factor(only every Nth sample will be taken) before being fed into the main TCN.</p></li>
 </ul>
 </li>
-<li><p><em>Chunk duration (samples)</em>:</p></li>
+<li><p><em>Chunk duration (samples)</em>: Number of samples processed at once. Defines an upper bound to the context available to the network.</p></li>
 <li><p><em>Number of filters</em>: Number of filters in each layer of the network. Vary between 16 and 32. Fewer typically decrease performance, more rarely help.</p></li>
 <li><p><em>Filter duration (samples)</em>: Duration of each filter in samples. Should correspond to the duration of the lowest level song feature (e.g. the carrier if training on raw audio without a downsampling frontend).</p></li>
 <li><p><em>Number of TCN blocks</em>: Number of TCN blocks in the network. Deeper networks (more TCNs) allow extracting more derived sound features. We found values between 2 and 6 blocks to work well.</p></li>
-<li><p><em>Separable TCN blocks</em>: Useful only for multi-channel audio. Whether the convolutions in individual TCN blocks should be time-channel separable: Each audio channel is first filtered with a common set of filters and then the filtered channels are combined with a second set of filters. Allows sharing filters across channels - the idea is that some filtering operations should be applied to each channel equally. The first one or two TCN blocks can be set to use separable convolutions for multi-channel audio. Should be a space-separate sequence, the same length as the number of TCN blocks, with either <code class="docutils literal notranslate"><span class="pre">True</span></code> or <code class="docutils literal notranslate"><span class="pre">False</span></code>. For instance, a 5-block network with the first two blocks set to separable would be: <code class="docutils literal notranslate"><span class="pre">True</span> <span class="pre">True</span> <span class="pre">False</span> <span class="pre">False</span> <span class="pre">False</span></code>.</p></li>
+<li><p><em>Separable TCN blocks</em>: Useful only for multi-channel audio. Whether the convolutions in individual TCN blocks should be time-channel separable: Each audio channel is first filtered with a common set of filters and then the filtered channels are combined with a second set of filters. Allows sharing filters across channels - the idea is that some filtering operations should be applied to each channel equally. The first one or two TCN blocks can be set to use separable convolutions for multi-channel audio. Should be a space-separated sequence of <code class="docutils literal notranslate"><span class="pre">True</span></code> or <code class="docutils literal notranslate"><span class="pre">False</span></code> with the same length as the number of TCN blocks. For instance, a 5-block network with the first two blocks set to use separable convolutions would be: <code class="docutils literal notranslate"><span class="pre">True</span> <span class="pre">True</span> <span class="pre">False</span> <span class="pre">False</span> <span class="pre">False</span></code>.</p></li>
 </ul>
-</div>
-<div class="section" id="training-parameters">
-<h3>Training parameters<a class="headerlink" href="#training-parameters" title="Permalink to this headline">¶</a></h3>
+<p><strong>Training parameters</strong>:</p>
 <ul class="simple">
 <li><p><em>Learning rate</em>: Determines how by how much training parameters are updated in every step. Too small, and performance will take very long to improve, too large and performance will decrease. Depends on the network and data size. Values between 0.1 and 0.0001 typically work.</p></li>
 <li><p><em>Reduce learning rate patience</em>: The learning rate can be reduced if the performance does not decrease for the specified number of epochs. We did not find this to improve or speed up training much.</p></li>
 <li><p><em>Number of epochs</em>: Maximum number of training epochs. For training with the small data set used on this tutorial, 10 epochs are sufficient. For training on larger datasets leave as is. Training will stop early if the validation loss did not decrease in the last 20 epochs.</p></li>
-<li><p><em>Create tensorboard logs</em>: Ignore.</p></li>
+<li><p><em>Create tensorboard logs</em>: Create tensorboard logs for monitoring training.</p></li>
 </ul>
 </div>
+<div class="section" id="recommended-configurations">
+<h2>Recommended configurations<a class="headerlink" href="#recommended-configurations" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>add table with optimal architectures from paper</p></li>
+<li><p>settings fast training</p></li>
+<li><p>when to use frontend</p></li>
+</ul>
 </div>
 <div class="section" id="id1">
 <h2>Train<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<p>For this tutorial, leave all parameters as they are - these parameters are a good starting point for your creating a good network. Training can be performed directly in the GUI in a background process. Monitor the terminal for information on training progress. We highly recommend training on a machine with a discrete Nvidia GPU.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">set</span> <span class="n">nb_filters</span> <span class="n">to</span> <span class="mi">16</span> <span class="ow">and</span> <span class="n">kernel_size</span> <span class="n">to</span> <span class="mi">16</span> <span class="o">-</span> <span class="n">fewer</span> <span class="n">parameters</span> <span class="n">work</span> <span class="n">better</span> <span class="k">with</span> <span class="n">little</span> <span class="n">data</span><span class="o">.</span>
+<span class="n">train</span> <span class="k">for</span> <span class="mi">10</span> <span class="n">epochs</span>
+<span class="n">will</span> <span class="n">increase</span> <span class="n">to</span> <span class="n">bigger</span> <span class="n">model</span> <span class="ow">and</span> <span class="n">more</span> <span class="n">epochs</span> <span class="k">with</span> <span class="n">more</span> <span class="n">data</span><span class="o">.</span>
+</pre></div>
+</div>
+<p>For this tutorial, leave all parameters as they are - these parameters are a good starting point for your creating a good network. Training can be performed directly in the GUI in a background process. Monitor the terminal for information on training progress. For the small dataset and the small number of epochs used in the first round of training in the tutorial, a CPU should finish training on the first 18 seconds of song after less than 10 minutes. For larger datasets, we highly recommend training on a machine with a discrete Nvidia GPU.</p>
 <p>Note that the data set is portable—you can copy the folder with the data to another computer with a GPU and run training from the GUI there. If that machine cannot be used with a GUI—for instance if it’s a linux server, the network configuration can be exported as a command line script and executed via a terminal. For instance:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python3 -m dss.train --data-dir /Users/deepss/tutorial/gui_demo.npy --save-dir /Users/deepss/tutorial/gui_demo.res --nb-hist <span class="m">256</span> --ignore-boundaries True --nb-filters <span class="m">32</span> --kernel-size <span class="m">32</span> --nb-conv <span class="m">3</span> --use-separable False False False --learning-rate <span class="m">0</span>.0001 --nb-epoch <span class="m">400</span> --model-name tcn --no-reduce-lr  --no-tensorboard
 </pre></div>
@@ -433,7 +449,7 @@
 <li><p>params (info on data formats etc.)</p></li>
 <li><p>results - test results (not required for inference)</p></li>
 </ul>
-<p>The <code class="docutils literal notranslate"><span class="pre">_model.h5</span></code> and <code class="docutils literal notranslate"><span class="pre">_params.yaml</span></code> are required for using the network for predictions and need to be copied to you local machine if you train remotely.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">_model.h5</span></code> and <code class="docutils literal notranslate"><span class="pre">_params.yaml</span></code> are required for using the network for predictions and need to be copied to your local machine if you train remotely.</p>
 </div>
 </div>
 

@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Make datasets with custom data</title>
+    <title>Make a dataset from custom data formats</title>
     
   <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
 
@@ -59,7 +59,7 @@
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Training" href="train.html" />
+    <link rel="next" title="Inspect dataset" href="inspect_dataset.html" />
     <link rel="prev" title="Convert your own annotations and audio data" href="convert.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -103,9 +103,19 @@
  </li>
  <li class="toctree-l1 collapsible-parent">
   <a class="reference internal" href="../tutorials_gui/tutorials_gui.html">
-   GUI tutorial
+   GUI documentation
   </a>
   <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../tutorials_gui/quick_start.html">
+     Quick start tutorial
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../tutorials_gui/load.html">
+     Load and view data
+    </a>
+   </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../tutorials_gui/annotate.html">
      Annotate song
@@ -127,7 +137,7 @@
  </li>
  <li class="toctree-l1 current active collapsible-parent">
   <a class="reference internal" href="tutorials.html">
-   Programming tutorial
+   Programming documentation
   </a>
   <ul class="current collapse-ul">
    <li class="toctree-l2">
@@ -137,12 +147,17 @@
    </li>
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
-     Make datasets with custom data
+     Make a dataset from custom data formats
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="inspect_dataset.html">
+     Inspect dataset
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="train.html">
-     Training
+     Train
     </a>
    </li>
    <li class="toctree-l2">
@@ -162,7 +177,7 @@
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="realtime.html">
-     Realtime annotations
+     Annotate audio in realtime
     </a>
    </li>
   </ul>
@@ -384,20 +399,20 @@
         
               <div>
                 
-  <div class="section" id="make-datasets-with-custom-data">
-<h1>Make datasets with custom data<a class="headerlink" href="#make-datasets-with-custom-data" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="make-a-dataset-from-custom-data-formats">
+<h1>Make a dataset from custom data formats<a class="headerlink" href="#make-a-dataset-from-custom-data-formats" title="Permalink to this headline">¶</a></h1>
 <p>If your data is readable by the GUI, you only need to convert annotations. You can then load both into the GUI and export to data and annotations for DeepSS.</p>
 <p>Three alternatives:</p>
 <div class="section" id="export-your-data-as-wav-npz-and-csv-to-a-folder-and-make-a-dataset-with-the-gui">
 <h2>1. Export your data as wav/npz and csv to a folder and make a dataset with the GUI<a class="headerlink" href="#export-your-data-as-wav-npz-and-csv-to-a-folder-and-make-a-dataset-with-the-gui" title="Permalink to this headline">¶</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">data</span></code> folder with <code class="docutils literal notranslate"><span class="pre">*.wav</span></code> files with the recording and matching <code class="docutils literal notranslate"><span class="pre">*.csv</span></code> files with the annotations - recordings and annotations will be matched according to the file base name:</p>
+<p><code class="docutils literal notranslate"><span class="pre">data</span></code> folder with <code class="docutils literal notranslate"><span class="pre">*.wav</span></code> or <code class="docutils literal notranslate"><span class="pre">npz</span></code> files files with the recording and matching <code class="docutils literal notranslate"><span class="pre">*_annotations.csv</span></code> files with the annotations (see format details [here]](/technical/data_formats))- recordings and annotations will be matched according to the file base name:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>data<span class="se">\</span>
     file01.wav
-    file01.csv
+    file01_annotations.csv
     another_file.wav
-    another_file.csv
+    another_file_annotations.csv
     yaf.wav
-    yaf.csv
+    yaf_annotations.csv
 </pre></div>
 </div>
 <p>Simplest way - no need of having to deal with specific of the data structure required by DeepSS for training - simply hit <em>DeepSS/Make dataset for training</em> and select the folder.</p>
@@ -886,7 +901,7 @@ Got (20440005, 1), (4160001, 1), (3980001, 1) train/test/val samples.
     <div class='prev-next-bottom'>
         
     <a class='left-prev' id="prev-link" href="convert.html" title="previous page">Convert your own annotations and audio data</a>
-    <a class='right-next' id="next-link" href="train.html" title="next page">Training</a>
+    <a class='right-next' id="next-link" href="inspect_dataset.html" title="next page">Inspect dataset</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">

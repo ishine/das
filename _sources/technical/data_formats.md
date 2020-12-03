@@ -3,11 +3,11 @@
 ## Format of exported annotations and audio
 Produced by the GUI via `File/Save annotations` and `File/Export for DeepSS`.
 
-Audio and annotations are exported into `csv` (comma-separated values) and `npz` (zip compressed numpy files):
-- `npz` consist of two variables:
+Annotations are exported to `csv` (comma-separated values) and audio data to `npz` (zip compressed numpy files) or `wav` (wave audio file):
+- `.npz` consist of two variables:
     + `data`: `[samples, channels]` array with the audio data
     + `samplerate`: `[1,]` array with the sample rate in Hz
-- `csv` contains three columns:
+- `_annotations.csv` contains three columns:
     + `name` - the name of the song or syllable type
     + `start_seconds` - the start time of the syllable.
     + `stop_seconds` - the stop of the syllable. Start and stop are identical for song types of type event, like the pulses of fly song.

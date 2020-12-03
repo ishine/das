@@ -103,9 +103,19 @@
  </li>
  <li class="toctree-l1 collapsible-parent">
   <a class="reference internal" href="../tutorials_gui/tutorials_gui.html">
-   GUI tutorial
+   GUI documentation
   </a>
   <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../tutorials_gui/quick_start.html">
+     Quick start tutorial
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../tutorials_gui/load.html">
+     Load and view data
+    </a>
+   </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../tutorials_gui/annotate.html">
      Annotate song
@@ -127,7 +137,7 @@
  </li>
  <li class="toctree-l1 collapsible-parent">
   <a class="reference internal" href="../tutorials/tutorials.html">
-   Programming tutorial
+   Programming documentation
   </a>
   <ul class="collapse-ul">
    <li class="toctree-l2">
@@ -137,12 +147,17 @@
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../tutorials/make_ds_notebook.html">
-     Make datasets with custom data
+     Make a dataset from custom data formats
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../tutorials/inspect_dataset.html">
+     Inspect dataset
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../tutorials/train.html">
-     Training
+     Train
     </a>
    </li>
    <li class="toctree-l2">
@@ -162,7 +177,7 @@
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../tutorials/realtime.html">
-     Realtime annotations
+     Annotate audio in realtime
     </a>
    </li>
   </ul>
@@ -308,15 +323,15 @@
 <div class="section" id="format-of-exported-annotations-and-audio">
 <h2>Format of exported annotations and audio<a class="headerlink" href="#format-of-exported-annotations-and-audio" title="Permalink to this headline">¶</a></h2>
 <p>Produced by the GUI via <code class="docutils literal notranslate"><span class="pre">File/Save</span> <span class="pre">annotations</span></code> and <code class="docutils literal notranslate"><span class="pre">File/Export</span> <span class="pre">for</span> <span class="pre">DeepSS</span></code>.</p>
-<p>Audio and annotations are exported into <code class="docutils literal notranslate"><span class="pre">csv</span></code> (comma-separated values) and <code class="docutils literal notranslate"><span class="pre">npz</span></code> (zip compressed numpy files):</p>
+<p>Annotations are exported to <code class="docutils literal notranslate"><span class="pre">csv</span></code> (comma-separated values) and audio data to <code class="docutils literal notranslate"><span class="pre">npz</span></code> (zip compressed numpy files) or <code class="docutils literal notranslate"><span class="pre">wav</span></code> (wave audio file):</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">npz</span></code> consist of two variables:</p>
+<li><p><code class="docutils literal notranslate"><span class="pre">.npz</span></code> consist of two variables:</p>
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">data</span></code>: <code class="docutils literal notranslate"><span class="pre">[samples,</span> <span class="pre">channels]</span></code> array with the audio data</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">samplerate</span></code>: <code class="docutils literal notranslate"><span class="pre">[1,]</span></code> array with the sample rate in Hz</p></li>
 </ul>
 </li>
-<li><p><code class="docutils literal notranslate"><span class="pre">csv</span></code> contains three columns:</p>
+<li><p><code class="docutils literal notranslate"><span class="pre">_annotations.csv</span></code> contains three columns:</p>
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">name</span></code> - the name of the song or syllable type</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">start_seconds</span></code> - the start time of the syllable.</p></li>
