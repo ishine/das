@@ -28,10 +28,18 @@ Left clicks in waveform or spectrogram few create annotations.
 
 To annotate song in the recording, left-click on the waveform or spectrogram view. If an event-like song type is active, that’s it - you just placed the event time and a line should appear in the waveform and spectrogram view. If a segment-like song type is active, the first click should be placed at one boundary - the start or the end - of the segment. The first click places one boundary of the segment and the cursor changes to a cross. A second click at the other boundary will complete the annotation and a shaded area marking the segment should appear.
 
-## Annotated by thresholding the waveform
-Compute envelope detects peak surpassing a threshold - only works for song types that are events atm. Set threshold by dragging the horizontal line, press `I` to detect all events in the current view and assign them to the currently active event type.
+## Annotate by thresholding the waveform
+“Thresholding mode” speeds up the annotation of event song types, by  detecting all waveform peaks in the view as the currently active event. Activate thresholding mode via the _Annotations_ menu. This will display a draggable horizontal line - the detection threshold - and a smooth pink waveform - the envelope of the waveform. Annotations are based on envelope peaks that cross the threshold - adjust the threshold so that only “correct” peaks are detected and then press `I` to annotate these events.
 
-Optimize via two settings: Std of env smoothing and min dist between events (set via _Annotations/Adjust envelope computation_).
+:::{figure} xb_thres-fig
+<img src="/images/xb_thres.gif" alt="annotate song" width="700px">
+
+Annotations assisted by thresholding and peak detection.
+:::
+
+The threshold mode can be adjusted via _Annotations/Adjust thresholding mode_:
+- _Smoothing factor for envelope (seconds)_: Sets the width of the Gaussian used for smoothing the envelope. Too short and the envelope will contain many noise peaks, to0 long and individual events will become less distinct.
+- _Minimal distance between events (seconds)_: If the events typically arrive at a minimal rate, this can be used to reduce spurious detections.
 
 ## Edit annotations
 Adjust event times and segment bounds by dragging the lines or the boundaries of segments. Drag the shaded area itself to move a segment without changing its duration. Movement can be disabled completely or restricted to the currently selected annotation type via the _Audio_ menu.
@@ -43,6 +51,7 @@ Delete annotations of the active song type by right-clicking on the annotation. 
 
 Dragging moves, right click deletes annotations.
 :::
+
 ## Export and save annotations
 _DeepSS_ achieves good performance with little manual annotation. Once you have completely annotated the song in the first 18 seconds of the tutorial recording---a couple of pulse trains and sine song segments---you can quickly train a network to help with annotating the rest of the data. Export the data and the annotations for _DeepSS_ - via the `File/Export for DeepSS` to a new folder (not the one containing the original audio):
 

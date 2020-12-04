@@ -308,8 +308,8 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#annotated-by-thresholding-the-waveform">
-   Annotated by thresholding the waveform
+  <a class="reference internal nav-link" href="#annotate-by-thresholding-the-waveform">
+   Annotate by thresholding the waveform
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -358,10 +358,18 @@
 </div>
 <p>To annotate song in the recording, left-click on the waveform or spectrogram view. If an event-like song type is active, that’s it - you just placed the event time and a line should appear in the waveform and spectrogram view. If a segment-like song type is active, the first click should be placed at one boundary - the start or the end - of the segment. The first click places one boundary of the segment and the cursor changes to a cross. A second click at the other boundary will complete the annotation and a shaded area marking the segment should appear.</p>
 </div>
-<div class="section" id="annotated-by-thresholding-the-waveform">
-<h2>Annotated by thresholding the waveform<a class="headerlink" href="#annotated-by-thresholding-the-waveform" title="Permalink to this headline">¶</a></h2>
-<p>Compute envelope detects peak surpassing a threshold - only works for song types that are events atm. Set threshold by dragging the horizontal line, press <code class="docutils literal notranslate"><span class="pre">I</span></code> to detect all events in the current view and assign them to the currently active event type.</p>
-<p>Optimize via two settings: Std of env smoothing and min dist between events (set via <em>Annotations/Adjust envelope computation</em>).</p>
+<div class="section" id="annotate-by-thresholding-the-waveform">
+<h2>Annotate by thresholding the waveform<a class="headerlink" href="#annotate-by-thresholding-the-waveform" title="Permalink to this headline">¶</a></h2>
+<p>“Thresholding mode” speeds up the annotation of event song types, by  detecting all waveform peaks in the view as the currently active event. Activate thresholding mode via the <em>Annotations</em> menu. This will display a draggable horizontal line - the detection threshold - and a smooth pink waveform - the envelope of the waveform. Annotations are based on envelope peaks that cross the threshold - adjust the threshold so that only “correct” peaks are detected and then press <code class="docutils literal notranslate"><span class="pre">I</span></code> to annotate these events.</p>
+<div class="figure align-default" id="xb-thres-fig">
+<a class="reference internal image-reference" href="../_images/xb_thres.gif"><img alt="annotate song" src="../_images/xb_thres.gif" style="width: 700px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 8 </span><span class="caption-text">Annotations assisted by thresholding and peak detection.</span><a class="headerlink" href="#xb-thres-fig" title="Permalink to this image">¶</a></p>
+</div>
+<p>The threshold mode can be adjusted via <em>Annotations/Adjust thresholding mode</em>:</p>
+<ul class="simple">
+<li><p><em>Smoothing factor for envelope (seconds)</em>: Sets the width of the Gaussian used for smoothing the envelope. Too short and the envelope will contain many noise peaks, to0 long and individual events will become less distinct.</p></li>
+<li><p><em>Minimal distance between events (seconds)</em>: If the events typically arrive at a minimal rate, this can be used to reduce spurious detections.</p></li>
+</ul>
 </div>
 <div class="section" id="edit-annotations">
 <h2>Edit annotations<a class="headerlink" href="#edit-annotations" title="Permalink to this headline">¶</a></h2>
@@ -369,7 +377,7 @@
 <p>Delete annotations of the active song type by right-clicking on the annotation. Annotations of all song types or only the active one in the view can be deleted with <code class="docutils literal notranslate"><span class="pre">U</span></code> and <code class="docutils literal notranslate"><span class="pre">Y</span></code>, respectively, or via the <em>Annotations</em> menu.</p>
 <div class="figure align-default" id="xb-edit-fig">
 <a class="reference internal image-reference" href="../_images/xb_edit_opt.gif"><img alt="annotate song" src="../_images/xb_edit_opt.gif" style="width: 700px;" /></a>
-<p class="caption"><span class="caption-number">Fig. 8 </span><span class="caption-text">Dragging moves, right click deletes annotations.</span><a class="headerlink" href="#xb-edit-fig" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 9 </span><span class="caption-text">Dragging moves, right click deletes annotations.</span><a class="headerlink" href="#xb-edit-fig" title="Permalink to this image">¶</a></p>
 </div>
 </div>
 <div class="section" id="export-and-save-annotations">
@@ -377,7 +385,7 @@
 <p><em>DeepSS</em> achieves good performance with little manual annotation. Once you have completely annotated the song in the first 18 seconds of the tutorial recording—a couple of pulse trains and sine song segments—you can quickly train a network to help with annotating the rest of the data. Export the data and the annotations for <em>DeepSS</em> - via the <code class="docutils literal notranslate"><span class="pre">File/Export</span> <span class="pre">for</span> <span class="pre">DeepSS</span></code> to a new folder (not the one containing the original audio):</p>
 <div class="figure align-default" id="xb-assemble-fig">
 <a class="reference internal image-reference" href="../_images/xb_export.png"><img alt="export audio and annotations" src="../_images/xb_export.png" style="width: 500px;" /></a>
-<p class="caption"><span class="caption-number">Fig. 9 </span><span class="caption-text">Export audio data and annotations</span><a class="headerlink" href="#xb-assemble-fig" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 10 </span><span class="caption-text">Export audio data and annotations</span><a class="headerlink" href="#xb-assemble-fig" title="Permalink to this image">¶</a></p>
 </div>
 <p>This will open a dialog for fine-tuning the data export:</p>
 <ul class="simple">
