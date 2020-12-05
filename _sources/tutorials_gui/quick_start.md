@@ -14,8 +14,12 @@ conda activate dss
 dss gui
 ```
 
-The following window should open
+The following window should open:
+
+:::{figure} xb_load-fig
 <img src="/images/xb_start.png" alt="start screen" width=450>
+Loading screen.
+:::
 
 ## Load audio data
 
