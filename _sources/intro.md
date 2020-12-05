@@ -17,12 +17,21 @@ If you use _DeepSS_, please cite: REF_GOES_HERE
 ## Tutorials
 
 ````{panels}
+```{link-button} quick_start
+:text: Quick start tutorial
+:type: ref
+:classes: stretched-link
+```
+Annotate song, train a network, and predict on new samples.
+
+---
+
 ```{link-button} tutorials_gui/tutorials_gui
 :text: Using the GUI
 :type: ref
 :classes: stretched-link
 ```
-Annotate song, train a network, and predict on new samples
+Comprehensive description of all GUI dialogs and options.
 
 ---
 
