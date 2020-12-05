@@ -453,12 +453,12 @@ dss gui
 <p><em>DeepSS</em> achieves good performance with little manual annotation. Once you have completely annotated the song in the first 18 seconds of the tutorial recording—a couple of pulse trains and sine song segments—you can quickly train a network to help with annotating the rest of the data.</p>
 <p>To train, requires generating a dataset, which arranges the data in a format suitable for <em>DeepSS</em>. To do so, first export the data and the annotations for <em>DeepSS</em> - via the <code class="docutils literal notranslate"><span class="pre">File/Export</span> <span class="pre">for</span> <span class="pre">DeepSS</span></code> to a new folder (not the one containing the original audio)—let’s call the folder <code class="docutils literal notranslate"><span class="pre">quickstart</span></code>. In the following dialog set start seconds and end seconds to the annotated time range - 0 and 18 seconds, respectively.</p>
 <div class="figure align-default" id="xb-assemble-fig">
-<a class="reference internal image-reference" href="../_images/xb_quick_export.png"><img alt="export audio and annotations" src="../_images/xb_quick_export.png" style="width: 500px;" /></a>
+<a class="reference internal image-reference" href="../_images/xb_quick_export.png"><img alt="export audio and annotations" src="../_images/xb_quick_export.png" style="width: 400px;" /></a>
 <p class="caption"><span class="caption-number">Fig. 7 </span><span class="caption-text">Export audio data and annotations for the annotated range between 0 and 18 seconds.</span><a class="headerlink" href="#xb-assemble-fig" title="Permalink to this image">¶</a></p>
 </div>
 <p>Then make a dataset, via <em>DeepSS/Make dataset for training</em>. In the file dialog, select the <code class="docutils literal notranslate"><span class="pre">quickstart</span></code> folder you exported your annotations into. In the next dialog, we will adjust how data is split into training, validation and testing data. For the small data set annotated in the first step of this tutorial, we will not test the model. To maximize the data available for optimizing the network (training and validation), set the test split to 0.0 and the validation split to 40:</p>
 <div class="figure align-default" id="id1">
-<a class="reference internal image-reference" href="../_images/xb_quick_make_ds.png"><img alt="assemble dataset" src="../_images/xb_quick_make_ds.png" style="width: 650px;" /></a>
+<a class="reference internal image-reference" href="../_images/xb_quick_make_ds.png"><img alt="assemble dataset" src="../_images/xb_quick_make_ds.png" style="width: 600px;" /></a>
 <p class="caption"><span class="caption-number">Fig. 8 </span><span class="caption-text">Make a dataset for training.</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
 </div>
 <p>This will create a dataset folder called <code class="docutils literal notranslate"><span class="pre">quickstart.npy</span></code>.</p>
@@ -471,7 +471,7 @@ dss gui
 <li><p>Set <code class="docutils literal notranslate"><span class="pre">Number</span> <span class="pre">of</span> <span class="pre">epochs</span></code> to 10, to finish training earlier.</p></li>
 </ul>
 <div class="figure align-default" id="xb-train-fig">
-<a class="reference internal image-reference" href="../_images/xb_quick_train.png"><img alt="train" src="../_images/xb_quick_train.png" style="width: 600px;" /></a>
+<a class="reference internal image-reference" href="../_images/xb_quick_train.png"><img alt="train" src="../_images/xb_quick_train.png" style="width: 550px;" /></a>
 <p class="caption"><span class="caption-number">Fig. 9 </span><span class="caption-text">Train options</span><a class="headerlink" href="#xb-train-fig" title="Permalink to this image">¶</a></p>
 </div>
 <p>Then hit <code class="docutils literal notranslate"><span class="pre">Start</span> <span class="pre">training</span> <span class="pre">in</span> <span class="pre">GUI</span></code> - this will start training in a background process. Monitor training progress in the terminal. Training with this small dataset will finish within fewer than 10 minutes on a CPU and within 2 minutes on a GPU. For larger datasets, we highly recommend training on a machine with a discrete Nvidia GPU.</p>
@@ -485,7 +485,7 @@ dss gui
 <li><p>Enable <code class="docutils literal notranslate"><span class="pre">Fill</span> <span class="pre">gaps</span> <span class="pre">short</span> <span class="pre">than</span> <span class="pre">(seconds)</span></code> and <code class="docutils literal notranslate"><span class="pre">Delete</span> <span class="pre">segments</span> <span class="pre">shorter</span> <span class="pre">than</span> <span class="pre">(seconds)</span></code> by unchecking both check boxes.</p></li>
 </ul>
 <div class="figure align-default" id="xb-predict-fig">
-<a class="reference internal image-reference" href="../_images/xb_quick_predict.png"><img alt="predict" src="../_images/xb_quick_predict.png" style="width: 750px;" /></a>
+<a class="reference internal image-reference" href="../_images/xb_quick_predict.png"><img alt="predict" src="../_images/xb_quick_predict.png" style="width: 700px;" /></a>
 <p class="caption"><span class="caption-number">Fig. 10 </span><span class="caption-text">Predict in proof-reading mode on the next 60 seconds.</span><a class="headerlink" href="#xb-predict-fig" title="Permalink to this image">¶</a></p>
 </div>
 <p>In contrast to training, prediction is very fast, and does not require a GPU—should finish within 30 seconds. Since <code class="docutils literal notranslate"><span class="pre">Proof</span> <span class="pre">reading</span> <span class="pre">mode</span></code> was enabled, “proposal” song types will be created, one for each song type predicted by the network. In our case, that’s <code class="docutils literal notranslate"><span class="pre">pulse_proposals</span></code> and <code class="docutils literal notranslate"><span class="pre">sine_proposals</span></code>.</p>

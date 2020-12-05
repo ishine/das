@@ -98,14 +98,14 @@ _DeepSS_ achieves good performance with little manual annotation. Once you have 
 To train, requires generating a dataset, which arranges the data in a format suitable for _DeepSS_. To do so, first export the data and the annotations for _DeepSS_ - via the `File/Export for DeepSS` to a new folder (not the one containing the original audio)---let's call the folder `quickstart`. In the following dialog set start seconds and end seconds to the annotated time range - 0 and 18 seconds, respectively.
 
 :::{figure} xb_assemble-fig
-<img src="/images/xb_quick_export.png" alt="export audio and annotations" width=500>
+<img src="/images/xb_quick_export.png" alt="export audio and annotations" width=400>
 
 Export audio data and annotations for the annotated range between 0 and 18 seconds.
 :::
 
 Then make a dataset, via _DeepSS/Make dataset for training_. In the file dialog, select the `quickstart` folder you exported your annotations into. In the next dialog, we will adjust how data is split into training, validation and testing data. For the small data set annotated in the first step of this tutorial, we will not test the model. To maximize the data available for optimizing the network (training and validation), set the test split to 0.0 and the validation split to 40:
 :::{figure} xb_assemble-fig
-<img src="/images/xb_quick_make_ds.png" alt="assemble dataset" width=650>
+<img src="/images/xb_quick_make_ds.png" alt="assemble dataset" width=600>
 
 Make a dataset for training.
 :::
@@ -117,7 +117,7 @@ Configure a network and start training via _DeepSS/Train_. This will ask you sel
 - Set both `Number of filters` and `Filter duration (seconds)` to 16. This will result in a smaller network with fewer parameters, which will be faster to train and requires fewer annotations to achieve high performance.
 - Set `Number of epochs` to 10, to finish training earlier.
 :::{figure} xb_train-fig
-<img src="/images/xb_quick_train.png" alt="train" width=600>
+<img src="/images/xb_quick_train.png" alt="train" width=550>
 
 Train options
 :::
@@ -132,7 +132,7 @@ In the next dialog, predict song for 60 seconds starting after your manual annot
 - Enable `Fill gaps short than (seconds)` and `Delete segments shorter than (seconds)` by unchecking both check boxes.
 
 :::{figure} xb_predict-fig
-<img src="/images/xb_quick_predict.png" alt="predict" width=750>
+<img src="/images/xb_quick_predict.png" alt="predict" width=700>
 
 Predict in proof-reading mode on the next 60 seconds.
 :::
