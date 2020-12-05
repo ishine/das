@@ -348,7 +348,7 @@
 <p>If using the GUI, start the process of making a dataset via <em>DeepSS/Make dataset for training</em>. This will first ask you to select a data folder that contains the exported audio and annotations, and then present a dialog with options for customizing the dataset:</p>
 <div class="figure align-default" id="xb-assemble-fig">
 <a class="reference internal image-reference" href="../_images/xb_assemble.png"><img alt="assemble dataset" src="../_images/xb_assemble.png" style="width: 650px;" /></a>
-<p class="caption"><span class="caption-number">Fig. 18 </span><span class="caption-text">Dialog for customizing a dataset for training.</span><a class="headerlink" href="#xb-assemble-fig" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 19 </span><span class="caption-text">Dialog for customizing a dataset for training.</span><a class="headerlink" href="#xb-assemble-fig" title="Permalink to this image">¶</a></p>
 </div>
 <ul class="simple">
 <li><p><em>Data folder</em> &amp; <em>Store folder</em>: The data folder contains your exported annotations (annotations as <code class="docutils literal notranslate"><span class="pre">_annotations.csv</span></code>, audio as <code class="docutils literal notranslate"><span class="pre">npz</span></code> or <code class="docutils literal notranslate"><span class="pre">wav</span></code>). A dataset will be created from these annotations and save in the store folder. By default, the store folder is the data folder with an <code class="docutils literal notranslate"><span class="pre">.npy</span></code> appended. <em>Important: You can change the name of the store folder but the data folder should end in <code class="docutils literal notranslate"><span class="pre">.npy</span></code> for DeepSS to robustly recognize the dataset.</em></p></li>
@@ -380,7 +380,7 @@
 <p>Configure a network and start training via <em>DeepSS/Train</em>. This will ask you select the dataset folder ending in <code class="docutils literal notranslate"><span class="pre">.npy</span></code> that you just created. with the dataset, which song type to train the network for (will train network for all song types by default), and network and training parameters (see <span class="xref myst">DeepSS</span> for details). Training can be started locally in a separate process or a script can be generated that can be execute to train elsewhere, for instance on a cluster.</p>
 <div class="figure align-default" id="xb-train-fig">
 <a class="reference internal image-reference" href="../_images/xb_train.png"><img alt="train" src="../_images/xb_train.png" style="width: 600px;" /></a>
-<p class="caption"><span class="caption-number">Fig. 19 </span><span class="caption-text">Train options</span><a class="headerlink" href="#xb-train-fig" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 20 </span><span class="caption-text">Train options</span><a class="headerlink" href="#xb-train-fig" title="Permalink to this image">¶</a></p>
 </div>
 <p>Options are grouped into three sections:</p>
 <p><strong>Data set</strong>:</p>

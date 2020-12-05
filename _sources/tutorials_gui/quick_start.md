@@ -18,6 +18,7 @@ The following window should open:
 
 :::{figure} xb_load-fig
 <img src="/images/xb_start.png" alt="start screen" width=450>
+
 Loading screen.
 :::
 
@@ -98,7 +99,7 @@ _DeepSS_ achieves good performance with little manual annotation. Once you have 
 To train, requires generating a dataset, which arranges the data in a format suitable for _DeepSS_. To do so, first export the data and the annotations for _DeepSS_ - via the `File/Export for DeepSS` to a new folder (not the one containing the original audio)---let's call the folder `quickstart`. In the following dialog set start seconds and end seconds to the annotated time range - 0 and 18 seconds, respectively.
 
 :::{figure} xb_assemble-fig
-<img src="/images/xb_quick_export.png" alt="export audio and annotations" width=400>
+<img src="/images/xb_quick_export.png" alt="export audio and annotations" width=450>
 
 Export audio data and annotations for the annotated range between 0 and 18 seconds.
 :::
@@ -117,7 +118,7 @@ Configure a network and start training via _DeepSS/Train_. This will ask you sel
 - Set both `Number of filters` and `Filter duration (seconds)` to 16. This will result in a smaller network with fewer parameters, which will be faster to train and requires fewer annotations to achieve high performance.
 - Set `Number of epochs` to 10, to finish training earlier.
 :::{figure} xb_train-fig
-<img src="/images/xb_quick_train.png" alt="train" width=550>
+<img src="/images/xb_quick_train.png" alt="train" width=500>
 
 Train options
 :::
@@ -132,7 +133,7 @@ In the next dialog, predict song for 60 seconds starting after your manual annot
 - Enable `Fill gaps short than (seconds)` and `Delete segments shorter than (seconds)` by unchecking both check boxes.
 
 :::{figure} xb_predict-fig
-<img src="/images/xb_quick_predict.png" alt="predict" width=700>
+<img src="/images/xb_quick_predict.png" alt="predict" width=750>
 
 Predict in proof-reading mode on the next 60 seconds.
 :::
