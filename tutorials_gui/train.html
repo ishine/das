@@ -306,16 +306,18 @@
   <a class="reference internal nav-link" href="#train-deepss-using-the-gui">
    Train DeepSS using the GUI
   </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#recommended-configurations">
-   Recommended configurations
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id1">
-   Train
-  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#recommended-configurations">
+     Recommended configurations
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#train-from-the-command-line">
+     Train from the command line
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#files-generated-during-training">
@@ -346,11 +348,11 @@
 <p>If using the GUI, start the process of making a dataset via <em>DeepSS/Make dataset for training</em>. This will first ask you to select a data folder that contains the exported audio and annotations, and then present a dialog with options for customizing the dataset:</p>
 <div class="figure align-default" id="xb-assemble-fig">
 <a class="reference internal image-reference" href="../_images/xb_assemble.png"><img alt="assemble dataset" src="../_images/xb_assemble.png" style="width: 650px;" /></a>
-<p class="caption"><span class="caption-number">Fig. 11 </span><span class="caption-text">Dialog for customizing a dataset for training.</span><a class="headerlink" href="#xb-assemble-fig" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 18 </span><span class="caption-text">Dialog for customizing a dataset for training.</span><a class="headerlink" href="#xb-assemble-fig" title="Permalink to this image">¶</a></p>
 </div>
 <ul class="simple">
 <li><p><em>Data folder</em> &amp; <em>Store folder</em>: The data folder contains your exported annotations (annotations as <code class="docutils literal notranslate"><span class="pre">_annotations.csv</span></code>, audio as <code class="docutils literal notranslate"><span class="pre">npz</span></code> or <code class="docutils literal notranslate"><span class="pre">wav</span></code>). A dataset will be created from these annotations and save in the store folder. By default, the store folder is the data folder with an <code class="docutils literal notranslate"><span class="pre">.npy</span></code> appended. <em>Important: You can change the name of the store folder but the data folder should end in <code class="docutils literal notranslate"><span class="pre">.npy</span></code> for DeepSS to robustly recognize the dataset.</em></p></li>
-<li><p><em>Make individual training targets</em>: By default, the dataset will contain targets for a single network that recognizes all annotated song types — in our case sine and pulse. To train a network for specific song types, enable this option. In our example, this will create additional separate targets for training a network to connect pulse song or sine song only. We found that training individual networks improves performance for multi-channel audio, but not for single audio.</p></li>
+<li><p><em>Make individual training targets</em>: By default, the dataset will contain targets for a single network that recognizes all annotated song types — in our case sine and pulse. To train a network for specific song types, enable this option. We found that training individual networks improves performance for multi-channel audio, but not for single audio.</p></li>
 <li><p><em>Width of events (seconds)</em>: Events are defined by a single time point — to make training more robust, events should be represented by gaussian with specified width (standard deviation).</p></li>
 <li><p><em>Gap between segments (seconds)</em>: To simplify post processing of segments, in particular for birdsong with its many syllable types, we found that introducing brief gaps helps with post-processing the inferred annotations.</p></li>
 <li><p><em>Train/validation/test splits</em>: The data is split into three parts, which are used during different phases of training:</p>
@@ -376,10 +378,9 @@
 <div class="section" id="train-deepss-using-the-gui">
 <h2>Train DeepSS using the GUI<a class="headerlink" href="#train-deepss-using-the-gui" title="Permalink to this headline">¶</a></h2>
 <p>Configure a network and start training via <em>DeepSS/Train</em>. This will ask you select the dataset folder ending in <code class="docutils literal notranslate"><span class="pre">.npy</span></code> that you just created. with the dataset, which song type to train the network for (will train network for all song types by default), and network and training parameters (see <span class="xref myst">DeepSS</span> for details). Training can be started locally in a separate process or a script can be generated that can be execute to train elsewhere, for instance on a cluster.</p>
-<p>edit script to fix paths, add cluster config commands or activate conda env.</p>
 <div class="figure align-default" id="xb-train-fig">
 <a class="reference internal image-reference" href="../_images/xb_train.png"><img alt="train" src="../_images/xb_train.png" style="width: 600px;" /></a>
-<p class="caption"><span class="caption-number">Fig. 12 </span><span class="caption-text">Train options</span><a class="headerlink" href="#xb-train-fig" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 19 </span><span class="caption-text">Train options</span><a class="headerlink" href="#xb-train-fig" title="Permalink to this image">¶</a></p>
 </div>
 <p>Options are grouped into three sections:</p>
 <p><strong>Data set</strong>:</p>
@@ -412,34 +413,28 @@
 <li><p><em>Number of epochs</em>: Maximum number of training epochs. For training with the small data set used on this tutorial, 10 epochs are sufficient. For training on larger datasets leave as is. Training will stop early if the validation loss did not decrease in the last 20 epochs.</p></li>
 <li><p><em>Create tensorboard logs</em>: Create tensorboard logs for monitoring training.</p></li>
 </ul>
-</div>
 <div class="section" id="recommended-configurations">
-<h2>Recommended configurations<a class="headerlink" href="#recommended-configurations" title="Permalink to this headline">¶</a></h2>
+<h3>Recommended configurations<a class="headerlink" href="#recommended-configurations" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>add table with optimal architectures from paper</p></li>
 <li><p>settings fast training</p></li>
 <li><p>when to use frontend</p></li>
 </ul>
 </div>
-<div class="section" id="id1">
-<h2>Train<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">set</span> <span class="n">nb_filters</span> <span class="n">to</span> <span class="mi">16</span> <span class="ow">and</span> <span class="n">kernel_size</span> <span class="n">to</span> <span class="mi">16</span> <span class="o">-</span> <span class="n">fewer</span> <span class="n">parameters</span> <span class="n">work</span> <span class="n">better</span> <span class="k">with</span> <span class="n">little</span> <span class="n">data</span><span class="o">.</span>
-<span class="n">train</span> <span class="k">for</span> <span class="mi">10</span> <span class="n">epochs</span>
-<span class="n">will</span> <span class="n">increase</span> <span class="n">to</span> <span class="n">bigger</span> <span class="n">model</span> <span class="ow">and</span> <span class="n">more</span> <span class="n">epochs</span> <span class="k">with</span> <span class="n">more</span> <span class="n">data</span><span class="o">.</span>
-</pre></div>
-</div>
-<p>For this tutorial, leave all parameters as they are - these parameters are a good starting point for your creating a good network. Training can be performed directly in the GUI in a background process. Monitor the terminal for information on training progress. For the small dataset and the small number of epochs used in the first round of training in the tutorial, a CPU should finish training on the first 18 seconds of song after less than 10 minutes. For larger datasets, we highly recommend training on a machine with a discrete Nvidia GPU.</p>
+<div class="section" id="train-from-the-command-line">
+<h3>Train from the command line<a class="headerlink" href="#train-from-the-command-line" title="Permalink to this headline">¶</a></h3>
 <p>Note that the data set is portable—you can copy the folder with the data to another computer with a GPU and run training from the GUI there. If that machine cannot be used with a GUI—for instance if it’s a linux server, the network configuration can be exported as a command line script and executed via a terminal. For instance:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python3 -m dss.train --data-dir /Users/deepss/tutorial/gui_demo.npy --save-dir /Users/deepss/tutorial/gui_demo.res --nb-hist <span class="m">256</span> --ignore-boundaries True --nb-filters <span class="m">32</span> --kernel-size <span class="m">32</span> --nb-conv <span class="m">3</span> --use-separable False False False --learning-rate <span class="m">0</span>.0001 --nb-epoch <span class="m">400</span> --model-name tcn --no-reduce-lr  --no-tensorboard
 </pre></div>
 </div>
-<p>The script uses the command-line interface <code class="docutils literal notranslate"><span class="pre">dss-train</span></code> for training <em>DeepSS</em>—see <a class="reference internal" href="../technical/cli.html"><span class="doc std std-doc">cli</span></a>) for details. The script will likely require some edits:</p>
+<p>The script uses the command-line interface <code class="docutils literal notranslate"><span class="pre">dss</span> <span class="pre">train</span></code> for training <em>DeepSS</em>—see <a class="reference internal" href="../technical/cli.html"><span class="doc std std-doc">cli</span></a>) for details. The script will likely require some edits:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">--data-dir</span></code> needs to point to the dataset folder ending in <code class="docutils literal notranslate"><span class="pre">.npy</span></code> on the remote machine</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">--save-dir</span></code> needs to point to a valid, writable paths</p></li>
 <li><p>add a line to activate a specific conda environment before running <code class="docutils literal notranslate"><span class="pre">dss-train</span></code>. For instance, <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">activate</span> <span class="pre">dss-server</span></code></p></li>
 <li><p>activate linux modules, for instance to enable CUDA; or specify parameters for you job scheduler.</p></li>
 </ul>
+</div>
 </div>
 <div class="section" id="files-generated-during-training">
 <h2>Files generated during training<a class="headerlink" href="#files-generated-during-training" title="Permalink to this headline">¶</a></h2>

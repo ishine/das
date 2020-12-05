@@ -21,7 +21,7 @@ Create an anaconda environment called `deepss` that contains all the required pa
 conda env create -f https://raw.githubusercontent.com/janclemenslab/deepsongsegmenter/master/env/deepss_gui.yml -n dss
 ```
 
-If you do not need require the graphical user interface `dss-gui` (for instance, for training _DeepSS_ on a server), install the plain version:
+If you do not need require the graphical user interface `dss gui` (for instance, for training _DeepSS_ on a server), install the non-GUI version:
 ```shell
 conda env create -f https://raw.githubusercontent.com/janclemenslab/deepsongsegmenter/master/env/deepss_plain.yml -n dss
 ```
@@ -30,10 +30,10 @@ conda env create -f https://raw.githubusercontent.com/janclemenslab/deepsongsegm
 To quickly test the installation, activate the conda environment and run these two commands in the terminal:
 ```shell
 conda activate dss
-dss-train --help
-dss-gui
+dss train --help
+dss gui
 ```
-The first one should display the command line arguments for `dss-train`. The second command, `dss-gui` will start the graphical user interface - this will *not* work with the plain install.
+The first one should display the command line arguments for `dss train`. The second command, `dss gui` will start the graphical user interface - this will *not* work with the non-GUI install.
 
 ## Next steps
 If all is working, you can now use _DeepSS_ to annotate song. To get started, you will first need to train a network on your own data. For that you need manual annotations - either create new annotations [using the GUI](tutorials_gui) or convert existing annotations [using python scripts](tutorials).

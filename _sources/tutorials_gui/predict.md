@@ -16,9 +16,8 @@ predict options
     - _Delete events closer/farther than (seconds)_: Additional post-detection interval filters for removing events that come to close or too far after another event. The "too far" filter allows you to only keep events that arrive next to each other---for instance in a train---and remove isolated events that are likely spurious detections.
 - __Segment detection__:
     - _Threshold_: The network produces a confidence value between 0 and 1 for each sample. Events are detected based on peaks in these confidence values. The threshold sets the minimal height of these confidence peaks.
-    - _Fill gaps shorter than (seconds)_: ... . Enable this!
-    - _Delete segments shorter than (seconds)_: . Enable this!
+    - _Fill gaps shorter than (seconds)_: ... .
+    - _Delete segments shorter than (seconds)_: ... .
 
 ## Proof reading
 Since you created predictions in proof reading mode, the predictions will be assigned to two new song types, starting with the original name of the song type and ending in `_proposals`. Correct any prediction errors---add missing annotations, remove false positive annotations, adjust the timing of annotations. Once you have corrected all errors, approve annotations with `G` or `H` for approving only the active or all song types, respectively. This will rename the proposals in the view to the original names (for instance, `sine_proposals` -> `sine`).
-

@@ -3,7 +3,6 @@ To train a network involves two steps:
 - First, make a dataset from exported annotations.
 - Then, configure and train a network.
 
-
 ## Make a dataset from exported annotations
 Training expects data in a specific format in which the data is split into different parts for use during training ( and validation) and after training for evaluating network performance. For details, see [here](data_formats.html#dataset-for-training). The GUI automates the generation of these datasets from audio annotated using the GUI. Alternatively, you can also [use your existing annotations](/tutorials/convert) or [make a dataset yourself](/tutorials/make_ds_notebook).
 
@@ -16,7 +15,7 @@ Dialog for customizing a dataset for training.
 :::
 
 - _Data folder_ & _Store folder_: The data folder contains your exported annotations (annotations as `_annotations.csv`, audio as `npz` or `wav`). A dataset will be created from these annotations and save in the store folder. By default, the store folder is the data folder with an `.npy` appended. _Important: You can change the name of the store folder but the data folder should end in `.npy` for DeepSS to robustly recognize the dataset._
-- _Make individual training targets_: By default, the dataset will contain targets for a single network that recognizes all annotated song types --- in our case sine and pulse. To train a network for specific song types, enable this option. In our example, this will create additional separate targets for training a network to connect pulse song or sine song only. We found that training individual networks improves performance for multi-channel audio, but not for single audio.
+- _Make individual training targets_: By default, the dataset will contain targets for a single network that recognizes all annotated song types --- in our case sine and pulse. To train a network for specific song types, enable this option. We found that training individual networks improves performance for multi-channel audio, but not for single audio.
 - _Width of events (seconds)_: Events are defined by a single time point --- to make training more robust, events should be represented by gaussian with specified width (standard deviation).
 - _Gap between segments (seconds)_: To simplify post processing of segments, in particular for birdsong with its many syllable types, we found that introducing brief gaps helps with post-processing the inferred annotations.
 - _Train/validation/test splits_: The data is split into three parts, which are used during different phases of training:
@@ -35,8 +34,6 @@ The dataset can be inspected using the [inspect_dataset notebook](/tutorials/ins
 
 ## Train DeepSS using the GUI
 Configure a network and start training via _DeepSS/Train_. This will ask you select the dataset folder ending in `.npy` that you just created. with the dataset, which song type to train the network for (will train network for all song types by default), and network and training parameters (see [DeepSS]() for details). Training can be started locally in a separate process or a script can be generated that can be execute to train elsewhere, for instance on a cluster.
-
-edit script to fix paths, add cluster config commands or activate conda env.
 
 :::{figure} xb_train-fig
 <img src="/images/xb_train.png" alt="train" width=600>
@@ -70,25 +67,18 @@ __Training parameters__:
 - _Number of epochs_: Maximum number of training epochs. For training with the small data set used on this tutorial, 10 epochs are sufficient. For training on larger datasets leave as is. Training will stop early if the validation loss did not decrease in the last 20 epochs.
 - _Create tensorboard logs_: Create tensorboard logs for monitoring training.
 
-## Recommended configurations
+### Recommended configurations
 - add table with optimal architectures from paper
 - settings fast training
 - when to use frontend
 
-## Train
-```
-set nb_filters to 16 and kernel_size to 16 - fewer parameters work better with little data.
-train for 10 epochs
-will increase to bigger model and more epochs with more data.
-```
-For this tutorial, leave all parameters as they are - these parameters are a good starting point for your creating a good network. Training can be performed directly in the GUI in a background process. Monitor the terminal for information on training progress. For the small dataset and the small number of epochs used in the first round of training in the tutorial, a CPU should finish training on the first 18 seconds of song after less than 10 minutes. For larger datasets, we highly recommend training on a machine with a discrete Nvidia GPU.
-
+### Train from the command line
 Note that the data set is portable---you can copy the folder with the data to another computer with a GPU and run training from the GUI there. If that machine cannot be used with a GUI---for instance if it's a linux server, the network configuration can be exported as a command line script and executed via a terminal. For instance:
 ```shell
 python3 -m dss.train --data-dir /Users/deepss/tutorial/gui_demo.npy --save-dir /Users/deepss/tutorial/gui_demo.res --nb-hist 256 --ignore-boundaries True --nb-filters 32 --kernel-size 32 --nb-conv 3 --use-separable False False False --learning-rate 0.0001 --nb-epoch 400 --model-name tcn --no-reduce-lr  --no-tensorboard
 ```
 
-The script uses the command-line interface `dss-train` for training _DeepSS_---see [cli](/technical/cli)) for details. The script will likely require some edits:
+The script uses the command-line interface `dss train` for training _DeepSS_---see [cli](/technical/cli)) for details. The script will likely require some edits:
 - `--data-dir` needs to point to the dataset folder ending in `.npy` on the remote machine
 - `--save-dir` needs to point to a valid, writable paths
 - add a line to activate a specific conda environment before running `dss-train`. For instance, `conda activate dss-server`

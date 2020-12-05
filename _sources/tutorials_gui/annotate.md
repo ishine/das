@@ -1,11 +1,9 @@
 # Annotate song
 
 ## Initialize or edit song types
-You first need to register the different song types you want to annotate. The example audio is a recording from a male _Drosophila melanogaster_ fly, which produces two major types of courtship song: Pulse song, which contains trains of brief pulses and sine song, containing sustained oscillations. _DeepSS_ discriminates two categories of song types:
+You first need to register the different song types you want to annotate. _DeepSS_ discriminates two categories of song types:
 - _Events_ are defined by a single time of occurrence. The aforementioned pulse song is a song type of the event category.
 - _Segments_ are song types that extend over time and are defined by a start and a stop time. The aforementioned sine song and the syllables of mouse and bird vocalizations fall into the segment category.
-
-Add two new song types for annotation via _Annotations/Add or edit song types_: 'pulse' of category 'event' and 'sine' of category 'segment:
 
 :::{figure} xb_make-fig
 <img src="/images/xb_make.png" alt="edit annotation types" height="500px">
@@ -18,7 +16,7 @@ If you load audio that has been annotated before, the annotations will be loaded
 
 ## Create annotations manually
 
-The two new song types "pulse" or "sine" can now be activated for annotation using the dropdown menu on the top left of the main window. The active song type can also be changed with number keys indicated in the dropdown menu.
+The registered song types can now be activated for annotation using the dropdown menu on the top left of the main window, or via the number keys indicated in the dropdown menu.
 
 :::{figure} xb_create-fig
 <img src="/images/xb_create_opt.gif" alt="annotate song" width="700px">
@@ -26,19 +24,19 @@ The two new song types "pulse" or "sine" can now be activated for annotation usi
 Left clicks in waveform or spectrogram few create annotations.
 :::
 
-To annotate song in the recording, left-click on the waveform or spectrogram view. If an event-like song type is active, that’s it - you just placed the event time and a line should appear in the waveform and spectrogram view. If a segment-like song type is active, the first click should be placed at one boundary - the start or the end - of the segment. The first click places one boundary of the segment and the cursor changes to a cross. A second click at the other boundary will complete the annotation and a shaded area marking the segment should appear.
+Song is annotated by left-clicking the waveform or spectrogram view. If an event-like song type is active, a single left click marks the time of an event. A segment-like song type requires two clicks---one for each boundary of the segment.
 
 ## Annotate by thresholding the waveform
-“Thresholding mode” speeds up the annotation of event song types, by  detecting all waveform peaks in the view as the currently active event. Activate thresholding mode via the _Annotations_ menu. This will display a draggable horizontal line - the detection threshold - and a smooth pink waveform - the envelope of the waveform. Annotations are based on envelope peaks that cross the threshold - adjust the threshold so that only “correct” peaks are detected and then press `I` to annotate these events.
+Annotation of events can be sped up with the "Thresholding mode”, which detects peaks in the sound energy exceeding a threshold. Activate thresholding mode via the _Annotations_ menu. This will display a draggable horizontal line - the detection threshold - and a smooth pink waveform - the energy envelope of the waveform. Adjust the threshold so that only “correct” peaks in the envelope cross the threshold and then press `I` to annotate these peaks as events.
 
 :::{figure} xb_thres-fig
-<img src="/images/xb_thres.gif" alt="annotate song" width="700px">
+<img src="/images/xb_thres_opt.gif" alt="annotate song" width="700px">
 
 Annotations assisted by thresholding and peak detection.
 :::
 
 The threshold mode can be adjusted via _Annotations/Adjust thresholding mode_:
-- _Smoothing factor for envelope (seconds)_: Sets the width of the Gaussian used for smoothing the envelope. Too short and the envelope will contain many noise peaks, to0 long and individual events will become less distinct.
+- _Smoothing factor for envelope (seconds)_: Sets the width of the Gaussian used for smoothing the envelope. Too short and the envelope will contain many noise peaks, too long and individual events will become less distinct.
 - _Minimal distance between events (seconds)_: If the events typically arrive at a minimal rate, this can be used to reduce spurious detections.
 
 ## Edit annotations
@@ -68,10 +66,10 @@ This will open a dialog for fine-tuning the data export:
     - _WAV_: Wave audio file. More general but also less flexible format. For instance, floating point data is restricted to the range [-1, 1] (see [scipy docs](https://docs.scipy.org/doc/scipy/reference/generated/scipy.io.wavfile.write.html)). Audio may need to be scaled before saving to prevent data loss from clipping.
     - _Recommendation_: Use NPZ---it is robust and portable.
 - _Scale factor_: Scale the audio before export. May be required when exporting to WAV, since the WAV format has range restrictions.
-- _Start seconds_ & _end seconds_: Export audio and annotations between start and end seconds. Relevant when exporting partially annotated data. For fast training, do not include too much silence at the before the first and after the last annotation to ensure that all parts of the exported audio contain annotated song. We have annotated song between 0 and 18 seconds, so set start and end seconds to those values.
+- _Start seconds_ & _end seconds_: Export audio and annotations between start and end seconds. Relevant when exporting partially annotated data. For fast training, do not include too much silence at the before the first and after the last annotation to ensure that all parts of the exported audio contain annotated song.
 
 ```{note}
-For this tutorial, we start with a single recording. To generate a larger and more diverse dataset, annotate and export _multiple recordings into the same folder_. They can then be assembled in a single data set for traing (see next page).
+To generate a larger and more diverse dataset, annotate and export _multiple recordings into the same folder_. They can then be assembled in a single data set for traing (see next page).
 ```
 
 ```{note}

@@ -337,37 +337,36 @@
 <h1>Annotate song<a class="headerlink" href="#annotate-song" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="initialize-or-edit-song-types">
 <h2>Initialize or edit song types<a class="headerlink" href="#initialize-or-edit-song-types" title="Permalink to this headline">¶</a></h2>
-<p>You first need to register the different song types you want to annotate. The example audio is a recording from a male <em>Drosophila melanogaster</em> fly, which produces two major types of courtship song: Pulse song, which contains trains of brief pulses and sine song, containing sustained oscillations. <em>DeepSS</em> discriminates two categories of song types:</p>
+<p>You first need to register the different song types you want to annotate. <em>DeepSS</em> discriminates two categories of song types:</p>
 <ul class="simple">
 <li><p><em>Events</em> are defined by a single time of occurrence. The aforementioned pulse song is a song type of the event category.</p></li>
 <li><p><em>Segments</em> are song types that extend over time and are defined by a start and a stop time. The aforementioned sine song and the syllables of mouse and bird vocalizations fall into the segment category.</p></li>
 </ul>
-<p>Add two new song types for annotation via <em>Annotations/Add or edit song types</em>: ‘pulse’ of category ‘event’ and ‘sine’ of category ‘segment:</p>
 <div class="figure align-default" id="xb-make-fig">
 <a class="reference internal image-reference" href="../_images/xb_make.png"><img alt="edit annotation types" src="../_images/xb_make.png" style="height: 500px;" /></a>
-<p class="caption"><span class="caption-number">Fig. 6 </span><span class="caption-text">Create, rename or delete song types for annotation.</span><a class="headerlink" href="#xb-make-fig" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 13 </span><span class="caption-text">Create, rename or delete song types for annotation.</span><a class="headerlink" href="#xb-make-fig" title="Permalink to this image">¶</a></p>
 </div>
 <p>If you load audio that has been annotated before, the annotations will be loaded with the audio and can be added, deleted, and renamed via the same <em>Annotations/Add or edit song types</em> menu.</p>
 </div>
 <div class="section" id="create-annotations-manually">
 <h2>Create annotations manually<a class="headerlink" href="#create-annotations-manually" title="Permalink to this headline">¶</a></h2>
-<p>The two new song types “pulse” or “sine” can now be activated for annotation using the dropdown menu on the top left of the main window. The active song type can also be changed with number keys indicated in the dropdown menu.</p>
+<p>The registered song types can now be activated for annotation using the dropdown menu on the top left of the main window, or via the number keys indicated in the dropdown menu.</p>
 <div class="figure align-default" id="xb-create-fig">
 <a class="reference internal image-reference" href="../_images/xb_create_opt.gif"><img alt="annotate song" src="../_images/xb_create_opt.gif" style="width: 700px;" /></a>
-<p class="caption"><span class="caption-number">Fig. 7 </span><span class="caption-text">Left clicks in waveform or spectrogram few create annotations.</span><a class="headerlink" href="#xb-create-fig" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 14 </span><span class="caption-text">Left clicks in waveform or spectrogram few create annotations.</span><a class="headerlink" href="#xb-create-fig" title="Permalink to this image">¶</a></p>
 </div>
-<p>To annotate song in the recording, left-click on the waveform or spectrogram view. If an event-like song type is active, that’s it - you just placed the event time and a line should appear in the waveform and spectrogram view. If a segment-like song type is active, the first click should be placed at one boundary - the start or the end - of the segment. The first click places one boundary of the segment and the cursor changes to a cross. A second click at the other boundary will complete the annotation and a shaded area marking the segment should appear.</p>
+<p>Song is annotated by left-clicking the waveform or spectrogram view. If an event-like song type is active, a single left click marks the time of an event. A segment-like song type requires two clicks—one for each boundary of the segment.</p>
 </div>
 <div class="section" id="annotate-by-thresholding-the-waveform">
 <h2>Annotate by thresholding the waveform<a class="headerlink" href="#annotate-by-thresholding-the-waveform" title="Permalink to this headline">¶</a></h2>
-<p>“Thresholding mode” speeds up the annotation of event song types, by  detecting all waveform peaks in the view as the currently active event. Activate thresholding mode via the <em>Annotations</em> menu. This will display a draggable horizontal line - the detection threshold - and a smooth pink waveform - the envelope of the waveform. Annotations are based on envelope peaks that cross the threshold - adjust the threshold so that only “correct” peaks are detected and then press <code class="docutils literal notranslate"><span class="pre">I</span></code> to annotate these events.</p>
+<p>Annotation of events can be sped up with the “Thresholding mode”, which detects peaks in the sound energy exceeding a threshold. Activate thresholding mode via the <em>Annotations</em> menu. This will display a draggable horizontal line - the detection threshold - and a smooth pink waveform - the energy envelope of the waveform. Adjust the threshold so that only “correct” peaks in the envelope cross the threshold and then press <code class="docutils literal notranslate"><span class="pre">I</span></code> to annotate these peaks as events.</p>
 <div class="figure align-default" id="xb-thres-fig">
-<a class="reference internal image-reference" href="../_images/xb_thres.gif"><img alt="annotate song" src="../_images/xb_thres.gif" style="width: 700px;" /></a>
-<p class="caption"><span class="caption-number">Fig. 8 </span><span class="caption-text">Annotations assisted by thresholding and peak detection.</span><a class="headerlink" href="#xb-thres-fig" title="Permalink to this image">¶</a></p>
+<a class="reference internal image-reference" href="../_images/xb_thres_opt.gif"><img alt="annotate song" src="../_images/xb_thres_opt.gif" style="width: 700px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 15 </span><span class="caption-text">Annotations assisted by thresholding and peak detection.</span><a class="headerlink" href="#xb-thres-fig" title="Permalink to this image">¶</a></p>
 </div>
 <p>The threshold mode can be adjusted via <em>Annotations/Adjust thresholding mode</em>:</p>
 <ul class="simple">
-<li><p><em>Smoothing factor for envelope (seconds)</em>: Sets the width of the Gaussian used for smoothing the envelope. Too short and the envelope will contain many noise peaks, to0 long and individual events will become less distinct.</p></li>
+<li><p><em>Smoothing factor for envelope (seconds)</em>: Sets the width of the Gaussian used for smoothing the envelope. Too short and the envelope will contain many noise peaks, too long and individual events will become less distinct.</p></li>
 <li><p><em>Minimal distance between events (seconds)</em>: If the events typically arrive at a minimal rate, this can be used to reduce spurious detections.</p></li>
 </ul>
 </div>
@@ -377,7 +376,7 @@
 <p>Delete annotations of the active song type by right-clicking on the annotation. Annotations of all song types or only the active one in the view can be deleted with <code class="docutils literal notranslate"><span class="pre">U</span></code> and <code class="docutils literal notranslate"><span class="pre">Y</span></code>, respectively, or via the <em>Annotations</em> menu.</p>
 <div class="figure align-default" id="xb-edit-fig">
 <a class="reference internal image-reference" href="../_images/xb_edit_opt.gif"><img alt="annotate song" src="../_images/xb_edit_opt.gif" style="width: 700px;" /></a>
-<p class="caption"><span class="caption-number">Fig. 9 </span><span class="caption-text">Dragging moves, right click deletes annotations.</span><a class="headerlink" href="#xb-edit-fig" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 16 </span><span class="caption-text">Dragging moves, right click deletes annotations.</span><a class="headerlink" href="#xb-edit-fig" title="Permalink to this image">¶</a></p>
 </div>
 </div>
 <div class="section" id="export-and-save-annotations">
@@ -385,7 +384,7 @@
 <p><em>DeepSS</em> achieves good performance with little manual annotation. Once you have completely annotated the song in the first 18 seconds of the tutorial recording—a couple of pulse trains and sine song segments—you can quickly train a network to help with annotating the rest of the data. Export the data and the annotations for <em>DeepSS</em> - via the <code class="docutils literal notranslate"><span class="pre">File/Export</span> <span class="pre">for</span> <span class="pre">DeepSS</span></code> to a new folder (not the one containing the original audio):</p>
 <div class="figure align-default" id="xb-assemble-fig">
 <a class="reference internal image-reference" href="../_images/xb_export.png"><img alt="export audio and annotations" src="../_images/xb_export.png" style="width: 500px;" /></a>
-<p class="caption"><span class="caption-number">Fig. 10 </span><span class="caption-text">Export audio data and annotations</span><a class="headerlink" href="#xb-assemble-fig" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 17 </span><span class="caption-text">Export audio data and annotations</span><a class="headerlink" href="#xb-assemble-fig" title="Permalink to this image">¶</a></p>
 </div>
 <p>This will open a dialog for fine-tuning the data export:</p>
 <ul class="simple">
@@ -398,11 +397,11 @@
 </ul>
 </li>
 <li><p><em>Scale factor</em>: Scale the audio before export. May be required when exporting to WAV, since the WAV format has range restrictions.</p></li>
-<li><p><em>Start seconds</em> &amp; <em>end seconds</em>: Export audio and annotations between start and end seconds. Relevant when exporting partially annotated data. For fast training, do not include too much silence at the before the first and after the last annotation to ensure that all parts of the exported audio contain annotated song. We have annotated song between 0 and 18 seconds, so set start and end seconds to those values.</p></li>
+<li><p><em>Start seconds</em> &amp; <em>end seconds</em>: Export audio and annotations between start and end seconds. Relevant when exporting partially annotated data. For fast training, do not include too much silence at the before the first and after the last annotation to ensure that all parts of the exported audio contain annotated song.</p></li>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>For this tutorial, we start with a single recording. To generate a larger and more diverse dataset, annotate and export <em>multiple recordings into the same folder</em>. They can then be assembled in a single data set for traing (see next page).</p>
+<p>To generate a larger and more diverse dataset, annotate and export <em>multiple recordings into the same folder</em>. They can then be assembled in a single data set for traing (see next page).</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>

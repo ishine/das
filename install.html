@@ -351,7 +351,7 @@ export PATH="$HOME/miniconda/bin:$PATH"
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>conda env create -f https://raw.githubusercontent.com/janclemenslab/deepsongsegmenter/master/env/deepss_gui.yml -n dss
 </pre></div>
 </div>
-<p>If you do not need require the graphical user interface <code class="docutils literal notranslate"><span class="pre">dss-gui</span></code> (for instance, for training <em>DeepSS</em> on a server), install the plain version:</p>
+<p>If you do not need require the graphical user interface <code class="docutils literal notranslate"><span class="pre">dss</span> <span class="pre">gui</span></code> (for instance, for training <em>DeepSS</em> on a server), install the non-GUI version:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>conda env create -f https://raw.githubusercontent.com/janclemenslab/deepsongsegmenter/master/env/deepss_plain.yml -n dss
 </pre></div>
 </div>
@@ -360,11 +360,11 @@ export PATH="$HOME/miniconda/bin:$PATH"
 <h2>Test the installation<a class="headerlink" href="#test-the-installation" title="Permalink to this headline">¶</a></h2>
 <p>To quickly test the installation, activate the conda environment and run these two commands in the terminal:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>conda activate dss
-dss-train --help
-dss-gui
+dss train --help
+dss gui
 </pre></div>
 </div>
-<p>The first one should display the command line arguments for <code class="docutils literal notranslate"><span class="pre">dss-train</span></code>. The second command, <code class="docutils literal notranslate"><span class="pre">dss-gui</span></code> will start the graphical user interface - this will <em>not</em> work with the plain install.</p>
+<p>The first one should display the command line arguments for <code class="docutils literal notranslate"><span class="pre">dss</span> <span class="pre">train</span></code>. The second command, <code class="docutils literal notranslate"><span class="pre">dss</span> <span class="pre">gui</span></code> will start the graphical user interface - this will <em>not</em> work with the non-GUI install.</p>
 </div>
 <div class="section" id="next-steps">
 <h2>Next steps<a class="headerlink" href="#next-steps" title="Permalink to this headline">¶</a></h2>

@@ -313,23 +313,33 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#waveform-and-spectrogram-display">
+   Waveform and spectrogram display
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#initialize-or-edit-song-types">
    Initialize or edit song types
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#create-and-edit-annotations">
-   Create and edit Annotations
+  <a class="reference internal nav-link" href="#create-annotations-manually">
+   Create annotations manually
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#export">
-   Export
+  <a class="reference internal nav-link" href="#annotate-by-thresholding-the-waveform">
+   Annotate by thresholding the waveform
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#make-dataset">
-   Make dataset
+  <a class="reference internal nav-link" href="#edit-annotations">
+   Edit annotations
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#export-annotations-and-make-a-dataset">
+   Export annotations and make a dataset
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -343,8 +353,13 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#proof-read">
-   Proof-read
+  <a class="reference internal nav-link" href="#proof-reading">
+   Proof reading
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#go-back-to-export">
+   Go back to “Export”
   </a>
  </li>
 </ul>
@@ -360,79 +375,130 @@
                 
   <div class="section" id="quick-start-tutorial">
 <h1>Quick start tutorial<a class="headerlink" href="#quick-start-tutorial" title="Permalink to this headline">¶</a></h1>
-<p>This quick start tutorial walks through steps required to go from audio data to automated annotations, using a recording of fly song as an example. A comprehensive documentation of all menus and options is in the <span class="xref myst">GUI documentation</span>.</p>
-<p>The tutorial will demonstrate an iterative and adaptive training approach to quickly create a large dataset of annotations for training a <em>DeepSS</em> network: Annotate a few song events, fast-train a network on those annotations, and then use that network to predict new annotations on a short stretch of recording. Given the small dataset used for training, these predictions require manually correction, but correcting is typically much faster than annotating everything from scratch. This correct-train-predict cycle is then repeated until network performance is satisfactory.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">TODO</span><span class="p">:</span>
-<span class="o">-</span> <span class="n">annotate</span> <span class="n">dialogs</span> <span class="k">with</span> <span class="n">what</span> <span class="ow">is</span> <span class="n">supposed</span> <span class="n">to</span> <span class="n">be</span> <span class="n">changed</span> <span class="ow">and</span> <span class="n">how</span>
-</pre></div>
-</div>
+<p>This quick start tutorial walks through all steps required to train <em>DeepSS</em> for your data, using a recording of fly song as an example. A comprehensive documentation of all menus and options can be found in the <span class="xref myst">GUI documentation</span>.</p>
+<p>The tutorial will demonstrate an iterative and adaptive training protocol that allows to quickly create a large dataset of annotations for training a <em>DeepSS</em> network: Annotate a few song events, fast-train a network on those annotations, and then use that network to predict new annotations on a short stretch of recording. Initially, these predictions require manually correction, but correcting is typically much faster than annotating everything from scratch. This correct-train-predict cycle is then repeated until network performance is satisfactory.</p>
 <div class="section" id="download-example-data">
 <h2>Download example data<a class="headerlink" href="#download-example-data" title="Permalink to this headline">¶</a></h2>
-<p>To follow the tutorial, download and open this <span class="xref myst">file</span> - it’s a recording of fly song from a male <em>Drosophila melanogaster</em> courthing a females, recorded by D. Stern (link) saved as a wav file. We will use the file as an example to walk through loading, annotating, training and predicting.</p>
+<p>To follow the tutorial, download and open this <a class="reference external" href="https://github.com/janclemenslab/deepss/releases/download/data/Dmel_male.wav">audio file</a>. The recording is of a <em>Drosophila melanogaster</em> male courting a female, recorded by D. Stern (Janelia). We will use the file as an example to walk through loading, annotating, training and predicting.</p>
 </div>
 <div class="section" id="start-the-gui">
 <h2>Start the GUI<a class="headerlink" href="#start-the-gui" title="Permalink to this headline">¶</a></h2>
-<p>Install <em>DeepSS</em> following these <a class="reference internal" href="../install.html"><span class="doc std std-doc">instructions</span></a>. Then start the GUI by opening a terminal, activating the conda environment created during install and typing <code class="docutils literal notranslate"><span class="pre">dss-gui</span></code>:</p>
+<p>Install <em>DeepSS</em> following these <a class="reference internal" href="../install.html"><span class="doc std std-doc">instructions</span></a>. Then start the GUI by opening a terminal, activating the conda environment created during install and typing <code class="docutils literal notranslate"><span class="pre">dss</span> <span class="pre">gui</span></code>:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>conda activate dss
-dss-gui
+dss gui
 </pre></div>
 </div>
-<a class="reference internal image-reference" href="../_images/xb_start.png"><img alt="start screen" src="../_images/xb_start.png" style="width: 450px;" /></a>
+<p>The following window should open
+<img src="/images/xb_start.png" alt="start screen" width=450></p>
 </div>
 <div class="section" id="load-audio-data">
 <h2>Load audio data<a class="headerlink" href="#load-audio-data" title="Permalink to this headline">¶</a></h2>
-<p>In the window that opens, choose <em>Load audio from file</em> and select the downloaded recording of fly song.</p>
-<p>In the dialog that opens, leave everything as is except set <em>Minimal/Maximal spectrogram frequency</em> - the range of frequencies in the spectrogram display - to 50 and 1000 Hz, which is the frequency range of fly song.</p>
+<p>Choose <em>Load audio from file</em> and select the downloaded recording of fly song.</p>
+<p>In the dialog that opens, leave everything as is except set <em>Minimal/Maximal spectrogram frequency</em>—the range of frequencies in the spectrogram display—to 50 and 1000 Hz. This will focus the spectrogram few to the frequencies found in fly song.</p>
 <div class="figure align-default" id="xb-load-fig">
-<img alt="loading screen" src="../_images/xb_load.png" />
+<img alt="loading screen" src="../_images/xb_quick_load.png" />
 <p class="caption"><span class="caption-number">Fig. 1 </span><span class="caption-text">Loading screen.</span><a class="headerlink" href="#xb-load-fig" title="Permalink to this image">¶</a></p>
 </div>
-<p>This will open a window that displays the first seconds of audio as a waveform (top) and a spectrogram (bottom).</p>
-<p>Navigation…</p>
+</div>
+<div class="section" id="waveform-and-spectrogram-display">
+<h2>Waveform and spectrogram display<a class="headerlink" href="#waveform-and-spectrogram-display" title="Permalink to this headline">¶</a></h2>
+<p>This will open a window that displays the first second of audio as a waveform (top) and a spectrogram (bottom). You will see the two major modes of fly song—pulse and sine. The recording starts with sine song—a relatively soft oscillation resulting in a band of power at ~150Hz in the spectrogram. After ~0.75 seconds starts pulse song—brief wavelets arriving in trains with a regular interval.</p>
+<p>To navigate the view: Move forward/backward along the time axis via the <code class="docutils literal notranslate"><span class="pre">A</span></code>/<code class="docutils literal notranslate"><span class="pre">D</span></code> keys and zoom in/out the time axis with the <code class="docutils literal notranslate"><span class="pre">W</span></code>/<code class="docutils literal notranslate"><span class="pre">S</span></code> keys (See Playback/). The temporal resolution of the spectrogram can be increased at the expense of frequency resolution with the <code class="docutils literal notranslate"><span class="pre">R</span></code> and <code class="docutils literal notranslate"><span class="pre">T</span></code> keys.</p>
+<p>You can play back the waveform on display through your computer speakers by pressing <code class="docutils literal notranslate"><span class="pre">E</span></code>.</p>
 <div class="figure align-default" id="xb-display-fig">
-<a class="reference internal image-reference" href="../_images/xb_display.png"><img alt="waveform and spectrogram display" src="../_images/xb_display.png" style="width: 100%;" /></a>
-<p class="caption"><span class="caption-number">Fig. 2 </span><span class="caption-text">Waveform (top) and spectrogram (bottom) display of a multi-channel recording.</span><a class="headerlink" href="#xb-display-fig" title="Permalink to this image">¶</a></p>
+<a class="reference internal image-reference" href="../_images/xb_quick_view.png"><img alt="waveform and spectrogram display" src="../_images/xb_quick_view.png" style="width: 100%;" /></a>
+<p class="caption"><span class="caption-number">Fig. 2 </span><span class="caption-text">Waveform (top) and spectrogram (bottom) display of a single-channel recording of fly song.</span><a class="headerlink" href="#xb-display-fig" title="Permalink to this image">¶</a></p>
 </div>
 </div>
 <div class="section" id="initialize-or-edit-song-types">
 <h2>Initialize or edit song types<a class="headerlink" href="#initialize-or-edit-song-types" title="Permalink to this headline">¶</a></h2>
-<p>Before you can annotate song, you need to register the different song types for annotation. The example audio is a recording from a male <em>Drosophila melanogaster</em> fly, which produces two major types of courtship song: Pulse song, which contains trains of brief pulses and sine song, containing sustained oscillations. <em>DeepSS</em> discriminates two categories of song types:</p>
+<p>Before you can annotate song, you need to register the different song types for annotation. <em>DeepSS</em> discriminates two categories of song types:</p>
 <ul class="simple">
 <li><p><em>Events</em> are defined by a single time of occurrence. The aforementioned pulse song is a song type of the event category.</p></li>
 <li><p><em>Segments</em> are song types that extend over time and are defined by a start and a stop time. The aforementioned sine song and the syllables of mouse and bird vocalizations fall into the segment category.</p></li>
 </ul>
 <p>Add two new song types for annotation via <em>Annotations/Add or edit song types</em>: ‘pulse’ of category ‘event’ and ‘sine’ of category ‘segment:</p>
 <div class="figure align-default" id="xb-make-fig">
-<a class="reference internal image-reference" href="../_images/xb_make.png"><img alt="edit annotation types" src="../_images/xb_make.png" style="height: 500px;" /></a>
+<a class="reference internal image-reference" href="../_images/xb_make.png"><img alt="edit annotation types" src="../_images/xb_make.png" style="height: 400px;" /></a>
 <p class="caption"><span class="caption-number">Fig. 3 </span><span class="caption-text">Create, rename or delete song types for annotation.</span><a class="headerlink" href="#xb-make-fig" title="Permalink to this image">¶</a></p>
 </div>
 </div>
-<div class="section" id="create-and-edit-annotations">
-<h2>Create and edit Annotations<a class="headerlink" href="#create-and-edit-annotations" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="create-annotations-manually">
+<h2>Create annotations manually<a class="headerlink" href="#create-annotations-manually" title="Permalink to this headline">¶</a></h2>
+<p>The two new song types “pulse” or “sine” can now be activated for annotation using the dropdown menu on the top left of the main window. The active song type can also be changed with number keys indicated in the dropdown menu—in this case <code class="docutils literal notranslate"><span class="pre">1</span></code> activates pulse, <code class="docutils literal notranslate"><span class="pre">2</span></code> activates sine.</p>
+<p>Song is annotated by left-clicking the waveform or spectrogram view. If an event-like song type is active, a single left click marks the time of an event. A segment-like song type requires two clicks—one for each boundary of the segment.</p>
+<div class="figure align-default" id="xb-create-fig">
+<a class="reference internal image-reference" href="../_images/xb_create_opt.gif"><img alt="annotate song" src="../_images/xb_create_opt.gif" style="width: 700px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 4 </span><span class="caption-text">Left clicks in waveform or spectrogram few create annotations.</span><a class="headerlink" href="#xb-create-fig" title="Permalink to this image">¶</a></p>
 </div>
-<div class="section" id="export">
-<h2>Export<a class="headerlink" href="#export" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="make-dataset">
-<h2>Make dataset<a class="headerlink" href="#make-dataset" title="Permalink to this headline">¶</a></h2>
-<p>For the small data set annotated in the first step of this tutorial, we will not test the model - maximize the data available during training by setting the test split to 0.0 and the validation split to 40.</p>
+<div class="section" id="annotate-by-thresholding-the-waveform">
+<h2>Annotate by thresholding the waveform<a class="headerlink" href="#annotate-by-thresholding-the-waveform" title="Permalink to this headline">¶</a></h2>
+<p>Annotation of events can be sped up with the “Thresholding mode”, which detects peaks in the sound energy exceeding a threshold. Activate thresholding mode via the <em>Annotations</em> menu. This will display a draggable horizontal line - the detection threshold - and a smooth pink waveform - the energy envelope of the waveform. Adjust the threshold so that only “correct” peaks in the envelope cross the threshold and then press <code class="docutils literal notranslate"><span class="pre">I</span></code> to annotate these peaks as events.</p>
+<div class="figure align-default" id="xb-thres-fig">
+<a class="reference internal image-reference" href="../_images/xb_thres_opt.gif"><img alt="annotate song" src="../_images/xb_thres_opt.gif" style="width: 700px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 5 </span><span class="caption-text">Annotations assisted by thresholding and peak detection.</span><a class="headerlink" href="#xb-thres-fig" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+<div class="section" id="edit-annotations">
+<h2>Edit annotations<a class="headerlink" href="#edit-annotations" title="Permalink to this headline">¶</a></h2>
+<p>In case you mis-clicked, you can edit and delete annotations. Edit event times and segment bounds by dragging the lines or the boundaries of segments. Drag the shaded area itself to move a segment without changing its duration. Movement can be disabled completely or restricted to the currently selected annotation type via the <em>Audio</em> menu.</p>
+<p>Delete annotations of the active song type by right-clicking on the annotation. Annotations of all song types or only the active one in the view can be deleted with <code class="docutils literal notranslate"><span class="pre">U</span></code> and <code class="docutils literal notranslate"><span class="pre">Y</span></code>, respectively, or via the <em>Annotations</em> menu.</p>
+<div class="figure align-default" id="xb-edit-fig">
+<a class="reference internal image-reference" href="../_images/xb_edit_opt.gif"><img alt="annotate song" src="../_images/xb_edit_opt.gif" style="width: 700px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 6 </span><span class="caption-text">Dragging moves, right click deletes annotations.</span><a class="headerlink" href="#xb-edit-fig" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+<div class="section" id="export-annotations-and-make-a-dataset">
+<h2>Export annotations and make a dataset<a class="headerlink" href="#export-annotations-and-make-a-dataset" title="Permalink to this headline">¶</a></h2>
+<p><em>DeepSS</em> achieves good performance with little manual annotation. Once you have completely annotated the song in the first 18 seconds of the tutorial recording—a couple of pulse trains and sine song segments—you can quickly train a network to help with annotating the rest of the data.</p>
+<p>To train, requires generating a dataset, which arranges the data in a format suitable for <em>DeepSS</em>. To do so, first export the data and the annotations for <em>DeepSS</em> - via the <code class="docutils literal notranslate"><span class="pre">File/Export</span> <span class="pre">for</span> <span class="pre">DeepSS</span></code> to a new folder (not the one containing the original audio)—let’s call the folder <code class="docutils literal notranslate"><span class="pre">quickstart</span></code>. In the following dialog set start seconds and end seconds to the annotated time range - 0 and 18 seconds, respectively.</p>
+<div class="figure align-default" id="xb-assemble-fig">
+<a class="reference internal image-reference" href="../_images/xb_quick_export.png"><img alt="export audio and annotations" src="../_images/xb_quick_export.png" style="width: 500px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 7 </span><span class="caption-text">Export audio data and annotations for the annotated range between 0 and 18 seconds.</span><a class="headerlink" href="#xb-assemble-fig" title="Permalink to this image">¶</a></p>
+</div>
+<p>Then make a dataset, via <em>DeepSS/Make dataset for training</em>. In the file dialog, select the <code class="docutils literal notranslate"><span class="pre">quickstart</span></code> folder you exported your annotations into. In the next dialog, we will adjust how data is split into training, validation and testing data. For the small data set annotated in the first step of this tutorial, we will not test the model. To maximize the data available for optimizing the network (training and validation), set the test split to 0.0 and the validation split to 40:</p>
+<div class="figure align-default" id="id1">
+<a class="reference internal image-reference" href="../_images/xb_quick_make_ds.png"><img alt="assemble dataset" src="../_images/xb_quick_make_ds.png" style="width: 650px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 8 </span><span class="caption-text">Make a dataset for training.</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</div>
+<p>This will create a dataset folder called <code class="docutils literal notranslate"><span class="pre">quickstart.npy</span></code>.</p>
 </div>
 <div class="section" id="fast-training">
 <h2>Fast training<a class="headerlink" href="#fast-training" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">set</span> <span class="n">nb_filters</span> <span class="n">to</span> <span class="mi">16</span> <span class="ow">and</span> <span class="n">kernel_size</span> <span class="n">to</span> <span class="mi">16</span> <span class="o">-</span> <span class="n">fewer</span> <span class="n">parameters</span> <span class="n">work</span> <span class="n">better</span> <span class="k">with</span> <span class="n">little</span> <span class="n">data</span><span class="o">.</span>
-<span class="n">train</span> <span class="k">for</span> <span class="mi">10</span> <span class="n">epochs</span>
-<span class="n">will</span> <span class="n">increase</span> <span class="n">to</span> <span class="n">bigger</span> <span class="n">model</span> <span class="ow">and</span> <span class="n">more</span> <span class="n">epochs</span> <span class="k">with</span> <span class="n">more</span> <span class="n">data</span><span class="o">.</span>
-</pre></div>
+<p>Configure a network and start training via <em>DeepSS/Train</em>. This will ask you select the dataset folder, <code class="docutils literal notranslate"><span class="pre">quickstart.npy</span></code>. The following dialog allows you to configure the network—for the fast training change the following:</p>
+<ul class="simple">
+<li><p>Set both <code class="docutils literal notranslate"><span class="pre">Number</span> <span class="pre">of</span> <span class="pre">filters</span></code> and <code class="docutils literal notranslate"><span class="pre">Filter</span> <span class="pre">duration</span> <span class="pre">(seconds)</span></code> to 16. This will result in a smaller network with fewer parameters, which will be faster to train and requires fewer annotations to achieve high performance.</p></li>
+<li><p>Set <code class="docutils literal notranslate"><span class="pre">Number</span> <span class="pre">of</span> <span class="pre">epochs</span></code> to 10, to finish training earlier.</p></li>
+</ul>
+<div class="figure align-default" id="xb-train-fig">
+<a class="reference internal image-reference" href="../_images/xb_quick_train.png"><img alt="train" src="../_images/xb_quick_train.png" style="width: 600px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 9 </span><span class="caption-text">Train options</span><a class="headerlink" href="#xb-train-fig" title="Permalink to this image">¶</a></p>
 </div>
-<p>For this tutorial, leave all parameters as they are - these parameters are a good starting point for your creating a good network. Training can be performed directly in the GUI in a background process. Monitor the terminal for information on training progress. Training with a small dataset on a CPU should finish after much less than 10 minutes. For larger datasets, we highly recommend training on a machine with a discrete Nvidia GPU.</p>
+<p>Then hit <code class="docutils literal notranslate"><span class="pre">Start</span> <span class="pre">training</span> <span class="pre">in</span> <span class="pre">GUI</span></code> - this will start training in a background process. Monitor training progress in the terminal. Training with this small dataset will finish within fewer than 10 minutes on a CPU and within 2 minutes on a GPU. For larger datasets, we highly recommend training on a machine with a discrete Nvidia GPU.</p>
 </div>
 <div class="section" id="predict">
 <h2>Predict<a class="headerlink" href="#predict" title="Permalink to this headline">¶</a></h2>
-<p>For this tutorial, predict song for 60 seconds starting after your manual annotations (18-78 seconds).</p>
+<p>Once training finished, generate annotations using the trained network via <em>DeepSS/Predict</em>. Training creates files in the <code class="docutils literal notranslate"><span class="pre">quickstart.res</span></code> folder, starting with the time stamp of training—choose the file ending in <code class="docutils literal notranslate"><span class="pre">_model.h5</span></code>.</p>
+<p>In the next dialog, predict song for 60 seconds starting after your manual annotations:</p>
+<ul class="simple">
+<li><p>Set <code class="docutils literal notranslate"><span class="pre">Start</span> <span class="pre">seconds</span></code> to 18 and <code class="docutils literal notranslate"><span class="pre">End</span> <span class="pre">seconds</span></code> to 78.</p></li>
+<li><p>Enable <code class="docutils literal notranslate"><span class="pre">Fill</span> <span class="pre">gaps</span> <span class="pre">short</span> <span class="pre">than</span> <span class="pre">(seconds)</span></code> and <code class="docutils literal notranslate"><span class="pre">Delete</span> <span class="pre">segments</span> <span class="pre">shorter</span> <span class="pre">than</span> <span class="pre">(seconds)</span></code> by unchecking both check boxes.</p></li>
+</ul>
+<div class="figure align-default" id="xb-predict-fig">
+<a class="reference internal image-reference" href="../_images/xb_quick_predict.png"><img alt="predict" src="../_images/xb_quick_predict.png" style="width: 750px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 10 </span><span class="caption-text">Predict in proof-reading mode on the next 60 seconds.</span><a class="headerlink" href="#xb-predict-fig" title="Permalink to this image">¶</a></p>
 </div>
-<div class="section" id="proof-read">
-<h2>Proof-read<a class="headerlink" href="#proof-read" title="Permalink to this headline">¶</a></h2>
-<p>Repeat the prediction-&gt;correction-&gt;training cycle for ever larger parts of the recording, to easily build a large dataset of annotations for training ever better networks.</p>
+<p>In contrast to training, prediction is very fast, and does not require a GPU—should finish within 30 seconds. Since <code class="docutils literal notranslate"><span class="pre">Proof</span> <span class="pre">reading</span> <span class="pre">mode</span></code> was enabled, “proposal” song types will be created, one for each song type predicted by the network. In our case, that’s <code class="docutils literal notranslate"><span class="pre">pulse_proposals</span></code> and <code class="docutils literal notranslate"><span class="pre">sine_proposals</span></code>.</p>
+<p>Proposals should be already good — most pulses should be correctly detected. Sine song is harder to predict and will likely be often missed or chopped up into multiple segments with gaps in between.</p>
+</div>
+<div class="section" id="proof-reading">
+<h2>Proof reading<a class="headerlink" href="#proof-reading" title="Permalink to this headline">¶</a></h2>
+<p>To turn the proposals into annotations, fix and approve them. Correct any prediction errors—add missing annotations, remove false positive annotations, adjust the timing of annotations. Once you have corrected all errors, approve annotations with <code class="docutils literal notranslate"><span class="pre">G</span></code> or <code class="docutils literal notranslate"><span class="pre">H</span></code> for approving only the active or all song types, respectively. This will rename the proposals in the view to the original names (for instance, <code class="docutils literal notranslate"><span class="pre">sine_proposals</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">sine</span></code>).</p>
+</div>
+<div class="section" id="go-back-to-export">
+<h2>Go back to “Export”<a class="headerlink" href="#go-back-to-export" title="Permalink to this headline">¶</a></h2>
+<p>Once all proposals have been proposed, export the new annotations (now between 0 and 78 seconds), make a new dataset, train, predict, rinse, and repeat.</p>
 </div>
 </div>
 
