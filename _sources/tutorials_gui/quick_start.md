@@ -1,7 +1,7 @@
 # Quick start tutorial
 This quick start tutorial walks through all steps required to train _DeepSS_ for your data, using a recording of fly song as an example. A comprehensive documentation of all menus and options can be found in the [GUI documentation]().
 
-The tutorial will demonstrate an iterative and adaptive training protocol that allows to quickly create a large dataset of annotations for training a _DeepSS_ network: Annotate a few song events, fast-train a network on those annotations, and then use that network to predict new annotations on a short stretch of recording. Initially, these predictions require manually correction, but correcting is typically much faster than annotating everything from scratch. This correct-train-predict cycle is then repeated until network performance is satisfactory.
+In the tutorial, we will train _DeepSS_ using an iterative and adaptive protocol that allows to quickly create a large dataset of annotations: Annotate a few song events, fast-train a network on those annotations, and then use that network to predict new annotations on a short stretch of recording. Initially, these predictions require manually correction, but correcting is typically much faster than annotating everything from scratch. This correct-train-predict cycle is then repeated until network performance is satisfactory.
 
 ## Download example data
 To follow the tutorial, download and open this [audio file](https://github.com/janclemenslab/deepss/releases/download/data/Dmel_male.wav). The recording is of a _Drosophila melanogaster_ male courting a female, recorded by D. Stern (Janelia). We will use the file as an example to walk through loading, annotating, training and predicting.
