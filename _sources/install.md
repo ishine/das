@@ -37,5 +37,25 @@ dss gui
 ```
 The first one should display the command line arguments for `dss train`. The second command, `dss gui` will start the graphical user interface - this will *not* work with the non-GUI install.
 
+## Clickable start scripts
+If you want a simple icon that start the GUI upon double clicking, create a start script on the Desktop:
+
+On macOS or linux, make a file - call is `xb.sh` on linux and `xb.command` on macOS:
+```shell
+# /bin/bash
+source $CONDA_PREFIX/etc/profile.d/conda.sh
+conda activate dss
+dss gui
+```
+Make file executable with `chmod +x FILENAME`, where FILENAME is `xb.sh` on linux and `xb.command` on macOS.
+
+For windows:
+```shell
+TITLE XB
+CALL conda.bat activate dss
+dss gui
+```
+
+
 ## Next steps
 If all is working, you can now use _DeepSS_ to annotate song. To get started, you will first need to train a network on your own data. For that you need manual annotations - either create new annotations [using the GUI](/tutorials_gui/tutorials_gui) or convert existing annotations [using python scripts](/tutorials/tutorials).

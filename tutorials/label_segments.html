@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>GUI documentation</title>
+    <title>Generate segment labels</title>
     
   <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
 
@@ -59,8 +59,8 @@
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Load and view data" href="load.html" />
-    <link rel="prev" title="Quick start tutorial" href="../quick_start.html" />
+    <link rel="next" title="Evaluate a sine and pulse network" href="evaluate_fly.html" />
+    <link rel="prev" title="Predict" href="predict.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -106,19 +106,53 @@
    Quick start tutorial
   </a>
  </li>
- <li class="toctree-l1 current active collapsible-parent">
-  <a class="current reference internal" href="#">
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../tutorials_gui/tutorials_gui.html">
    GUI documentation
   </a>
   <ul class="collapse-ul">
    <li class="toctree-l2">
-    <a class="reference internal" href="load.html">
+    <a class="reference internal" href="../tutorials_gui/load.html">
      Load and view data
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="annotate.html">
+    <a class="reference internal" href="../tutorials_gui/annotate.html">
      Annotate song
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../tutorials_gui/train.html">
+     Train
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../tutorials_gui/predict.html">
+     Predict
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1 current active collapsible-parent">
+  <a class="reference internal" href="tutorials.html">
+   Programming documentation
+  </a>
+  <ul class="current collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="convert.html">
+     Convert your own annotations and audio data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="make_ds_notebook.html">
+     Make a dataset from custom data formats
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="inspect_dataset.html">
+     Inspect dataset
     </a>
    </li>
    <li class="toctree-l2">
@@ -131,57 +165,23 @@
      Predict
     </a>
    </li>
-  </ul>
-  <i class="fas fa-chevron-down">
-  </i>
- </li>
- <li class="toctree-l1 collapsible-parent">
-  <a class="reference internal" href="../tutorials/tutorials.html">
-   Programming documentation
-  </a>
-  <ul class="collapse-ul">
-   <li class="toctree-l2">
-    <a class="reference internal" href="../tutorials/convert.html">
-     Convert your own annotations and audio data
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../tutorials/make_ds_notebook.html">
-     Make a dataset from custom data formats
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../tutorials/inspect_dataset.html">
-     Inspect dataset
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../tutorials/train.html">
-     Train
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../tutorials/predict.html">
-     Predict
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../tutorials/label_segments.html">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
      Generate segment labels
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../tutorials/evaluate_fly.html">
+    <a class="reference internal" href="evaluate_fly.html">
      Evaluate a sine and pulse network
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../tutorials/evaluate_bird.html">
+    <a class="reference internal" href="evaluate_bird.html">
      Evaluate a bird song network
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../tutorials/realtime.html">
+    <a class="reference internal" href="realtime.html">
      Annotate audio in realtime
     </a>
    </li>
@@ -277,7 +277,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/tutorials_gui/tutorials_gui.md"><button type="button"
+        <a class="dropdown-buttons" href="../_sources/tutorials/label_segments.md"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.md</button></a>
         <!-- Download PDF via print -->
@@ -309,18 +309,13 @@
         
               <div>
                 
-  <div class="section" id="gui-documentation">
-<h1>GUI documentation<a class="headerlink" href="#gui-documentation" title="Permalink to this headline">¶</a></h1>
-<p>Start with the <a class="reference internal" href="../quick_start.html"><span class="doc std std-doc">quick start tutorial</span></a>.</p>
-<p>Comprehensive description of all menus and options to:</p>
+  <div class="section" id="generate-segment-labels">
+<h1>Generate segment labels<a class="headerlink" href="#generate-segment-labels" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
-<li><p><a class="reference internal" href="load.html"><span class="doc std std-doc">load data</span></a></p></li>
-<li><p><a class="reference internal" href="annotate.html"><span class="doc std std-doc">annotate song</span></a></p></li>
-<li><p><a class="reference internal" href="train.html"><span class="doc std std-doc">train a network</span></a></p></li>
-<li><p><a class="reference internal" href="predict.html"><span class="doc std std-doc">predict annotations</span></a></p></li>
+<li><p>why add gaps to training targets</p></li>
+<li><p>illustrate effect of “fill gaps” and “remove short”</p></li>
+<li><p>two modes</p></li>
 </ul>
-<div class="toctree-wrapper compound">
-</div>
 </div>
 
     <script type="text/x-thebe-config">
@@ -336,7 +331,7 @@
         },
         kernelOptions: {
             kernelName: "python3",
-            path: "./tutorials_gui"
+            path: "./tutorials"
         },
         predefinedOutput: true
     }
@@ -351,8 +346,8 @@
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="../quick_start.html" title="previous page">Quick start tutorial</a>
-    <a class='right-next' id="next-link" href="load.html" title="next page">Load and view data</a>
+    <a class='left-prev' id="prev-link" href="predict.html" title="previous page">Predict</a>
+    <a class='right-next' id="next-link" href="evaluate_fly.html" title="next page">Evaluate a sine and pulse network</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">

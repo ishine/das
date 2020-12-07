@@ -166,6 +166,11 @@
     </a>
    </li>
    <li class="toctree-l2">
+    <a class="reference internal" href="tutorials/label_segments.html">
+     Generate segment labels
+    </a>
+   </li>
+   <li class="toctree-l2">
     <a class="reference internal" href="tutorials/evaluate_fly.html">
      Evaluate a sine and pulse network
     </a>
@@ -226,6 +231,11 @@
   </ul>
   <i class="fas fa-chevron-down">
   </i>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="credits.html">
+   Acknowledgements
+  </a>
  </li>
 </ul>
 
@@ -317,6 +327,11 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#clickable-start-scripts">
+   Clickable start scripts
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#next-steps">
    Next steps
   </a>
@@ -366,6 +381,24 @@ dss gui
 </pre></div>
 </div>
 <p>The first one should display the command line arguments for <code class="docutils literal notranslate"><span class="pre">dss</span> <span class="pre">train</span></code>. The second command, <code class="docutils literal notranslate"><span class="pre">dss</span> <span class="pre">gui</span></code> will start the graphical user interface - this will <em>not</em> work with the non-GUI install.</p>
+</div>
+<div class="section" id="clickable-start-scripts">
+<h2>Clickable start scripts<a class="headerlink" href="#clickable-start-scripts" title="Permalink to this headline">¶</a></h2>
+<p>If you want a simple icon that start the GUI upon double clicking, create a start script on the Desktop:</p>
+<p>On macOS or linux, make a file - call is <code class="docutils literal notranslate"><span class="pre">xb.sh</span></code> on linux and <code class="docutils literal notranslate"><span class="pre">xb.command</span></code> on macOS:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># /bin/bash</span>
+<span class="nb">source</span> <span class="nv">$CONDA_PREFIX</span>/etc/profile.d/conda.sh
+conda activate dss
+dss gui
+</pre></div>
+</div>
+<p>Make file executable with <code class="docutils literal notranslate"><span class="pre">chmod</span> <span class="pre">+x</span> <span class="pre">FILENAME</span></code>, where FILENAME is <code class="docutils literal notranslate"><span class="pre">xb.sh</span></code> on linux and <code class="docutils literal notranslate"><span class="pre">xb.command</span></code> on macOS.</p>
+<p>For windows:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>TITLE XB
+CALL conda.bat activate dss
+dss gui
+</pre></div>
+</div>
 </div>
 <div class="section" id="next-steps">
 <h2>Next steps<a class="headerlink" href="#next-steps" title="Permalink to this headline">¶</a></h2>
