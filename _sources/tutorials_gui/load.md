@@ -38,7 +38,7 @@ Loading screen.
 - Load cue points (IGNORE)
 
 ```{note}
-Most of these parameters are also exposed via the command-line when starting the GUI. See the [command line docs](technical/cli) for details.
+Most of these parameters are also exposed via the command-line when starting the GUI. See the [command line docs](/technical/cli) for details.
 ```
 
 For the purpose of this tutorial, keep the defaults and hit the `Load data` button.
