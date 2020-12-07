@@ -7,7 +7,7 @@ In the window that opens, choose _Load audio from file_ and select the downloade
 Currently, the GUI can load audio data from a wide range of file types:
 
 - audio files like `wav` etc. (read with [soundfile](http://pysoundfile.readthedocs.io/), [list of supported formats](http://www.mega-nerd.com/libsndfile/#Features))
-- hdfs files typically ending in`h5` (read with [h5py](http://docs.h5py.org/)). `mat` files save with recent versions of Matlab also use this format (see [matlab docs](https://www.mathworks.com/help/matlab/ref/save.html#btox10b-1-version)).
+- hdfs files typically ending in `h5` (read with [h5py](http://docs.h5py.org/)). `mat` files save with recent versions of Matlab also use this format (see [matlab docs](https://www.mathworks.com/help/matlab/ref/save.html#btox10b-1-version)).
 - numpy's `npy` or `npz` files ([numpy](https://numpy.org/doc/stable/reference/routines.io.html))
 
 The example recording is an audio file in `wav` format.
