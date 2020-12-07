@@ -3,7 +3,7 @@ If you start from scratch---with non-annotated audio recording---use the GUI. Se
 
 However, often annotations exist, from old manual annotations or produced by other tools. _DeepSS_ can be used with existing annotations, by converting the existing annotations into the dss format.
 
-If audio data is in a format supported by dss (see [here]()), open in GUI and export to folder. For processing large sets of recordings, or use the [notebook]().
+If audio data is in a format supported by dss (see [here](/tutorials_gui/load)), open in GUI and export to a folder. For processing large sets of recordings use the [notebook](make_ds_notebook).
 
 
 ## Format of exported annotations and audio

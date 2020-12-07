@@ -1,5 +1,5 @@
 # Quick start tutorial
-This quick start tutorial walks through all steps required to train _DeepSS_ for your data, using a recording of fly song as an example. A comprehensive documentation of all menus and options can be found in the [GUI documentation]().
+This quick start tutorial walks through all steps required to train _DeepSS_ for your data, using a recording of fly song as an example. A comprehensive documentation of all menus and options can be found in the [GUI documentation](/tutorials_gui/tutorials_gui).
 
 In the tutorial, we will train _DeepSS_ using an iterative and adaptive protocol that allows to quickly create a large dataset of annotations: Annotate a few song events, fast-train a network on those annotations, and then use that network to predict new annotations on a short stretch of recording. Initially, these predictions require manually correction, but correcting is typically much faster than annotating everything from scratch. This correct-train-predict cycle is then repeated until network performance is satisfactory.
 

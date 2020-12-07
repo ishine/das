@@ -33,7 +33,7 @@ The dataset can be inspected using the [inspect_dataset notebook](/tutorials/ins
 
 
 ## Train DeepSS using the GUI
-Configure a network and start training via _DeepSS/Train_. This will ask you select the dataset folder ending in `.npy` that you just created. with the dataset, which song type to train the network for (will train network for all song types by default), and network and training parameters (see [DeepSS]() for details). Training can be started locally in a separate process or a script can be generated that can be execute to train elsewhere, for instance on a cluster.
+Configure a network and start training via _DeepSS/Train_. This will ask you select the dataset folder ending in `.npy` that you just created. with the dataset, which song type to train the network for (will train network for all song types by default), and network and training parameters (see [DeepSS](/tutorials/train) for details). Training can be started locally in a separate process or a script can be generated that can be execute to train elsewhere, for instance on a cluster.
 
 :::{figure} xb_train-fig
 <img src="/images/xb_train.png" alt="train" width=600>
