@@ -146,4 +146,4 @@ Proposals should be already good --- most pulses should be correctly detected. S
 To turn the proposals into annotations, fix and approve them. Correct any prediction errors---add missing annotations, remove false positive annotations, adjust the timing of annotations. Once you have corrected all errors, approve annotations with `G` or `H` for approving only the active or all song types, respectively. This will rename the proposals in the view to the original names (for instance, `sine_proposals` -> `sine`).
 
 ## Go back to "Export"
-Once all proposals have been proposed, export the new annotations (now between 0 and 78 seconds), make a new dataset, train, predict, rinse, and repeat.
+Once all proposals have been approved, export the new annotations (now between 0 and 78 seconds), make a new dataset, train, predict, and repeat. If you feel prediction performance is adequate, fully train the network, this time using a completely new recording as the test set (TODO: add option to specify a file as the test set to the "Make dataset" dialog) and with the full number of epochs.

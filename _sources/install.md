@@ -15,6 +15,8 @@ __CUDA libraries for using the GPU__: While _DeepSS_ works well for annotating s
 
 __Libsoundfile on linux__: The graphical user interface (GUI) reads audio data using [soundfile](http://pysoundfile.readthedocs.io/), which relies on `libsndfile`. `libsndfile` will be automatically installed on Windows and macOS. On Linux, the library needs to be installed manually with: `sudo apt-get install libsndfile1`. Note that _DeepSS_ will work w/o `libsndfile` but will only be able to load more unusual audio file formats.
 
+__Visual C++ runtime on windows__: This is typically installed so only required if dss fails to load the native tensorflow runtime. Download the latest version from [here](https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads).
+
 ## Install _DeepSS_ with or without the GUI
 Create an anaconda environment called `deepss` that contains all the required packages, including the GUI:
 ```shell

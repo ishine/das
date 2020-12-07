@@ -25,8 +25,8 @@
     href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
 
     
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/sphinx-book-theme.40e2e510f6b7d1648584402491bb10fe.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
@@ -59,7 +59,7 @@
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Evaluate for fly sine and pulse song" href="evaluate_fly.html" />
+    <link rel="next" title="Evaluate a sine and pulse network" href="evaluate_fly.html" />
     <link rel="prev" title="Train" href="train.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -167,12 +167,12 @@
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="evaluate_fly.html">
-     Evaluate for fly sine and pulse song
+     Evaluate a sine and pulse network
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="evaluate_bird.html">
-     Evaluate for bird song
+     Evaluate a bird song network
     </a>
    </li>
    <li class="toctree-l2">
@@ -267,9 +267,9 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/tutorials/predict.md"><button type="button"
+        <a class="dropdown-buttons" href="../_sources/tutorials/predict.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.md</button></a>
+                data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
         <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
             onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
@@ -287,6 +287,23 @@
 
         <!-- Launch buttons -->
 
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/tutorials/predict.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
     </div>
 
     <!-- Table of contents -->
@@ -298,33 +315,25 @@
         <nav id="bd-toc-nav">
             <ul class="nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#command-line">
-   Command line
+  <a class="reference internal nav-link" href="#prediction-using-python">
+   Prediction using python
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#outputs-of-predict">
+     Outputs of
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       predict
+      </span>
+     </code>
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#python">
-   Python
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#inference">
-   Inference
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#predict-class-probabilities">
-   Predict class probabilities
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#process-segments">
-   Process segments
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#process-events">
-   Process events
+  <a class="reference internal nav-link" href="#training-using-command-line-scripts">
+   Training using command-line scripts
   </a>
  </li>
 </ul>
@@ -340,43 +349,177 @@
                 
   <div class="section" id="predict">
 <h1>Predict<a class="headerlink" href="#predict" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="command-line">
-<h2>Command line<a class="headerlink" href="#command-line" title="Permalink to this headline">¶</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">dss-predict</span> <span class="pre">file.wav</span> <span class="pre">model_trunk</span></code></p>
-</div>
-<div class="section" id="python">
-<h2>Python<a class="headerlink" href="#python" title="Permalink to this headline">¶</a></h2>
+<p>Similar to training, prediction can be done via three interfaces:</p>
 <ul class="simple">
-<li><p>python: <code class="docutils literal notranslate"><span class="pre">dss.predict.predict('file.wav',</span> <span class="pre">model_save_name='model_trunk'))</span></code></p></li>
-<li><p>see notebook</p></li>
+<li><p>via python, <code class="docutils literal notranslate"><span class="pre">dss.predict.predict</span></code></p></li>
+<li><p>via the command line, <code class="docutils literal notranslate"><span class="pre">dss</span> <span class="pre">predict</span></code>, with audio data from a wav file.</p></li>
+<li><p>the GUI - see the <a class="reference internal" href="../tutorials_gui/predict.html"><span class="doc std std-doc">GUI tutorial</span></a></p></li>
+</ul>
+<p>Prediction will:</p>
+<ul class="simple">
+<li><p>load the audio data and the network</p></li>
+<li><p>run inference to produce confidence scores (<code class="docutils literal notranslate"><span class="pre">class_probabilties</span></code>)</p></li>
+<li><p>post-process the confidence score to extract the times of events and label segments.</p></li>
+</ul>
+<div class="section" id="prediction-using-python">
+<h2>Prediction using python<a class="headerlink" href="#prediction-using-python" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
+<span class="kn">import</span> <span class="nn">scipy.io.wavfile</span>
+<span class="kn">import</span> <span class="nn">dss.predict</span>
+<span class="n">help</span><span class="p">(</span><span class="n">dss</span><span class="o">.</span><span class="n">predict</span><span class="o">.</span><span class="n">predict</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Help on function predict in module dss.predict:
+
+predict(x: &lt;built-in function array&gt;, model_save_name: str = None, verbose: int = 1, batch_size: int = None, model: tensorflow.python.keras.engine.training.Model = None, params: dict = None, event_thres: float = 0.5, event_dist: float = 0.01, event_dist_min: float = 0, event_dist_max: float = None, segment_thres: float = 0.5, segment_minlen: float = None, segment_fillgap: float = None, prepend_padding: bool = True)
+    [summary]
+    
+    Usage:
+    Calling predict with the path to the model will load the model and the
+    associated params and run inference:
+    `dss.predict.predict(x=data, model_save_name=&#39;tata&#39;)`
+    
+    To re-use the same model with multiple recordings, load the modal and params
+    once and pass them to `predict`
+    ```my_model, my_params = dss.utils.load_model_and_params(model_save_name)
+    for data in data_list:
+        dss.predict.predict(x=data, model=my_model, params=my_params)
+    ```
+    
+    Args:
+        x (np.array): Audio data [samples, channels]
+        model_save_name (str): path with the trunk name of the model. Defaults to None.
+        model (keras.model.Models): Defaults to None.
+        params (dict): Defaults to None.
+    
+        verbose (int): display progress bar during prediction. Defaults to 1.
+        batch_size (int): number of chunks processed at once . Defaults to None (the default used during training).
+                         Larger batches lead to faster inference. Limited by memory size, in particular for GPUs which typically have 8GB.
+                         Large batch sizes lead to loss of samples since only complete batches are used.
+    
+        event_thres (float): Confidence threshold for detecting peaks. Range 0..1. Defaults to 0.5.
+        event_dist (float): Minimal distance between adjacent events during thresholding.
+                            Prevents detecting duplicate events when the confidence trace is a little noisy.
+                            Defaults to 0.01.
+        event_dist_min (float): MINimal inter-event interval for the event filter run during post processing.
+                                Defaults to 0.
+        event_dist_max (float): MAXimal inter-event interval for the event filter run during post processing.
+                                Defaults to None (no upper limit).
+    
+        segment_thres (float): Confidence threshold for detecting segments. Range 0..1. Defaults to 0.5.
+        segment_minlen (float): Minimal duration of a segment used for filtering out spurious detections. Defaults to None.
+        segment_fillgap (float): Gap between adjacent segments to be filled. Useful for correcting brief lapses. Defaults to None.
+    
+    
+    Raises:
+        ValueError: [description]
+    
+    Returns:
+        events: [description]
+        segments: [description]
+        class_probabilities: [description]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>
+<span class="n">samplerate</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">wavfile</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s1">&#39;dat/dmel_song_rt.wav&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;DeepSS requires [T, channels], but single-channel wave files are loaded with shape [T,] (data shape is </span><span class="si">{</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">).&quot;</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_2d</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+<span class="n">events</span><span class="p">,</span> <span class="n">segments</span><span class="p">,</span> <span class="n">class_probabilties</span> <span class="o">=</span> <span class="n">dss</span><span class="o">.</span><span class="n">predict</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> 
+                                                           <span class="n">model_save_name</span><span class="o">=</span><span class="s1">&#39;models/dmel_single_rt/20200430_201821&#39;</span><span class="p">,</span>
+                                                           <span class="n">verbose</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>DeepSS requires [T, channels], but single-channel wave files are loaded with shape [T,] (data shape is (909003,)).
+WARNING:tensorflow:From /Users/clemens10/miniconda3/lib/python3.7/site-packages/tensorflow_core/python/ops/resource_variable_ops.py:1635: calling BaseResourceVariable.__init__ (from tensorflow.python.ops.resource_variable_ops) with constraint is deprecated and will be removed in a future version.
+Instructions for updating:
+If using Keras pass *_constraint arguments to layers.
+443/443 - 19s
+CPU times: user 1min 36s, sys: 5.3 s, total: 1min 42s
+Wall time: 22.8 s
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="outputs-of-predict">
+<h3>Outputs of <code class="docutils literal notranslate"><span class="pre">predict</span></code><a class="headerlink" href="#outputs-of-predict" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">class_probabilties</span></code>: <code class="docutils literal notranslate"><span class="pre">[T,</span> <span class="pre">nb_classes]</span></code> including noise.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">segments</span></code>: Labelled segments</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">samplerate_Hz</span></code>:</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">names</span></code>: names of all segment types</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">index</span></code>: indices of all segments types into class_probabiltiies</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">probabilities</span> <span class="pre">=</span> <span class="pre">class_probabilites[:,</span> <span class="pre">index]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sequence</span></code>: sequence of segment names (one entry per detected segment). Excludes noise</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">samples</span></code>: labelled sample trace (label of the sequence occupying each sample)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">onsets_seconds</span></code>, <code class="docutils literal notranslate"><span class="pre">offsets_seconds</span></code>, <code class="docutils literal notranslate"><span class="pre">durations_seconds</span></code>: Onsets, offsets, and duration of individual segmeents</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">events</span></code>: Detected events</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">samplerate_Hz</span></code>:</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">index</span></code>: indices of all events types into class_probabiltiies</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">names</span></code>: names of all event types</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">probabilities</span></code>: probabilities (confidence scores) for detected events. Value of <code class="docutils literal notranslate"><span class="pre">class_probabilities</span></code> for the detected event index at each event time.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">seconds</span></code>: times (seconds) of detected events</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sequence</span></code>: sequence of event names (one per detected event).</p></li>
+</ul>
+</li>
 </ul>
 </div>
-<div class="section" id="inference">
-<h2>Inference<a class="headerlink" href="#inference" title="Permalink to this headline">¶</a></h2>
-<p>events, segments = infer(x, model_name, inference_params)   # fall back sensible to defaults (all thres 0.5, no pre-processing) with warning
-<code class="docutils literal notranslate"><span class="pre">events[eventname][seconds/probabilities]</span></code>
-<code class="docutils literal notranslate"><span class="pre">segements[segmentname][denselabels/onset_seconds/offset_seconds/probabilities]</span></code></p>
-<p>for each class:
-type, name, threshold=0.5, min_dist=None, min_len=None, fill_len=None</p>
 </div>
-<div class="section" id="predict-class-probabilities">
-<h2>Predict class probabilities<a class="headerlink" href="#predict-class-probabilities" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">class_probabilities</span> <span class="o">=</span> <span class="n">predict</span><span class="p">(</span><span class="n">x</span><span class="p">,</span>  <span class="c1"># array [samples, channels] or [samples, frequencies, channels]</span>
-       <span class="n">model_name</span><span class="p">,</span>  <span class="c1"># basename of the model</span>
-       <span class="p">)</span>
+<div class="section" id="training-using-command-line-scripts">
+<h2>Training using command-line scripts<a class="headerlink" href="#training-using-command-line-scripts" title="Permalink to this headline">¶</a></h2>
+<p>Will save the output to a h5 file ending in <code class="docutils literal notranslate"><span class="pre">_dss.h5</span></code> or specified via the <code class="docutils literal notranslate"><span class="pre">--save-filename</span></code> argument.</p>
+<p>See <a class="reference internal" href="../technical/cli.html"><span class="doc std std-doc">cli</span></a> for a full list of arguments.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>dss predict dat/dmel_song_rt.wav models/dmel_single_rt/20200430_201821
 </pre></div>
 </div>
 </div>
-<div class="section" id="process-segments">
-<h2>Process segments<a class="headerlink" href="#process-segments" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="process-events">
-<h2>Process events<a class="headerlink" href="#process-events" title="Permalink to this headline">¶</a></h2>
-<p>in a python shell/notebook</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">dss.predict</span>
-<span class="n">song</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">wavefile</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s1">&#39;filename&#39;</span><span class="p">)</span>
-<span class="n">segment_probabilities</span><span class="p">,</span> <span class="n">segment_labels</span><span class="p">,</span> <span class="n">event_times</span><span class="p">,</span> <span class="n">event_confidence</span> <span class="o">=</span> <span class="n">dss</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">song</span><span class="p">,</span> <span class="n">modelfilename</span><span class="p">)</span>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:root:   Loading data from dat/dmel_song_rt.wav.
+INFO:root:   Annotating using model at models/dmel_single_rt/20200430_201821.
+WARNING:tensorflow:From /Users/clemens10/miniconda3/lib/python3.7/site-packages/tensorflow_core/python/ops/resource_variable_ops.py:1635: calling BaseResourceVariable.__init__ (from tensorflow.python.ops.resource_variable_ops) with constraint is deprecated and will be removed in a future version.
+Instructions for updating:
+If using Keras pass *_constraint arguments to layers.
+WARNING:tensorflow:From /Users/clemens10/miniconda3/lib/python3.7/site-packages/tensorflow_core/python/ops/resource_variable_ops.py:1635: calling BaseResourceVariable.__init__ (from tensorflow.python.ops.resource_variable_ops) with constraint is deprecated and will be removed in a future version.
+Instructions for updating:
+If using Keras pass *_constraint arguments to layers.
+443/443 [==============================] - 19s 43ms/step
+INFO:root:   Saving results to dat/dmel_song_rt_dss.h5.
+INFO:root:Done.
+
 </pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">h5py</span>
+
+<span class="k">with</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="s1">&#39;dat/dmel_song_rt_dss.h5&#39;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;class_probabilities&#39;, &#39;events&#39;, &#39;segments&#39;]
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -410,7 +553,7 @@ type, name, threshold=0.5, min_dist=None, min_len=None, fill_len=None</p>
     <div class='prev-next-bottom'>
         
     <a class='left-prev' id="prev-link" href="train.html" title="previous page">Train</a>
-    <a class='right-next' id="next-link" href="evaluate_fly.html" title="next page">Evaluate for fly sine and pulse song</a>
+    <a class='right-next' id="next-link" href="evaluate_fly.html" title="next page">Evaluate a sine and pulse network</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">

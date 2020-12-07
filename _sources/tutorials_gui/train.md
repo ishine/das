@@ -75,13 +75,13 @@ __Training parameters__:
 ### Train from the command line
 Note that the data set is portable---you can copy the folder with the data to another computer with a GPU and run training from the GUI there. If that machine cannot be used with a GUI---for instance if it's a linux server, the network configuration can be exported as a command line script and executed via a terminal. For instance:
 ```shell
-python3 -m dss.train --data-dir /Users/deepss/tutorial/gui_demo.npy --save-dir /Users/deepss/tutorial/gui_demo.res --nb-hist 256 --ignore-boundaries True --nb-filters 32 --kernel-size 32 --nb-conv 3 --use-separable False False False --learning-rate 0.0001 --nb-epoch 400 --model-name tcn --no-reduce-lr  --no-tensorboard
+dss train --data-dir /Users/deepss/tutorial/gui_demo.npy --save-dir /Users/deepss/tutorial/gui_demo.res --nb-hist 256 --ignore-boundaries True --nb-filters 32 --kernel-size 32 --nb-conv 3 --use-separable False False False --learning-rate 0.0001 --nb-epoch 400 --model-name tcn --no-reduce-lr  --no-tensorboard
 ```
 
 The script uses the command-line interface `dss train` for training _DeepSS_---see [cli](/technical/cli)) for details. The script will likely require some edits:
 - `--data-dir` needs to point to the dataset folder ending in `.npy` on the remote machine
 - `--save-dir` needs to point to a valid, writable paths
-- add a line to activate a specific conda environment before running `dss-train`. For instance, `conda activate dss-server`
+- add a line to activate a specific conda environment before running `dss train`. For instance, `conda activate dss`
 - activate linux modules, for instance to enable CUDA; or specify parameters for you job scheduler.
 
 ## Files generated during training

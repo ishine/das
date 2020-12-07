@@ -25,8 +25,8 @@
     href="_static/vendor/lato_latin-ext/1.44.1/index.css">
 
     
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="_static/sphinx-book-theme.40e2e510f6b7d1648584402491bb10fe.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
@@ -167,12 +167,12 @@
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="tutorials/evaluate_fly.html">
-     Evaluate for fly sine and pulse song
+     Evaluate a sine and pulse network
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="tutorials/evaluate_bird.html">
-     Evaluate for bird song
+     Evaluate a bird song network
     </a>
    </li>
    <li class="toctree-l2">
@@ -344,6 +344,7 @@ export PATH="$HOME/miniconda/bin:$PATH"
 ``` -->
 <p><strong>CUDA libraries for using the GPU</strong>: While <em>DeepSS</em> works well for annotating song using CPUs, GPUs will greatly improve annotation speed and are in particular recommended for training a <em>DeepSS</em> network. The network is implement in the deep-learning framework Tensorflow. To make sure that Tensorflow can utilize the GPU, the required CUDA libraries need to be installed. See the <a class="reference external" href="https://www.tensorflow.org/install/gpu">tensorflow docs</a> for details.</p>
 <p><strong>Libsoundfile on linux</strong>: The graphical user interface (GUI) reads audio data using <a class="reference external" href="http://pysoundfile.readthedocs.io/">soundfile</a>, which relies on <code class="docutils literal notranslate"><span class="pre">libsndfile</span></code>. <code class="docutils literal notranslate"><span class="pre">libsndfile</span></code> will be automatically installed on Windows and macOS. On Linux, the library needs to be installed manually with: <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">apt-get</span> <span class="pre">install</span> <span class="pre">libsndfile1</span></code>. Note that <em>DeepSS</em> will work w/o <code class="docutils literal notranslate"><span class="pre">libsndfile</span></code> but will only be able to load more unusual audio file formats.</p>
+<p><strong>Visual C++ runtime on windows</strong>: This is typically installed so only required if dss fails to load the native tensorflow runtime. Download the latest version from <a class="reference external" href="https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads">here</a>.</p>
 </div>
 <div class="section" id="install-deepss-with-or-without-the-gui">
 <h2>Install <em>DeepSS</em> with or without the GUI<a class="headerlink" href="#install-deepss-with-or-without-the-gui" title="Permalink to this headline">¶</a></h2>

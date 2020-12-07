@@ -25,8 +25,8 @@
     href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
 
     
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/sphinx-book-theme.40e2e510f6b7d1648584402491bb10fe.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
@@ -60,7 +60,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Unsupervised classification" href="../unsupervised/unsupervised.html" />
-    <link rel="prev" title="Evaluate for bird song" href="evaluate_bird.html" />
+    <link rel="prev" title="Evaluate a bird song network" href="evaluate_bird.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -167,12 +167,12 @@
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="evaluate_fly.html">
-     Evaluate for fly sine and pulse song
+     Evaluate a sine and pulse network
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="evaluate_bird.html">
-     Evaluate for bird song
+     Evaluate a bird song network
     </a>
    </li>
    <li class="toctree-l2 current active">
@@ -365,27 +365,33 @@
 <div class="section" id="setup">
 <h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
 <p>Test the latency of realtime annotations on a GPU (if you have one) or a CPU.</p>
+<p>Disabling eager execution is crucial for low latency annotation - eager execution increases latencies 6-fold, from 5 ms to 30 ms.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
-<span class="n">USE_GPU</span> <span class="o">=</span> <span class="kc">True</span>  <span class="c1"># </span>
+<span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+<span class="n">USE_GPU</span> <span class="o">=</span> <span class="kc">False</span>  <span class="c1"># </span>
 <span class="c1"># disable existing GPUs if testing CPU</span>
 <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;CUDA_VISIBLE_DEVICES&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;0&#39;</span> <span class="k">if</span> <span class="n">USE_GPU</span> <span class="k">else</span> <span class="s1">&#39;-1&#39;</span>
-<span class="n">physical_devices</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">list_physical_devices</span><span class="p">(</span><span class="s1">&#39;GPU&#39;</span><span class="p">)</span> 
-<span class="nb">print</span><span class="p">(</span><span class="n">physical_devices</span><span class="p">)</span>
-
 <span class="c1"># disabling eager execution in tensorflow speeds up annotations by ~6x</span>
 <span class="k">try</span><span class="p">:</span>
-    <span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
     <span class="kn">from</span> <span class="nn">tensorflow.python.framework.ops</span> <span class="kn">import</span> <span class="n">disable_eager_execution</span>
     <span class="n">disable_eager_execution</span><span class="p">()</span>
-<span class="k">except</span><span class="p">:</span>
-    <span class="k">pass</span>
+
+    <span class="n">tf</span><span class="o">.</span><span class="n">compat</span><span class="o">.</span><span class="n">v1</span><span class="o">.</span><span class="n">disable_eager_execution</span><span class="p">()</span>
+
+    <span class="n">physical_devices</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">list_physical_devices</span><span class="p">(</span><span class="s1">&#39;GPU&#39;</span><span class="p">)</span> 
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;GPUs:&#39;</span><span class="p">,</span> <span class="n">physical_devices</span><span class="p">)</span>
+    <span class="n">physical_devices</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">list_physical_devices</span><span class="p">(</span><span class="s1">&#39;CPU&#39;</span><span class="p">)</span> 
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;CPUs:&#39;</span><span class="p">,</span> <span class="n">physical_devices</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GPUs: []
+CPUs: [PhysicalDevice(name=&#39;/physical_device:CPU:0&#39;, device_type=&#39;CPU&#39;)]
 </pre></div>
 </div>
 </div>
@@ -427,7 +433,10 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model expects input shape 256 samples and 1 channel(s).
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>WARNING:tensorflow:From /Users/clemens10/miniconda3/lib/python3.7/site-packages/tensorflow_core/python/ops/resource_variable_ops.py:1635: calling BaseResourceVariable.__init__ (from tensorflow.python.ops.resource_variable_ops) with constraint is deprecated and will be removed in a future version.
+Instructions for updating:
+If using Keras pass *_constraint arguments to layers.
+Model expects input shape 256 samples and 1 channel(s).
 </pre></div>
 </div>
 </div>
@@ -450,16 +459,8 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">5</span><span class="o">-</span><span class="n">d4d2fa7c9b99</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">recording_samplerate</span><span class="p">,</span> <span class="n">recording</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">wavfile</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s1">&#39;dat/dmel_song_rt.wav&#39;</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">recording</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_2d</span><span class="p">(</span><span class="n">recording</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> 
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">recording</span><span class="p">[:</span><span class="mi">100_000</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>  <span class="c1"># plot the first 10 seconds</span>
-
-<span class="ne">NameError</span>: name &#39;scipy&#39; is not defined
+<img alt="../_images/realtime_6_0.jpg" src="../_images/realtime_6_0.jpg" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample rate of the recording (10000Hz), sample rate expected by the model (10000Hz). Both should match.
 </pre></div>
 </div>
 </div>
@@ -514,16 +515,12 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">2</span><span class="o">-</span><span class="n">fca884557242</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="k">def</span> <span class="nf">virtual_microphone</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">interval</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">samplerate</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">block</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> 
-<span class="g g-Whitespace">      </span><span class="mi">3</span>     <span class="n">RUN</span> <span class="o">=</span> <span class="kc">True</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span>     <span class="n">current_position</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span>     <span class="n">t1</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="mf">0.025</span>
-
-<span class="ne">NameError</span>: name &#39;np&#39; is not defined
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Microphone produces 256 samples and 1 channel(s) per chunk.
+Consuming and plotting 100 chunks...
+</pre></div>
+</div>
+<img alt="../_images/realtime_8_1.jpg" src="../_images/realtime_8_1.jpg" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Takes 26.4 ms to return 25.6 ms of audio data.
 </pre></div>
 </div>
 </div>
@@ -558,18 +555,10 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">4</span><span class="o">-</span><span class="mi">365</span><span class="n">a48ddb6d0</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="c1"># consume a couple of chunks until there is song</span>
-<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">9</span><span class="p">):</span>
-<span class="ne">----&gt; </span><span class="mi">8</span>     <span class="n">d</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">mike</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">9</span> 
-<span class="g g-Whitespace">     </span><span class="mi">10</span> <span class="n">d</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
-
-<span class="ne">NameError</span>: name &#39;mike&#39; is not defined
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7ff3cbde67d0&gt;
 </pre></div>
 </div>
+<img alt="../_images/realtime_10_1.jpg" src="../_images/realtime_10_1.jpg" />
 </div>
 </div>
 </div>
@@ -594,117 +583,12 @@
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>pulse? yes sine? yes
-pulse? yes sine? yes
-pulse? yes sine? yes
-pulse? yes sine? yes
-pulse? yes sine? yes
-pulse? yes sine?  no
-pulse? yes sine? yes
-pulse? yes sine? yes
-pulse? yes sine? yes
-pulse? yes sine? yes
-pulse? yes sine? yes
-pulse? yes sine? yes
-pulse? yes sine? yes
-pulse? yes sine? yes
-pulse? yes sine? yes
-pulse? yes sine? yes
-pulse? yes sine? yes
-pulse? yes sine? yes
-pulse? yes sine? yes
-pulse? yes sine? yes
-pulse? yes sine? yes
-pulse? yes sine? yes
-pulse?  no sine?  no
-pulse? yes sine? yes
-pulse? yes sine? yes
-pulse? yes sine? yes
-pulse? yes sine? yes
-pulse? yes sine? yes
-pulse? yes sine? yes
-pulse? yes sine? yes
-pulse? yes sine? yes
-pulse? yes sine? yes
-pulse? yes sine? yes
-pulse? yes sine? yes
-pulse? yes sine? yes
-pulse?  no sine?  no
-pulse?  no sine?  no
-pulse? yes sine? yes
-pulse? yes sine? yes
-pulse? yes sine? yes
-pulse? yes sine? yes
-pulse?  no sine?  no
-pulse?  no sine? yes
-pulse?  no sine?  no
-pulse? yes sine? yes
-pulse? yes sine? yes
-pulse? yes sine? yes
-pulse?  no sine?  no
-pulse? yes sine? yes
-pulse? yes sine? yes
-pulse? yes sine? yes
-pulse? yes sine? yes
-pulse? yes sine? yes
-pulse?  no sine?  no
-pulse? yes sine? yes
-pulse? yes sine? yes
-pulse? yes sine? yes
-pulse? yes sine? yes
-pulse? yes sine? yes
-pulse? yes sine? yes
-pulse? yes sine? yes
-pulse? yes sine? yes
-pulse? yes sine? yes
-pulse? yes sine? yes
-pulse? yes sine? yes
-pulse?  no sine?  no
-pulse? yes sine? yes
-pulse? yes sine? yes
-pulse? yes sine? yes
-pulse? yes sine? yes
-pulse?  no sine?  no
-pulse? yes sine? yes
-pulse?  no sine?  no
-pulse?  no sine?  no
-pulse? yes sine? yes
-pulse?  no sine? yes
-pulse?  no sine?  no
-pulse?  no sine?  no
-pulse? yes sine? yes
-pulse? yes sine? yes
-pulse? yes sine? yes
-pulse? yes sine?  no
-pulse? yes sine? yes
-pulse? yes sine? yes
-pulse? yes sine? yes
-pulse? yes sine? yes
-pulse? yes sine? yes
-pulse? yes sine? yes
-pulse? yes sine? yes
-pulse? yes sine? yes
-pulse? yes sine? yes
-pulse? yes sine? yes
-pulse? yes sine? yes
-pulse? yes sine? yes
-pulse? yes sine? yes
-pulse? yes sine? yes
-pulse? yes sine? yes
-pulse?  no sine?  no
-pulse? yes sine? yes
-pulse?  no sine? yes
-</pre></div>
-</div>
-</div>
 </div>
 </div>
 <div class="section" id="evaluate-latencies">
 <h2>Evaluate latencies<a class="headerlink" href="#evaluate-latencies" title="Permalink to this headline">¶</a></h2>
-<p>Timing on GPUs can be more variable than on CPUs since a major contributor to latency is the transfer of data from/to the GPU.
-Hence, warmup!</p>
-<p>Subtract the recording latency to get</p>
+<p>Timing on GPUs can be more variable than on CPUs since a major contributor to latency is the transfer of data from/to the GPU.</p>
+<p>Subtract the recording latency to get an estimate of the annotation latency.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">annotation_latencies</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">latencies</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">recording_latencies</span><span class="p">)</span>
@@ -723,11 +607,12 @@ Hence, warmup!</p>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Annotation latencies
-  5, 50, 95 percentiles: [4.4279488 5.0589635 5.8320642] ms
-  min 3.90 ms, max 6.00 ms
+  5, 50, 95 percentiles: [4.7993752  5.7063365  6.88310785] ms
+  min 4.60 ms, max 7.66 ms
 </pre></div>
 </div>
-<img alt="../_images/realtime_15_1.svg" src="../_images/realtime_15_1.svg" /></div>
+<img alt="../_images/realtime_14_1.jpg" src="../_images/realtime_14_1.jpg" />
+</div>
 </div>
 </div>
 </div>
@@ -760,7 +645,7 @@ Hence, warmup!</p>
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="evaluate_bird.html" title="previous page">Evaluate for bird song</a>
+    <a class='left-prev' id="prev-link" href="evaluate_bird.html" title="previous page">Evaluate a bird song network</a>
     <a class='right-next' id="next-link" href="../unsupervised/unsupervised.html" title="next page">Unsupervised classification</a>
 
     </div>
