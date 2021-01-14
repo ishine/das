@@ -6,7 +6,7 @@ To train a network involves two steps:
 ## Make a dataset from exported annotations
 Training expects data in a specific format in which the data is split into different parts for use during training ( and validation) and after training for evaluating network performance. For details, see [here](data_formats.html#dataset-for-training). The GUI automates the generation of these datasets from audio annotated using the GUI. Alternatively, you can also [use your existing annotations](/tutorials/convert) or [make a dataset yourself](/tutorials/make_ds_notebook).
 
-If using the GUI, start the process of making a dataset via _DeepSS/Make dataset for training_. This will first ask you to select a data folder that contains the exported audio and annotations, and then present a dialog with options for customizing the dataset:
+In the GUI, start the process of making a dataset via _DeepSS/Make dataset for training_. This will first ask you to select the folder with the exported audio and annotations, and then present a dialog with options for customizing the dataset creation:
 
 :::{figure} xb_assemble-fig
 <img src="/images/xb_assemble.png" alt="assemble dataset" width=650>
@@ -15,7 +15,7 @@ Dialog for customizing a dataset for training.
 :::
 
 - _Data folder_ & _Store folder_: The data folder contains your exported annotations (annotations as `_annotations.csv`, audio as `npz` or `wav`). A dataset will be created from these annotations and save in the store folder. By default, the store folder is the data folder with an `.npy` appended. _Important: You can change the name of the store folder but the data folder should end in `.npy` for DeepSS to robustly recognize the dataset._
-- _Make individual training targets_: By default, the dataset will contain targets for a single network that recognizes all annotated song types --- in our case sine and pulse. To train a network for specific song types, enable this option. We found that training individual networks improves performance for multi-channel audio, but not for single audio.
+- _Make individual training targets_: By default, the dataset will contain targets for a single network that recognizes all annotated song types. To train a network for specific song types, enable this option. Training individual networks for each song type can sometimes improve performance.
 - _Width of events (seconds)_: Events are defined by a single time point --- to make training more robust, events should be represented by gaussian with specified width (standard deviation).
 - _Gap between segments (seconds)_: To simplify post processing of segments, in particular for birdsong with its many syllable types, we found that introducing brief gaps helps with post-processing the inferred annotations.
 - _Train/validation/test splits_: The data is split into three parts, which are used during different phases of training:
@@ -30,7 +30,6 @@ Dialog for customizing a dataset for training.
 ```{note}
 The dataset can be inspected using the [inspect_dataset notebook](/tutorials/inspect_dataset) if you are curious or if training fails.
 ```
-
 
 ## Train DeepSS using the GUI
 Configure a network and start training via _DeepSS/Train_. This will ask you select the dataset folder ending in `.npy` that you just created. with the dataset, which song type to train the network for (will train network for all song types by default), and network and training parameters (see [DeepSS](/tutorials/train) for details). Training can be started locally in a separate process or a script can be generated that can be execute to train elsewhere, for instance on a cluster.

@@ -3,9 +3,7 @@
 ## Pre-requisites
 
 
-__Anaconda__: _DeepSS_ is installed using an anaconda environment. For that, first install the [anaconda python distribution](https://docs.anaconda.com/anaconda/install/) (or [miniconda](https://docs.conda.io/en/latest/miniconda.html)).
-
-If you have conda already installed, make sure you have conda v4.8.4+. If not, update from an older version with `conda update conda`.
+__Anaconda python__: Install the [anaconda python distribution](https://docs.anaconda.com/anaconda/install/) (or [miniconda](https://docs.conda.io/en/latest/miniconda.html)). If conda is already installed on your system, make sure you have conda v4.8.4+. If not, update from an older version with `conda update conda`.
 
 
 <!-- ```shell
@@ -14,51 +12,58 @@ sh miniconda.sh -b -p $HOME/miniconda
 export PATH="$HOME/miniconda/bin:$PATH"
 ``` -->
 
-__CUDA libraries for using the GPU__: While _DeepSS_ works well for annotating song using CPUs, GPUs will greatly improve annotation speed and are in particular recommended for training a _DeepSS_ network. The network is implement in the deep-learning framework Tensorflow. To make sure that Tensorflow can utilize the GPU, the required CUDA libraries need to be installed. See the [tensorflow docs](https://www.tensorflow.org/install/gpu) for details.
+__CUDA libraries for using the GPU__: While _DeepSS_ works well for annotating song using CPUs, GPUs will greatly improve annotation speed and are highly recommended for training. _DeepSS_ uses Tensorflow as a  deep-learning backend. To ensure that Tensorflow can utilize the GPU, the required CUDA libraries need to be installed. See the [tensorflow docs](https://www.tensorflow.org/install/gpu) for details.
 
-__Libsoundfile on linux__: The graphical user interface (GUI) reads audio data using [soundfile](http://pysoundfile.readthedocs.io/), which relies on `libsndfile`. `libsndfile` will be automatically installed on Windows and macOS. On Linux, the library needs to be installed manually with: `sudo apt-get install libsndfile1`. Note that _DeepSS_ will work w/o `libsndfile` but will only be able to load more unusual audio file formats.
+__Libsoundfile on linux__: The graphical user interface (GUI) reads audio data using the [soundfile](http://pysoundfile.readthedocs.io/) python package, which relies on `libsndfile`. `libsndfile` will be automatically installed on Windows and macOS. On Linux, the library needs to be installed manually with: `sudo apt-get install libsndfile1`. Note that _DeepSS_ will work w/o `libsndfile` but will only be able to load more unusual audio file formats.
 
 __Visual C++ runtime on windows__: This is typically installed so only required if dss fails to load the native tensorflow runtime. Download the latest version from [here](https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads).
 
 ## Install _DeepSS_ with or without the GUI
-Create an anaconda environment called `deepss` that contains all the required packages, including the GUI:
+Create an anaconda environment called `dss` that contains all the required packages, including the GUI:
 ```shell
 conda env create -f https://raw.githubusercontent.com/janclemenslab/deepsongsegmenter/master/env/deepss_gui.yml -n dss
 ```
 
-If you do not need require the graphical user interface `dss gui` (for instance, for training _DeepSS_ on a server), install the non-GUI version:
+If you do not need the graphical user interface (for instance, when training _DeepSS_ on a server), install the non-GUI version:
 ```shell
 conda env create -f https://raw.githubusercontent.com/janclemenslab/deepsongsegmenter/master/env/deepss_plain.yml -n dss
 ```
 
-## Test the installation
+## Update
+It's best to install into a fresh environment than to update an existing environment. But you can try to update using pip:
+```shell
+conda activate dss
+pip install deepss --update  # DeepSS itself
+pip install xarray_behave --update  # the GUI
+```
+
+## Test the installation (Optional)
 To quickly test the installation, activate the conda environment and run these two commands in the terminal:
 ```shell
 conda activate dss
 dss train --help
 dss gui
 ```
-The first one should display the command line arguments for `dss train`. The second command, `dss gui` will start the graphical user interface - this will *not* work with the non-GUI install.
+The second command will display the command line arguments for `dss train`. The last command, `dss gui`, will start the graphical user interface - this step will *not* work with the non-GUI install.
 
-## Clickable start scripts
-If you want a simple icon that start the GUI upon double clicking, create a start script on the Desktop:
+## Make a clickable desktop icon (Optional)
+To start the DeepSS GUI without having to use a terminal, create a clickable startup script on the desktop.
 
-On macOS or linux, make a file - call is `xb.sh` on linux and `xb.command` on macOS:
+On macOS or linux, place a text file called `xb.sh` (linux) or `xb.command` (macOS) with the following content on the desktop:
 ```shell
 # /bin/bash
 source $CONDA_PREFIX/etc/profile.d/conda.sh
 conda activate dss
 dss gui
 ```
-Make file executable with `chmod +x FILENAME`, where FILENAME is `xb.sh` on linux and `xb.command` on macOS.
+Make the files executable with `chmod +x FILENAME`, where FILENAME is `xb.sh` (linux) or `xb.command` (macOS).
 
-For windows:
+For windows, place a text file called `xb.bat` with the following content on the desktop:
 ```shell
 TITLE XB
 CALL conda.bat activate dss
 dss gui
 ```
-
 
 ## Next steps
 If all is working, you can now use _DeepSS_ to annotate song. To get started, you will first need to train a network on your own data. For that you need manual annotations - either create new annotations [using the GUI](/tutorials_gui/tutorials_gui) or convert existing annotations [using python scripts](/tutorials/tutorials).

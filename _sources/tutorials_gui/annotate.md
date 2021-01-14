@@ -1,18 +1,17 @@
 # Annotate song
 
 ## Initialize or edit song types
-You first need to register the different song types you want to annotate. _DeepSS_ discriminates two categories of song types:
-- _Events_ are defined by a single time of occurrence. The aforementioned pulse song is a song type of the event category.
-- _Segments_ are song types that extend over time and are defined by a start and a stop time. The aforementioned sine song and the syllables of mouse and bird vocalizations fall into the segment category.
+Song types need to be "registered" for annotation. _DeepSS_ discriminates two categories of song types:
+- _Events_ are defined by a single time of occurrence. _Drosophila_ pulse song is a song type of the event category.
+- _Segments_ are song types that extend over time and are defined by a start and a stop time. _Drosophila_  sine song and the syllables of mouse and bird vocalizations fall into the segment category.
+
+If you load audio that has been annotated before, the annotations will be loaded with the audio. Song types can be added, renamed, and deleted via _Annotations/Add or edit song types_.
 
 :::{figure} xb_make-fig
 <img src="/images/xb_make.png" alt="edit annotation types" height="500px">
 
 Create, rename or delete song types for annotation.
 :::
-
-If you load audio that has been annotated before, the annotations will be loaded with the audio and can be added, deleted, and renamed via the same _Annotations/Add or edit song types_ menu.
-
 
 ## Create annotations manually
 
@@ -51,7 +50,7 @@ Dragging moves, right click deletes annotations.
 :::
 
 ## Export and save annotations
-_DeepSS_ achieves good performance with little manual annotation. Once you have completely annotated the song in the first 18 seconds of the tutorial recording---a couple of pulse trains and sine song segments---you can quickly train a network to help with annotating the rest of the data. Export the data and the annotations for _DeepSS_ - via the `File/Export for DeepSS` to a new folder (not the one containing the original audio):
+Export audio data and annotations for integration into a training dataset via `File/Export for DeepSS`. This will first ask you to select a folder. When making a training dataset, all exported data in the folder will be used so make sure you do not save data from different projects to the same folder:
 
 :::{figure} xb_assemble-fig
 <img src="/images/xb_export.png" alt="export audio and annotations" width=500>
@@ -59,8 +58,8 @@ _DeepSS_ achieves good performance with little manual annotation. Once you have 
 Export audio data and annotations
 :::
 
-This will open a dialog for fine-tuning the data export:
-- _Song types to export_: Select a specific song type to export annotations for. Keep this the default of exporting all annotations. Predicting song in proof-read mode will produce song types ending in `_proposals` - exclude these from the export. Annotations will be saved as a file ending in `_annotations.csv` (see a [description](/technical/data_formats) of the format).
+After a folder has been select, a dialog will open to fine-tune the data export:
+- _Song types to export_: Select a specific song type to export annotations for. Predicting song in proof-read mode will produce song types ending in `_proposals` - exclude these from the export. Annotations will be saved as a file ending in `_annotations.csv` (see a [description](/technical/data_formats) of the format).
 - _Audio file format_: The file format of the exported audio data:
     - _NPZ_: Zipped numpy variables. Will store a `data` variable with the audio and a `samplerate` variable.
     - _WAV_: Wave audio file. More general but also less flexible format. For instance, floating point data is restricted to the range [-1, 1] (see [scipy docs](https://docs.scipy.org/doc/scipy/reference/generated/scipy.io.wavfile.write.html)). Audio may need to be scaled before saving to prevent data loss from clipping.
@@ -69,7 +68,7 @@ This will open a dialog for fine-tuning the data export:
 - _Start seconds_ & _end seconds_: Export audio and annotations between start and end seconds. Relevant when exporting partially annotated data. For fast training, do not include too much silence at the before the first and after the last annotation to ensure that all parts of the exported audio contain annotated song.
 
 ```{note}
-To generate a larger and more diverse dataset, annotate and export _multiple recordings into the same folder_. They can then be assembled in a single data set for traing (see next page).
+To generate a larger and more diverse dataset, annotate and export _multiple recordings into the same folder_. They can then be assembled as a single dataset for training (see next page).
 ```
 
 ```{note}

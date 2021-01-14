@@ -40,7 +40,6 @@
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/language_data.js"></script>
     <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
@@ -49,7 +48,7 @@
     <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe"
@@ -352,16 +351,16 @@
 <h1>Annotate song<a class="headerlink" href="#annotate-song" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="initialize-or-edit-song-types">
 <h2>Initialize or edit song types<a class="headerlink" href="#initialize-or-edit-song-types" title="Permalink to this headline">¶</a></h2>
-<p>You first need to register the different song types you want to annotate. <em>DeepSS</em> discriminates two categories of song types:</p>
+<p>Song types need to be “registered” for annotation. <em>DeepSS</em> discriminates two categories of song types:</p>
 <ul class="simple">
-<li><p><em>Events</em> are defined by a single time of occurrence. The aforementioned pulse song is a song type of the event category.</p></li>
-<li><p><em>Segments</em> are song types that extend over time and are defined by a start and a stop time. The aforementioned sine song and the syllables of mouse and bird vocalizations fall into the segment category.</p></li>
+<li><p><em>Events</em> are defined by a single time of occurrence. <em>Drosophila</em> pulse song is a song type of the event category.</p></li>
+<li><p><em>Segments</em> are song types that extend over time and are defined by a start and a stop time. <em>Drosophila</em>  sine song and the syllables of mouse and bird vocalizations fall into the segment category.</p></li>
 </ul>
+<p>If you load audio that has been annotated before, the annotations will be loaded with the audio. Song types can be added, renamed, and deleted via <em>Annotations/Add or edit song types</em>.</p>
 <div class="figure align-default" id="xb-make-fig">
 <a class="reference internal image-reference" href="../_images/xb_make.png"><img alt="edit annotation types" src="../_images/xb_make.png" style="height: 500px;" /></a>
 <p class="caption"><span class="caption-number">Fig. 14 </span><span class="caption-text">Create, rename or delete song types for annotation.</span><a class="headerlink" href="#xb-make-fig" title="Permalink to this image">¶</a></p>
 </div>
-<p>If you load audio that has been annotated before, the annotations will be loaded with the audio and can be added, deleted, and renamed via the same <em>Annotations/Add or edit song types</em> menu.</p>
 </div>
 <div class="section" id="create-annotations-manually">
 <h2>Create annotations manually<a class="headerlink" href="#create-annotations-manually" title="Permalink to this headline">¶</a></h2>
@@ -396,14 +395,14 @@
 </div>
 <div class="section" id="export-and-save-annotations">
 <h2>Export and save annotations<a class="headerlink" href="#export-and-save-annotations" title="Permalink to this headline">¶</a></h2>
-<p><em>DeepSS</em> achieves good performance with little manual annotation. Once you have completely annotated the song in the first 18 seconds of the tutorial recording—a couple of pulse trains and sine song segments—you can quickly train a network to help with annotating the rest of the data. Export the data and the annotations for <em>DeepSS</em> - via the <code class="docutils literal notranslate"><span class="pre">File/Export</span> <span class="pre">for</span> <span class="pre">DeepSS</span></code> to a new folder (not the one containing the original audio):</p>
+<p>Export audio data and annotations for integration into a training dataset via <code class="docutils literal notranslate"><span class="pre">File/Export</span> <span class="pre">for</span> <span class="pre">DeepSS</span></code>. This will first ask you to select a folder. When making a training dataset, all exported data in the folder will be used so make sure you do not save data from different projects to the same folder:</p>
 <div class="figure align-default" id="xb-assemble-fig">
 <a class="reference internal image-reference" href="../_images/xb_export.png"><img alt="export audio and annotations" src="../_images/xb_export.png" style="width: 500px;" /></a>
 <p class="caption"><span class="caption-number">Fig. 18 </span><span class="caption-text">Export audio data and annotations</span><a class="headerlink" href="#xb-assemble-fig" title="Permalink to this image">¶</a></p>
 </div>
-<p>This will open a dialog for fine-tuning the data export:</p>
+<p>After a folder has been select, a dialog will open to fine-tune the data export:</p>
 <ul class="simple">
-<li><p><em>Song types to export</em>: Select a specific song type to export annotations for. Keep this the default of exporting all annotations. Predicting song in proof-read mode will produce song types ending in <code class="docutils literal notranslate"><span class="pre">_proposals</span></code> - exclude these from the export. Annotations will be saved as a file ending in <code class="docutils literal notranslate"><span class="pre">_annotations.csv</span></code> (see a <a class="reference internal" href="../technical/data_formats.html"><span class="doc std std-doc">description</span></a> of the format).</p></li>
+<li><p><em>Song types to export</em>: Select a specific song type to export annotations for. Predicting song in proof-read mode will produce song types ending in <code class="docutils literal notranslate"><span class="pre">_proposals</span></code> - exclude these from the export. Annotations will be saved as a file ending in <code class="docutils literal notranslate"><span class="pre">_annotations.csv</span></code> (see a <a class="reference internal" href="../technical/data_formats.html"><span class="doc std std-doc">description</span></a> of the format).</p></li>
 <li><p><em>Audio file format</em>: The file format of the exported audio data:</p>
 <ul>
 <li><p><em>NPZ</em>: Zipped numpy variables. Will store a <code class="docutils literal notranslate"><span class="pre">data</span></code> variable with the audio and a <code class="docutils literal notranslate"><span class="pre">samplerate</span></code> variable.</p></li>
@@ -416,7 +415,7 @@
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>To generate a larger and more diverse dataset, annotate and export <em>multiple recordings into the same folder</em>. They can then be assembled in a single data set for traing (see next page).</p>
+<p>To generate a larger and more diverse dataset, annotate and export <em>multiple recordings into the same folder</em>. They can then be assembled as a single dataset for training (see next page).</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>

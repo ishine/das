@@ -1,13 +1,15 @@
 # Welcome to _DeepSS_
-_DeepSS_ --- short for _DeepSongSegmenter_ --- is a tool for annotating song in audio recordings. At the core of _DeepSS_ is a deep neural network, implemented in Tensorflow. The network takes single- and multi-channel audio as an input and returns the probability of finding a particular song type for each audio sample. _DeepSS_ can be used with a graphical user interface for loading audio data, annotating song manually, training a network, and generating annotations on new samples and recordings. _DeepSS_ can also be used programmatically from the command line, in python notebooks, or in your own python code via the _dss_ module.
+_DeepSS_ --- short for _DeepSongSegmenter_ --- is a tool for annotating song in audio recordings. At the core of _DeepSS_ is a deep neural network, implemented in Tensorflow. The network takes single- and multi-channel audio as an input and returns the probability of finding a particular song type for each audio sample. _DeepSS_ can be used with a graphical user interface for loading audio data, annotating song manually, training a network, and generating annotations on audio. Alternatively, _DeepSS_ can be used programmatically from the command line, in python notebooks, or in your own python code via the _dss_ module.
 
+If you use _DeepSS_, please cite:
+Elsa Steinfath, Adrian Palacios, Julian Rottschäfer, Deniz Yuezak, Jan Clemens.
+_Fast and accurate annotation of acoustic signals_.
+(in prep)
 
-
-If you use _DeepSS_, please cite: REF_GOES_HERE
 
 ````{panels}
 ```{link-button} install
-:text: Install
+:text: Install _DeepSS_
 :type: ref
 :classes: stretched-link
 ```

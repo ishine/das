@@ -40,7 +40,6 @@
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/language_data.js"></script>
     <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
@@ -49,7 +48,7 @@
     <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe"
@@ -360,14 +359,14 @@
 <div class="section" id="make-a-dataset-from-exported-annotations">
 <h2>Make a dataset from exported annotations<a class="headerlink" href="#make-a-dataset-from-exported-annotations" title="Permalink to this headline">¶</a></h2>
 <p>Training expects data in a specific format in which the data is split into different parts for use during training ( and validation) and after training for evaluating network performance. For details, see <a class="reference external" href="data_formats.html#dataset-for-training">here</a>. The GUI automates the generation of these datasets from audio annotated using the GUI. Alternatively, you can also <a class="reference internal" href="../tutorials/convert.html"><span class="doc std std-doc">use your existing annotations</span></a> or <a class="reference internal" href="../tutorials/make_ds_notebook.html"><span class="doc std std-doc">make a dataset yourself</span></a>.</p>
-<p>If using the GUI, start the process of making a dataset via <em>DeepSS/Make dataset for training</em>. This will first ask you to select a data folder that contains the exported audio and annotations, and then present a dialog with options for customizing the dataset:</p>
+<p>In the GUI, start the process of making a dataset via <em>DeepSS/Make dataset for training</em>. This will first ask you to select the folder with the exported audio and annotations, and then present a dialog with options for customizing the dataset creation:</p>
 <div class="figure align-default" id="xb-assemble-fig">
 <a class="reference internal image-reference" href="../_images/xb_assemble.png"><img alt="assemble dataset" src="../_images/xb_assemble.png" style="width: 650px;" /></a>
 <p class="caption"><span class="caption-number">Fig. 19 </span><span class="caption-text">Dialog for customizing a dataset for training.</span><a class="headerlink" href="#xb-assemble-fig" title="Permalink to this image">¶</a></p>
 </div>
 <ul class="simple">
 <li><p><em>Data folder</em> &amp; <em>Store folder</em>: The data folder contains your exported annotations (annotations as <code class="docutils literal notranslate"><span class="pre">_annotations.csv</span></code>, audio as <code class="docutils literal notranslate"><span class="pre">npz</span></code> or <code class="docutils literal notranslate"><span class="pre">wav</span></code>). A dataset will be created from these annotations and save in the store folder. By default, the store folder is the data folder with an <code class="docutils literal notranslate"><span class="pre">.npy</span></code> appended. <em>Important: You can change the name of the store folder but the data folder should end in <code class="docutils literal notranslate"><span class="pre">.npy</span></code> for DeepSS to robustly recognize the dataset.</em></p></li>
-<li><p><em>Make individual training targets</em>: By default, the dataset will contain targets for a single network that recognizes all annotated song types — in our case sine and pulse. To train a network for specific song types, enable this option. We found that training individual networks improves performance for multi-channel audio, but not for single audio.</p></li>
+<li><p><em>Make individual training targets</em>: By default, the dataset will contain targets for a single network that recognizes all annotated song types. To train a network for specific song types, enable this option. Training individual networks for each song type can sometimes improve performance.</p></li>
 <li><p><em>Width of events (seconds)</em>: Events are defined by a single time point — to make training more robust, events should be represented by gaussian with specified width (standard deviation).</p></li>
 <li><p><em>Gap between segments (seconds)</em>: To simplify post processing of segments, in particular for birdsong with its many syllable types, we found that introducing brief gaps helps with post-processing the inferred annotations.</p></li>
 <li><p><em>Train/validation/test splits</em>: The data is split into three parts, which are used during different phases of training:</p>
