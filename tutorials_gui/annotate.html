@@ -40,6 +40,7 @@
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
     <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
@@ -48,7 +49,7 @@
     <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
     <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe"
@@ -373,12 +374,12 @@
 </div>
 <div class="section" id="annotate-by-thresholding-the-waveform">
 <h2>Annotate by thresholding the waveform<a class="headerlink" href="#annotate-by-thresholding-the-waveform" title="Permalink to this headline">¶</a></h2>
-<p>Annotation of events can be sped up with the “Thresholding mode”, which detects peaks in the sound energy exceeding a threshold. Activate thresholding mode via the <em>Annotations</em> menu. This will display a draggable horizontal line - the detection threshold - and a smooth pink waveform - the energy envelope of the waveform. Adjust the threshold so that only “correct” peaks in the envelope cross the threshold and then press <code class="docutils literal notranslate"><span class="pre">I</span></code> to annotate these peaks as events.</p>
+<p>Annotation of events can be sped up with the “Thresholding mode”, which detects events as peaks in the sound energy that exceed a threshold. Activate thresholding mode via the <em>Annotations/Toggle thresholding mode</em> menu. This will display a draggable horizontal line - the detection threshold - and a smooth pink waveform - the energy envelope of the waveform. Adjust the threshold so that only “correct” peaks in the envelope cross the threshold and then press <code class="docutils literal notranslate"><span class="pre">I</span></code> to annotate these peaks as events.</p>
 <div class="figure align-default" id="xb-thres-fig">
 <a class="reference internal image-reference" href="../_images/xb_thres_opt.gif"><img alt="annotate song" src="../_images/xb_thres_opt.gif" style="width: 700px;" /></a>
 <p class="caption"><span class="caption-number">Fig. 16 </span><span class="caption-text">Annotations assisted by thresholding and peak detection.</span><a class="headerlink" href="#xb-thres-fig" title="Permalink to this image">¶</a></p>
 </div>
-<p>The threshold mode can be adjusted via <em>Annotations/Adjust thresholding mode</em>:</p>
+<p>The detection of events can be adjusted via <em>Annotations/Adjust thresholding mode</em>:</p>
 <ul class="simple">
 <li><p><em>Smoothing factor for envelope (seconds)</em>: Sets the width of the Gaussian used for smoothing the envelope. Too short and the envelope will contain many noise peaks, too long and individual events will become less distinct.</p></li>
 <li><p><em>Minimal distance between events (seconds)</em>: If the events typically arrive at a minimal rate, this can be used to reduce spurious detections.</p></li>
@@ -386,7 +387,7 @@
 </div>
 <div class="section" id="edit-annotations">
 <h2>Edit annotations<a class="headerlink" href="#edit-annotations" title="Permalink to this headline">¶</a></h2>
-<p>Adjust event times and segment bounds by dragging the lines or the boundaries of segments. Drag the shaded area itself to move a segment without changing its duration. Movement can be disabled completely or restricted to the currently selected annotation type via the <em>Audio</em> menu.</p>
+<p>Adjust event times and segment bounds by dragging the lines or the boundaries of segments. Drag the shaded area itself to move a segment without changing its duration. Movement can be disabled completely or restricted to the currently selected annotation type in the <em>Annotations</em> menu.</p>
 <p>Delete annotations of the active song type by right-clicking on the annotation. Annotations of all song types or only the active one in the view can be deleted with <code class="docutils literal notranslate"><span class="pre">U</span></code> and <code class="docutils literal notranslate"><span class="pre">Y</span></code>, respectively, or via the <em>Annotations</em> menu.</p>
 <div class="figure align-default" id="xb-edit-fig">
 <a class="reference internal image-reference" href="../_images/xb_edit_opt.gif"><img alt="annotate song" src="../_images/xb_edit_opt.gif" style="width: 700px;" /></a>
@@ -395,12 +396,12 @@
 </div>
 <div class="section" id="export-and-save-annotations">
 <h2>Export and save annotations<a class="headerlink" href="#export-and-save-annotations" title="Permalink to this headline">¶</a></h2>
-<p>Export audio data and annotations for integration into a training dataset via <code class="docutils literal notranslate"><span class="pre">File/Export</span> <span class="pre">for</span> <span class="pre">DeepSS</span></code>. This will first ask you to select a folder. When making a training dataset, all exported data in the folder will be used so make sure you do not save data from different projects to the same folder:</p>
+<p>Export audio data and annotations for integration into a training dataset via <code class="docutils literal notranslate"><span class="pre">File/Export</span> <span class="pre">for</span> <span class="pre">DeepSS</span></code>. This will first ask you to select a folder. When making a training dataset, all exported data in the folder will be used, so make sure you do not save data from different projects to the same folder:</p>
 <div class="figure align-default" id="xb-assemble-fig">
 <a class="reference internal image-reference" href="../_images/xb_export.png"><img alt="export audio and annotations" src="../_images/xb_export.png" style="width: 500px;" /></a>
 <p class="caption"><span class="caption-number">Fig. 18 </span><span class="caption-text">Export audio data and annotations</span><a class="headerlink" href="#xb-assemble-fig" title="Permalink to this image">¶</a></p>
 </div>
-<p>After a folder has been select, a dialog will open to fine-tune the data export:</p>
+<p>After a folder has been selected, a dialog will open with options to customize the data export:</p>
 <ul class="simple">
 <li><p><em>Song types to export</em>: Select a specific song type to export annotations for. Predicting song in proof-read mode will produce song types ending in <code class="docutils literal notranslate"><span class="pre">_proposals</span></code> - exclude these from the export. Annotations will be saved as a file ending in <code class="docutils literal notranslate"><span class="pre">_annotations.csv</span></code> (see a <a class="reference internal" href="../technical/data_formats.html"><span class="doc std std-doc">description</span></a> of the format).</p></li>
 <li><p><em>Audio file format</em>: The file format of the exported audio data:</p>
@@ -411,15 +412,15 @@
 </ul>
 </li>
 <li><p><em>Scale factor</em>: Scale the audio before export. May be required when exporting to WAV, since the WAV format has range restrictions.</p></li>
-<li><p><em>Start seconds</em> &amp; <em>end seconds</em>: Export audio and annotations between start and end seconds. Relevant when exporting partially annotated data. For fast training, do not include too much silence at the before the first and after the last annotation to ensure that all parts of the exported audio contain annotated song.</p></li>
+<li><p><em>Start seconds</em> &amp; <em>end seconds</em>: Export audio and annotations between start and end seconds. Relevant when exporting partially annotated data. When training with small datasets, do not include too much silence before the first and after the last annotation to ensure that all parts of the exported audio contain annotated song.</p></li>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>To generate a larger and more diverse dataset, annotate and export <em>multiple recordings into the same folder</em>. They can then be assembled as a single dataset for training (see next page).</p>
+<p>To generate a larger and more diverse dataset, annotate and export <em>multiple recordings into the same folder</em>. They can then be assembled in a single dataset for training (see next page).</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>We also recommend you save the full annotations next to the audio data via the <em>File/Save annotations</em>, since the exported annotations only contain the selected range. Saving will create a <code class="docutils literal notranslate"><span class="pre">csv</span></code> file ending in ‘_annotations.csv’, that will be loaded automatically the next time you load the recording.</p>
+<p>We also recommend you additionally save the full annotations next to the audio data via the <em>File/Save annotations</em>, since the exported annotations only contain the selected range. Saving will create a <code class="docutils literal notranslate"><span class="pre">csv</span></code> file ending in ‘_annotations.csv’, that will be loaded automatically the next time you load the recording.</p>
 </div>
 <p>Once data is exported, the next step is to <a class="reference internal" href="train.html"><span class="doc std std-doc">train the network</span></a>.</p>
 </div>
