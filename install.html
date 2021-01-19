@@ -40,7 +40,6 @@
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
-    <script src="_static/language_data.js"></script>
     <script src="_static/togglebutton.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
@@ -49,7 +48,7 @@
     <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe"
@@ -368,7 +367,7 @@ sh miniconda.sh -b -p $HOME/miniconda
 export PATH="$HOME/miniconda/bin:$PATH"
 ``` -->
 <p><strong>CUDA libraries for using the GPU</strong>: While <em>DeepSS</em> works well for annotating song using CPUs, GPUs will greatly improve annotation speed and are highly recommended for training. <em>DeepSS</em> uses Tensorflow as a  deep-learning backend. To ensure that Tensorflow can utilize the GPU, the required CUDA libraries need to be installed. See the <a class="reference external" href="https://www.tensorflow.org/install/gpu">tensorflow docs</a> for details.</p>
-<p><strong>Libsoundfile on linux</strong>: The graphical user interface (GUI) reads audio data using the <a class="reference external" href="http://pysoundfile.readthedocs.io/">soundfile</a> python package, which relies on <code class="docutils literal notranslate"><span class="pre">libsndfile</span></code>. <code class="docutils literal notranslate"><span class="pre">libsndfile</span></code> will be automatically installed on Windows and macOS. On Linux, the library needs to be installed manually with: <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">apt-get</span> <span class="pre">install</span> <span class="pre">libsndfile1</span></code>. Note that <em>DeepSS</em> will work w/o <code class="docutils literal notranslate"><span class="pre">libsndfile</span></code> but will only be able to load more unusual audio file formats.</p>
+<p><strong>Libsoundfile on linux</strong>: To load audio formats other than <code class="docutils literal notranslate"><span class="pre">wav</span></code>, the GUI uses <a class="reference external" href="http://pysoundfile.readthedocs.io/">soundfile</a> python package, which relies on <code class="docutils literal notranslate"><span class="pre">libsndfile</span></code>. <code class="docutils literal notranslate"><span class="pre">libsndfile</span></code> will be automatically installed on Windows and macOS. On Linux, the library needs to be installed manually with: <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">apt-get</span> <span class="pre">install</span> <span class="pre">libsndfile1</span></code>. Again, this is only required if you need to load data from more exotic audio files.</p>
 <p><strong>Visual C++ runtime on windows</strong>: This is typically installed so only required if dss fails to load the native tensorflow runtime. Download the latest version from <a class="reference external" href="https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads">here</a>.</p>
 </div>
 <div class="section" id="install-deepss-with-or-without-the-gui">
@@ -393,10 +392,10 @@ pip install xarray_behave --update  <span class="c1"># the GUI</span>
 </div>
 <div class="section" id="test-the-installation-optional">
 <h2>Test the installation (Optional)<a class="headerlink" href="#test-the-installation-optional" title="Permalink to this headline">¶</a></h2>
-<p>To quickly test the installation, activate the conda environment and run these two commands in the terminal:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>conda activate dss
-dss train --help
-dss gui
+<p>To quickly test the installation, run these  commands in the terminal:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>conda activate dss  <span class="c1"># activate the conda environment</span>
+dss train --help  <span class="c1"># test dss training</span>
+dss gui  <span class="c1"># start the GUI</span>
 </pre></div>
 </div>
 <p>The second command will display the command line arguments for <code class="docutils literal notranslate"><span class="pre">dss</span> <span class="pre">train</span></code>. The last command, <code class="docutils literal notranslate"><span class="pre">dss</span> <span class="pre">gui</span></code>, will start the graphical user interface - this step will <em>not</em> work with the non-GUI install.</p>
@@ -421,7 +420,7 @@ dss gui
 </div>
 <div class="section" id="next-steps">
 <h2>Next steps<a class="headerlink" href="#next-steps" title="Permalink to this headline">¶</a></h2>
-<p>If all is working, you can now use <em>DeepSS</em> to annotate song. To get started, you will first need to train a network on your own data. For that you need manual annotations - either create new annotations <a class="reference internal" href="tutorials_gui/tutorials_gui.html"><span class="doc std std-doc">using the GUI</span></a> or convert existing annotations <a class="reference internal" href="tutorials/tutorials.html"><span class="doc std std-doc">using python scripts</span></a>.</p>
+<p>If all is working, you can now use <em>DeepSS</em> to annotate song. To get started, you will first need to train a network on your own data. For that you need annotated audio - either create new annotations <a class="reference internal" href="tutorials_gui/tutorials_gui.html"><span class="doc std std-doc">using the GUI</span></a> or convert existing annotations <a class="reference internal" href="tutorials/tutorials.html"><span class="doc std std-doc">using python scripts</span></a>.</p>
 </div>
 </div>
 

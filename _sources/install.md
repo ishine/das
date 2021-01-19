@@ -14,7 +14,7 @@ export PATH="$HOME/miniconda/bin:$PATH"
 
 __CUDA libraries for using the GPU__: While _DeepSS_ works well for annotating song using CPUs, GPUs will greatly improve annotation speed and are highly recommended for training. _DeepSS_ uses Tensorflow as a  deep-learning backend. To ensure that Tensorflow can utilize the GPU, the required CUDA libraries need to be installed. See the [tensorflow docs](https://www.tensorflow.org/install/gpu) for details.
 
-__Libsoundfile on linux__: The graphical user interface (GUI) reads audio data using the [soundfile](http://pysoundfile.readthedocs.io/) python package, which relies on `libsndfile`. `libsndfile` will be automatically installed on Windows and macOS. On Linux, the library needs to be installed manually with: `sudo apt-get install libsndfile1`. Note that _DeepSS_ will work w/o `libsndfile` but will only be able to load more unusual audio file formats.
+__Libsoundfile on linux__: To load audio formats other than `wav`, the GUI uses [soundfile](http://pysoundfile.readthedocs.io/) python package, which relies on `libsndfile`. `libsndfile` will be automatically installed on Windows and macOS. On Linux, the library needs to be installed manually with: `sudo apt-get install libsndfile1`. Again, this is only required if you need to load data from more exotic audio files.
 
 __Visual C++ runtime on windows__: This is typically installed so only required if dss fails to load the native tensorflow runtime. Download the latest version from [here](https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads).
 
@@ -38,11 +38,11 @@ pip install xarray_behave --update  # the GUI
 ```
 
 ## Test the installation (Optional)
-To quickly test the installation, activate the conda environment and run these two commands in the terminal:
+To quickly test the installation, run these  commands in the terminal:
 ```shell
-conda activate dss
-dss train --help
-dss gui
+conda activate dss  # activate the conda environment
+dss train --help  # test dss training
+dss gui  # start the GUI
 ```
 The second command will display the command line arguments for `dss train`. The last command, `dss gui`, will start the graphical user interface - this step will *not* work with the non-GUI install.
 
@@ -66,4 +66,4 @@ dss gui
 ```
 
 ## Next steps
-If all is working, you can now use _DeepSS_ to annotate song. To get started, you will first need to train a network on your own data. For that you need manual annotations - either create new annotations [using the GUI](/tutorials_gui/tutorials_gui) or convert existing annotations [using python scripts](/tutorials/tutorials).
+If all is working, you can now use _DeepSS_ to annotate song. To get started, you will first need to train a network on your own data. For that you need annotated audio - either create new annotations [using the GUI](/tutorials_gui/tutorials_gui) or convert existing annotations [using python scripts](/tutorials/tutorials).

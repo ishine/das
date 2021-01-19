@@ -98,11 +98,11 @@ The GUI can read many formats (see [list of supported audio formats](/tutorials_
 However, if you want to assemble many of your own recordings into dataset for training, a programmatic approach is more efficient.
 
 To assemble a dataset, audio data has to be provided in two formats:
-- wav - universal format for audio data. can be created from many software packages:
+- `wav`: Universal format for audio data. can be created from many software packages:
     - From python `scipy.io.wavfile.write(...)`
     - from matlab `wavwrite(...)`
     - from the command line via ffmpeg: `ffmpeg ...`
-- npz - python specific but a bit more flexible/robust. Should contain two variables - `samplerate` and `data` - and can be created like so: `np.savez(filename, data=audio, samplerate=samplerate)`
+- `npz`: Python-specific but a bit more flexible/robust. Should contain two variables - `samplerate` and `data` - and can be created like so: `np.savez(filename, data=audio, samplerate=samplerate)`
 
 
 ```{warning}

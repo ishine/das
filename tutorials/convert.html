@@ -40,7 +40,6 @@
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/language_data.js"></script>
     <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
@@ -49,7 +48,7 @@
     <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe"
@@ -453,14 +452,14 @@ Use <code class="docutils literal notranslate"><span class="pre">xb.annot</span>
 However, if you want to assemble many of your own recordings into dataset for training, a programmatic approach is more efficient.</p>
 <p>To assemble a dataset, audio data has to be provided in two formats:</p>
 <ul class="simple">
-<li><p>wav - universal format for audio data. can be created from many software packages:</p>
+<li><p><code class="docutils literal notranslate"><span class="pre">wav</span></code>: Universal format for audio data. can be created from many software packages:</p>
 <ul>
 <li><p>From python <code class="docutils literal notranslate"><span class="pre">scipy.io.wavfile.write(...)</span></code></p></li>
 <li><p>from matlab <code class="docutils literal notranslate"><span class="pre">wavwrite(...)</span></code></p></li>
 <li><p>from the command line via ffmpeg: <code class="docutils literal notranslate"><span class="pre">ffmpeg</span> <span class="pre">...</span></code></p></li>
 </ul>
 </li>
-<li><p>npz - python specific but a bit more flexible/robust. Should contain two variables - <code class="docutils literal notranslate"><span class="pre">samplerate</span></code> and <code class="docutils literal notranslate"><span class="pre">data</span></code> - and can be created like so: <code class="docutils literal notranslate"><span class="pre">np.savez(filename,</span> <span class="pre">data=audio,</span> <span class="pre">samplerate=samplerate)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">npz</span></code>: Python-specific but a bit more flexible/robust. Should contain two variables - <code class="docutils literal notranslate"><span class="pre">samplerate</span></code> and <code class="docutils literal notranslate"><span class="pre">data</span></code> - and can be created like so: <code class="docutils literal notranslate"><span class="pre">np.savez(filename,</span> <span class="pre">data=audio,</span> <span class="pre">samplerate=samplerate)</span></code></p></li>
 </ul>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
