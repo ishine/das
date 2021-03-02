@@ -40,7 +40,6 @@
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
-    <script src="_static/language_data.js"></script>
     <script src="_static/togglebutton.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
@@ -368,7 +367,7 @@ sh miniconda.sh -b -p $HOME/miniconda
 export PATH="$HOME/miniconda/bin:$PATH"
 ``` -->
 <p><strong>CUDA libraries for using the GPU</strong>: While <em>DeepSS</em> works well for annotating song using CPUs, GPUs will greatly improve annotation speed and are highly recommended for training. <em>DeepSS</em> uses Tensorflow as a  deep-learning backend. To ensure that Tensorflow can utilize the GPU, the required CUDA libraries need to be installed. See the <a class="reference external" href="https://www.tensorflow.org/install/gpu">tensorflow docs</a> for details.</p>
-<p><strong>Libsoundfile on linux</strong>: To load audio formats other than <code class="docutils literal notranslate"><span class="pre">wav</span></code>, the GUI uses <a class="reference external" href="http://pysoundfile.readthedocs.io/">soundfile</a> python package, which relies on <code class="docutils literal notranslate"><span class="pre">libsndfile</span></code>. <code class="docutils literal notranslate"><span class="pre">libsndfile</span></code> will be automatically installed on Windows and macOS. On Linux, the library needs to be installed manually with: <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">apt-get</span> <span class="pre">install</span> <span class="pre">libsndfile1</span></code>. Again, this is only required if you need to load data from more exotic audio files.</p>
+<p><strong>Libsoundfile on linux</strong>: If you are on linux and want to load audio from a wide range of audio formats (other than wav), then you need to install <code class="docutils literal notranslate"><span class="pre">libsndfile</span></code>. The GUI uses the <a class="reference external" href="http://pysoundfile.readthedocs.io/">soundfile</a> python package, which relies on <code class="docutils literal notranslate"><span class="pre">libsndfile</span></code>. <code class="docutils literal notranslate"><span class="pre">libsndfile</span></code> will be automatically installed on Windows and macOS. On Linux, the library needs to be installed manually with: <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">apt-get</span> <span class="pre">install</span> <span class="pre">libsndfile1</span></code>. Again, this is only required if you need to load data from more exotic audio files.</p>
 <p><strong>Visual C++ runtime on windows</strong>: This is typically installed so only required if dss fails to load the native tensorflow runtime. Download the latest version from <a class="reference external" href="https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads">here</a>.</p>
 </div>
 <div class="section" id="install-deepss-with-or-without-the-gui">
@@ -384,7 +383,7 @@ export PATH="$HOME/miniconda/bin:$PATH"
 </div>
 <div class="section" id="update">
 <h2>Update<a class="headerlink" href="#update" title="Permalink to this headline">¶</a></h2>
-<p>It’s best to install into a fresh environment than to update an existing environment. But you can try to update using pip:</p>
+<p>Don’t. It only causes problems in our experience. Best to install into a fresh environment than to update an existing environment. The brave can update using pip:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>conda activate dss
 pip install deepss --update  <span class="c1"># DeepSS itself</span>
 pip install xarray_behave --update  <span class="c1"># the GUI</span>

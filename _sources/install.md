@@ -14,7 +14,7 @@ export PATH="$HOME/miniconda/bin:$PATH"
 
 __CUDA libraries for using the GPU__: While _DeepSS_ works well for annotating song using CPUs, GPUs will greatly improve annotation speed and are highly recommended for training. _DeepSS_ uses Tensorflow as a  deep-learning backend. To ensure that Tensorflow can utilize the GPU, the required CUDA libraries need to be installed. See the [tensorflow docs](https://www.tensorflow.org/install/gpu) for details.
 
-__Libsoundfile on linux__: To load audio formats other than `wav`, the GUI uses [soundfile](http://pysoundfile.readthedocs.io/) python package, which relies on `libsndfile`. `libsndfile` will be automatically installed on Windows and macOS. On Linux, the library needs to be installed manually with: `sudo apt-get install libsndfile1`. Again, this is only required if you need to load data from more exotic audio files.
+__Libsoundfile on linux__: If you are on linux and want to load audio from a wide range of audio formats (other than wav), then you need to install `libsndfile`. The GUI uses the [soundfile](http://pysoundfile.readthedocs.io/) python package, which relies on `libsndfile`. `libsndfile` will be automatically installed on Windows and macOS. On Linux, the library needs to be installed manually with: `sudo apt-get install libsndfile1`. Again, this is only required if you need to load data from more exotic audio files.
 
 __Visual C++ runtime on windows__: This is typically installed so only required if dss fails to load the native tensorflow runtime. Download the latest version from [here](https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads).
 
@@ -30,7 +30,7 @@ conda env create -f https://raw.githubusercontent.com/janclemenslab/deepsongsegm
 ```
 
 ## Update
-It's best to install into a fresh environment than to update an existing environment. But you can try to update using pip:
+Don't. It only causes problems in our experience. Best to install into a fresh environment than to update an existing environment. The brave can update using pip:
 ```shell
 conda activate dss
 pip install deepss --update  # DeepSS itself
