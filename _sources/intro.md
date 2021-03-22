@@ -9,7 +9,7 @@ _Fast and accurate annotation of acoustic signals_.
 
 ````{panels}
 ```{link-button} install
-:text: Install _DeepSS_
+:text: Install DeepSS
 :type: ref
 :classes: stretched-link
 ```
