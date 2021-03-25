@@ -11,7 +11,7 @@ Unsupervised classification itself is performed using existing libraries:
 - dimensionality reduction: [umap](https://umap-learn.readthedocs.io/)
 - clustering: [hdbscan](https://hdbscan.readthedocs.io/) or [scikit-learn](https://scikit-learn.org/stable/modules/clustering.html)
 
-Code for the unsupervised classification can be found at [https://github.com/janclemenslab/deepss_unsupervised].
+Code for the unsupervised classification can be found at [https://github.com/janclemenslab/deepss_unsupervised](https://github.com/janclemenslab/deepss_unsupervised).
 
 ## Examples
 We illustrate different pre-processing and classification strategies using three different examples
