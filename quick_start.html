@@ -403,18 +403,18 @@ dss gui
 </pre></div>
 </div>
 <p>The following window should open:</p>
-<div class="figure align-default" id="xb-load-fig">
+<div class="figure align-default" id="xb-start-fig">
 <a class="reference internal image-reference" href="_images/xb_start.png"><img alt="start screen" src="_images/xb_start.png" style="width: 450px;" /></a>
-<p class="caption"><span class="caption-number">Fig. 1 </span><span class="caption-text">Loading screen.</span><a class="headerlink" href="#xb-load-fig" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 1 </span><span class="caption-text">Loading screen.</span><a class="headerlink" href="#xb-start-fig" title="Permalink to this image">¶</a></p>
 </div>
 </div>
 <div class="section" id="load-audio-data">
 <h2>Load audio data<a class="headerlink" href="#load-audio-data" title="Permalink to this headline">¶</a></h2>
 <p>Choose <em>Load audio from file</em> and select the downloaded recording of fly song.</p>
 <p>In the dialog that opens, leave everything as is except set <em>Minimal/Maximal spectrogram frequency</em>—the range of frequencies in the spectrogram display—to 50 and 1000 Hz. This will restrict the spectrogram view to only show the frequencies found in fly song.</p>
-<div class="figure align-default" id="id1">
+<div class="figure align-default" id="xb-load-fig">
 <img alt="loading screen" src="_images/xb_quick_load.png" />
-<p class="caption"><span class="caption-number">Fig. 2 </span><span class="caption-text">Loading screen.</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 2 </span><span class="caption-text">Loading screen.</span><a class="headerlink" href="#xb-load-fig" title="Permalink to this image">¶</a></p>
 </div>
 </div>
 <div class="section" id="waveform-and-spectrogram-display">
@@ -470,14 +470,14 @@ dss gui
 <h2>Export annotations and make a dataset<a class="headerlink" href="#export-annotations-and-make-a-dataset" title="Permalink to this headline">¶</a></h2>
 <p><em>DeepSS</em> achieves good performance with little manual annotation. Once you have completely annotated the song in the first 18 seconds of the tutorial recording—a couple of pulse trains and sine song segments—you can train a network to help with annotating the rest of the data.</p>
 <p>Trainining requires the audio data and the annotations to be in a specific dataset format. First, export the audio data and the annotations via <code class="docutils literal notranslate"><span class="pre">File/Export</span> <span class="pre">for</span> <span class="pre">DeepSS</span></code> to a new folder (not the one containing the original audio)—let’s call the folder <code class="docutils literal notranslate"><span class="pre">quickstart</span></code>. In the following dialog set start seconds and end seconds to the annotated time range - 0 and 18 seconds, respectively.</p>
-<div class="figure align-default" id="xb-assemble-fig">
+<div class="figure align-default" id="xb-export-fig">
 <a class="reference internal image-reference" href="_images/xb_quick_export.png"><img alt="export audio and annotations" src="_images/xb_quick_export.png" style="width: 450px;" /></a>
-<p class="caption"><span class="caption-number">Fig. 8 </span><span class="caption-text">Export audio data and annotations for the annotated range between 0 and 18 seconds.</span><a class="headerlink" href="#xb-assemble-fig" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 8 </span><span class="caption-text">Export audio data and annotations for the annotated range between 0 and 18 seconds.</span><a class="headerlink" href="#xb-export-fig" title="Permalink to this image">¶</a></p>
 </div>
 <p>Then make a dataset, via <em>DeepSS/Make dataset for training</em>. In the file dialog, select the <code class="docutils literal notranslate"><span class="pre">quickstart</span></code> folder you exported your annotations into. In the next dialog, we will adjust how data is split into training, validation and testing data. For the small data set annotated in the first step of this tutorial, we will not test the model. To maximize the data available for optimizing the network (training and validation), set the test split to 0.0 (not test) and the validation split to 40:</p>
-<div class="figure align-default" id="id2">
+<div class="figure align-default" id="xb-assemble-fig">
 <a class="reference internal image-reference" href="_images/xb_quick_make_ds.png"><img alt="assemble dataset" src="_images/xb_quick_make_ds.png" style="width: 600px;" /></a>
-<p class="caption"><span class="caption-number">Fig. 9 </span><span class="caption-text">Make a dataset for training.</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 9 </span><span class="caption-text">Make a dataset for training.</span><a class="headerlink" href="#xb-assemble-fig" title="Permalink to this image">¶</a></p>
 </div>
 <p>This will create a dataset folder called <code class="docutils literal notranslate"><span class="pre">quickstart.npy</span></code> that contains the audio data and the annotations read for training.</p>
 </div>

@@ -16,7 +16,7 @@ dss gui
 
 The following window should open:
 
-:::{figure} xb_load-fig
+:::{figure} xb_start-fig
 <img src="/images/xb_start.png" alt="start screen" width=450>
 
 Loading screen.
@@ -98,13 +98,14 @@ _DeepSS_ achieves good performance with little manual annotation. Once you have 
 
 Trainining requires the audio data and the annotations to be in a specific dataset format. First, export the audio data and the annotations via `File/Export for DeepSS` to a new folder (not the one containing the original audio)---let's call the folder `quickstart`. In the following dialog set start seconds and end seconds to the annotated time range - 0 and 18 seconds, respectively.
 
-:::{figure} xb_assemble-fig
+:::{figure} xb_export-fig
 <img src="/images/xb_quick_export.png" alt="export audio and annotations" width=450>
 
 Export audio data and annotations for the annotated range between 0 and 18 seconds.
 :::
 
 Then make a dataset, via _DeepSS/Make dataset for training_. In the file dialog, select the `quickstart` folder you exported your annotations into. In the next dialog, we will adjust how data is split into training, validation and testing data. For the small data set annotated in the first step of this tutorial, we will not test the model. To maximize the data available for optimizing the network (training and validation), set the test split to 0.0 (not test) and the validation split to 40:
+
 :::{figure} xb_assemble-fig
 <img src="/images/xb_quick_make_ds.png" alt="assemble dataset" width=600>
 
