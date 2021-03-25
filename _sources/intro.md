@@ -3,8 +3,8 @@ _DeepSS_ --- short for _DeepSongSegmenter_ --- is a tool for annotating song in 
 
 If you use _DeepSS_, please cite:
 Elsa Steinfath, Adrian Palacios, Julian Rottschäfer, Deniz Yuezak, Jan Clemens.
-_Fast and accurate annotation of acoustic signals_.
-(in prep)
+_Fast and accurate annotation of acoustic signals with deep neural networks_.
+(2021, biorxiv)
 
 
 ````{panels}
