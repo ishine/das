@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
     <title>Install</title>
     
   <link rel="stylesheet" href="_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
@@ -356,9 +357,9 @@
         
               <div>
                 
-  <div class="section" id="install">
+  <section id="install">
 <h1>Install<a class="headerlink" href="#install" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="pre-requisites">
+<section id="pre-requisites">
 <h2>Pre-requisites<a class="headerlink" href="#pre-requisites" title="Permalink to this headline">¶</a></h2>
 <p><strong>Anaconda python</strong>: Install the <a class="reference external" href="https://docs.anaconda.com/anaconda/install/">anaconda python distribution</a> (or <a class="reference external" href="https://docs.conda.io/en/latest/miniconda.html">miniconda</a>). If conda is already installed on your system, make sure you have conda v4.8.4+. If not, update from an older version with <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">update</span> <span class="pre">conda</span></code>.</p>
 <!-- ```shell
@@ -369,19 +370,19 @@ export PATH="$HOME/miniconda/bin:$PATH"
 <p><strong>CUDA libraries for using the GPU</strong>: While <em>DeepSS</em> works well for annotating song using CPUs, GPUs will greatly improve annotation speed and are highly recommended for training. <em>DeepSS</em> uses Tensorflow as a  deep-learning backend. To ensure that Tensorflow can utilize the GPU, the required CUDA libraries need to be installed. See the <a class="reference external" href="https://www.tensorflow.org/install/gpu">tensorflow docs</a> for details.</p>
 <p><strong>Libsoundfile on linux</strong>: If you are on linux and want to load audio from a wide range of audio formats (other than wav), then you need to install <code class="docutils literal notranslate"><span class="pre">libsndfile</span></code>. The GUI uses the <a class="reference external" href="http://pysoundfile.readthedocs.io/">soundfile</a> python package, which relies on <code class="docutils literal notranslate"><span class="pre">libsndfile</span></code>. <code class="docutils literal notranslate"><span class="pre">libsndfile</span></code> will be automatically installed on Windows and macOS. On Linux, the library needs to be installed manually with: <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">apt-get</span> <span class="pre">install</span> <span class="pre">libsndfile1</span></code>. Again, this is only required if you need to load data from more exotic audio files.</p>
 <p><strong>Visual C++ runtime on windows</strong>: This is typically installed so only required if dss fails to load the native tensorflow runtime. Download the latest version from <a class="reference external" href="https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads">here</a>.</p>
-</div>
-<div class="section" id="install-deepss-with-or-without-the-gui">
+</section>
+<section id="install-deepss-with-or-without-the-gui">
 <h2>Install <em>DeepSS</em> with or without the GUI<a class="headerlink" href="#install-deepss-with-or-without-the-gui" title="Permalink to this headline">¶</a></h2>
 <p>Create an anaconda environment called <code class="docutils literal notranslate"><span class="pre">dss</span></code> that contains all the required packages, including the GUI:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>conda env create -f https://raw.githubusercontent.com/janclemenslab/deepsongsegmenter/master/env/deepss_gui.yml -n dss
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>conda env create -f https://raw.githubusercontent.com/janclemenslab/deepss/master/env/deepss_gui.yml -n dss
 </pre></div>
 </div>
 <p>If you do not need the graphical user interface (for instance, when training <em>DeepSS</em> on a server), install the non-GUI version:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>conda env create -f https://raw.githubusercontent.com/janclemenslab/deepsongsegmenter/master/env/deepss_plain.yml -n dss
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>conda env create -f https://raw.githubusercontent.com/janclemenslab/deepss/master/env/deepss_plain.yml -n dss
 </pre></div>
 </div>
-</div>
-<div class="section" id="update">
+</section>
+<section id="update">
 <h2>Update<a class="headerlink" href="#update" title="Permalink to this headline">¶</a></h2>
 <p>Don’t. It only causes problems in our experience. Best to install into a fresh environment than to update an existing environment. The brave can update using pip:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>conda activate dss
@@ -389,8 +390,8 @@ pip install deepss --update  <span class="c1"># DeepSS itself</span>
 pip install xarray_behave --update  <span class="c1"># the GUI</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="test-the-installation-optional">
+</section>
+<section id="test-the-installation-optional">
 <h2>Test the installation (Optional)<a class="headerlink" href="#test-the-installation-optional" title="Permalink to this headline">¶</a></h2>
 <p>To quickly test the installation, run these  commands in the terminal:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>conda activate dss  <span class="c1"># activate the conda environment</span>
@@ -399,8 +400,8 @@ dss gui  <span class="c1"># start the GUI</span>
 </pre></div>
 </div>
 <p>The second command will display the command line arguments for <code class="docutils literal notranslate"><span class="pre">dss</span> <span class="pre">train</span></code>. The last command, <code class="docutils literal notranslate"><span class="pre">dss</span> <span class="pre">gui</span></code>, will start the graphical user interface - this step will <em>not</em> work with the non-GUI install.</p>
-</div>
-<div class="section" id="make-a-clickable-desktop-icon-optional">
+</section>
+<section id="make-a-clickable-desktop-icon-optional">
 <h2>Make a clickable desktop icon (Optional)<a class="headerlink" href="#make-a-clickable-desktop-icon-optional" title="Permalink to this headline">¶</a></h2>
 <p>To start the DeepSS GUI without having to use a terminal, create a clickable startup script on the desktop.</p>
 <p>On macOS or linux, place a text file called <code class="docutils literal notranslate"><span class="pre">xb.sh</span></code> (linux) or <code class="docutils literal notranslate"><span class="pre">xb.command</span></code> (macOS) with the following content on the desktop:</p>
@@ -417,12 +418,12 @@ CALL conda.bat activate dss
 dss gui
 </pre></div>
 </div>
-</div>
-<div class="section" id="next-steps">
+</section>
+<section id="next-steps">
 <h2>Next steps<a class="headerlink" href="#next-steps" title="Permalink to this headline">¶</a></h2>
 <p>If all is working, you can now use <em>DeepSS</em> to annotate song. To get started, you will first need to train a network on your own data. For that you need annotated audio - either create new annotations <a class="reference internal" href="tutorials_gui/tutorials_gui.html"><span class="doc std std-doc">using the GUI</span></a> or convert existing annotations <a class="reference internal" href="tutorials/tutorials.html"><span class="doc std std-doc">using python scripts</span></a>.</p>
-</div>
-</div>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {

@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
     <title>Make a dataset from custom data formats</title>
     
   <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
@@ -413,11 +414,11 @@
         
               <div>
                 
-  <div class="section" id="make-a-dataset-from-custom-data-formats">
+  <section id="make-a-dataset-from-custom-data-formats">
 <h1>Make a dataset from custom data formats<a class="headerlink" href="#make-a-dataset-from-custom-data-formats" title="Permalink to this headline">¶</a></h1>
 <p>If your data is readable by the GUI, you only need to convert annotations. You can then load both into the GUI and export to data and annotations for DeepSS.</p>
 <p>Three alternatives:</p>
-<div class="section" id="export-your-data-as-wav-npz-and-csv-to-a-folder-and-make-a-dataset-with-the-gui">
+<section id="export-your-data-as-wav-npz-and-csv-to-a-folder-and-make-a-dataset-with-the-gui">
 <h2>1. Export your data as wav/npz and csv to a folder and make a dataset with the GUI<a class="headerlink" href="#export-your-data-as-wav-npz-and-csv-to-a-folder-and-make-a-dataset-with-the-gui" title="Permalink to this headline">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">data</span></code> folder with <code class="docutils literal notranslate"><span class="pre">*.wav</span></code> or <code class="docutils literal notranslate"><span class="pre">npz</span></code> files files with the recording and matching <code class="docutils literal notranslate"><span class="pre">*_annotations.csv</span></code> files with the annotations (see format details [here]](/technical/data_formats))- recordings and annotations will be matched according to the file base name:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>data<span class="se">\</span>
@@ -430,16 +431,16 @@
 </pre></div>
 </div>
 <p>Simplest way - no need of having to deal with specific of the data structure required by DeepSS for training - simply hit <em>DeepSS/Make dataset for training</em> and select the folder.</p>
-</div>
-<div class="section" id="use-notebook-with-custom-loaders-to-directly-read-recordings-and-annotations">
+</section>
+<section id="use-notebook-with-custom-loaders-to-directly-read-recordings-and-annotations">
 <h2>2. Use notebook with custom loaders to directly read recordings and annotations<a class="headerlink" href="#use-notebook-with-custom-loaders-to-directly-read-recordings-and-annotations" title="Permalink to this headline">¶</a></h2>
 <p>Intermediate simplicity and flexibility) Folder with the data and annotations in a custom format - provide custom functions for loading audio data and annotations. This is illustrated in the next section.</p>
-</div>
-<div class="section" id="diy-dataset">
+</section>
+<section id="diy-dataset">
 <h2>3. DIY dataset<a class="headerlink" href="#diy-dataset" title="Permalink to this headline">¶</a></h2>
 <p>Complex, maximally flexible) Bring your own mappable (for experts): Generate the data structure yourself. The description of the <a class="reference internal" href="../technical/data_formats.html"><span class="doc std std-doc">dataset structure</span></a> has information on how to do that.</p>
-</div>
-<div class="section" id="id1">
+</section>
+<section id="id1">
 <h2>Use notebook with custom loaders to directly read recordings and annotations<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <p>This notebook creates an annotated data set for training DSS from lists of filenames for the song recordings and associated annotations.</p>
 <p>This may look a bit complicated at first sight but only requires you to change two things in the next two cells:</p>
@@ -449,8 +450,8 @@
 </ol>
 <p>The notebook works with a small toy data set (with song recordings from the data provided with <a class="reference external" href="https://www.janelia.org/lab/stern-lab/tools-reagents-data">Stern 2014</a>) and with annotations produced by <a class="reference external" href="https://github.com/murthylab/MurthyLab_FlySongSegmenter">Murthylab_FlySongSegmenter</a>.</p>
 <p><strong>Note:</strong> For this tutorial to work, you first need to download some data and example models (266MB) from <a class="reference external" href="https://www.dropbox.com/sh/wnj3389k8ei8i1c/AACy7apWxW87IS_fBjI8-7WDa?dl=0">here</a> and put the four folders in the <code class="docutils literal notranslate"><span class="pre">tutorials</span></code> folder.</p>
-</div>
-<div class="section" id="internals">
+</section>
+<section id="internals">
 <h2>Internals<a class="headerlink" href="#internals" title="Permalink to this headline">¶</a></h2>
 <p>The dataset is created in two steps.</p>
 <p>First, the data and annotations for different recordings are combined in a large matrix. This works even with large datasets that don’t fit in memory thanks to <a class="reference external" href="https://zarr.readthedocs.io/en/stable/tutorial.html#storage-alternatives">zarr</a>, which provides an interface for on-disk arrays. The annotations are converted from lists of event times to one-hot-encoded probability vectors, (0 for no event, 1 for a specified short duration (default is <span class="math notranslate nohighlight">\(\pm\)</span>30 samples) surrounding the event).</p>
@@ -475,8 +476,8 @@
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="define-custom-audio-and-annotation-loaders">
+</section>
+<section id="define-custom-audio-and-annotation-loaders">
 <h2>Define custom audio and annotation loaders<a class="headerlink" href="#define-custom-audio-and-annotation-loaders" title="Permalink to this headline">¶</a></h2>
 <p>If your recordings and annotations are not in the format expected by the standard loaders used above (<code class="docutils literal notranslate"><span class="pre">scipy.io.wavefile.read</span></code> for the recordings, <code class="docutils literal notranslate"><span class="pre">pd.read_csv</span></code> with name/start_seconds/stop_seconds for annotations), or if it’s hard to convert your data into these standard formats, you can provide your own loaders as long as they conform to the following interface:</p>
 <ul class="simple">
@@ -525,8 +526,8 @@
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="lists-the-names-of-data-and-annotation-files">
+</section>
+<section id="lists-the-names-of-data-and-annotation-files">
 <h2>Lists the names of data and annotation files<a class="headerlink" href="#lists-the-names-of-data-and-annotation-files" title="Permalink to this headline">¶</a></h2>
 <p>Lists of <code class="docutils literal notranslate"><span class="pre">data_files</span></code> and associated <code class="docutils literal notranslate"><span class="pre">annotation_files</span></code> are consumed by <code class="docutils literal notranslate"><span class="pre">load_data</span></code> and <code class="docutils literal notranslate"><span class="pre">load_annotation</span></code>, respectively.</p>
 <div class="cell docutils container">
@@ -551,7 +552,7 @@ data &quot;../../../deepss/tutorials/dat.mat/PS_20130702114557_ch13_recording.ma
 </div>
 </div>
 </div>
-<div class="section" id="test-loaders">
+<section id="test-loaders">
 <h3>Test loaders<a class="headerlink" href="#test-loaders" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -673,8 +674,8 @@ Annotations
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="parse-annotation-files-to-identify-song-types">
+</section>
+<section id="parse-annotation-files-to-identify-song-types">
 <h3>Parse annotation files to identify song types<a class="headerlink" href="#parse-annotation-files-to-identify-song-types" title="Permalink to this headline">¶</a></h3>
 <p>This will collect all unique values in <code class="docutils literal notranslate"><span class="pre">names</span></code> of the annotation files and infer their categories based on the equality of start_seconds and stop_seconds. Skip this step and define <code class="docutils literal notranslate"><span class="pre">class_names</span></code> and <code class="docutils literal notranslate"><span class="pre">class_categories</span></code> manually if you know the song types and their categories.</p>
 <div class="cell docutils container">
@@ -716,9 +717,9 @@ found sine of type segment
 </div>
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="split-files-into-train-val-test-sets">
+</section>
+</section>
+<section id="split-files-into-train-val-test-sets">
 <h2>Split files into train/val/test sets<a class="headerlink" href="#split-files-into-train-val-test-sets" title="Permalink to this headline">¶</a></h2>
 <p>Split the list of recordings into train/val/test files:</p>
 <ul class="simple">
@@ -742,8 +743,8 @@ indices of train files: [1 0 4 3 5]
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="initialize-the-data-structure-store">
+</section>
+<section id="initialize-the-data-structure-store">
 <h2>Initialize the data structure (store)<a class="headerlink" href="#initialize-the-data-structure-store" title="Permalink to this headline">¶</a></h2>
 <p>The store will hold the audio data and the annotations in a format ready for training (see <a class="reference internal" href="../technical/data_formats.html"><span class="doc std std-doc">here</span></a> for details). The store also contains metadata which is important for training and inference:</p>
 <ul class="simple">
@@ -773,7 +774,7 @@ indices of train files: [1 0 4 3 5]
 </div>
 </div>
 </div>
-<div class="section" id="load-the-individual-data-files">
+<section id="load-the-individual-data-files">
 <h3>Load the individual data files<a class="headerlink" href="#load-the-individual-data-files" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -833,8 +834,8 @@ Got (20440005, 1), (4160001, 1), (3980001, 1) train/test/val samples.
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="inspect-the-dataset">
+</section>
+<section id="inspect-the-dataset">
 <h3>Inspect the dataset<a class="headerlink" href="#inspect-the-dataset" title="Permalink to this headline">¶</a></h3>
 <p>Plot x/y values from the dataset to make sure everything is well aligned.</p>
 <div class="cell docutils container">
@@ -867,8 +868,8 @@ Got (20440005, 1), (4160001, 1), (3980001, 1) train/test/val samples.
 <div class="cell_output docutils container">
 <img alt="../_images/make_ds_notebook_19_0.svg" src="../_images/make_ds_notebook_19_0.svg" /></div>
 </div>
-</div>
-<div class="section" id="save-as-npy-dir">
+</section>
+<section id="save-as-npy-dir">
 <h3>Save as npy_dir<a class="headerlink" href="#save-as-npy-dir" title="Permalink to this headline">¶</a></h3>
 <p>Once all data and annotation files have been appended to the store, save the data as an <code class="docutils literal notranslate"><span class="pre">npy_dir</span></code> store - a directory hierarchy that replicates the nested dictionary structure of the zarr store. For instance, the data set at <code class="docutils literal notranslate"><span class="pre">root['train']['x']</span></code> (the audio data for training) will be stored as <code class="docutils literal notranslate"><span class="pre">store_name/train/x.npy</span></code>. We use these npy files rather than the zarr store because access is faster. Saving is done by <code class="docutils literal notranslate"><span class="pre">dss.npy_dir_save</span></code>. The directory structure is mapped back to a nested dictionary via <code class="docutils literal notranslate"><span class="pre">dss.npy_dir.load</span></code>. If you used the <code class="docutils literal notranslate"><span class="pre">DirectoryStore</span></code> during assembly, you can delete the <code class="docutils literal notranslate"><span class="pre">*.zarr</span></code> directory after that final step.</p>
 <div class="cell docutils container">
@@ -882,9 +883,9 @@ Got (20440005, 1), (4160001, 1), (3980001, 1) train/test/val samples.
 </div>
 </div>
 <p>You can now train using the <a class="reference internal" href="../tutorials_gui/train.html"><span class="doc std std-doc">GUI</span></a>, or a <a class="reference internal" href="train.html"><span class="doc std std-doc">script</span></a>, or the <a class="reference internal" href="train.html"><span class="doc std std-doc">command line</span></a>.</p>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {

@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
     <title>Song of Bengalese finches</title>
     
   <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
@@ -359,7 +360,7 @@
         
               <div>
                 
-  <div class="section" id="song-of-bengalese-finches">
+  <section id="song-of-bengalese-finches">
 <h1>Song of Bengalese finches<a class="headerlink" href="#song-of-bengalese-finches" title="Permalink to this headline">¶</a></h1>
 <p>The song of bengalese finches has beens show to cluster into discrete syllable types, which are recoverable using unsupervised methods.</p>
 <p>We here closely follow the procedure described in Sainburg et al. (2020): Finding, visualizing, and quantifying latent structure across (see code on <a class="reference external" href="https://github.com/timsainb/avgn_paper">github</a>).</p>
@@ -385,7 +386,7 @@
 </div>
 </div>
 </div>
-<div class="section" id="download-audio-data">
+<section id="download-audio-data">
 <h2>Download audio data<a class="headerlink" href="#download-audio-data" title="Permalink to this headline">¶</a></h2>
 <p>Data of four Bengalese finches from: D Nicholson, JE Queen, S Sober (2017). Bengalese finch song repository. See <a class="reference external" href="https://doi.org/10.6084/m9.figshare.4805749.v5%5D">data repo</a> on figshare.</p>
 <div class="cell docutils container">
@@ -404,8 +405,8 @@
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="pre-processing">
+</section>
+<section id="pre-processing">
 <h2>Pre-processing<a class="headerlink" href="#pre-processing" title="Permalink to this headline">¶</a></h2>
 <p>Noise reduction</p>
 <div class="cell docutils container">
@@ -488,8 +489,8 @@
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="dimensionality-reduction-and-clustering">
+</section>
+<section id="dimensionality-reduction-and-clustering">
 <h2>Dimensionality reduction and clustering<a class="headerlink" href="#dimensionality-reduction-and-clustering" title="Permalink to this headline">¶</a></h2>
 <p>Embed the feature vectors into a 2D space using <a class="reference external" href="https://umap-learn.readthedocs.io/">UMAP</a> and cluster the resulting groups of syllables with <a class="reference external" href="https://hdbscan.readthedocs.io/">hdbscan</a>.</p>
 <div class="cell docutils container">
@@ -500,8 +501,8 @@
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="plot-results">
+</section>
+<section id="plot-results">
 <h2>Plot results<a class="headerlink" href="#plot-results" title="Permalink to this headline">¶</a></h2>
 <p>Syllable spectrograms embedded into a 2D space, colored by manual syllable labels (left) and by the unsupervised cluster labels (right).
 Syllables fall into separate groups, which are consistent with the grouping imposed by manual labelling (left, syllables of the same label are grouped together). The clustering (right) recovers the manual separation by tends to find  more subdivisions.</p>
@@ -579,8 +580,8 @@ Syllables fall into separate groups, which are consistent with the grouping impo
 <img alt="../_images/birds_21_0.jpg" src="../_images/birds_21_0.jpg" />
 </div>
 </div>
-</div>
-</div>
+</section>
+</section>
 
 
 <script type="application/vnd.jupyter.widget-state+json">

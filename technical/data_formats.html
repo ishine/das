@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
     <title>Data formats</title>
     
   <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
@@ -332,9 +333,9 @@
         
               <div>
                 
-  <div class="section" id="data-formats">
+  <section id="data-formats">
 <h1>Data formats<a class="headerlink" href="#data-formats" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="format-of-exported-annotations-and-audio">
+<section id="format-of-exported-annotations-and-audio">
 <h2>Format of exported annotations and audio<a class="headerlink" href="#format-of-exported-annotations-and-audio" title="Permalink to this headline">¶</a></h2>
 <p>Produced by the GUI via <code class="docutils literal notranslate"><span class="pre">File/Save</span> <span class="pre">annotations</span></code> and <code class="docutils literal notranslate"><span class="pre">File/Export</span> <span class="pre">for</span> <span class="pre">DeepSS</span></code>.</p>
 <p>Annotations are exported to <code class="docutils literal notranslate"><span class="pre">csv</span></code> (comma-separated values) and audio data to <code class="docutils literal notranslate"><span class="pre">npz</span></code> (zip compressed numpy files) or <code class="docutils literal notranslate"><span class="pre">wav</span></code> (wave audio file):</p>
@@ -354,8 +355,8 @@
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="data-structure-used-for-training">
+</section>
+<section id="data-structure-used-for-training">
 <h2>Data structure used for training<a class="headerlink" href="#data-structure-used-for-training" title="Permalink to this headline">¶</a></h2>
 <p>For training, <em>DeepSS</em> expects a simple dictionary-like data structure, sth like:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>data
@@ -418,8 +419,8 @@
 <li><p>directories ending in <code class="docutils literal notranslate"><span class="pre">.npy</span></code> with <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.save.html">numpy</a> files.</p></li>
 </ul>
 <p><code class="docutils literal notranslate"><span class="pre">zarr</span></code> is great for assembling and storing datasets, in particular for datasets with unknown final size since it allows appending to arrays, and is used as an intermediate storage during dataset assembly. For training, <code class="docutils literal notranslate"><span class="pre">npy</span></code> is the fastest, in particular for random access of datasets that are too large to fit in memory, thanks to highly efficient memory mapping.</p>
-</div>
-</div>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {

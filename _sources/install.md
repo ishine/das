@@ -21,12 +21,12 @@ __Visual C++ runtime on windows__: This is typically installed so only required 
 ## Install _DeepSS_ with or without the GUI
 Create an anaconda environment called `dss` that contains all the required packages, including the GUI:
 ```shell
-conda env create -f https://raw.githubusercontent.com/janclemenslab/deepsongsegmenter/master/env/deepss_gui.yml -n dss
+conda env create -f https://raw.githubusercontent.com/janclemenslab/deepss/master/env/deepss_gui.yml -n dss
 ```
 
 If you do not need the graphical user interface (for instance, when training _DeepSS_ on a server), install the non-GUI version:
 ```shell
-conda env create -f https://raw.githubusercontent.com/janclemenslab/deepsongsegmenter/master/env/deepss_plain.yml -n dss
+conda env create -f https://raw.githubusercontent.com/janclemenslab/deepss/master/env/deepss_plain.yml -n dss
 ```
 
 ## Update

@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
     <title>Predict</title>
     
   <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
@@ -361,7 +362,7 @@
         
               <div>
                 
-  <div class="section" id="predict">
+  <section id="predict">
 <h1>Predict<a class="headerlink" href="#predict" title="Permalink to this headline">¶</a></h1>
 <p>Similar to training, prediction can be done via three interfaces:</p>
 <ul class="simple">
@@ -375,7 +376,7 @@
 <li><p>run inference to produce confidence scores (<code class="docutils literal notranslate"><span class="pre">class_probabilties</span></code>)</p></li>
 <li><p>post-process the confidence score to extract the times of events and label segments.</p></li>
 </ul>
-<div class="section" id="prediction-using-python">
+<section id="prediction-using-python">
 <h2>Prediction using python<a class="headerlink" href="#prediction-using-python" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -468,7 +469,7 @@ Wall time: 5.17 s
 </div>
 </div>
 </div>
-<div class="section" id="outputs-of-predict">
+<section id="outputs-of-predict">
 <h3>Outputs of <code class="docutils literal notranslate"><span class="pre">predict</span></code><a class="headerlink" href="#outputs-of-predict" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">class_probabilties</span></code>: <code class="docutils literal notranslate"><span class="pre">[T,</span> <span class="pre">nb_classes]</span></code> including noise.</p></li>
@@ -538,9 +539,9 @@ Wall time: 5.17 s
 <div class="cell_output docutils container">
 <img alt="../_images/predict_5_0.svg" src="../_images/predict_5_0.svg" /></div>
 </div>
-</div>
-</div>
-<div class="section" id="prediction-using-command-line-scripts">
+</section>
+</section>
+<section id="prediction-using-command-line-scripts">
 <h2>Prediction using command-line scripts<a class="headerlink" href="#prediction-using-command-line-scripts" title="Permalink to this headline">¶</a></h2>
 <p>Will save the output of <code class="docutils literal notranslate"><span class="pre">dss.predict.predict</span></code> to a h5 file ending in <code class="docutils literal notranslate"><span class="pre">_dss.h5</span></code> or specified via the <code class="docutils literal notranslate"><span class="pre">--save-filename</span></code> argument.</p>
 <p>See <a class="reference internal" href="../technical/cli.html"><span class="doc std std-doc">cli</span></a> for a full list of arguments.</p>
@@ -581,8 +582,8 @@ INFO:root:Done.
 </div>
 </div>
 </div>
-</div>
-</div>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {

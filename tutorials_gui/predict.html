@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
     <title>Predict</title>
     
   <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
@@ -327,13 +328,15 @@
         
               <div>
                 
-  <div class="section" id="predict">
+  <section id="predict">
 <h1>Predict<a class="headerlink" href="#predict" title="Permalink to this headline">¶</a></h1>
 <p>Once training finished, generate annotations using the trained network via <em>DeepSS/Predict</em>. In contrast to training, prediction is very fast and does not require a GPU - if you trained the network remotely on a machine with a GPU, copy the generated files ending in <code class="docutils literal notranslate"><span class="pre">_model.h5</span></code> and <code class="docutils literal notranslate"><span class="pre">_params.yaml</span></code> to your local machine.</p>
-<div class="figure align-default" id="xb-predict-fig">
+<figure class="align-default" id="xb-predict-fig">
 <a class="reference internal image-reference" href="../_images/xb_predict.png"><img alt="predict" src="../_images/xb_predict.png" style="width: 750px;" /></a>
-<p class="caption"><span class="caption-number">Fig. 21 </span><span class="caption-text">predict options</span><a class="headerlink" href="#xb-predict-fig" title="Permalink to this image">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">Fig. 21 </span><span class="caption-text">predict options</span><a class="headerlink" href="#xb-predict-fig" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
 <ul class="simple">
 <li><p><em>Model</em>: Go to the save folder specific during training and select the file ending in <code class="docutils literal notranslate"><span class="pre">_model.h5</span></code> with the chosen prefix and timestamp.</p></li>
 <li><p><em>Start/End seconds</em>: Specify the part of the recording to predict labels for. Defaults to the whole recording.</p></li>
@@ -353,11 +356,11 @@
 </ul>
 </li>
 </ul>
-<div class="section" id="proof-reading">
+<section id="proof-reading">
 <h2>Proof reading<a class="headerlink" href="#proof-reading" title="Permalink to this headline">¶</a></h2>
 <p>Since you created predictions in proof reading mode, the predictions will be assigned to two new song types, starting with the original name of the song type and ending in <code class="docutils literal notranslate"><span class="pre">_proposals</span></code>. Correct any prediction errors—add missing annotations, remove false positive annotations, adjust the timing of annotations. Once you have corrected all errors, approve annotations with <code class="docutils literal notranslate"><span class="pre">G</span></code> or <code class="docutils literal notranslate"><span class="pre">H</span></code> for approving only the active or all song types, respectively. This will rename the proposals in the view to the original names (for instance, <code class="docutils literal notranslate"><span class="pre">sine_proposals</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">sine</span></code>).</p>
-</div>
-</div>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {

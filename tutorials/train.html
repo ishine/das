@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
     <title>Train</title>
     
   <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
@@ -349,7 +350,7 @@
         
               <div>
                 
-  <div class="section" id="train">
+  <section id="train">
 <h1>Train<a class="headerlink" href="#train" title="Permalink to this headline">¶</a></h1>
 <p>The network can be trained using three interfaces:</p>
 <ul class="simple">
@@ -371,7 +372,7 @@
 <li><p><code class="docutils literal notranslate"><span class="pre">*_model.h5</span></code> -  model architecture and weights</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">*_results.h5</span></code> - predictions and evaluation results for the test set (only created if the training dataset contains a test set)</p></li>
 </ul>
-<div class="section" id="training-using-python">
+<section id="training-using-python">
 <h2>Training using python<a class="headerlink" href="#training-using-python" title="Permalink to this headline">¶</a></h2>
 <p>Training is done using the <code class="docutils literal notranslate"><span class="pre">train</span></code> function in the <code class="docutils literal notranslate"><span class="pre">dss.train</span></code> module:</p>
 <div class="cell docutils container">
@@ -779,8 +780,8 @@ train(*, data_dir: str, y_suffix: str = &#39;&#39;, save_dir: str = &#39;./&#39;
 <span class="n">INFO</span><span class="p">:</span><span class="n">root</span><span class="p">:</span><span class="n">saving</span> <span class="n">to</span> <span class="n">res</span><span class="o">/</span><span class="mi">20201207_082948</span><span class="n">_results</span><span class="o">.</span><span class="n">h5</span><span class="o">.</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="training-using-command-line-scripts">
+</section>
+<section id="training-using-command-line-scripts">
 <h2>Training using command-line scripts<a class="headerlink" href="#training-using-command-line-scripts" title="Permalink to this headline">¶</a></h2>
 <p>The training function <code class="docutils literal notranslate"><span class="pre">dss.train.train</span></code> and all its arguments are also accessible from the command line via <code class="docutils literal notranslate"><span class="pre">dss</span> <span class="pre">train</span></code> for use on the terminal. See <a class="reference internal" href="../technical/cli.html"><span class="doc std std-doc">here</span></a> for a description of all command-line arguments. The command-line interface is generated with <a class="reference external" href="https://defopt.readthedocs.io/en/stable/index.html">defopt</a>.</p>
 <p>For instance, training command above can be invoked from the command line:</p>
@@ -801,9 +802,9 @@ conda activate dss
 <span class="nv">NB_FILTERS</span><span class="o">=</span><span class="m">32</span>
 <span class="nv">NB_CONV</span><span class="o">=</span><span class="m">3</span>
 
-<span class="k">for</span> NB_CONV in <span class="m">2</span> <span class="m">3</span> <span class="m">4</span>
+<span class="k">for</span> NB_CONV <span class="k">in</span> <span class="m">2</span> <span class="m">3</span> <span class="m">4</span>
 <span class="k">do</span>
-    <span class="k">for</span> NB_FILTERS in <span class="m">16</span> <span class="m">32</span> <span class="m">48</span> <span class="m">64</span>
+    <span class="k">for</span> NB_FILTERS <span class="k">in</span> <span class="m">16</span> <span class="m">32</span> <span class="m">48</span> <span class="m">64</span>
     <span class="k">do</span>
         dss train -i --nb-filters <span class="nv">$NB_FILTERS</span> --kernel-size <span class="nv">$KERNEL_SIZE</span> --nb-conv <span class="nv">$NB_CONV</span> --nb-hist <span class="nv">$NB_HIST</span> --save-dir <span class="nv">$SAVEDIR</span> --y-suffix <span class="nv">$YSUFFIX</span> --data-dir <span class="nv">$DATADIR</span> --model-name <span class="nv">$MODELNAME</span>
     <span class="k">done</span>
@@ -941,8 +942,8 @@ optional arguments:
 </div>
 </div>
 </div>
-</div>
-</div>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
