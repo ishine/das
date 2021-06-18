@@ -4,7 +4,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
     <title>Predict</title>
     
@@ -41,6 +41,7 @@
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
     <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
@@ -91,7 +92,7 @@
     <ul class="nav sidenav_l1">
  <li class="toctree-l1">
   <a class="reference internal" href="../intro.html">
-   Welcome to DeepSS
+   Welcome to DAS
   </a>
  </li>
 </ul>
@@ -366,8 +367,8 @@
 <h1>Predict<a class="headerlink" href="#predict" title="Permalink to this headline">¶</a></h1>
 <p>Similar to training, prediction can be done via three interfaces:</p>
 <ul class="simple">
-<li><p>via python, <code class="docutils literal notranslate"><span class="pre">dss.predict.predict</span></code></p></li>
-<li><p>via the command line, <code class="docutils literal notranslate"><span class="pre">dss</span> <span class="pre">predict</span></code>, with audio data from a wav file.</p></li>
+<li><p>via python, <code class="docutils literal notranslate"><span class="pre">das.predict.predict</span></code></p></li>
+<li><p>via the command line, <code class="docutils literal notranslate"><span class="pre">das</span> <span class="pre">predict</span></code>, with audio data from a wav file.</p></li>
 <li><p>the GUI - see the <a class="reference internal" href="../tutorials_gui/predict.html"><span class="doc std std-doc">GUI tutorial</span></a></p></li>
 </ul>
 <p>Prediction will:</p>
@@ -383,13 +384,13 @@
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
 <span class="kn">import</span> <span class="nn">scipy.io.wavfile</span>
-<span class="kn">import</span> <span class="nn">dss.predict</span>
-<span class="n">help</span><span class="p">(</span><span class="n">dss</span><span class="o">.</span><span class="n">predict</span><span class="o">.</span><span class="n">predict</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">das.predict</span>
+<span class="n">help</span><span class="p">(</span><span class="n">das</span><span class="o">.</span><span class="n">predict</span><span class="o">.</span><span class="n">predict</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Help on function predict in module dss.predict:
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Help on function predict in module das.predict:
 
 predict(x: &lt;built-in function array&gt;, model_save_name: str = None, verbose: int = 1, batch_size: int = None, model: tensorflow.python.keras.engine.training.Model = None, params: dict = None, event_thres: float = 0.5, event_dist: float = 0.01, event_dist_min: float = 0, event_dist_max: float = None, segment_thres: float = 0.5, segment_minlen: float = None, segment_fillgap: float = None, prepend_padding: bool = True)
     [summary]
@@ -397,13 +398,13 @@ predict(x: &lt;built-in function array&gt;, model_save_name: str = None, verbose
     Usage:
     Calling predict with the path to the model will load the model and the
     associated params and run inference:
-    `dss.predict.predict(x=data, model_save_name=&#39;tata&#39;)`
+    `das.predict.predict(x=data, model_save_name=&#39;tata&#39;)`
     
     To re-use the same model with multiple recordings, load the modal and params
     once and pass them to `predict`
-    ```my_model, my_params = dss.utils.load_model_and_params(model_save_name)
+    ```my_model, my_params = das.utils.load_model_and_params(model_save_name)
     for data in data_list:
-        dss.predict.predict(x=data, model=my_model, params=my_params)
+        das.predict.predict(x=data, model=my_model, params=my_params)
     ```
     
     Args:
@@ -447,9 +448,9 @@ predict(x: &lt;built-in function array&gt;, model_save_name: str = None, verbose
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>
 <span class="n">samplerate</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">wavfile</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s1">&#39;dat/dmel_song_rt.wav&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;DeepSS requires [T, channels], but single-channel wave files are loaded with shape [T,] (data shape is </span><span class="si">{</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">).&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;DAS requires [T, channels], but single-channel wave files are loaded with shape [T,] (data shape is </span><span class="si">{</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">).&quot;</span><span class="p">)</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_2d</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
-<span class="n">events</span><span class="p">,</span> <span class="n">segments</span><span class="p">,</span> <span class="n">class_probabilities</span><span class="p">,</span> <span class="n">class_names</span> <span class="o">=</span> <span class="n">dss</span><span class="o">.</span><span class="n">predict</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> 
+<span class="n">events</span><span class="p">,</span> <span class="n">segments</span><span class="p">,</span> <span class="n">class_probabilities</span><span class="p">,</span> <span class="n">class_names</span> <span class="o">=</span> <span class="n">das</span><span class="o">.</span><span class="n">predict</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> 
                                                            <span class="n">model_save_name</span><span class="o">=</span><span class="s1">&#39;models/dmel_single_rt/20200430_201821&#39;</span><span class="p">,</span>
                                                            <span class="n">verbose</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
                                                            <span class="n">segment_minlen</span><span class="o">=</span><span class="mf">0.02</span><span class="p">,</span>
@@ -458,7 +459,7 @@ predict(x: &lt;built-in function array&gt;, model_save_name: str = None, verbose
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>DeepSS requires [T, channels], but single-channel wave files are loaded with shape [T,] (data shape is (35000,)).
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>DAS requires [T, channels], but single-channel wave files are loaded with shape [T,] (data shape is (35000,)).
 WARNING:tensorflow:From /Users/clemens10/miniconda3/lib/python3.7/site-packages/tensorflow_core/python/ops/resource_variable_ops.py:1635: calling BaseResourceVariable.__init__ (from tensorflow.python.ops.resource_variable_ops) with constraint is deprecated and will be removed in a future version.
 Instructions for updating:
 If using Keras pass *_constraint arguments to layers.
@@ -543,11 +544,11 @@ Wall time: 5.17 s
 </section>
 <section id="prediction-using-command-line-scripts">
 <h2>Prediction using command-line scripts<a class="headerlink" href="#prediction-using-command-line-scripts" title="Permalink to this headline">¶</a></h2>
-<p>Will save the output of <code class="docutils literal notranslate"><span class="pre">dss.predict.predict</span></code> to a h5 file ending in <code class="docutils literal notranslate"><span class="pre">_dss.h5</span></code> or specified via the <code class="docutils literal notranslate"><span class="pre">--save-filename</span></code> argument.</p>
+<p>Will save the output of <code class="docutils literal notranslate"><span class="pre">das.predict.predict</span></code> to a h5 file ending in <code class="docutils literal notranslate"><span class="pre">_das.h5</span></code> or specified via the <code class="docutils literal notranslate"><span class="pre">--save-filename</span></code> argument.</p>
 <p>See <a class="reference internal" href="../technical/cli.html"><span class="doc std std-doc">cli</span></a> for a full list of arguments.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>dss predict dat/dmel_song_rt.wav models/dmel_single_rt/20200430_201821
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>das predict dat/dmel_song_rt.wav models/dmel_single_rt/20200430_201821
 </pre></div>
 </div>
 </div>
@@ -561,7 +562,7 @@ WARNING:tensorflow:From /Users/clemens10/miniconda3/lib/python3.7/site-packages/
 Instructions for updating:
 If using Keras pass *_constraint arguments to layers.
 16/16 [==============================] - 1s 67ms/step
-INFO:root:   Saving results to dat/dmel_song_rt_dss.h5.
+INFO:root:   Saving results to dat/dmel_song_rt_das.h5.
 INFO:root:Done.
 
 </pre></div>
@@ -571,7 +572,7 @@ INFO:root:Done.
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">h5py</span>
-<span class="k">with</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="s1">&#39;dat/dmel_song_rt_dss.h5&#39;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<span class="k">with</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="s1">&#39;dat/dmel_song_rt_das.h5&#39;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span>
 </pre></div>
 </div>

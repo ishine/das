@@ -4,7 +4,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
     <title>Unsupervised classification</title>
     
@@ -41,6 +41,7 @@
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
     <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
@@ -91,7 +92,7 @@
     <ul class="nav sidenav_l1">
  <li class="toctree-l1">
   <a class="reference internal" href="../intro.html">
-   Welcome to DeepSS
+   Welcome to DAS
   </a>
  </li>
 </ul>
@@ -340,8 +341,8 @@
                 
   <section id="unsupervised-classification">
 <h1>Unsupervised classification<a class="headerlink" href="#unsupervised-classification" title="Permalink to this headline">¶</a></h1>
-<p>Unsupervised classifications is an alternative to tedious manual classification of song types: Use <em>DeepSS</em> via the GUI or the command line to detect anything that you think is song and then classify song into different types afterwards. The song types discovered with unsupervised methods can then be used to create a training dataset for training <em>DeepSS</em> to directly label the different song types.</p>
-<p><em>DeepSS-unsupervised</em> provides tools for applying this approach with a focus on pre-processing acoustic signals for unsupervised classification:</p>
+<p>Unsupervised classifications is an alternative to tedious manual classification of song types: Use <em>DAS</em> via the GUI or the command line to detect anything that you think is song and then classify song into different types afterwards. The song types discovered with unsupervised methods can then be used to create a training dataset for training <em>DAS</em> to directly label the different song types.</p>
+<p><em>DAS-unsupervised</em> provides tools for applying this approach with a focus on pre-processing acoustic signals for unsupervised classification:</p>
 <ul class="simple">
 <li><p>extract waveforms or spectrograms of acoustic events from a recording</p></li>
 <li><p>normalize the duration, center frequency, amplitude, or sign of waveform/spectrograms</p></li>
@@ -351,7 +352,7 @@
 <li><p>dimensionality reduction: <a class="reference external" href="https://umap-learn.readthedocs.io/">umap</a></p></li>
 <li><p>clustering: <a class="reference external" href="https://hdbscan.readthedocs.io/">hdbscan</a> or <a class="reference external" href="https://scikit-learn.org/stable/modules/clustering.html">scikit-learn</a></p></li>
 </ul>
-<p>Code for the unsupervised classification can be found at <a class="reference external" href="https://github.com/janclemenslab/deepss_unsupervised">https://github.com/janclemenslab/deepss_unsupervised</a>.</p>
+<p>Code for the unsupervised classification can be found at <a class="reference external" href="https://github.com/janclemenslab/DAS_unsupervised">https://github.com/janclemenslab/DAS_unsupervised</a>.</p>
 <section id="examples">
 <h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
 <p>We illustrate different pre-processing and classification strategies using three different examples</p>
@@ -364,7 +365,7 @@
 </section>
 <section id="acknowledgements">
 <h2>Acknowledgements<a class="headerlink" href="#acknowledgements" title="Permalink to this headline">¶</a></h2>
-<p>Code from the following open source packages was modified and integrated into dss-unsupervised:</p>
+<p>Code from the following open source packages was modified and integrated into das-unsupervised:</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://github.com/timsainb/avgn_paper">avgn</a> (Sainburg et al. 2020)</p></li>
 <li><p><a class="reference external" href="https://pypi.org/project/noisereduce">noisereduce</a></p></li>

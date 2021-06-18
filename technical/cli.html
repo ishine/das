@@ -4,7 +4,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
     <title>Command line interfaces</title>
     
@@ -41,6 +41,7 @@
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
     <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
@@ -91,7 +92,7 @@
     <ul class="nav sidenav_l1">
  <li class="toctree-l1">
   <a class="reference internal" href="../intro.html">
-   Welcome to DeepSS
+   Welcome to DAS
   </a>
  </li>
 </ul>
@@ -361,17 +362,17 @@
 <h2>Graphical user interface<a class="headerlink" href="#graphical-user-interface" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>!dss gui --help
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>!das gui --help
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>usage: dss gui [-h] [--song-types-string SONG_TYPES_STRING]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>usage: das gui [-h] [--song-types-string SONG_TYPES_STRING]
                [--spec-freq-min SPEC_FREQ_MIN] [--spec-freq-max SPEC_FREQ_MAX]
                [--skip-dialog] [--no-skip-dialog]
                [source]
 
-GUI for annotating song and training and using DeepSS networks.
+GUI for annotating song and training and using DAS networks.
 
 positional arguments:
   source                Data source to load.
@@ -408,12 +409,12 @@ optional arguments:
 <h2>Train<a class="headerlink" href="#train" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>!dss train --help
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>!das train --help
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>usage: dss train [-h] -d DATA_DIR [-y Y_SUFFIX] [--save-dir SAVE_DIR]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>usage: das train [-h] -d DATA_DIR [-y Y_SUFFIX] [--save-dir SAVE_DIR]
                  [--save-prefix SAVE_PREFIX] [-m MODEL_NAME]
                  [--nb-filters NB_FILTERS] [-k KERNEL_SIZE]
                  [--nb-conv NB_CONV] [-u [USE_SEPARABLE [USE_SEPARABLE ...]]]
@@ -429,7 +430,7 @@ optional arguments:
                  [--log-messages] [--no-log-messages] [--nb-stacks NB_STACKS]
                  [-w] [--no-with-y-hist] [-x X_SUFFIX]
 
-Train a DeepSS network.
+Train a DAS network.
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -452,7 +453,7 @@ optional arguments:
   -m MODEL_NAME, --model-name MODEL_NAME
                         Network architecture to use.
                         Use &quot;tcn&quot; (TCN) or &quot;tcn_stft&quot; (TCN with STFT frontend).
-                        See dss.models for a description of all models.
+                        See das.models for a description of all models.
                         Defaults to &#39;tcn&#39;.
   --nb-filters NB_FILTERS
                         Number of filters per layer.
@@ -541,12 +542,12 @@ optional arguments:
 <h2>Predict<a class="headerlink" href="#predict" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>!dss predict --help
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>!das predict --help
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>usage: dss predict [-h] [--save-filename SAVE_FILENAME] [-v VERBOSE]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>usage: das predict [-h] [--save-filename SAVE_FILENAME] [-v VERBOSE]
                    [-b BATCH_SIZE] [--event-thres EVENT_THRES]
                    [--event-dist EVENT_DIST] [--event-dist-min EVENT_DIST_MIN]
                    [--event-dist-max EVENT_DIST_MAX]
@@ -566,7 +567,7 @@ positional arguments:
 optional arguments:
   -h, --help            show this help message and exit
   --save-filename SAVE_FILENAME
-                        path to save annotations to. [Optional] - will strip extension from recording_filename and add &#39;_dss.h5&#39;.
+                        path to save annotations to. [Optional] - will strip extension from recording_filename and add &#39;_das.h5&#39;.
   -v VERBOSE, --verbose VERBOSE
                         display progress bar during prediction. Defaults to 1.
   -b BATCH_SIZE, --batch-size BATCH_SIZE

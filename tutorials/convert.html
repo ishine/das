@@ -4,7 +4,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
     <title>Convert your own annotations and audio data</title>
     
@@ -41,6 +41,7 @@
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
     <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
@@ -91,7 +92,7 @@
     <ul class="nav sidenav_l1">
  <li class="toctree-l1">
   <a class="reference internal" href="../intro.html">
-   Welcome to DeepSS
+   Welcome to DAS
   </a>
  </li>
 </ul>
@@ -343,11 +344,11 @@
   <section id="convert-your-own-annotations-and-audio-data">
 <h1>Convert your own annotations and audio data<a class="headerlink" href="#convert-your-own-annotations-and-audio-data" title="Permalink to this headline">¶</a></h1>
 <p>If you start from scratch—with non-annotated audio recording—use the GUI. See the <a class="reference internal" href="../tutorials_gui/tutorials_gui.html"><span class="doc std std-doc">GUI tutorial</span></a> for a description of all steps - from loading data, annotating song, making a dataset, training a network and generating annotations after training…</p>
-<p>However, often annotations exist, from old manual annotations or produced by other tools. <em>DeepSS</em> can be used with existing annotations, by converting the existing annotations into the dss format.</p>
-<p>If audio data is in a format supported by dss (see <a class="reference internal" href="../tutorials_gui/load.html"><span class="doc std std-doc">here</span></a>), open in GUI and export to a folder. For processing large sets of recordings use the <a class="reference internal" href="make_ds_notebook.html"><span class="doc std std-doc">notebook</span></a>.</p>
+<p>However, often annotations exist, from old manual annotations or produced by other tools. <em>DAS</em> can be used with existing annotations, by converting the existing annotations into the das format.</p>
+<p>If audio data is in a format supported by das (see <a class="reference internal" href="../tutorials_gui/load.html"><span class="doc std std-doc">here</span></a>), open in GUI and export to a folder. For processing large sets of recordings use the <a class="reference internal" href="make_ds_notebook.html"><span class="doc std std-doc">notebook</span></a>.</p>
 <section id="format-of-exported-annotations-and-audio">
 <h2>Format of exported annotations and audio<a class="headerlink" href="#format-of-exported-annotations-and-audio" title="Permalink to this headline">¶</a></h2>
-<p>Produced by the GUI via <code class="docutils literal notranslate"><span class="pre">File/Save</span> <span class="pre">annotations</span></code> and <code class="docutils literal notranslate"><span class="pre">File/Export</span> <span class="pre">for</span> <span class="pre">DeepSS</span></code>.</p>
+<p>Produced by the GUI via <code class="docutils literal notranslate"><span class="pre">File/Save</span> <span class="pre">annotations</span></code> and <code class="docutils literal notranslate"><span class="pre">File/Export</span> <span class="pre">for</span> <span class="pre">DAS</span></code>.</p>
 <p>Audio and annotations are exported into <code class="docutils literal notranslate"><span class="pre">csv</span></code> (comma-separated values) and <code class="docutils literal notranslate"><span class="pre">npz</span></code> (zip compressed numpy files):</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">npz</span></code> consist of two variables:</p>
@@ -375,7 +376,7 @@ csv file with three columns:
 There are two types of song elements:
 - `events` have not extent in time, `start_seconds=stop_seconds`, and are best used for brief, pulsatile signals like fly pulse song
 - `segments` extend in time, `start_seconds>stop_seconds`, and should be used for normal syllables or fly sine song -->
-<p>The <code class="docutils literal notranslate"><span class="pre">csv</span></code> format is universal and can be created and edit using Excel or even a plain text editor. It is also very easy to programmatically created <code class="docutils literal notranslate"><span class="pre">csv</span></code> files from your own annotation format in python using a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.to_csv.html">pandas DataFrames</a>. Below, we show an example of creating a DataFrame in the correct format from annotation data and saving it as a <code class="docutils literal notranslate"><span class="pre">csv</span></code> file for use with <em>DeepSS</em>.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">csv</span></code> format is universal and can be created and edit using Excel or even a plain text editor. It is also very easy to programmatically created <code class="docutils literal notranslate"><span class="pre">csv</span></code> files from your own annotation format in python using a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.to_csv.html">pandas DataFrames</a>. Below, we show an example of creating a DataFrame in the correct format from annotation data and saving it as a <code class="docutils literal notranslate"><span class="pre">csv</span></code> file for use with <em>DAS</em>.</p>
 <section id="examples-of-transforming-custom-annotation-formats">
 <h3>Examples of transforming custom annotation formats<a class="headerlink" href="#examples-of-transforming-custom-annotation-formats" title="Permalink to this headline">¶</a></h3>
 <p>Say we have read annotation data into python as three lists containing the names, start and stop of a song type:</p>

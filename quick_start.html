@@ -4,7 +4,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
     <title>Quick start tutorial</title>
     
@@ -41,6 +41,7 @@
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
     <script src="_static/togglebutton.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
@@ -91,7 +92,7 @@
     <ul class="nav sidenav_l1">
  <li class="toctree-l1">
   <a class="reference internal" href="intro.html">
-   Welcome to DeepSS
+   Welcome to DAS
   </a>
  </li>
 </ul>
@@ -390,17 +391,17 @@
                 
   <section id="quick-start-tutorial">
 <h1>Quick start tutorial<a class="headerlink" href="#quick-start-tutorial" title="Permalink to this headline">¶</a></h1>
-<p>This quick start tutorial walks through all steps required to make <em>DeepSS</em> work with your data, using a recording of fly song as an example. A comprehensive documentation of all menus and options can be found in the <a class="reference internal" href="tutorials_gui/tutorials_gui.html"><span class="doc std std-doc">GUI documentation</span></a>.</p>
-<p>In the tutorial, we will train <em>DeepSS</em> using an iterative and adaptive protocol that allows to quickly create a large dataset of annotations: Annotate a few song events, fast-train a network on those annotations, and then use that network to predict new annotations on a larger part of the recording. Initial, these predictions require manually correction, but correcting is typically much faster than annotating everything from scratch. This correct-train-predict cycle is then repeated with ever larger datasets until network performance is satisfactory.</p>
+<p>This quick start tutorial walks through all steps required to make <em>DAS</em> work with your data, using a recording of fly song as an example. A comprehensive documentation of all menus and options can be found in the <a class="reference internal" href="tutorials_gui/tutorials_gui.html"><span class="doc std std-doc">GUI documentation</span></a>.</p>
+<p>In the tutorial, we will train <em>DAS</em> using an iterative and adaptive protocol that allows to quickly create a large dataset of annotations: Annotate a few song events, fast-train a network on those annotations, and then use that network to predict new annotations on a larger part of the recording. Initial, these predictions require manually correction, but correcting is typically much faster than annotating everything from scratch. This correct-train-predict cycle is then repeated with ever larger datasets until network performance is satisfactory.</p>
 <section id="download-example-data">
 <h2>Download example data<a class="headerlink" href="#download-example-data" title="Permalink to this headline">¶</a></h2>
-<p>To follow the tutorial, download and open this <a class="reference external" href="https://github.com/janclemenslab/deepss/releases/download/data/Dmel_male.wav">audio file</a>. The recording is of a <em>Drosophila melanogaster</em> male courting a female, recorded by David Stern (Janelia, part of <a class="reference external" href="https://www.janelia.org/lab/stern-lab/tools-reagents-data">this dataset</a>). We will walk through loading, annotating, training and predicting using this file as an example.</p>
+<p>To follow the tutorial, download and open this <a class="reference external" href="https://github.com/janclemenslab/DAS/releases/download/data/Dmel_male.wav">audio file</a>. The recording is of a <em>Drosophila melanogaster</em> male courting a female, recorded by David Stern (Janelia, part of <a class="reference external" href="https://www.janelia.org/lab/stern-lab/tools-reagents-data">this dataset</a>). We will walk through loading, annotating, training and predicting using this file as an example.</p>
 </section>
 <section id="start-the-gui">
 <h2>Start the GUI<a class="headerlink" href="#start-the-gui" title="Permalink to this headline">¶</a></h2>
-<p>Install <em>DeepSS</em> following these <a class="reference internal" href="install.html"><span class="doc std std-doc">instructions</span></a>. Then start the GUI by opening a terminal, activating the conda environment created during install and typing <code class="docutils literal notranslate"><span class="pre">dss</span> <span class="pre">gui</span></code>:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>conda activate dss
-dss gui
+<p>Install <em>DAS</em> following these <a class="reference internal" href="install.html"><span class="doc std std-doc">instructions</span></a>. Then start the GUI by opening a terminal, activating the conda environment created during install and typing <code class="docutils literal notranslate"><span class="pre">das</span> <span class="pre">gui</span></code>:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>conda activate das
+das gui
 </pre></div>
 </div>
 <p>The following window should open:</p>
@@ -424,7 +425,7 @@ dss gui
 </section>
 <section id="waveform-and-spectrogram-display">
 <h2>Waveform and spectrogram display<a class="headerlink" href="#waveform-and-spectrogram-display" title="Permalink to this headline">¶</a></h2>
-<p>Laoding the audio will open a window that displays the first second of audio as a waveform (top) and a spectrogram (bottom). You will see the two major modes of fly song—pulse and sine. The recording starts with sine song—a relatively soft oscillation resulting in a spectral power at ~150Hz. Pulse song starts after ~0.75 seconds, evident as trains of brief wavelets with a regular interval.</p>
+<p>Loading the audio will open a window that displays the first second of audio as a waveform (top) and a spectrogram (bottom). You will see the two major modes of fly song—pulse and sine. The recording starts with sine song—a relatively soft oscillation resulting in a spectral power at ~150Hz. Pulse song starts after ~0.75 seconds, evident as trains of brief wavelets with a regular interval.</p>
 <p>To navigate the view: Move forward/backward along the time axis via the <code class="docutils literal notranslate"><span class="pre">A</span></code>/<code class="docutils literal notranslate"><span class="pre">D</span></code> keys and zoom in/out the time axis with the <code class="docutils literal notranslate"><span class="pre">W</span></code>/<code class="docutils literal notranslate"><span class="pre">S</span></code> keys (see also the <em>Playback</em> menu). The temporal and frequency resolution of the spectrogram can be adjusted with the <code class="docutils literal notranslate"><span class="pre">R</span></code> and <code class="docutils literal notranslate"><span class="pre">T</span></code> keys.</p>
 <p>You can play back the waveform on display through your headphones/speakers by pressing <code class="docutils literal notranslate"><span class="pre">E</span></code>.</p>
 <figure class="align-default" id="xb-display-fig">
@@ -436,7 +437,7 @@ dss gui
 </section>
 <section id="initialize-or-edit-song-types">
 <h2>Initialize or edit song types<a class="headerlink" href="#initialize-or-edit-song-types" title="Permalink to this headline">¶</a></h2>
-<p>Before you can annotate song, you need to register the sine and pulse song types for annotation. <em>DeepSS</em> discriminates two principal categories of song types:</p>
+<p>Before you can annotate song, you need to register the sine and pulse song types for annotation. <em>DAS</em> discriminates two principal categories of song types:</p>
 <ul class="simple">
 <li><p><em>Events</em> are defined by a single time of occurrence. The aforementioned pulse song is a song type of the event category.</p></li>
 <li><p><em>Segments</em> are song types that extend over time and are defined by a start and a stop time. The aforementioned sine song and the syllables of mouse and bird vocalizations fall into the segment category.</p></li>
@@ -483,15 +484,15 @@ dss gui
 </section>
 <section id="export-annotations-and-make-a-dataset">
 <h2>Export annotations and make a dataset<a class="headerlink" href="#export-annotations-and-make-a-dataset" title="Permalink to this headline">¶</a></h2>
-<p><em>DeepSS</em> achieves good performance with little manual annotation. Once you have completely annotated the song in the first 18 seconds of the tutorial recording—a couple of pulse trains and sine song segments—you can train a network to help with annotating the rest of the data.</p>
-<p>Trainining requires the audio data and the annotations to be in a specific dataset format. First, export the audio data and the annotations via <code class="docutils literal notranslate"><span class="pre">File/Export</span> <span class="pre">for</span> <span class="pre">DeepSS</span></code> to a new folder (not the one containing the original audio)—let’s call the folder <code class="docutils literal notranslate"><span class="pre">quickstart</span></code>. In the following dialog set start seconds and end seconds to the annotated time range - 0 and 18 seconds, respectively.</p>
+<p><em>DAS</em> achieves good performance with little manual annotation. Once you have completely annotated the song in the first 18 seconds of the tutorial recording—a couple of pulse trains and sine song segments—you can train a network to help with annotating the rest of the data.</p>
+<p>Trainining requires the audio data and the annotations to be in a specific dataset format. First, export the audio data and the annotations via <code class="docutils literal notranslate"><span class="pre">File/Export</span> <span class="pre">for</span> <span class="pre">DAS</span></code> to a new folder (not the one containing the original audio)—let’s call the folder <code class="docutils literal notranslate"><span class="pre">quickstart</span></code>. In the following dialog set start seconds and end seconds to the annotated time range - 0 and 18 seconds, respectively.</p>
 <figure class="align-default" id="xb-export-fig">
 <a class="reference internal image-reference" href="_images/xb_quick_export.png"><img alt="export audio and annotations" src="_images/xb_quick_export.png" style="width: 450px;" /></a>
 <figcaption>
 <p><span class="caption-number">Fig. 8 </span><span class="caption-text">Export audio data and annotations for the annotated range between 0 and 18 seconds.</span><a class="headerlink" href="#xb-export-fig" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
-<p>Then make a dataset, via <em>DeepSS/Make dataset for training</em>. In the file dialog, select the <code class="docutils literal notranslate"><span class="pre">quickstart</span></code> folder you exported your annotations into. In the next dialog, we will adjust how data is split into training, validation and testing data. For the small data set annotated in the first step of this tutorial, we will not test the model. To maximize the data available for optimizing the network (training and validation), set the test split to 0.0 (not test) and the validation split to 40:</p>
+<p>Then make a dataset, via <em>DAS/Make dataset for training</em>. In the file dialog, select the <code class="docutils literal notranslate"><span class="pre">quickstart</span></code> folder you exported your annotations into. In the next dialog, we will adjust how data is split into training, validation and testing data. For the small data set annotated in the first step of this tutorial, we will not test the model. To maximize the data available for optimizing the network (training and validation), set the test split to 0.0 (not test) and the validation split to 40:</p>
 <figure class="align-default" id="xb-assemble-fig">
 <a class="reference internal image-reference" href="_images/xb_quick_make_ds.png"><img alt="assemble dataset" src="_images/xb_quick_make_ds.png" style="width: 600px;" /></a>
 <figcaption>
@@ -502,7 +503,7 @@ dss gui
 </section>
 <section id="fast-training">
 <h2>Fast training<a class="headerlink" href="#fast-training" title="Permalink to this headline">¶</a></h2>
-<p>Configure a network and start training via <em>DeepSS/Train</em>. This will ask you select the dataset folder, <code class="docutils literal notranslate"><span class="pre">quickstart.npy</span></code>. Then, a dialog allows you to configure the network. For the fast training change the following:</p>
+<p>Configure a network and start training via <em>DAS/Train</em>. This will ask you select the dataset folder, <code class="docutils literal notranslate"><span class="pre">quickstart.npy</span></code>. Then, a dialog allows you to configure the network. For the fast training change the following:</p>
 <ul class="simple">
 <li><p>Set both <code class="docutils literal notranslate"><span class="pre">Number</span> <span class="pre">of</span> <span class="pre">filters</span></code> and <code class="docutils literal notranslate"><span class="pre">Filter</span> <span class="pre">duration</span> <span class="pre">(seconds)</span></code> to 16. This will result in a smaller network with fewer parameters, which will be faster to train and requires fewer annotations to achieve adequate performance.</p></li>
 <li><p>Set <code class="docutils literal notranslate"><span class="pre">Number</span> <span class="pre">of</span> <span class="pre">epochs</span></code> to 10, to finish training earlier.</p></li>
@@ -517,7 +518,7 @@ dss gui
 </section>
 <section id="predict">
 <h2>Predict<a class="headerlink" href="#predict" title="Permalink to this headline">¶</a></h2>
-<p>Once training finished, generate annotations using the trained network via <em>DeepSS/Predict</em>. This will ask you to select a model file containing the trained. Training creates files in the <code class="docutils literal notranslate"><span class="pre">quickstart.res</span></code> folder, starting with the time stamp of training—select the file ending in <code class="docutils literal notranslate"><span class="pre">_model.h5</span></code>.</p>
+<p>Once training finished, generate annotations using the trained network via <em>DAS/Predict</em>. This will ask you to select a model file containing the trained. Training creates files in the <code class="docutils literal notranslate"><span class="pre">quickstart.res</span></code> folder, starting with the time stamp of training—select the file ending in <code class="docutils literal notranslate"><span class="pre">_model.h5</span></code>.</p>
 <p>In the next dialog, predict song for 60 seconds starting after your manual annotations:</p>
 <ul class="simple">
 <li><p>Set <code class="docutils literal notranslate"><span class="pre">Start</span> <span class="pre">seconds</span></code> to 18 and <code class="docutils literal notranslate"><span class="pre">End</span> <span class="pre">seconds</span></code> to 78.</p></li>

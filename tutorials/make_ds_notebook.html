@@ -4,7 +4,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
     <title>Make a dataset from custom data formats</title>
     
@@ -41,6 +41,7 @@
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
     <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
@@ -91,7 +92,7 @@
     <ul class="nav sidenav_l1">
  <li class="toctree-l1">
   <a class="reference internal" href="../intro.html">
-   Welcome to DeepSS
+   Welcome to DAS
   </a>
  </li>
 </ul>
@@ -416,7 +417,7 @@
                 
   <section id="make-a-dataset-from-custom-data-formats">
 <h1>Make a dataset from custom data formats<a class="headerlink" href="#make-a-dataset-from-custom-data-formats" title="Permalink to this headline">¶</a></h1>
-<p>If your data is readable by the GUI, you only need to convert annotations. You can then load both into the GUI and export to data and annotations for DeepSS.</p>
+<p>If your data is readable by the GUI, you only need to convert annotations. You can then load both into the GUI and export to data and annotations for DAS.</p>
 <p>Three alternatives:</p>
 <section id="export-your-data-as-wav-npz-and-csv-to-a-folder-and-make-a-dataset-with-the-gui">
 <h2>1. Export your data as wav/npz and csv to a folder and make a dataset with the GUI<a class="headerlink" href="#export-your-data-as-wav-npz-and-csv-to-a-folder-and-make-a-dataset-with-the-gui" title="Permalink to this headline">¶</a></h2>
@@ -430,7 +431,7 @@
     yaf_annotations.csv
 </pre></div>
 </div>
-<p>Simplest way - no need of having to deal with specific of the data structure required by DeepSS for training - simply hit <em>DeepSS/Make dataset for training</em> and select the folder.</p>
+<p>Simplest way - no need of having to deal with specific of the data structure required by DAS for training - simply hit <em>DAS/Make dataset for training</em> and select the folder.</p>
 </section>
 <section id="use-notebook-with-custom-loaders-to-directly-read-recordings-and-annotations">
 <h2>2. Use notebook with custom loaders to directly read recordings and annotations<a class="headerlink" href="#use-notebook-with-custom-loaders-to-directly-read-recordings-and-annotations" title="Permalink to this headline">¶</a></h2>
@@ -442,7 +443,7 @@
 </section>
 <section id="id1">
 <h2>Use notebook with custom loaders to directly read recordings and annotations<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<p>This notebook creates an annotated data set for training DSS from lists of filenames for the song recordings and associated annotations.</p>
+<p>This notebook creates an annotated data set for training das from lists of filenames for the song recordings and associated annotations.</p>
 <p>This may look a bit complicated at first sight but only requires you to change two things in the next two cells:</p>
 <ol class="simple">
 <li><p>The functions for loading the data (song recordings) and the annotations need to be adapted to work with your data.</p></li>
@@ -455,16 +456,16 @@
 <h2>Internals<a class="headerlink" href="#internals" title="Permalink to this headline">¶</a></h2>
 <p>The dataset is created in two steps.</p>
 <p>First, the data and annotations for different recordings are combined in a large matrix. This works even with large datasets that don’t fit in memory thanks to <a class="reference external" href="https://zarr.readthedocs.io/en/stable/tutorial.html#storage-alternatives">zarr</a>, which provides an interface for on-disk arrays. The annotations are converted from lists of event times to one-hot-encoded probability vectors, (0 for no event, 1 for a specified short duration (default is <span class="math notranslate nohighlight">\(\pm\)</span>30 samples) surrounding the event).</p>
-<p>Second, the zarr dataset is converted to a directory hierarchy of numpy files (npy) using <code class="docutils literal notranslate"><span class="pre">dss.npy_dir_save</span></code>. Numpy files allow extremely fast memory mapping, providing faster out-of-memory access than zarr during training.</p>
-<p>Code below closely follows the code used in the GUI - see the <a class="reference external" href="https://github.com/janclemenslab/xarray-behave/blob/master/src/xarray_behave/gui/deepss.py">source</a> code.</p>
+<p>Second, the zarr dataset is converted to a directory hierarchy of numpy files (npy) using <code class="docutils literal notranslate"><span class="pre">das.npy_dir_save</span></code>. Numpy files allow extremely fast memory mapping, providing faster out-of-memory access than zarr during training.</p>
+<p>Code below closely follows the code used in the GUI - see the <a class="reference external" href="https://github.com/janclemenslab/xarray-behave/blob/master/src/xarray_behave/gui/DAS.py">source</a> code.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">zarr</span>
 <span class="kn">import</span> <span class="nn">logging</span>
-<span class="kn">import</span> <span class="nn">dss.npy_dir</span>
-<span class="kn">import</span> <span class="nn">dss.make_dataset</span>
-<span class="kn">import</span> <span class="nn">dss.annot</span>
+<span class="kn">import</span> <span class="nn">das.npy_dir</span>
+<span class="kn">import</span> <span class="nn">das.make_dataset</span>
+<span class="kn">import</span> <span class="nn">das.annot</span>
 <span class="kn">from</span> <span class="nn">glob</span> <span class="kn">import</span> <span class="n">glob</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">h5py</span>
@@ -519,7 +520,7 @@
         <span class="n">start_seconds</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">sine_onset</span><span class="p">))</span>
         <span class="n">stop_seconds</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">sine_offset</span><span class="p">))</span>
 
-    <span class="n">event_times</span> <span class="o">=</span> <span class="n">dss</span><span class="o">.</span><span class="n">annot</span><span class="o">.</span><span class="n">Events</span><span class="o">.</span><span class="n">from_lists</span><span class="p">(</span><span class="n">names</span><span class="p">,</span> <span class="n">start_seconds</span><span class="p">,</span> <span class="n">stop_seconds</span><span class="p">)</span>
+    <span class="n">event_times</span> <span class="o">=</span> <span class="n">das</span><span class="o">.</span><span class="n">annot</span><span class="o">.</span><span class="n">Events</span><span class="o">.</span><span class="n">from_lists</span><span class="p">(</span><span class="n">names</span><span class="p">,</span> <span class="n">start_seconds</span><span class="p">,</span> <span class="n">stop_seconds</span><span class="p">)</span>
     <span class="n">df</span> <span class="o">=</span> <span class="n">event_times</span><span class="o">.</span><span class="n">to_df</span><span class="p">()</span>
     <span class="k">return</span> <span class="n">df</span>
 </pre></div>
@@ -532,8 +533,8 @@
 <p>Lists of <code class="docutils literal notranslate"><span class="pre">data_files</span></code> and associated <code class="docutils literal notranslate"><span class="pre">annotation_files</span></code> are consumed by <code class="docutils literal notranslate"><span class="pre">load_data</span></code> and <code class="docutils literal notranslate"><span class="pre">load_annotation</span></code>, respectively.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># data_dir = &#39;/Users/clemens10/Dropbox/code.py/deepss/tutorials/dat.mat/&#39;</span>
-<span class="n">data_dir</span> <span class="o">=</span> <span class="s1">&#39;../../../deepss/tutorials/dat.mat/&#39;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># data_dir = &#39;/Users/clemens10/Dropbox/code.py/DAS/tutorials/dat.mat/&#39;</span>
+<span class="n">data_dir</span> <span class="o">=</span> <span class="s1">&#39;../../../DAS/tutorials/dat.mat/&#39;</span>
 <span class="n">files_data</span> <span class="o">=</span> <span class="n">glob</span><span class="p">(</span><span class="n">data_dir</span> <span class="o">+</span> <span class="s1">&#39;*_recording.mat&#39;</span><span class="p">)</span>  <span class="c1"># list all data files</span>
 <span class="n">files_annotation</span> <span class="o">=</span> <span class="p">[</span><span class="n">file</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;_recording.mat&#39;</span><span class="p">,</span> <span class="s1">&#39;_song.mat&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">files_data</span><span class="p">]</span>  <span class="c1"># generate the names of associated annotation files</span>
 <span class="p">[</span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;data &quot;</span><span class="si">{</span><span class="n">d</span><span class="si">}</span><span class="s1">&quot; with annotations in &quot;</span><span class="si">{</span><span class="n">a</span><span class="si">}</span><span class="s1">&quot;.&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">d</span><span class="p">,</span> <span class="n">a</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">files_data</span><span class="p">,</span> <span class="n">files_annotation</span><span class="p">)];</span>
@@ -541,13 +542,13 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>data &quot;../../../deepss/tutorials/dat.mat/PS_20130625155828_ch7_recording.mat&quot; with annotations in &quot;../../../deepss/tutorials/dat.mat/PS_20130625155828_ch7_song.mat&quot;.
-data &quot;../../../deepss/tutorials/dat.mat/PS_20130625111709_ch10_recording.mat&quot; with annotations in &quot;../../../deepss/tutorials/dat.mat/PS_20130625111709_ch10_song.mat&quot;.
-data &quot;../../../deepss/tutorials/dat.mat/PS_20130628165930_ch11_recording.mat&quot; with annotations in &quot;../../../deepss/tutorials/dat.mat/PS_20130628165930_ch11_song.mat&quot;.
-data &quot;../../../deepss/tutorials/dat.mat/PS_20130702144748_ch15_recording.mat&quot; with annotations in &quot;../../../deepss/tutorials/dat.mat/PS_20130702144748_ch15_song.mat&quot;.
-data &quot;../../../deepss/tutorials/dat.mat/PS_20130628144304_ch15_recording.mat&quot; with annotations in &quot;../../../deepss/tutorials/dat.mat/PS_20130628144304_ch15_song.mat&quot;.
-data &quot;../../../deepss/tutorials/dat.mat/PS_20130625155828_ch11_recording.mat&quot; with annotations in &quot;../../../deepss/tutorials/dat.mat/PS_20130625155828_ch11_song.mat&quot;.
-data &quot;../../../deepss/tutorials/dat.mat/PS_20130702114557_ch13_recording.mat&quot; with annotations in &quot;../../../deepss/tutorials/dat.mat/PS_20130702114557_ch13_song.mat&quot;.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>data &quot;../../../DAS/tutorials/dat.mat/PS_20130625155828_ch7_recording.mat&quot; with annotations in &quot;../../../DAS/tutorials/dat.mat/PS_20130625155828_ch7_song.mat&quot;.
+data &quot;../../../DAS/tutorials/dat.mat/PS_20130625111709_ch10_recording.mat&quot; with annotations in &quot;../../../DAS/tutorials/dat.mat/PS_20130625111709_ch10_song.mat&quot;.
+data &quot;../../../DAS/tutorials/dat.mat/PS_20130628165930_ch11_recording.mat&quot; with annotations in &quot;../../../DAS/tutorials/dat.mat/PS_20130628165930_ch11_song.mat&quot;.
+data &quot;../../../DAS/tutorials/dat.mat/PS_20130702144748_ch15_recording.mat&quot; with annotations in &quot;../../../DAS/tutorials/dat.mat/PS_20130702144748_ch15_song.mat&quot;.
+data &quot;../../../DAS/tutorials/dat.mat/PS_20130628144304_ch15_recording.mat&quot; with annotations in &quot;../../../DAS/tutorials/dat.mat/PS_20130628144304_ch15_song.mat&quot;.
+data &quot;../../../DAS/tutorials/dat.mat/PS_20130625155828_ch11_recording.mat&quot; with annotations in &quot;../../../DAS/tutorials/dat.mat/PS_20130625155828_ch11_song.mat&quot;.
+data &quot;../../../DAS/tutorials/dat.mat/PS_20130702114557_ch13_recording.mat&quot; with annotations in &quot;../../../DAS/tutorials/dat.mat/PS_20130702114557_ch13_song.mat&quot;.
 </pre></div>
 </div>
 </div>
@@ -686,7 +687,7 @@ Annotations
 <span class="k">for</span> <span class="n">file_annotation</span> <span class="ow">in</span> <span class="n">files_annotation</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">file_annotation</span><span class="p">)</span>
     <span class="n">df</span> <span class="o">=</span> <span class="n">annotation_loader</span><span class="p">(</span><span class="n">file_annotation</span><span class="p">)</span>
-    <span class="n">event_times</span> <span class="o">=</span> <span class="n">dss</span><span class="o">.</span><span class="n">annot</span><span class="o">.</span><span class="n">Events</span><span class="o">.</span><span class="n">from_df</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+    <span class="n">event_times</span> <span class="o">=</span> <span class="n">das</span><span class="o">.</span><span class="n">annot</span><span class="o">.</span><span class="n">Events</span><span class="o">.</span><span class="n">from_df</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
     <span class="n">class_names</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">event_times</span><span class="o">.</span><span class="n">names</span><span class="p">)</span>
     <span class="n">class_categories</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">event_times</span><span class="o">.</span><span class="n">categories</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
 
@@ -704,13 +705,13 @@ Annotations
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>../../../deepss/tutorials/dat.mat/PS_20130625155828_ch7_song.mat
-../../../deepss/tutorials/dat.mat/PS_20130625111709_ch10_song.mat
-../../../deepss/tutorials/dat.mat/PS_20130628165930_ch11_song.mat
-../../../deepss/tutorials/dat.mat/PS_20130702144748_ch15_song.mat
-../../../deepss/tutorials/dat.mat/PS_20130628144304_ch15_song.mat
-../../../deepss/tutorials/dat.mat/PS_20130625155828_ch11_song.mat
-../../../deepss/tutorials/dat.mat/PS_20130702114557_ch13_song.mat
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>../../../DAS/tutorials/dat.mat/PS_20130625155828_ch7_song.mat
+../../../DAS/tutorials/dat.mat/PS_20130625111709_ch10_song.mat
+../../../DAS/tutorials/dat.mat/PS_20130628165930_ch11_song.mat
+../../../DAS/tutorials/dat.mat/PS_20130702144748_ch15_song.mat
+../../../DAS/tutorials/dat.mat/PS_20130628144304_ch15_song.mat
+../../../DAS/tutorials/dat.mat/PS_20130625155828_ch11_song.mat
+../../../DAS/tutorials/dat.mat/PS_20130702114557_ch13_song.mat
 found pulse of type event
 found sine of type segment
 </pre></div>
@@ -760,7 +761,7 @@ indices of train files: [1 0 4 3 5]
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">samplerate</span> <span class="o">=</span> <span class="mi">10_000</span>  <span class="c1"># this is the sample rate of your data and the pulse times</span>
-<span class="n">store</span> <span class="o">=</span> <span class="n">dss</span><span class="o">.</span><span class="n">make_dataset</span><span class="o">.</span><span class="n">init_store</span><span class="p">(</span>
+<span class="n">store</span> <span class="o">=</span> <span class="n">das</span><span class="o">.</span><span class="n">make_dataset</span><span class="o">.</span><span class="n">init_store</span><span class="p">(</span>
         <span class="n">nb_channels</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>  <span class="c1"># number of channels/microphones in the recording</span>
         <span class="n">nb_classes</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">class_names</span><span class="p">),</span>  <span class="c1"># number of classes to predict - [noise, pulse]</span>
         <span class="n">make_single_class_datasets</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># also make y_pulse and y_sine</span>
@@ -799,22 +800,22 @@ indices of train files: [1 0 4 3 5]
     <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
 
     <span class="c1"># make initial annotation matrix</span>
-    <span class="n">y</span> <span class="o">=</span> <span class="n">dss</span><span class="o">.</span><span class="n">make_dataset</span><span class="o">.</span><span class="n">make_annotation_matrix</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">nb_samples</span><span class="p">,</span> <span class="n">fs</span><span class="p">,</span> <span class="n">class_names</span><span class="p">)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">das</span><span class="o">.</span><span class="n">make_dataset</span><span class="o">.</span><span class="n">make_annotation_matrix</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">nb_samples</span><span class="p">,</span> <span class="n">fs</span><span class="p">,</span> <span class="n">class_names</span><span class="p">)</span>
     
     <span class="c1"># blur events</span>
     <span class="k">for</span> <span class="n">class_index</span><span class="p">,</span> <span class="n">class_category</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">class_categories</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">class_category</span> <span class="o">==</span> <span class="s1">&#39;event&#39;</span><span class="p">:</span>
-            <span class="n">y</span><span class="p">[:,</span> <span class="n">class_index</span><span class="p">]</span> <span class="o">=</span> <span class="n">dss</span><span class="o">.</span><span class="n">make_dataset</span><span class="o">.</span><span class="n">blur_events</span><span class="p">(</span><span class="n">y</span><span class="p">[:,</span> <span class="n">class_index</span><span class="p">],</span>
+            <span class="n">y</span><span class="p">[:,</span> <span class="n">class_index</span><span class="p">]</span> <span class="o">=</span> <span class="n">das</span><span class="o">.</span><span class="n">make_dataset</span><span class="o">.</span><span class="n">blur_events</span><span class="p">(</span><span class="n">y</span><span class="p">[:,</span> <span class="n">class_index</span><span class="p">],</span>
                                                              <span class="n">event_std_seconds</span><span class="o">=.</span><span class="mi">0016</span><span class="p">,</span>
                                                              <span class="n">samplerate</span><span class="o">=</span><span class="n">samplerate</span><span class="p">)</span>
     
     <span class="c1"># Append the recording (x) and the prediction target (y) to the data set</span>
     <span class="n">store</span><span class="p">[</span><span class="n">target</span><span class="p">][</span><span class="s1">&#39;x&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-    <span class="n">store</span><span class="p">[</span><span class="n">target</span><span class="p">][</span><span class="s1">&#39;y&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dss</span><span class="o">.</span><span class="n">make_dataset</span><span class="o">.</span><span class="n">normalize_probabilities</span><span class="p">(</span><span class="n">y</span><span class="p">))</span>
+    <span class="n">store</span><span class="p">[</span><span class="n">target</span><span class="p">][</span><span class="s1">&#39;y&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">das</span><span class="o">.</span><span class="n">make_dataset</span><span class="o">.</span><span class="n">normalize_probabilities</span><span class="p">(</span><span class="n">y</span><span class="p">))</span>
 
     <span class="c1"># Make prediction targets for individual song types</span>
     <span class="k">for</span> <span class="n">cnt</span><span class="p">,</span> <span class="n">class_name</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">class_names</span><span class="p">[</span><span class="mi">1</span><span class="p">:]):</span>
-        <span class="n">store</span><span class="p">[</span><span class="n">target</span><span class="p">][</span><span class="sa">f</span><span class="s1">&#39;y_</span><span class="si">{</span><span class="n">class_name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dss</span><span class="o">.</span><span class="n">make_dataset</span><span class="o">.</span><span class="n">normalize_probabilities</span><span class="p">(</span><span class="n">y</span><span class="p">[:,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">cnt</span><span class="o">+</span><span class="mi">1</span><span class="p">]]))</span>
+        <span class="n">store</span><span class="p">[</span><span class="n">target</span><span class="p">][</span><span class="sa">f</span><span class="s1">&#39;y_</span><span class="si">{</span><span class="n">class_name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">das</span><span class="o">.</span><span class="n">make_dataset</span><span class="o">.</span><span class="n">normalize_probabilities</span><span class="p">(</span><span class="n">y</span><span class="p">[:,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">cnt</span><span class="o">+</span><span class="mi">1</span><span class="p">]]))</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Got </span><span class="si">{</span><span class="n">store</span><span class="p">[</span><span class="s1">&#39;train&#39;</span><span class="p">][</span><span class="s1">&#39;x&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">store</span><span class="p">[</span><span class="s1">&#39;val&#39;</span><span class="p">][</span><span class="s1">&#39;x&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">store</span><span class="p">[</span><span class="s1">&#39;test&#39;</span><span class="p">][</span><span class="s1">&#39;x&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2"> train/test/val samples.&quot;</span><span class="p">)</span>
 </pre></div>
@@ -822,13 +823,13 @@ indices of train files: [1 0 4 3 5]
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Assembling data set:
-   ../../../deepss/tutorials/dat.mat/PS_20130625155828_ch7_recording.mat -&gt; train set
-   ../../../deepss/tutorials/dat.mat/PS_20130625111709_ch10_recording.mat -&gt; train set
-   ../../../deepss/tutorials/dat.mat/PS_20130628165930_ch11_recording.mat -&gt; val set
-   ../../../deepss/tutorials/dat.mat/PS_20130702144748_ch15_recording.mat -&gt; train set
-   ../../../deepss/tutorials/dat.mat/PS_20130628144304_ch15_recording.mat -&gt; train set
-   ../../../deepss/tutorials/dat.mat/PS_20130625155828_ch11_recording.mat -&gt; train set
-   ../../../deepss/tutorials/dat.mat/PS_20130702114557_ch13_recording.mat -&gt; test set
+   ../../../DAS/tutorials/dat.mat/PS_20130625155828_ch7_recording.mat -&gt; train set
+   ../../../DAS/tutorials/dat.mat/PS_20130625111709_ch10_recording.mat -&gt; train set
+   ../../../DAS/tutorials/dat.mat/PS_20130628165930_ch11_recording.mat -&gt; val set
+   ../../../DAS/tutorials/dat.mat/PS_20130702144748_ch15_recording.mat -&gt; train set
+   ../../../DAS/tutorials/dat.mat/PS_20130628144304_ch15_recording.mat -&gt; train set
+   ../../../DAS/tutorials/dat.mat/PS_20130625155828_ch11_recording.mat -&gt; train set
+   ../../../DAS/tutorials/dat.mat/PS_20130702114557_ch13_recording.mat -&gt; test set
 Got (20440005, 1), (4160001, 1), (3980001, 1) train/test/val samples.
 </pre></div>
 </div>
@@ -871,13 +872,13 @@ Got (20440005, 1), (4160001, 1), (3980001, 1) train/test/val samples.
 </section>
 <section id="save-as-npy-dir">
 <h3>Save as npy_dir<a class="headerlink" href="#save-as-npy-dir" title="Permalink to this headline">¶</a></h3>
-<p>Once all data and annotation files have been appended to the store, save the data as an <code class="docutils literal notranslate"><span class="pre">npy_dir</span></code> store - a directory hierarchy that replicates the nested dictionary structure of the zarr store. For instance, the data set at <code class="docutils literal notranslate"><span class="pre">root['train']['x']</span></code> (the audio data for training) will be stored as <code class="docutils literal notranslate"><span class="pre">store_name/train/x.npy</span></code>. We use these npy files rather than the zarr store because access is faster. Saving is done by <code class="docutils literal notranslate"><span class="pre">dss.npy_dir_save</span></code>. The directory structure is mapped back to a nested dictionary via <code class="docutils literal notranslate"><span class="pre">dss.npy_dir.load</span></code>. If you used the <code class="docutils literal notranslate"><span class="pre">DirectoryStore</span></code> during assembly, you can delete the <code class="docutils literal notranslate"><span class="pre">*.zarr</span></code> directory after that final step.</p>
+<p>Once all data and annotation files have been appended to the store, save the data as an <code class="docutils literal notranslate"><span class="pre">npy_dir</span></code> store - a directory hierarchy that replicates the nested dictionary structure of the zarr store. For instance, the data set at <code class="docutils literal notranslate"><span class="pre">root['train']['x']</span></code> (the audio data for training) will be stored as <code class="docutils literal notranslate"><span class="pre">store_name/train/x.npy</span></code>. We use these npy files rather than the zarr store because access is faster. Saving is done by <code class="docutils literal notranslate"><span class="pre">das.npy_dir_save</span></code>. The directory structure is mapped back to a nested dictionary via <code class="docutils literal notranslate"><span class="pre">das.npy_dir.load</span></code>. If you used the <code class="docutils literal notranslate"><span class="pre">DirectoryStore</span></code> during assembly, you can delete the <code class="docutils literal notranslate"><span class="pre">*.zarr</span></code> directory after that final step.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Save the zarr store as a hierarchy of npy files</span>
 <span class="n">store_folder</span> <span class="o">=</span> <span class="s1">&#39;tutorial_dataset.npy&#39;</span>
 <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;  Saving to </span><span class="si">{</span><span class="n">store_folder</span><span class="si">}</span><span class="s1">.&#39;</span><span class="p">)</span>
-<span class="n">dss</span><span class="o">.</span><span class="n">npy_dir</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">store_folder</span><span class="p">,</span> <span class="n">store</span><span class="p">)</span>
+<span class="n">das</span><span class="o">.</span><span class="n">npy_dir</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">store_folder</span><span class="p">,</span> <span class="n">store</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>

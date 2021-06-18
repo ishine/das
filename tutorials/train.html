@@ -4,7 +4,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
     <title>Train</title>
     
@@ -41,6 +41,7 @@
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
     <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
@@ -91,7 +92,7 @@
     <ul class="nav sidenav_l1">
  <li class="toctree-l1">
   <a class="reference internal" href="../intro.html">
-   Welcome to DeepSS
+   Welcome to DAS
   </a>
  </li>
 </ul>
@@ -354,8 +355,8 @@
 <h1>Train<a class="headerlink" href="#train" title="Permalink to this headline">¶</a></h1>
 <p>The network can be trained using three interfaces:</p>
 <ul class="simple">
-<li><p>python, via <code class="docutils literal notranslate"><span class="pre">dss.train.train</span></code></p></li>
-<li><p>the command-line interface <code class="docutils literal notranslate"><span class="pre">dss</span> <span class="pre">train</span></code>.</p></li>
+<li><p>python, via <code class="docutils literal notranslate"><span class="pre">das.train.train</span></code></p></li>
+<li><p>the command-line interface <code class="docutils literal notranslate"><span class="pre">das</span> <span class="pre">train</span></code>.</p></li>
 <li><p>the GUI - see the <a class="reference internal" href="../tutorials_gui/train.html"><span class="doc std std-doc">GUI tutorial</span></a></p></li>
 </ul>
 <p>Training will:</p>
@@ -374,19 +375,19 @@
 </ul>
 <section id="training-using-python">
 <h2>Training using python<a class="headerlink" href="#training-using-python" title="Permalink to this headline">¶</a></h2>
-<p>Training is done using the <code class="docutils literal notranslate"><span class="pre">train</span></code> function in the <code class="docutils literal notranslate"><span class="pre">dss.train</span></code> module:</p>
+<p>Training is done using the <code class="docutils literal notranslate"><span class="pre">train</span></code> function in the <code class="docutils literal notranslate"><span class="pre">das.train</span></code> module:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">dss.train</span>
-<span class="n">help</span><span class="p">(</span><span class="n">dss</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">train</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">das.train</span>
+<span class="n">help</span><span class="p">(</span><span class="n">das</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">train</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Help on function train in module dss.train:
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Help on function train in module das.train:
 
 train(*, data_dir: str, y_suffix: str = &#39;&#39;, save_dir: str = &#39;./&#39;, save_prefix: str = None, model_name: str = &#39;tcn&#39;, nb_filters: int = 16, kernel_size: int = 16, nb_conv: int = 3, use_separable: List[bool] = False, nb_hist: int = 1024, ignore_boundaries: bool = True, batch_norm: bool = True, nb_pre_conv: int = 0, pre_kernel_size: int = 3, pre_nb_filters: int = 16, pre_nb_conv: int = 2, verbose: int = 2, batch_size: int = 32, nb_epoch: int = 400, learning_rate: float = None, reduce_lr: bool = False, reduce_lr_patience: int = 5, fraction_data: float = None, seed: int = None, batch_level_subsampling: bool = False, tensorboard: bool = False, log_messages: bool = False, nb_stacks: int = 2, with_y_hist: bool = True, x_suffix: str = &#39;&#39;)
-    Train a DeepSS network.
+    Train a DAS network.
     
     Args:
         data_dir (str): Path to the directory or file with the dataset for training.
@@ -404,7 +405,7 @@ train(*, data_dir: str, y_suffix: str = &#39;&#39;, save_dir: str = &#39;./&#39;
                            Defaults to &#39;&#39; (empty).
         model_name (str): Network architecture to use.
                           Use &quot;tcn&quot; (TCN) or &quot;tcn_stft&quot; (TCN with STFT frontend).
-                          See dss.models for a description of all models.
+                          See das.models for a description of all models.
                           Defaults to &#39;tcn&#39;.
         nb_filters (int): Number of filters per layer.
                           Defaults to 16.
@@ -475,7 +476,7 @@ train(*, data_dir: str, y_suffix: str = &#39;&#39;, save_dir: str = &#39;./&#39;
 <p>To demonstrate the outputs of <code class="docutils literal notranslate"><span class="pre">train</span></code>, the following trains a small network on a small dataset to annotate pulse and sine song from <em>Drosophila melanogater</em>. Expected performance (f1-score) is about 75%.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dss</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">model_name</span><span class="o">=</span><span class="s1">&#39;tcn&#39;</span><span class="p">,</span>  <span class="c1"># see `dss.models` for valid model_names</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">das</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">model_name</span><span class="o">=</span><span class="s1">&#39;tcn&#39;</span><span class="p">,</span>  <span class="c1"># see `das.models` for valid model_names</span>
                 <span class="n">data_dir</span><span class="o">=</span><span class="s1">&#39;tutorial_dataset.npy&#39;</span><span class="p">,</span> 
                 <span class="n">save_dir</span><span class="o">=</span><span class="s1">&#39;res&#39;</span><span class="p">,</span>
                 <span class="n">nb_hist</span><span class="o">=</span><span class="mi">256</span><span class="p">,</span>
@@ -783,14 +784,14 @@ train(*, data_dir: str, y_suffix: str = &#39;&#39;, save_dir: str = &#39;./&#39;
 </section>
 <section id="training-using-command-line-scripts">
 <h2>Training using command-line scripts<a class="headerlink" href="#training-using-command-line-scripts" title="Permalink to this headline">¶</a></h2>
-<p>The training function <code class="docutils literal notranslate"><span class="pre">dss.train.train</span></code> and all its arguments are also accessible from the command line via <code class="docutils literal notranslate"><span class="pre">dss</span> <span class="pre">train</span></code> for use on the terminal. See <a class="reference internal" href="../technical/cli.html"><span class="doc std std-doc">here</span></a> for a description of all command-line arguments. The command-line interface is generated with <a class="reference external" href="https://defopt.readthedocs.io/en/stable/index.html">defopt</a>.</p>
+<p>The training function <code class="docutils literal notranslate"><span class="pre">das.train.train</span></code> and all its arguments are also accessible from the command line via <code class="docutils literal notranslate"><span class="pre">das</span> <span class="pre">train</span></code> for use on the terminal. See <a class="reference internal" href="../technical/cli.html"><span class="doc std std-doc">here</span></a> for a description of all command-line arguments. The command-line interface is generated with <a class="reference external" href="https://defopt.readthedocs.io/en/stable/index.html">defopt</a>.</p>
 <p>For instance, training command above can be invoked from the command line:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>dss train --data-dir dat/dmel_single_raw.npy --save-dir res --model-name tcn --kernel-size <span class="m">16</span> --nb-filters <span class="m">16</span> --nb-hist <span class="m">512</span> --nb-epoch <span class="m">20</span> -i
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>das train --data-dir dat/dmel_single_raw.npy --save-dir res --model-name tcn --kernel-size <span class="m">16</span> --nb-filters <span class="m">16</span> --nb-hist <span class="m">512</span> --nb-epoch <span class="m">20</span> -i
 </pre></div>
 </div>
 <p>Shell scripts are particularly useful if you want to fit a set of networks with with different configurations to optimize architecture. For instance, this scripts will fit networks with different numbers of TCN blocks (<code class="docutils literal notranslate"><span class="pre">nb_conv</span></code>) and filters (<code class="docutils literal notranslate"><span class="pre">nb_filters</span></code>):</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
-conda activate dss
+conda activate das
 
 <span class="nv">YSUFFIX</span><span class="o">=</span><span class="s2">&quot;pulse&quot;</span>
 <span class="nv">MODELNAME</span><span class="o">=</span><span class="s1">&#39;tcn&#39;</span>
@@ -806,20 +807,20 @@ conda activate dss
 <span class="k">do</span>
     <span class="k">for</span> NB_FILTERS <span class="k">in</span> <span class="m">16</span> <span class="m">32</span> <span class="m">48</span> <span class="m">64</span>
     <span class="k">do</span>
-        dss train -i --nb-filters <span class="nv">$NB_FILTERS</span> --kernel-size <span class="nv">$KERNEL_SIZE</span> --nb-conv <span class="nv">$NB_CONV</span> --nb-hist <span class="nv">$NB_HIST</span> --save-dir <span class="nv">$SAVEDIR</span> --y-suffix <span class="nv">$YSUFFIX</span> --data-dir <span class="nv">$DATADIR</span> --model-name <span class="nv">$MODELNAME</span>
+        das train -i --nb-filters <span class="nv">$NB_FILTERS</span> --kernel-size <span class="nv">$KERNEL_SIZE</span> --nb-conv <span class="nv">$NB_CONV</span> --nb-hist <span class="nv">$NB_HIST</span> --save-dir <span class="nv">$SAVEDIR</span> --y-suffix <span class="nv">$YSUFFIX</span> --data-dir <span class="nv">$DATADIR</span> --model-name <span class="nv">$MODELNAME</span>
     <span class="k">done</span>
 <span class="k">done</span>
 </pre></div>
 </div>
-<p>A description of all command line arguments can be obtained by typing <code class="docutils literal notranslate"><span class="pre">dss</span> <span class="pre">train</span> <span class="pre">--help</span></code> in a terminal:</p>
+<p>A description of all command line arguments can be obtained by typing <code class="docutils literal notranslate"><span class="pre">das</span> <span class="pre">train</span> <span class="pre">--help</span></code> in a terminal:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>dss train --help
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>das train --help
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>usage: dss train [-h] -d DATA_DIR [-y Y_SUFFIX] [--save-dir SAVE_DIR]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>usage: das train [-h] -d DATA_DIR [-y Y_SUFFIX] [--save-dir SAVE_DIR]
                  [--save-prefix SAVE_PREFIX] [-m MODEL_NAME]
                  [--nb-filters NB_FILTERS] [-k KERNEL_SIZE]
                  [--nb-conv NB_CONV] [-u [USE_SEPARABLE [USE_SEPARABLE ...]]]
@@ -835,7 +836,7 @@ conda activate dss
                  [--log-messages] [--no-log-messages] [--nb-stacks NB_STACKS]
                  [-w] [--no-with-y-hist] [-x X_SUFFIX]
 
-Train a DeepSS network.
+Train a DAS network.
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -858,7 +859,7 @@ optional arguments:
   -m MODEL_NAME, --model-name MODEL_NAME
                         Network architecture to use.
                         Use &quot;tcn&quot; (TCN) or &quot;tcn_stft&quot; (TCN with STFT frontend).
-                        See dss.models for a description of all models.
+                        See das.models for a description of all models.
                         Defaults to &#39;tcn&#39;.
   --nb-filters NB_FILTERS
                         Number of filters per layer.

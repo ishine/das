@@ -1,7 +1,7 @@
 # Unsupervised classification
-Unsupervised classifications is an alternative to tedious manual classification of song types: Use _DeepSS_ via the GUI or the command line to detect anything that you think is song and then classify song into different types afterwards. The song types discovered with unsupervised methods can then be used to create a training dataset for training _DeepSS_ to directly label the different song types.
+Unsupervised classifications is an alternative to tedious manual classification of song types: Use _DAS_ via the GUI or the command line to detect anything that you think is song and then classify song into different types afterwards. The song types discovered with unsupervised methods can then be used to create a training dataset for training _DAS_ to directly label the different song types.
 
-_DeepSS-unsupervised_ provides tools for applying this approach with a focus on pre-processing acoustic signals for unsupervised classification:
+_DAS-unsupervised_ provides tools for applying this approach with a focus on pre-processing acoustic signals for unsupervised classification:
 
 - extract waveforms or spectrograms of acoustic events from a recording
 - normalize the duration, center frequency, amplitude, or sign of waveform/spectrograms
@@ -11,7 +11,7 @@ Unsupervised classification itself is performed using existing libraries:
 - dimensionality reduction: [umap](https://umap-learn.readthedocs.io/)
 - clustering: [hdbscan](https://hdbscan.readthedocs.io/) or [scikit-learn](https://scikit-learn.org/stable/modules/clustering.html)
 
-Code for the unsupervised classification can be found at [https://github.com/janclemenslab/deepss_unsupervised](https://github.com/janclemenslab/deepss_unsupervised).
+Code for the unsupervised classification can be found at [https://github.com/janclemenslab/DAS_unsupervised](https://github.com/janclemenslab/DAS_unsupervised).
 
 ## Examples
 We illustrate different pre-processing and classification strategies using three different examples
@@ -24,7 +24,7 @@ We illustrate different pre-processing and classification strategies using three
 
 
 ## Acknowledgements
-Code from the following open source packages was modified and integrated into dss-unsupervised:
+Code from the following open source packages was modified and integrated into das-unsupervised:
 
 - [avgn](https://github.com/timsainb/avgn_paper) (Sainburg et al. 2020)
 - [noisereduce](https://pypi.org/project/noisereduce)

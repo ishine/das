@@ -4,7 +4,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
     <title>Install</title>
     
@@ -41,6 +41,7 @@
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
     <script src="_static/togglebutton.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
@@ -60,7 +61,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Quick start tutorial" href="quick_start.html" />
-    <link rel="prev" title="Welcome to DeepSS" href="intro.html" />
+    <link rel="prev" title="Welcome to DAS" href="intro.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -91,7 +92,7 @@
     <ul class="nav sidenav_l1">
  <li class="toctree-l1">
   <a class="reference internal" href="intro.html">
-   Welcome to DeepSS
+   Welcome to DAS
   </a>
  </li>
 </ul>
@@ -318,10 +319,10 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#install-deepss-with-or-without-the-gui">
+  <a class="reference internal nav-link" href="#install-das-with-or-without-the-gui">
    Install
    <em>
-    DeepSS
+    DAS
    </em>
    with or without the GUI
   </a>
@@ -367,26 +368,26 @@ curl https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -o mi
 sh miniconda.sh -b -p $HOME/miniconda
 export PATH="$HOME/miniconda/bin:$PATH"
 ``` -->
-<p><strong>CUDA libraries for using the GPU</strong>: While <em>DeepSS</em> works well for annotating song using CPUs, GPUs will greatly improve annotation speed and are highly recommended for training. <em>DeepSS</em> uses Tensorflow as a  deep-learning backend. To ensure that Tensorflow can utilize the GPU, the required CUDA libraries need to be installed. See the <a class="reference external" href="https://www.tensorflow.org/install/gpu">tensorflow docs</a> for details.</p>
+<p><strong>CUDA libraries for using the GPU</strong>: While <em>DAS</em> works well for annotating song using CPUs, GPUs will greatly improve annotation speed and are highly recommended for training. <em>DAS</em> uses Tensorflow as a  deep-learning backend. To ensure that Tensorflow can utilize the GPU, the required CUDA libraries need to be installed. See the <a class="reference external" href="https://www.tensorflow.org/install/gpu">tensorflow docs</a> for details.</p>
 <p><strong>Libsoundfile on linux</strong>: If you are on linux and want to load audio from a wide range of audio formats (other than wav), then you need to install <code class="docutils literal notranslate"><span class="pre">libsndfile</span></code>. The GUI uses the <a class="reference external" href="http://pysoundfile.readthedocs.io/">soundfile</a> python package, which relies on <code class="docutils literal notranslate"><span class="pre">libsndfile</span></code>. <code class="docutils literal notranslate"><span class="pre">libsndfile</span></code> will be automatically installed on Windows and macOS. On Linux, the library needs to be installed manually with: <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">apt-get</span> <span class="pre">install</span> <span class="pre">libsndfile1</span></code>. Again, this is only required if you need to load data from more exotic audio files.</p>
-<p><strong>Visual C++ runtime on windows</strong>: This is typically installed so only required if dss fails to load the native tensorflow runtime. Download the latest version from <a class="reference external" href="https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads">here</a>.</p>
+<p><strong>Visual C++ runtime on windows</strong>: This is typically installed so only required if das fails to load the native tensorflow runtime. Download the latest version from <a class="reference external" href="https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads">here</a>.</p>
 </section>
-<section id="install-deepss-with-or-without-the-gui">
-<h2>Install <em>DeepSS</em> with or without the GUI<a class="headerlink" href="#install-deepss-with-or-without-the-gui" title="Permalink to this headline">¶</a></h2>
-<p>Create an anaconda environment called <code class="docutils literal notranslate"><span class="pre">dss</span></code> that contains all the required packages, including the GUI:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>conda env create -f https://raw.githubusercontent.com/janclemenslab/deepss/master/env/deepss_gui.yml -n dss
+<section id="install-das-with-or-without-the-gui">
+<h2>Install <em>DAS</em> with or without the GUI<a class="headerlink" href="#install-das-with-or-without-the-gui" title="Permalink to this headline">¶</a></h2>
+<p>Create an anaconda environment called <code class="docutils literal notranslate"><span class="pre">das</span></code> that contains all the required packages, including the GUI:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>conda env create -f https://raw.githubusercontent.com/janclemenslab/das/master/env/das_gui.yml -n das
 </pre></div>
 </div>
-<p>If you do not need the graphical user interface (for instance, when training <em>DeepSS</em> on a server), install the non-GUI version:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>conda env create -f https://raw.githubusercontent.com/janclemenslab/deepss/master/env/deepss_plain.yml -n dss
+<p>If you do not need the graphical user interface (for instance, when training <em>DAS</em> on a server), install the non-GUI version:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>conda env create -f https://raw.githubusercontent.com/janclemenslab/das/master/env/das_plain.yml -n das
 </pre></div>
 </div>
 </section>
 <section id="update">
 <h2>Update<a class="headerlink" href="#update" title="Permalink to this headline">¶</a></h2>
 <p>Don’t. It only causes problems in our experience. Best to install into a fresh environment than to update an existing environment. The brave can update using pip:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>conda activate dss
-pip install deepss --update  <span class="c1"># DeepSS itself</span>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>conda activate das
+pip install das --update  <span class="c1"># DAS itself</span>
 pip install xarray_behave --update  <span class="c1"># the GUI</span>
 </pre></div>
 </div>
@@ -394,34 +395,34 @@ pip install xarray_behave --update  <span class="c1"># the GUI</span>
 <section id="test-the-installation-optional">
 <h2>Test the installation (Optional)<a class="headerlink" href="#test-the-installation-optional" title="Permalink to this headline">¶</a></h2>
 <p>To quickly test the installation, run these  commands in the terminal:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>conda activate dss  <span class="c1"># activate the conda environment</span>
-dss train --help  <span class="c1"># test dss training</span>
-dss gui  <span class="c1"># start the GUI</span>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>conda activate das  <span class="c1"># activate the conda environment</span>
+das train --help  <span class="c1"># test das training</span>
+das gui  <span class="c1"># start the GUI</span>
 </pre></div>
 </div>
-<p>The second command will display the command line arguments for <code class="docutils literal notranslate"><span class="pre">dss</span> <span class="pre">train</span></code>. The last command, <code class="docutils literal notranslate"><span class="pre">dss</span> <span class="pre">gui</span></code>, will start the graphical user interface - this step will <em>not</em> work with the non-GUI install.</p>
+<p>The second command will display the command line arguments for <code class="docutils literal notranslate"><span class="pre">das</span> <span class="pre">train</span></code>. The last command, <code class="docutils literal notranslate"><span class="pre">das</span> <span class="pre">gui</span></code>, will start the graphical user interface - this step will <em>not</em> work with the non-GUI install.</p>
 </section>
 <section id="make-a-clickable-desktop-icon-optional">
 <h2>Make a clickable desktop icon (Optional)<a class="headerlink" href="#make-a-clickable-desktop-icon-optional" title="Permalink to this headline">¶</a></h2>
-<p>To start the DeepSS GUI without having to use a terminal, create a clickable startup script on the desktop.</p>
-<p>On macOS or linux, place a text file called <code class="docutils literal notranslate"><span class="pre">xb.sh</span></code> (linux) or <code class="docutils literal notranslate"><span class="pre">xb.command</span></code> (macOS) with the following content on the desktop:</p>
+<p>To start the <em>DAS</em> GUI without having to use a terminal, create a clickable startup script on the desktop.</p>
+<p>On macOS or linux, place a text file called <code class="docutils literal notranslate"><span class="pre">das.sh</span></code> (linux) or <code class="docutils literal notranslate"><span class="pre">das.command</span></code> (macOS) with the following content on the desktop:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># /bin/bash</span>
 <span class="nb">source</span> <span class="nv">$CONDA_PREFIX</span>/etc/profile.d/conda.sh
-conda activate dss
-dss gui
+conda activate das
+das gui
 </pre></div>
 </div>
-<p>Make the files executable with <code class="docutils literal notranslate"><span class="pre">chmod</span> <span class="pre">+x</span> <span class="pre">FILENAME</span></code>, where FILENAME is <code class="docutils literal notranslate"><span class="pre">xb.sh</span></code> (linux) or <code class="docutils literal notranslate"><span class="pre">xb.command</span></code> (macOS).</p>
-<p>For windows, place a text file called <code class="docutils literal notranslate"><span class="pre">xb.bat</span></code> with the following content on the desktop:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>TITLE XB
-CALL conda.bat activate dss
-dss gui
+<p>Make the files executable with <code class="docutils literal notranslate"><span class="pre">chmod</span> <span class="pre">+x</span> <span class="pre">FILENAME</span></code>, where FILENAME is <code class="docutils literal notranslate"><span class="pre">das.sh</span></code> (linux) or <code class="docutils literal notranslate"><span class="pre">das.command</span></code> (macOS).</p>
+<p>For windows, place a text file called <code class="docutils literal notranslate"><span class="pre">das.bat</span></code> with the following content on the desktop:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>TITLE DAS
+CALL conda.bat activate das
+das gui
 </pre></div>
 </div>
 </section>
 <section id="next-steps">
 <h2>Next steps<a class="headerlink" href="#next-steps" title="Permalink to this headline">¶</a></h2>
-<p>If all is working, you can now use <em>DeepSS</em> to annotate song. To get started, you will first need to train a network on your own data. For that you need annotated audio - either create new annotations <a class="reference internal" href="tutorials_gui/tutorials_gui.html"><span class="doc std std-doc">using the GUI</span></a> or convert existing annotations <a class="reference internal" href="tutorials/tutorials.html"><span class="doc std std-doc">using python scripts</span></a>.</p>
+<p>If all is working, you can now use <em>DAS</em> to annotate song. To get started, you will first need to train a network on your own data. For that you need annotated audio - either create new annotations <a class="reference internal" href="tutorials_gui/tutorials_gui.html"><span class="doc std std-doc">using the GUI</span></a> or convert existing annotations <a class="reference internal" href="tutorials/tutorials.html"><span class="doc std std-doc">using python scripts</span></a>.</p>
 </section>
 </section>
 
@@ -453,7 +454,7 @@ dss gui
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="intro.html" title="previous page">Welcome to <em>DeepSS</em></a>
+    <a class='left-prev' id="prev-link" href="intro.html" title="previous page">Welcome to <em>DAS</em></a>
     <a class='right-next' id="next-link" href="quick_start.html" title="next page">Quick start tutorial</a>
 
     </div>

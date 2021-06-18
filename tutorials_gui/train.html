@@ -4,7 +4,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
     <title>Train</title>
     
@@ -41,6 +41,7 @@
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
     <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
@@ -91,7 +92,7 @@
     <ul class="nav sidenav_l1">
  <li class="toctree-l1">
   <a class="reference internal" href="../intro.html">
-   Welcome to DeepSS
+   Welcome to DAS
   </a>
  </li>
 </ul>
@@ -318,8 +319,8 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#train-deepss-using-the-gui">
-   Train DeepSS using the GUI
+  <a class="reference internal nav-link" href="#train-das-using-the-gui">
+   Train DAS using the GUI
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
@@ -355,7 +356,7 @@
 <section id="make-a-dataset-from-exported-annotations">
 <h2>Make a dataset from exported annotations<a class="headerlink" href="#make-a-dataset-from-exported-annotations" title="Permalink to this headline">¶</a></h2>
 <p>Training requires data in a specific format in which the audio is split into different parts for use during training to optimize the network and after training to evaluate network performance. The GUI automates the generation of these datasets from audio annotated using the GUI. Alternatively, you can also <a class="reference internal" href="../tutorials/convert.html"><span class="doc std std-doc">use your existing annotations</span></a> or <a class="reference internal" href="../tutorials/make_ds_notebook.html"><span class="doc std std-doc">make a dataset yourself</span></a>. For details on the data format itself, see <a class="reference external" href="data_formats.html#dataset-for-training">here</a>.</p>
-<p>In the GUI, make a dataset via <em>DeepSS/Make dataset for training</em>. This will first ask you to select the folder with the exported audio and annotations, and then present a dialog with options for customizing the dataset creation:</p>
+<p>In the GUI, make a dataset via <em>DAS/Make dataset for training</em>. This will first ask you to select the folder with the exported audio and annotations, and then present a dialog with options for customizing the dataset creation:</p>
 <figure class="align-default" id="xb-assemble-fig">
 <a class="reference internal image-reference" href="../_images/xb_assemble.png"><img alt="assemble dataset" src="../_images/xb_assemble.png" style="width: 650px;" /></a>
 <figcaption>
@@ -363,7 +364,7 @@
 </figcaption>
 </figure>
 <ul class="simple">
-<li><p><em>Data folder</em> &amp; <em>Store folder</em>: The data folder contains your exported annotations (annotations as <code class="docutils literal notranslate"><span class="pre">*_annotations.csv</span></code>, audio as <code class="docutils literal notranslate"><span class="pre">*.npz</span></code> or <code class="docutils literal notranslate"><span class="pre">*.wav</span></code>). From these annotations, the dataset will be created and save in the store folder. By default, the store folder is the data folder with <code class="docutils literal notranslate"><span class="pre">.npy</span></code> appended. <em>Important: You can change the name of the store folder but the data folder must end in <code class="docutils literal notranslate"><span class="pre">.npy</span></code> for DeepSS to recognize the dataset.</em></p></li>
+<li><p><em>Data folder</em> &amp; <em>Store folder</em>: The data folder contains your exported annotations (annotations as <code class="docutils literal notranslate"><span class="pre">*_annotations.csv</span></code>, audio as <code class="docutils literal notranslate"><span class="pre">*.npz</span></code> or <code class="docutils literal notranslate"><span class="pre">*.wav</span></code>). From these annotations, the dataset will be created and save in the store folder. By default, the store folder is the data folder with <code class="docutils literal notranslate"><span class="pre">.npy</span></code> appended. <em>Important: You can change the name of the store folder but the data folder must end in <code class="docutils literal notranslate"><span class="pre">.npy</span></code> for DAS to recognize the dataset.</em></p></li>
 <li><p><em>Make individual training targets</em>: By default, the dataset will contain targets for a single network that recognizes all annotated song types. To be able to train a network for specific song types, enable this option. Training specific networks for individual song types, instead of a single network for all song types, can sometimes improve performance.</p></li>
 <li><p><em>Width of events (seconds)</em>: Events are defined by a single time point — to make training more robust, events should are represented by a Gaussian with specified width (standard deviation).</p></li>
 <li><p><em>Gap between segments (seconds)</em>: To simplify post processing of segments, in particular for birdsong with its many syllable types, we found that introducing brief gaps between individual syllables (segments) simplifies post-processing the inferred annotations.</p></li>
@@ -387,9 +388,9 @@
 <p>The dataset can be inspected using the <a class="reference internal" href="../tutorials/inspect_dataset.html"><span class="doc std std-doc">inspect_dataset notebook</span></a> if you are curious or if training fails.</p>
 </div>
 </section>
-<section id="train-deepss-using-the-gui">
-<h2>Train DeepSS using the GUI<a class="headerlink" href="#train-deepss-using-the-gui" title="Permalink to this headline">¶</a></h2>
-<p>Configure a network and start training via <em>DeepSS/Train</em>. This will ask you select the dataset folder ending in <code class="docutils literal notranslate"><span class="pre">.npy</span></code> that you just created. Then, a dialog will allow you to customize the network to be trained.</p>
+<section id="train-das-using-the-gui">
+<h2>Train DAS using the GUI<a class="headerlink" href="#train-das-using-the-gui" title="Permalink to this headline">¶</a></h2>
+<p>Configure a network and start training via <em>DAS/Train</em>. This will ask you select the dataset folder ending in <code class="docutils literal notranslate"><span class="pre">.npy</span></code> that you just created. Then, a dialog will allow you to customize the network to be trained.</p>
 <figure class="align-default" id="xb-train-fig">
 <a class="reference internal image-reference" href="../_images/xb_train.png"><img alt="train" src="../_images/xb_train.png" style="width: 600px;" /></a>
 <figcaption>
@@ -431,15 +432,15 @@
 <section id="train-from-the-command-line">
 <h3>Train from the command line<a class="headerlink" href="#train-from-the-command-line" title="Permalink to this headline">¶</a></h3>
 <p>The datasets are portable—you can copy the folder with the dataset to another computer with a GPU and run training from the GUI there. If that machine cannot be used with a GUI—for instance if it’s a linux server, the training and network configuration can be exported via the dialog as a command line script and executed via a terminal.</p>
-<p>The script uses the command-line interface <code class="docutils literal notranslate"><span class="pre">dss</span> <span class="pre">train</span></code> for training <em>DeepSS</em> (see also <a class="reference internal" href="../tutorials/train.html"><span class="doc std std-doc">train using command-line scripts</span></a>) and its contents will look like this:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>dss train --data-dir /Users/deepss/tutorial/gui_demo.npy --save-dir /Users/deepss/tutorial/gui_demo.res --nb-hist <span class="m">256</span> --ignore-boundaries True --nb-filters <span class="m">32</span> --kernel-size <span class="m">32</span> --nb-conv <span class="m">3</span> --use-separable False False False --learning-rate <span class="m">0</span>.0001 --nb-epoch <span class="m">400</span> --model-name tcn --no-reduce-lr  --no-tensorboard
+<p>The script uses the command-line interface <code class="docutils literal notranslate"><span class="pre">das</span> <span class="pre">train</span></code> for training <em>DAS</em> (see also <a class="reference internal" href="../tutorials/train.html"><span class="doc std std-doc">train using command-line scripts</span></a>) and its contents will look like this:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>das train --data-dir /Users/DAS/tutorial/gui_demo.npy --save-dir /Users/DAS/tutorial/gui_demo.res --nb-hist <span class="m">256</span> --ignore-boundaries True --nb-filters <span class="m">32</span> --kernel-size <span class="m">32</span> --nb-conv <span class="m">3</span> --use-separable False False False --learning-rate <span class="m">0</span>.0001 --nb-epoch <span class="m">400</span> --model-name tcn --no-reduce-lr  --no-tensorboard
 </pre></div>
 </div>
 <p>For the script to work on a different machine, it likely require some edits:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">--data-dir</span></code> needs to point to the dataset folder ending in <code class="docutils literal notranslate"><span class="pre">.npy</span></code> on the remote machine.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">--save-dir</span></code> needs to point to a valid, writable path.</p></li>
-<li><p>Add a line to activate a specific conda environment before running <code class="docutils literal notranslate"><span class="pre">dss</span> <span class="pre">train</span></code>. For instance, <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">activate</span> <span class="pre">dss</span></code>.</p></li>
+<li><p>Add a line to activate a specific conda environment before running <code class="docutils literal notranslate"><span class="pre">das</span> <span class="pre">train</span></code>. For instance, <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">activate</span> <span class="pre">das</span></code>.</p></li>
 <li><p>Activate linux modules, for instance to enable CUDA; or specify parameters for your job scheduler.</p></li>
 </ul>
 </section>

@@ -1,13 +1,13 @@
 # Convert your own annotations and audio data
 If you start from scratch---with non-annotated audio recording---use the GUI. See the [GUI tutorial](/tutorials_gui/tutorials_gui) for a description of all steps - from loading data, annotating song, making a dataset, training a network and generating annotations after training...
 
-However, often annotations exist, from old manual annotations or produced by other tools. _DeepSS_ can be used with existing annotations, by converting the existing annotations into the dss format.
+However, often annotations exist, from old manual annotations or produced by other tools. _DAS_ can be used with existing annotations, by converting the existing annotations into the das format.
 
-If audio data is in a format supported by dss (see [here](/tutorials_gui/load)), open in GUI and export to a folder. For processing large sets of recordings use the [notebook](make_ds_notebook).
+If audio data is in a format supported by das (see [here](/tutorials_gui/load)), open in GUI and export to a folder. For processing large sets of recordings use the [notebook](make_ds_notebook).
 
 
 ## Format of exported annotations and audio
-Produced by the GUI via `File/Save annotations` and `File/Export for DeepSS`.
+Produced by the GUI via `File/Save annotations` and `File/Export for DAS`.
 
 Audio and annotations are exported into `csv` (comma-separated values) and `npz` (zip compressed numpy files):
 - `npz` consist of two variables:
@@ -31,7 +31,7 @@ There are two types of song elements:
 - `events` have not extent in time, `start_seconds=stop_seconds`, and are best used for brief, pulsatile signals like fly pulse song
 - `segments` extend in time, `start_seconds>stop_seconds`, and should be used for normal syllables or fly sine song -->
 
-The `csv` format is universal and can be created and edit using Excel or even a plain text editor. It is also very easy to programmatically created `csv` files from your own annotation format in python using a [pandas DataFrames](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.to_csv.html). Below, we show an example of creating a DataFrame in the correct format from annotation data and saving it as a `csv` file for use with _DeepSS_.
+The `csv` format is universal and can be created and edit using Excel or even a plain text editor. It is also very easy to programmatically created `csv` files from your own annotation format in python using a [pandas DataFrames](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.to_csv.html). Below, we show an example of creating a DataFrame in the correct format from annotation data and saving it as a `csv` file for use with _DAS_.
 
 
 ### Examples of transforming custom annotation formats

@@ -4,7 +4,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
     <title>Annotate audio in realtime</title>
     
@@ -41,6 +41,7 @@
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
     <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
@@ -91,7 +92,7 @@
     <ul class="nav sidenav_l1">
  <li class="toctree-l1">
   <a class="reference internal" href="../intro.html">
-   Welcome to DeepSS
+   Welcome to DAS
   </a>
  </li>
 </ul>
@@ -416,8 +417,8 @@ CPUs: [PhysicalDevice(name=&#39;/physical_device:CPU:0&#39;, device_type=&#39;CP
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">config</span> InlineBackend.figure_format = &#39;jpg&#39;  # smaller mem footprint for page
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">dss.utils</span>
-<span class="kn">import</span> <span class="nn">dss.predict</span>
+<span class="kn">import</span> <span class="nn">das.utils</span>
+<span class="kn">import</span> <span class="nn">das.predict</span>
 <span class="kn">import</span> <span class="nn">scipy.signal</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">scipy.io.wavfile</span>
@@ -435,7 +436,7 @@ CPUs: [PhysicalDevice(name=&#39;/physical_device:CPU:0&#39;, device_type=&#39;CP
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model_filename</span> <span class="o">=</span> <span class="s1">&#39;models/dmel_single_rt/20200430_201821&#39;</span>
-<span class="n">model</span><span class="p">,</span> <span class="n">params</span> <span class="o">=</span> <span class="n">dss</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">load_model_and_params</span><span class="p">(</span><span class="n">model_filename</span><span class="p">)</span>
+<span class="n">model</span><span class="p">,</span> <span class="n">params</span> <span class="o">=</span> <span class="n">das</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">load_model_and_params</span><span class="p">(</span><span class="n">model_filename</span><span class="p">)</span>
 
 <span class="n">pulse_index</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;class_names&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s1">&#39;pulse&#39;</span><span class="p">)</span>
 <span class="n">sine_index</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;class_names&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s1">&#39;sine&#39;</span><span class="p">)</span>
@@ -516,7 +517,7 @@ Model expects input shape 256 samples and 1 channel(s).
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Consuming and plotting 100 chunks...&#39;</span><span class="p">)</span>
 <span class="n">recording_latencies</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
-    <span class="k">with</span> <span class="n">dss</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">Timer</span><span class="p">()</span> <span class="k">as</span> <span class="n">t</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">das</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">Timer</span><span class="p">()</span> <span class="k">as</span> <span class="n">t</span><span class="p">:</span>
         <span class="n">rec</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">mike</span><span class="p">)</span>
     <span class="n">recording_latencies</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">elapsed</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">rec</span><span class="p">)</span>
@@ -587,7 +588,7 @@ Consuming and plotting 100 chunks...
 
 <span class="k">while</span> <span class="n">runs</span> <span class="o">&lt;</span> <span class="mi">100</span><span class="p">:</span>
     <span class="n">runs</span> <span class="o">+=</span> <span class="mi">1</span>
-    <span class="k">with</span> <span class="n">dss</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">Timer</span><span class="p">()</span> <span class="k">as</span> <span class="n">dt</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">das</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">Timer</span><span class="p">()</span> <span class="k">as</span> <span class="n">dt</span><span class="p">:</span>
         <span class="n">d</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">mike</span><span class="p">)</span>  <span class="c1"># get a new chunk</span>
         <span class="n">d</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
         <span class="n">out</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># run inference on the chunk</span>

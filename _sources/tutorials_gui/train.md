@@ -6,7 +6,7 @@ Training a network involves two steps:
 ## Make a dataset from exported annotations
 Training requires data in a specific format in which the audio is split into different parts for use during training to optimize the network and after training to evaluate network performance. The GUI automates the generation of these datasets from audio annotated using the GUI. Alternatively, you can also [use your existing annotations](/tutorials/convert) or [make a dataset yourself](/tutorials/make_ds_notebook). For details on the data format itself, see [here](data_formats.html#dataset-for-training).
 
-In the GUI, make a dataset via _DeepSS/Make dataset for training_. This will first ask you to select the folder with the exported audio and annotations, and then present a dialog with options for customizing the dataset creation:
+In the GUI, make a dataset via _DAS/Make dataset for training_. This will first ask you to select the folder with the exported audio and annotations, and then present a dialog with options for customizing the dataset creation:
 
 :::{figure} xb_assemble-fig
 <img src="/images/xb_assemble.png" alt="assemble dataset" width=650>
@@ -14,7 +14,7 @@ In the GUI, make a dataset via _DeepSS/Make dataset for training_. This will fir
 Dialog for customizing a dataset for training.
 :::
 
-- _Data folder_ & _Store folder_: The data folder contains your exported annotations (annotations as `*_annotations.csv`, audio as `*.npz` or `*.wav`). From these annotations, the dataset will be created and save in the store folder. By default, the store folder is the data folder with `.npy` appended. _Important: You can change the name of the store folder but the data folder must end in `.npy` for DeepSS to recognize the dataset._
+- _Data folder_ & _Store folder_: The data folder contains your exported annotations (annotations as `*_annotations.csv`, audio as `*.npz` or `*.wav`). From these annotations, the dataset will be created and save in the store folder. By default, the store folder is the data folder with `.npy` appended. _Important: You can change the name of the store folder but the data folder must end in `.npy` for DAS to recognize the dataset._
 - _Make individual training targets_: By default, the dataset will contain targets for a single network that recognizes all annotated song types. To be able to train a network for specific song types, enable this option. Training specific networks for individual song types, instead of a single network for all song types, can sometimes improve performance.
 - _Width of events (seconds)_: Events are defined by a single time point --- to make training more robust, events should are represented by a Gaussian with specified width (standard deviation).
 - _Gap between segments (seconds)_: To simplify post processing of segments, in particular for birdsong with its many syllable types, we found that introducing brief gaps between individual syllables (segments) simplifies post-processing the inferred annotations.
@@ -31,8 +31,8 @@ Dialog for customizing a dataset for training.
 The dataset can be inspected using the [inspect_dataset notebook](/tutorials/inspect_dataset) if you are curious or if training fails.
 ```
 
-## Train DeepSS using the GUI
-Configure a network and start training via _DeepSS/Train_. This will ask you select the dataset folder ending in `.npy` that you just created. Then, a dialog will allow you to customize the network to be trained.
+## Train DAS using the GUI
+Configure a network and start training via _DAS/Train_. This will ask you select the dataset folder ending in `.npy` that you just created. Then, a dialog will allow you to customize the network to be trained.
 
 :::{figure} xb_train-fig
 <img src="/images/xb_train.png" alt="train" width=600>
@@ -71,15 +71,15 @@ Training can be started locally in a separate process or a script can be generat
 ### Train from the command line
 The datasets are portable---you can copy the folder with the dataset to another computer with a GPU and run training from the GUI there. If that machine cannot be used with a GUI---for instance if it's a linux server, the training and network configuration can be exported via the dialog as a command line script and executed via a terminal.
 
-The script uses the command-line interface `dss train` for training _DeepSS_ (see also [train using command-line scripts](/tutorials/train)) and its contents will look like this:
+The script uses the command-line interface `das train` for training _DAS_ (see also [train using command-line scripts](/tutorials/train)) and its contents will look like this:
 ```shell
-dss train --data-dir /Users/deepss/tutorial/gui_demo.npy --save-dir /Users/deepss/tutorial/gui_demo.res --nb-hist 256 --ignore-boundaries True --nb-filters 32 --kernel-size 32 --nb-conv 3 --use-separable False False False --learning-rate 0.0001 --nb-epoch 400 --model-name tcn --no-reduce-lr  --no-tensorboard
+das train --data-dir /Users/DAS/tutorial/gui_demo.npy --save-dir /Users/DAS/tutorial/gui_demo.res --nb-hist 256 --ignore-boundaries True --nb-filters 32 --kernel-size 32 --nb-conv 3 --use-separable False False False --learning-rate 0.0001 --nb-epoch 400 --model-name tcn --no-reduce-lr  --no-tensorboard
 ```
 
 For the script to work on a different machine, it likely require some edits:
 - `--data-dir` needs to point to the dataset folder ending in `.npy` on the remote machine.
 - `--save-dir` needs to point to a valid, writable path.
-- Add a line to activate a specific conda environment before running `dss train`. For instance, `conda activate dss`.
+- Add a line to activate a specific conda environment before running `das train`. For instance, `conda activate das`.
 - Activate linux modules, for instance to enable CUDA; or specify parameters for your job scheduler.
 
 ## Files generated during training

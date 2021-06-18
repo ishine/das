@@ -1,17 +1,17 @@
 # Quick start tutorial
-This quick start tutorial walks through all steps required to make _DeepSS_ work with your data, using a recording of fly song as an example. A comprehensive documentation of all menus and options can be found in the [GUI documentation](/tutorials_gui/tutorials_gui).
+This quick start tutorial walks through all steps required to make _DAS_ work with your data, using a recording of fly song as an example. A comprehensive documentation of all menus and options can be found in the [GUI documentation](/tutorials_gui/tutorials_gui).
 
-In the tutorial, we will train _DeepSS_ using an iterative and adaptive protocol that allows to quickly create a large dataset of annotations: Annotate a few song events, fast-train a network on those annotations, and then use that network to predict new annotations on a larger part of the recording. Initial, these predictions require manually correction, but correcting is typically much faster than annotating everything from scratch. This correct-train-predict cycle is then repeated with ever larger datasets until network performance is satisfactory.
+In the tutorial, we will train _DAS_ using an iterative and adaptive protocol that allows to quickly create a large dataset of annotations: Annotate a few song events, fast-train a network on those annotations, and then use that network to predict new annotations on a larger part of the recording. Initial, these predictions require manually correction, but correcting is typically much faster than annotating everything from scratch. This correct-train-predict cycle is then repeated with ever larger datasets until network performance is satisfactory.
 
 ## Download example data
-To follow the tutorial, download and open this [audio file](https://github.com/janclemenslab/deepss/releases/download/data/Dmel_male.wav). The recording is of a _Drosophila melanogaster_ male courting a female, recorded by David Stern (Janelia, part of [this dataset](https://www.janelia.org/lab/stern-lab/tools-reagents-data)). We will walk through loading, annotating, training and predicting using this file as an example.
+To follow the tutorial, download and open this [audio file](https://github.com/janclemenslab/DAS/releases/download/data/Dmel_male.wav). The recording is of a _Drosophila melanogaster_ male courting a female, recorded by David Stern (Janelia, part of [this dataset](https://www.janelia.org/lab/stern-lab/tools-reagents-data)). We will walk through loading, annotating, training and predicting using this file as an example.
 
 ## Start the GUI
 
-Install _DeepSS_ following these [instructions](/install). Then start the GUI by opening a terminal, activating the conda environment created during install and typing `dss gui`:
+Install _DAS_ following these [instructions](/install). Then start the GUI by opening a terminal, activating the conda environment created during install and typing `das gui`:
 ```shell
-conda activate dss
-dss gui
+conda activate das
+das gui
 ```
 
 The following window should open:
@@ -35,7 +35,7 @@ Loading screen.
 :::
 
 ## Waveform and spectrogram display
-Laoding the audio will open a window that displays the first second of audio as a waveform (top) and a spectrogram (bottom). You will see the two major modes of fly song---pulse and sine. The recording starts with sine song---a relatively soft oscillation resulting in a spectral power at ~150Hz. Pulse song starts after ~0.75 seconds, evident as trains of brief wavelets with a regular interval.
+Loading the audio will open a window that displays the first second of audio as a waveform (top) and a spectrogram (bottom). You will see the two major modes of fly song---pulse and sine. The recording starts with sine song---a relatively soft oscillation resulting in a spectral power at ~150Hz. Pulse song starts after ~0.75 seconds, evident as trains of brief wavelets with a regular interval.
 
 To navigate the view: Move forward/backward along the time axis via the `A`/`D` keys and zoom in/out the time axis with the `W`/`S` keys (see also the _Playback_ menu). The temporal and frequency resolution of the spectrogram can be adjusted with the `R` and `T` keys.
 
@@ -49,7 +49,7 @@ Waveform (top) and spectrogram (bottom) display of a single-channel recording of
 
 
 ## Initialize or edit song types
-Before you can annotate song, you need to register the sine and pulse song types for annotation. _DeepSS_ discriminates two principal categories of song types:
+Before you can annotate song, you need to register the sine and pulse song types for annotation. _DAS_ discriminates two principal categories of song types:
 - _Events_ are defined by a single time of occurrence. The aforementioned pulse song is a song type of the event category.
 - _Segments_ are song types that extend over time and are defined by a start and a stop time. The aforementioned sine song and the syllables of mouse and bird vocalizations fall into the segment category.
 
@@ -94,9 +94,9 @@ Dragging moves, right click deletes annotations.
 :::
 
 ## Export annotations and make a dataset
-_DeepSS_ achieves good performance with little manual annotation. Once you have completely annotated the song in the first 18 seconds of the tutorial recording---a couple of pulse trains and sine song segments---you can train a network to help with annotating the rest of the data.
+_DAS_ achieves good performance with little manual annotation. Once you have completely annotated the song in the first 18 seconds of the tutorial recording---a couple of pulse trains and sine song segments---you can train a network to help with annotating the rest of the data.
 
-Trainining requires the audio data and the annotations to be in a specific dataset format. First, export the audio data and the annotations via `File/Export for DeepSS` to a new folder (not the one containing the original audio)---let's call the folder `quickstart`. In the following dialog set start seconds and end seconds to the annotated time range - 0 and 18 seconds, respectively.
+Trainining requires the audio data and the annotations to be in a specific dataset format. First, export the audio data and the annotations via `File/Export for DAS` to a new folder (not the one containing the original audio)---let's call the folder `quickstart`. In the following dialog set start seconds and end seconds to the annotated time range - 0 and 18 seconds, respectively.
 
 :::{figure} xb_export-fig
 <img src="/images/xb_quick_export.png" alt="export audio and annotations" width=450>
@@ -104,7 +104,7 @@ Trainining requires the audio data and the annotations to be in a specific datas
 Export audio data and annotations for the annotated range between 0 and 18 seconds.
 :::
 
-Then make a dataset, via _DeepSS/Make dataset for training_. In the file dialog, select the `quickstart` folder you exported your annotations into. In the next dialog, we will adjust how data is split into training, validation and testing data. For the small data set annotated in the first step of this tutorial, we will not test the model. To maximize the data available for optimizing the network (training and validation), set the test split to 0.0 (not test) and the validation split to 40:
+Then make a dataset, via _DAS/Make dataset for training_. In the file dialog, select the `quickstart` folder you exported your annotations into. In the next dialog, we will adjust how data is split into training, validation and testing data. For the small data set annotated in the first step of this tutorial, we will not test the model. To maximize the data available for optimizing the network (training and validation), set the test split to 0.0 (not test) and the validation split to 40:
 
 :::{figure} xb_assemble-fig
 <img src="/images/xb_quick_make_ds.png" alt="assemble dataset" width=600>
@@ -115,7 +115,7 @@ Make a dataset for training.
 This will create a dataset folder called `quickstart.npy` that contains the audio data and the annotations read for training.
 
 ## Fast training
-Configure a network and start training via _DeepSS/Train_. This will ask you select the dataset folder, `quickstart.npy`. Then, a dialog allows you to configure the network. For the fast training change the following:
+Configure a network and start training via _DAS/Train_. This will ask you select the dataset folder, `quickstart.npy`. Then, a dialog allows you to configure the network. For the fast training change the following:
 - Set both `Number of filters` and `Filter duration (seconds)` to 16. This will result in a smaller network with fewer parameters, which will be faster to train and requires fewer annotations to achieve adequate performance.
 - Set `Number of epochs` to 10, to finish training earlier.
 :::{figure} xb_train-fig
@@ -127,7 +127,7 @@ Train options
 Then hit `Start training in GUI` - this will start training in a background process. Monitor training progress in the terminal. Training with this small dataset will finish within fewer than 10 minutes on a CPU and within 2 minutes on a GPU. For larger datasets, we highly recommend training on a machine with a discrete Nvidia GPU.
 
 ## Predict
-Once training finished, generate annotations using the trained network via _DeepSS/Predict_. This will ask you to select a model file containing the trained. Training creates files in the `quickstart.res` folder, starting with the time stamp of training---select the file ending in `_model.h5`.
+Once training finished, generate annotations using the trained network via _DAS/Predict_. This will ask you to select a model file containing the trained. Training creates files in the `quickstart.res` folder, starting with the time stamp of training---select the file ending in `_model.h5`.
 
 In the next dialog, predict song for 60 seconds starting after your manual annotations:
 - Set `Start seconds` to 18 and `End seconds` to 78.

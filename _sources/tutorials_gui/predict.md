@@ -1,5 +1,5 @@
 # Predict
-Once training finished, generate annotations using the trained network via _DeepSS/Predict_. In contrast to training, prediction is very fast and does not require a GPU - if you trained the network remotely on a machine with a GPU, copy the generated files ending in `_model.h5` and `_params.yaml` to your local machine.
+Once training finished, generate annotations using the trained network via _DAS/Predict_. In contrast to training, prediction is very fast and does not require a GPU - if you trained the network remotely on a machine with a GPU, copy the generated files ending in `_model.h5` and `_params.yaml` to your local machine.
 
 :::{figure} xb_predict-fig
 <img src="/images/xb_predict.png" alt="predict" width=750>

@@ -1,7 +1,7 @@
 # Annotate song
 
 ## Initialize or edit song types
-Song types need to be "registered" for annotation. _DeepSS_ discriminates two categories of song types:
+Song types need to be "registered" for annotation. _DAS_ discriminates two categories of song types:
 - _Events_ are defined by a single time of occurrence. _Drosophila_ pulse song is a song type of the event category.
 - _Segments_ are song types that extend over time and are defined by a start and a stop time. _Drosophila_  sine song and the syllables of mouse and bird vocalizations fall into the segment category.
 
@@ -50,7 +50,7 @@ Dragging moves, right click deletes annotations.
 :::
 
 ## Export and save annotations
-Export audio data and annotations for integration into a training dataset via `File/Export for DeepSS`. This will first ask you to select a folder. When making a training dataset, all exported data in the folder will be used, so make sure you do not save data from different projects to the same folder:
+Export audio data and annotations for integration into a training dataset via `File/Export for DAS`. This will first ask you to select a folder. When making a training dataset, all exported data in the folder will be used, so make sure you do not save data from different projects to the same folder:
 
 :::{figure} xb_assemble-fig
 <img src="/images/xb_export.png" alt="export audio and annotations" width=500>

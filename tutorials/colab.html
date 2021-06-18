@@ -4,7 +4,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
     <title>Training and inference with colab</title>
     
@@ -41,6 +41,7 @@
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
     <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
@@ -91,7 +92,7 @@
     <ul class="nav sidenav_l1">
  <li class="toctree-l1">
   <a class="reference internal" href="../intro.html">
-   Welcome to DeepSS
+   Welcome to DAS
   </a>
  </li>
 </ul>
@@ -352,15 +353,15 @@
                 
   <section id="training-and-inference-with-colab">
 <h1>Training and inference with colab<a class="headerlink" href="#training-and-inference-with-colab" title="Permalink to this headline">¶</a></h1>
-<p><a class="reference external" href="https://colab.research.google.com">Google colab</a> is a free server for running notebooks with GPU/TPU support - this is a great way to use <em>DeepSS</em> if you do not have a computer with a GPU.</p>
+<p><a class="reference external" href="https://colab.research.google.com">Google colab</a> is a free server for running notebooks with GPU/TPU support - this is a great way to use <em>DAS</em> if you do not have a computer with a GPU.</p>
 <p>This notebook demonstrates</p>
 <ul class="simple">
-<li><p>how to setup <em>DeepSS</em></p></li>
+<li><p>how to setup <em>DAS</em></p></li>
 <li><p>how to load your own datasets</p></li>
 <li><p>how to train a network and then use that network to label a new audio recording.</p></li>
 </ul>
 <p>Open and edit this notebook in colab by clicking this badge:</p>
-<p><a class="reference external" href="https://colab.research.google.com/github/janclemenslab/deepss_docs/blob/master/docs/tutorials/colab.ipynb"><img alt="Open In Colab" src="https://colab.research.google.com/assets/colab-badge.svg" /></a></p>
+<p><a class="reference external" href="https://colab.research.google.com/github/janclemenslab/DAS_docs/blob/master/docs/tutorials/colab.ipynb"><img alt="Open In Colab" src="https://colab.research.google.com/assets/colab-badge.svg" /></a></p>
 <p>Let’s make sure we are using tensorflow v2+</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -369,16 +370,16 @@
 </div>
 </div>
 </div>
-<p>Install <em>DeepSS</em>:</p>
+<p>Install <em>DAS</em>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip install deepss
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip install DAS
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting deepss
-?25l  Downloading https://files.pythonhosted.org/packages/f1/87/d9f503b45fe5d34a138ced6d9de238b10b3297e2adf467b407400074becf/deepss-0.16.0-py3-none-any.whl (69kB)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting DAS
+?25l  Downloading https://files.pythonhosted.org/packages/f1/87/d9f503b45fe5d34a138ced6d9de238b10b3297e2adf467b407400074becf/DAS-0.16.0-py3-none-any.whl (69kB)
 
      |████▊                           | 10kB 26.3MB/s eta 0:00:01
      |█████████▍                      | 20kB 33.2MB/s eta 0:00:01
@@ -389,42 +390,42 @@
      |████████████████████████████████| 71kB 4.4MB/s 
 ?25hCollecting flammkuchen
   Downloading https://files.pythonhosted.org/packages/e7/a1/302fde5b5a2217f488893d73e3f556f1fc6379beb179faf9f39eecf20e8f/flammkuchen-0.9.2-py2.py3-none-any.whl
-Requirement already satisfied: librosa in /usr/local/lib/python3.6/dist-packages (from deepss) (0.6.3)
-Requirement already satisfied: numpy in /usr/local/lib/python3.6/dist-packages (from deepss) (1.18.5)
-Requirement already satisfied: pyyaml in /usr/local/lib/python3.6/dist-packages (from deepss) (3.13)
-Requirement already satisfied: matplotlib in /usr/local/lib/python3.6/dist-packages (from deepss) (3.2.2)
+Requirement already satisfied: librosa in /usr/local/lib/python3.6/dist-packages (from DAS) (0.6.3)
+Requirement already satisfied: numpy in /usr/local/lib/python3.6/dist-packages (from DAS) (1.18.5)
+Requirement already satisfied: pyyaml in /usr/local/lib/python3.6/dist-packages (from DAS) (3.13)
+Requirement already satisfied: matplotlib in /usr/local/lib/python3.6/dist-packages (from DAS) (3.2.2)
 Collecting peakutils
   Downloading https://files.pythonhosted.org/packages/0a/11/6416c8aebba4d5f73e23e1f070a419a8944f3ba17eed9efdf9cdc95f0411/PeakUtils-1.3.3-py3-none-any.whl
 Collecting matplotlib_scalebar
   Downloading https://files.pythonhosted.org/packages/89/ba/46ae95cc9d2c49f2d13ec6f4322f06a5e7621bee03685fab59c64f321afd/matplotlib_scalebar-0.6.2-py2.py3-none-any.whl
-Requirement already satisfied: sklearn in /usr/local/lib/python3.6/dist-packages (from deepss) (0.0)
+Requirement already satisfied: sklearn in /usr/local/lib/python3.6/dist-packages (from DAS) (0.0)
 Collecting defopt
   Downloading https://files.pythonhosted.org/packages/2f/a6/17700394dddbf65f7c84bcee0c99aae6eb581ae3882c6e0eb26cfd23cfaa/defopt-6.0.2.tar.gz
-Requirement already satisfied: scipy in /usr/local/lib/python3.6/dist-packages (from deepss) (1.4.1)
-Requirement already satisfied: pandas in /usr/local/lib/python3.6/dist-packages (from deepss) (1.1.5)
-Requirement already satisfied: h5py in /usr/local/lib/python3.6/dist-packages (from deepss) (2.10.0)
+Requirement already satisfied: scipy in /usr/local/lib/python3.6/dist-packages (from DAS) (1.4.1)
+Requirement already satisfied: pandas in /usr/local/lib/python3.6/dist-packages (from DAS) (1.1.5)
+Requirement already satisfied: h5py in /usr/local/lib/python3.6/dist-packages (from DAS) (2.10.0)
 Collecting zarr
 ?25l  Downloading https://files.pythonhosted.org/packages/60/67/d69a3fcd34254df8dce23e1a4d570509f8a373fc58e40cb8681cf26795f6/zarr-2.6.1-py3-none-any.whl (132kB)
      |████████████████████████████████| 133kB 20.5MB/s 
-?25hRequirement already satisfied: tables in /usr/local/lib/python3.6/dist-packages (from flammkuchen-&gt;deepss) (3.4.4)
-Requirement already satisfied: scikit-learn!=0.19.0,&gt;=0.14.0 in /usr/local/lib/python3.6/dist-packages (from librosa-&gt;deepss) (0.22.2.post1)
-Requirement already satisfied: joblib&gt;=0.12 in /usr/local/lib/python3.6/dist-packages (from librosa-&gt;deepss) (0.17.0)
-Requirement already satisfied: resampy&gt;=0.2.0 in /usr/local/lib/python3.6/dist-packages (from librosa-&gt;deepss) (0.2.2)
-Requirement already satisfied: decorator&gt;=3.0.0 in /usr/local/lib/python3.6/dist-packages (from librosa-&gt;deepss) (4.4.2)
-Requirement already satisfied: audioread&gt;=2.0.0 in /usr/local/lib/python3.6/dist-packages (from librosa-&gt;deepss) (2.1.9)
-Requirement already satisfied: six&gt;=1.3 in /usr/local/lib/python3.6/dist-packages (from librosa-&gt;deepss) (1.15.0)
-Requirement already satisfied: numba&gt;=0.38.0 in /usr/local/lib/python3.6/dist-packages (from librosa-&gt;deepss) (0.48.0)
-Requirement already satisfied: cycler&gt;=0.10 in /usr/local/lib/python3.6/dist-packages (from matplotlib-&gt;deepss) (0.10.0)
-Requirement already satisfied: kiwisolver&gt;=1.0.1 in /usr/local/lib/python3.6/dist-packages (from matplotlib-&gt;deepss) (1.3.1)
-Requirement already satisfied: python-dateutil&gt;=2.1 in /usr/local/lib/python3.6/dist-packages (from matplotlib-&gt;deepss) (2.8.1)
-Requirement already satisfied: pyparsing!=2.0.4,!=2.1.2,!=2.1.6,&gt;=2.0.1 in /usr/local/lib/python3.6/dist-packages (from matplotlib-&gt;deepss) (2.4.7)
-Requirement already satisfied: docutils&gt;=0.10 in /usr/local/lib/python3.6/dist-packages (from defopt-&gt;deepss) (0.16)
+?25hRequirement already satisfied: tables in /usr/local/lib/python3.6/dist-packages (from flammkuchen-&gt;DAS) (3.4.4)
+Requirement already satisfied: scikit-learn!=0.19.0,&gt;=0.14.0 in /usr/local/lib/python3.6/dist-packages (from librosa-&gt;DAS) (0.22.2.post1)
+Requirement already satisfied: joblib&gt;=0.12 in /usr/local/lib/python3.6/dist-packages (from librosa-&gt;DAS) (0.17.0)
+Requirement already satisfied: resampy&gt;=0.2.0 in /usr/local/lib/python3.6/dist-packages (from librosa-&gt;DAS) (0.2.2)
+Requirement already satisfied: decorator&gt;=3.0.0 in /usr/local/lib/python3.6/dist-packages (from librosa-&gt;DAS) (4.4.2)
+Requirement already satisfied: audioread&gt;=2.0.0 in /usr/local/lib/python3.6/dist-packages (from librosa-&gt;DAS) (2.1.9)
+Requirement already satisfied: six&gt;=1.3 in /usr/local/lib/python3.6/dist-packages (from librosa-&gt;DAS) (1.15.0)
+Requirement already satisfied: numba&gt;=0.38.0 in /usr/local/lib/python3.6/dist-packages (from librosa-&gt;DAS) (0.48.0)
+Requirement already satisfied: cycler&gt;=0.10 in /usr/local/lib/python3.6/dist-packages (from matplotlib-&gt;DAS) (0.10.0)
+Requirement already satisfied: kiwisolver&gt;=1.0.1 in /usr/local/lib/python3.6/dist-packages (from matplotlib-&gt;DAS) (1.3.1)
+Requirement already satisfied: python-dateutil&gt;=2.1 in /usr/local/lib/python3.6/dist-packages (from matplotlib-&gt;DAS) (2.8.1)
+Requirement already satisfied: pyparsing!=2.0.4,!=2.1.2,!=2.1.6,&gt;=2.0.1 in /usr/local/lib/python3.6/dist-packages (from matplotlib-&gt;DAS) (2.4.7)
+Requirement already satisfied: docutils&gt;=0.10 in /usr/local/lib/python3.6/dist-packages (from defopt-&gt;DAS) (0.16)
 Collecting sphinxcontrib-napoleon&gt;=0.7.0
   Downloading https://files.pythonhosted.org/packages/75/f2/6b7627dfe7b4e418e295e254bb15c3a6455f11f8c0ad0d43113f678049c3/sphinxcontrib_napoleon-0.7-py2.py3-none-any.whl
-Requirement already satisfied: typing_extensions&gt;=3.7.4 in /usr/local/lib/python3.6/dist-packages (from defopt-&gt;deepss) (3.7.4.3)
+Requirement already satisfied: typing_extensions&gt;=3.7.4 in /usr/local/lib/python3.6/dist-packages (from defopt-&gt;DAS) (3.7.4.3)
 Collecting typing_inspect&gt;=0.3.1
   Downloading https://files.pythonhosted.org/packages/42/1c/66402db44184904a2f14722d317a4da0b5c8c78acfc3faf74362566635c5/typing_inspect-0.6.0-py3-none-any.whl
-Requirement already satisfied: pytz&gt;=2017.2 in /usr/local/lib/python3.6/dist-packages (from pandas-&gt;deepss) (2018.9)
+Requirement already satisfied: pytz&gt;=2017.2 in /usr/local/lib/python3.6/dist-packages (from pandas-&gt;DAS) (2018.9)
 Collecting numcodecs&gt;=0.6.4
 ?25l  Downloading https://files.pythonhosted.org/packages/94/dc/0b7ae820c6c5f3a8b79912ec43dd9a1305e33970a05d3c02a1e8203ead9c/numcodecs-0.7.2-cp36-cp36m-manylinux2010_x86_64.whl (5.8MB)
      |████████████████████████████████| 5.8MB 12.5MB/s 
@@ -432,9 +433,9 @@ Collecting numcodecs&gt;=0.6.4
   Downloading https://files.pythonhosted.org/packages/18/bd/55eb2d6397b9c0e263af9d091ebdb756b15756029b3cededf6461481bc63/fasteners-0.15-py2.py3-none-any.whl
 Collecting asciitree
   Downloading https://files.pythonhosted.org/packages/2d/6a/885bc91484e1aa8f618f6f0228d76d0e67000b0fdd6090673b777e311913/asciitree-0.3.3.tar.gz
-Requirement already satisfied: numexpr&gt;=2.5.2 in /usr/local/lib/python3.6/dist-packages (from tables-&gt;flammkuchen-&gt;deepss) (2.7.1)
-Requirement already satisfied: llvmlite&lt;0.32.0,&gt;=0.31.0dev0 in /usr/local/lib/python3.6/dist-packages (from numba&gt;=0.38.0-&gt;librosa-&gt;deepss) (0.31.0)
-Requirement already satisfied: setuptools in /usr/local/lib/python3.6/dist-packages (from numba&gt;=0.38.0-&gt;librosa-&gt;deepss) (50.3.2)
+Requirement already satisfied: numexpr&gt;=2.5.2 in /usr/local/lib/python3.6/dist-packages (from tables-&gt;flammkuchen-&gt;DAS) (2.7.1)
+Requirement already satisfied: llvmlite&lt;0.32.0,&gt;=0.31.0dev0 in /usr/local/lib/python3.6/dist-packages (from numba&gt;=0.38.0-&gt;librosa-&gt;DAS) (0.31.0)
+Requirement already satisfied: setuptools in /usr/local/lib/python3.6/dist-packages (from numba&gt;=0.38.0-&gt;librosa-&gt;DAS) (50.3.2)
 Collecting pockets&gt;=0.3
   Downloading https://files.pythonhosted.org/packages/e9/2f/a4583c70fbd8cd04910e2884bcc2bdd670e884061f7b4d70bc13e632a993/pockets-0.9.1-py2.py3-none-any.whl
 Collecting mypy-extensions&gt;=0.3.0
@@ -449,8 +450,8 @@ Building wheels for collected packages: defopt, asciitree
   Created wheel for asciitree: filename=asciitree-0.3.3-cp36-none-any.whl size=5038 sha256=393ac8e6811ddb295bcdb591e895721cce1b958bddb4c5e1d5edebba92acdec5
   Stored in directory: /root/.cache/pip/wheels/1d/d9/58/9808b306744df0208fccc640d3d9952a5bc7468502d42897d5
 Successfully built defopt asciitree
-Installing collected packages: flammkuchen, peakutils, matplotlib-scalebar, pockets, sphinxcontrib-napoleon, mypy-extensions, typing-inspect, defopt, numcodecs, monotonic, fasteners, asciitree, zarr, deepss
-Successfully installed asciitree-0.3.3 deepss-0.16.0 defopt-6.0.2 fasteners-0.15 flammkuchen-0.9.2 matplotlib-scalebar-0.6.2 monotonic-1.5 mypy-extensions-0.4.3 numcodecs-0.7.2 peakutils-1.3.3 pockets-0.9.1 sphinxcontrib-napoleon-0.7 typing-inspect-0.6.0 zarr-2.6.1
+Installing collected packages: flammkuchen, peakutils, matplotlib-scalebar, pockets, sphinxcontrib-napoleon, mypy-extensions, typing-inspect, defopt, numcodecs, monotonic, fasteners, asciitree, zarr, DAS
+Successfully installed asciitree-0.3.3 DAS-0.16.0 defopt-6.0.2 fasteners-0.15 flammkuchen-0.9.2 matplotlib-scalebar-0.6.2 monotonic-1.5 mypy-extensions-0.4.3 numcodecs-0.7.2 peakutils-1.3.3 pockets-0.9.1 sphinxcontrib-napoleon-0.7 typing-inspect-0.6.0 zarr-2.6.1
 </pre></div>
 </div>
 </div>
@@ -458,7 +459,7 @@ Successfully installed asciitree-0.3.3 deepss-0.16.0 defopt-6.0.2 fasteners-0.15
 <p>Import all the things:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">dss.train</span><span class="o">,</span> <span class="nn">dss.predict</span><span class="o">,</span> <span class="nn">dss.utils</span><span class="o">,</span> <span class="nn">dss.npy_dir</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">das.train</span><span class="o">,</span> <span class="nn">das.predict</span><span class="o">,</span> <span class="nn">das.utils</span><span class="o">,</span> <span class="nn">das.npy_dir</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">flammkuchen</span>
 <span class="kn">import</span> <span class="nn">logging</span>
@@ -488,7 +489,7 @@ Successfully installed asciitree-0.3.3 deepss-0.16.0 defopt-6.0.2 fasteners-0.15
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">path_to_data</span> <span class="o">=</span> <span class="s1">&#39;/content/drive/MyDrive/Dmoj.wrigleyi.npy&#39;</span>  <span class="c1"># &#39;/content/drive/MyDrive/tutorial_dataset.npy&#39; </span>
 
-<span class="n">dss</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">model_name</span><span class="o">=</span><span class="s1">&#39;tcn&#39;</span><span class="p">,</span>
+<span class="n">das</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">model_name</span><span class="o">=</span><span class="s1">&#39;tcn&#39;</span><span class="p">,</span>
                 <span class="n">data_dir</span><span class="o">=</span><span class="n">path_to_data</span><span class="p">,</span>
                 <span class="n">save_dir</span><span class="o">=</span><span class="s1">&#39;res&#39;</span><span class="p">,</span>
                 <span class="n">nb_hist</span><span class="o">=</span><span class="mi">1024</span><span class="p">,</span>
@@ -1007,8 +1008,8 @@ Epoch 00035: val_loss did not improve from 0.04022
 <p>Load a new recording for prediction</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="p">,</span> <span class="n">params</span> <span class="o">=</span> <span class="n">dss</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">load_model_and_params</span><span class="p">(</span><span class="n">res_name</span><span class="p">)</span>  <span class="c1"># load the model and runtime parameters</span>
-<span class="n">ds</span> <span class="o">=</span> <span class="n">dss</span><span class="o">.</span><span class="n">npy_dir</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;/content/drive/MyDrive/Dmoj.wrigleyi.npy&#39;</span><span class="p">,</span> <span class="n">memmap_dirs</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;train&#39;</span><span class="p">,</span><span class="s1">&#39;val&#39;</span><span class="p">])</span>  <span class="c1"># load the new data</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="p">,</span> <span class="n">params</span> <span class="o">=</span> <span class="n">das</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">load_model_and_params</span><span class="p">(</span><span class="n">res_name</span><span class="p">)</span>  <span class="c1"># load the model and runtime parameters</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">das</span><span class="o">.</span><span class="n">npy_dir</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;/content/drive/MyDrive/Dmoj.wrigleyi.npy&#39;</span><span class="p">,</span> <span class="n">memmap_dirs</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;train&#39;</span><span class="p">,</span><span class="s1">&#39;val&#39;</span><span class="p">])</span>  <span class="c1"># load the new data</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">ds</span><span class="p">)</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="s1">&#39;test&#39;</span><span class="p">][</span><span class="s1">&#39;x&#39;</span><span class="p">]</span>
 </pre></div>
@@ -1047,7 +1048,7 @@ Attributes:
 <p>Run inference - this will calculate the confidence score and extract segment boundaries and event times.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">events</span><span class="p">,</span> <span class="n">segments</span><span class="p">,</span> <span class="n">class_probabilities</span> <span class="o">=</span> <span class="n">dss</span><span class="o">.</span><span class="n">predict</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">prepend_padding</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">events</span><span class="p">,</span> <span class="n">segments</span><span class="p">,</span> <span class="n">class_probabilities</span> <span class="o">=</span> <span class="n">das</span><span class="o">.</span><span class="n">predict</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">prepend_padding</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>

@@ -4,7 +4,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
     <title>Evaluate a bird song network</title>
     
@@ -41,6 +41,7 @@
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
     <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
@@ -91,7 +92,7 @@
     <ul class="nav sidenav_l1">
  <li class="toctree-l1">
   <a class="reference internal" href="../intro.html">
-   Welcome to DeepSS
+   Welcome to DAS
   </a>
  </li>
 </ul>
@@ -392,7 +393,7 @@
 <span class="kn">import</span> <span class="nn">scipy.stats</span>
 <span class="kn">from</span> <span class="nn">matplotlib.colors</span> <span class="kn">import</span> <span class="n">ListedColormap</span>
 
-<span class="kn">import</span> <span class="nn">dss.utils</span><span class="o">,</span> <span class="nn">dss.utils_plot</span><span class="o">,</span> <span class="nn">dss.predict</span><span class="o">,</span> <span class="nn">dss.data</span><span class="o">,</span> <span class="nn">dss.models</span><span class="o">,</span> <span class="nn">dss.train</span><span class="o">,</span> <span class="nn">dss.io</span><span class="o">,</span> <span class="nn">dss.evaluate</span><span class="o">,</span> <span class="nn">dss.segment_utils</span>
+<span class="kn">import</span> <span class="nn">das.utils</span><span class="o">,</span> <span class="nn">das.utils_plot</span><span class="o">,</span> <span class="nn">das.predict</span><span class="o">,</span> <span class="nn">das.data</span><span class="o">,</span> <span class="nn">das.models</span><span class="o">,</span> <span class="nn">das.train</span><span class="o">,</span> <span class="nn">das.io</span><span class="o">,</span> <span class="nn">das.evaluate</span><span class="o">,</span> <span class="nn">das.segment_utils</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;ncb.mplstyle&#39;</span><span class="p">)</span>
 </pre></div>
@@ -403,8 +404,8 @@
 <h2>Load data<a class="headerlink" href="#load-data" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">savename</span> <span class="o">=</span> <span class="s1">&#39;/Users/janc/Dropbox/dss.paper/sober/20200418_215107&#39;</span>
-<span class="n">params</span> <span class="o">=</span> <span class="n">dss</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">load_params</span><span class="p">(</span><span class="n">savename</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">savename</span> <span class="o">=</span> <span class="s1">&#39;/Users/janc/Dropbox/das.paper/sober/20200418_215107&#39;</span>
+<span class="n">params</span> <span class="o">=</span> <span class="n">das</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">load_params</span><span class="p">(</span><span class="n">savename</span><span class="p">)</span>
 <span class="n">store</span> <span class="o">=</span> <span class="n">zarr</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">savename</span> <span class="o">+</span> <span class="s1">&#39;.zarr&#39;</span><span class="p">)</span>
 
 <span class="n">fs</span> <span class="o">=</span> <span class="mi">32_000</span>  <span class="c1"># Hz</span>
@@ -416,13 +417,13 @@
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">save_name</span> <span class="o">=</span> <span class="s1">&#39;/Users/janc/Dropbox/dss.paper/models/sober_allInd/20200418_215107&#39;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">save_name</span> <span class="o">=</span> <span class="s1">&#39;/Users/janc/Dropbox/das.paper/models/sober_allInd/20200418_215107&#39;</span>
 
 <span class="n">gap_dur</span> <span class="o">=</span> <span class="mi">5</span> <span class="o">/</span> <span class="mi">1000</span>  <span class="c1"># 5 ms</span>
 <span class="n">min_len</span> <span class="o">=</span> <span class="mi">30</span> <span class="o">/</span> <span class="mi">1000</span>  <span class="c1"># 30 ms</span>
 
 <span class="c1"># x_test = store[&#39;x_test&#39;][:]</span>
-<span class="c1"># events, segments, y_pred = dss.predict.predict(x_test[:fs * 500], model_save_name=save_name, verbose=1, segment_minlen=min_len, segment_fillgap=gap_dur)</span>
+<span class="c1"># events, segments, y_pred = das.predict.predict(x_test[:fs * 500], model_save_name=save_name, verbose=1, segment_minlen=min_len, segment_fillgap=gap_dur)</span>
 <span class="c1"># np.save(&#39;confidence_scores.npy&#39;, y_pred)</span>
 
 <span class="n">y_pred</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;confidence_scores.npy&#39;</span><span class="p">)</span><span class="c1">#[:1_000_000]</span>
@@ -439,17 +440,17 @@
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># get true syllable labels from predictions</span>
-<span class="n">_</span><span class="p">,</span> <span class="n">segments_pred</span> <span class="o">=</span> <span class="n">dss</span><span class="o">.</span><span class="n">predict</span><span class="o">.</span><span class="n">predict_song</span><span class="p">(</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> 
+<span class="n">_</span><span class="p">,</span> <span class="n">segments_pred</span> <span class="o">=</span> <span class="n">das</span><span class="o">.</span><span class="n">predict</span><span class="o">.</span><span class="n">predict_song</span><span class="p">(</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> 
                                             <span class="n">segment_minlen</span><span class="o">=</span><span class="n">min_len</span><span class="p">,</span>
                                             <span class="n">segment_fillgap</span><span class="o">=</span><span class="n">gap_dur</span><span class="p">)</span>
 
 <span class="c1"># get true syllable labels from training targets</span>
-<span class="n">_</span><span class="p">,</span> <span class="n">segments_test</span> <span class="o">=</span> <span class="n">dss</span><span class="o">.</span><span class="n">predict</span><span class="o">.</span><span class="n">predict_song</span><span class="p">(</span><span class="n">labels_test</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span>
+<span class="n">_</span><span class="p">,</span> <span class="n">segments_test</span> <span class="o">=</span> <span class="n">das</span><span class="o">.</span><span class="n">predict</span><span class="o">.</span><span class="n">predict_song</span><span class="p">(</span><span class="n">labels_test</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span>
                                             <span class="n">segment_minlen</span><span class="o">=</span><span class="n">min_len</span><span class="p">,</span>
                                             <span class="n">segment_fillgap</span><span class="o">=</span><span class="n">gap_dur</span><span class="p">)</span>
 
 <span class="c1"># re-run, using the on- and offsets of predicted syllables as a reference for determining the &quot;true&quot; labels</span>
-<span class="n">_</span><span class="p">,</span> <span class="n">segments_test_pred</span> <span class="o">=</span> <span class="n">dss</span><span class="o">.</span><span class="n">predict</span><span class="o">.</span><span class="n">predict_song</span><span class="p">(</span><span class="n">labels_test</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span>
+<span class="n">_</span><span class="p">,</span> <span class="n">segments_test_pred</span> <span class="o">=</span> <span class="n">das</span><span class="o">.</span><span class="n">predict</span><span class="o">.</span><span class="n">predict_song</span><span class="p">(</span><span class="n">labels_test</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span>
                                             <span class="n">segment_ref_onsets</span><span class="o">=</span><span class="n">segments_pred</span><span class="p">[</span><span class="s1">&#39;onsets_seconds&#39;</span><span class="p">],</span>
                                             <span class="n">segment_ref_offsets</span><span class="o">=</span><span class="n">segments_pred</span><span class="p">[</span><span class="s1">&#39;offsets_seconds&#39;</span><span class="p">],</span>
                                             <span class="n">segment_minlen</span><span class="o">=</span><span class="n">min_len</span><span class="p">,</span>
@@ -499,9 +500,9 @@
 <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">913</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
-<span class="n">dss</span><span class="o">.</span><span class="n">utils_plot</span><span class="o">.</span><span class="n">scalebar</span><span class="p">(</span><span class="o">.</span><span class="mi">1</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;seconds&#39;</span><span class="p">,</span> <span class="n">location</span><span class="o">=</span><span class="s1">&#39;center left&#39;</span><span class="p">,</span>
+<span class="n">das</span><span class="o">.</span><span class="n">utils_plot</span><span class="o">.</span><span class="n">scalebar</span><span class="p">(</span><span class="o">.</span><span class="mi">1</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;seconds&#39;</span><span class="p">,</span> <span class="n">location</span><span class="o">=</span><span class="s1">&#39;center left&#39;</span><span class="p">,</span>
                         <span class="n">font_properties</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="mi">7</span><span class="p">})</span>
-<span class="n">dss</span><span class="o">.</span><span class="n">utils_plot</span><span class="o">.</span><span class="n">remove_axes</span><span class="p">(</span><span class="nb">all</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">das</span><span class="o">.</span><span class="n">utils_plot</span><span class="o">.</span><span class="n">remove_axes</span><span class="p">(</span><span class="nb">all</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 
 <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">312</span><span class="p">)</span>
@@ -520,10 +521,10 @@
 <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span> <span class="mi">13</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">labels_all</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Manual&#39;</span><span class="p">,</span> <span class="s1">&#39;DeepSS&#39;</span><span class="p">]);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Manual&#39;</span><span class="p">,</span> <span class="s1">&#39;DAS&#39;</span><span class="p">]);</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s1">&#39;bottom&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(())</span>
-<span class="n">dss</span><span class="o">.</span><span class="n">utils_plot</span><span class="o">.</span><span class="n">remove_axes</span><span class="p">()</span>
+<span class="n">das</span><span class="o">.</span><span class="n">utils_plot</span><span class="o">.</span><span class="n">remove_axes</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -624,7 +625,7 @@ weighted avg       0.98      0.97      0.98    586665
 <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">conf_mat_pred</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">conf_mat_pred</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;gray_r&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Manual&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;DeepSS&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;DAS&#39;</span><span class="p">)</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">132</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="n">conf_mat_pred</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">conf_mat_pred</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)),</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;gray_r&#39;</span><span class="p">)</span>
@@ -721,7 +722,7 @@ FN rate (%)  0.07722007722007722 0.03861003861003861
         <span class="n">times_pred</span> <span class="o">=</span> <span class="n">segments_pred</span><span class="p">[</span><span class="s1">&#39;offsets_seconds&#39;</span><span class="p">]</span>  <span class="c1"># event_offsets_pred</span>
         <span class="nb">print</span><span class="p">({</span><span class="s2">&quot;OFFSETS:&quot;</span><span class="p">})</span>
 
-    <span class="n">d</span><span class="p">,</span> <span class="n">nn_pred_pulse</span><span class="p">,</span> <span class="n">nn_true_pulse</span><span class="p">,</span> <span class="n">nn_dist</span> <span class="o">=</span> <span class="n">dss</span><span class="o">.</span><span class="n">event_utils</span><span class="o">.</span><span class="n">evaluate_eventtimes</span><span class="p">(</span><span class="n">times_test</span><span class="p">,</span> <span class="n">times_pred</span><span class="p">,</span> <span class="n">fs</span><span class="p">,</span> <span class="n">tol</span><span class="p">)</span>
+    <span class="n">d</span><span class="p">,</span> <span class="n">nn_pred_pulse</span><span class="p">,</span> <span class="n">nn_true_pulse</span><span class="p">,</span> <span class="n">nn_dist</span> <span class="o">=</span> <span class="n">das</span><span class="o">.</span><span class="n">event_utils</span><span class="o">.</span><span class="n">evaluate_eventtimes</span><span class="p">(</span><span class="n">times_test</span><span class="p">,</span> <span class="n">times_pred</span><span class="p">,</span> <span class="n">fs</span><span class="p">,</span> <span class="n">tol</span><span class="p">)</span>
     
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   FP </span><span class="si">{</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;FP&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">, TP </span><span class="si">{</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;TP&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">, FN </span><span class="si">{</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;FN&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   precision </span><span class="si">{</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;precision&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">1.2f</span><span class="si">}</span><span class="s2">, recall </span><span class="si">{</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;recall&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">1.2f</span><span class="si">}</span><span class="s2">, f1-score </span><span class="si">{</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;f1_score&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">1.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
